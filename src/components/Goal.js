@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react'
-import {Card, Button, ProgressBar} from 'react-bootstrap'
+import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
+import Task from './Task'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function Goal(props) {
+
+    const [tasks, setTasks] = useState(null)
+
+    // const renderTasks = () => {
+    //     fetch(`http://localhost:3001/goals/${props.id}`, {
+    //         method: 'GET',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+    //         }
+    //     })
+    //     .then(response => response.json())
+    //     .then(goal => {
+    //         let goal_tasks = []
+    //         goal.tasks.forEach(task => {
+    //             goal_tasks.push(task)
+    //         })
+    //         setTasks(goal_tasks)
+    //     })
+    // }
 
     const updateProgress = () => {
         if (props.tasks.length !== 0) {
@@ -20,41 +41,68 @@ export default function Goal(props) {
         }
     }
 
-    let calcDaysFromToday = (date) => {
-        let today = new Date()
-        let dayToCalc = new Date(date)
-        return (dayToCalc - today) / 1000 / 60 / 60 / 24
+    // let calcDaysFromToday = (date) => {
+    //     let today = new Date()
+    //     let dayToCalc = new Date(date)
+    //     return (dayToCalc - today) / 1000 / 60 / 60 / 24
+    // }
+
+    // function getFormattedDate(d) {
+    //     var date = new Date(d);
+    //     var month = date.getMonth() + 1;
+    //     var day = date.getDate();
+    //     var year = date.getFullYear();
+    //     return month + "/" + day + "/" + year;
+    // }
+
+        const renderTasks = () => {
+            return props.tasks.map(task => {
+                return <Task complete={task.is_complete} rgb={props.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} key={task.id}/>
+            })
     }
 
-    function getFormattedDate(d) {
-        var date = new Date(d);
-        var month = date.getMonth() + 1;
-        var day = date.getDate();
-        var year = date.getFullYear();
-        return month + "/" + day + "/" + year;
-    }
+    console.log(props)
 
     return (
-        <div style={{ padding: '10px'}}>
-            <Card style={{color: 'black', width: '254px', height:'260px'}} onClick={() => props.handleGoalClick(props.id)}>
-                <Card.Img variant="top" as='div' style={{ backgroundColor: props.rgb, width: '254px', height: '50px' }} />
-                <Card.Body>
-                    <Card.Title>{props.name}</Card.Title>
-                    <Card.Text>
-                        <ProgressBar animated now={updateProgress()} />
-                    </Card.Text>
-                        {props.taskModalOpen && props.resourceModalOpen ? <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button> : null}
-                        {/* {props.resourceModalOpen ? <Button variant="primary" onClick={props.resourceModalOpen}>Add Resource</Button> : null} */}
-                    <LinkContainer style={{float: 'right'}} to="goal_showpage">
-                        <Button variant="danger" >
-                            Show
-                        </Button>
-                    </LinkContainer>
+        <div style={{ padding: '0px', display: "inline-block"}}>
+            <Accordion>
+                <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
+                        <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>
+                            {props.name}
+                        <ProgressBar animated now={updateProgress()} style={{marginLeft: "10px"}}/>
+                        </div>
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey={props.id}>
+                    <Card.Body>
+                            <LinkContainer to="goal_showpage">
+                                <Button variant="danger" >
+                                    Show
+                                </Button>
+                                <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button>
+                            </LinkContainer>
+                        {renderTasks()}
                     </Card.Body>
-                    <Card.Footer>
-                    {props.dateComplete ? <small>Completed on: {getFormattedDate(props.dateComplete)}</small> : <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.date) + 1)} days</small>}
-                </Card.Footer>
-            </Card>
+                </Accordion.Collapse>
+            </Accordion>
         </div>
     )
 }
+
+{/* <Card style={{color: 'black', width: '254px', height:'260px'}} onClick={() => props.handleGoalClick(props.id)}>
+<Card.Img variant="top" as='div' style={{ backgroundColor: props.rgb, width: '254px', height: '50px' }} />
+<Card.Body>
+    <Card.Title>{props.name}</Card.Title>
+    <Card.Text>
+        <ProgressBar animated now={updateProgress()} />
+    </Card.Text>
+        {props.taskModalOpen && props.resourceModalOpen ? <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button> : null}
+        {/* {props.resourceModalOpen ? <Button variant="primary" onClick={props.resourceModalOpen}>Add Resource</Button> : null} */}
+//     <LinkContainer style={{float: 'right'}} to="goal_showpage">
+//         <Button variant="danger" >
+//             Show
+//         </Button>
+//     </LinkContainer>
+//     </Card.Body>
+//     <Card.Footer>
+//     {props.dateComplete ? <small>Completed on: {getFormattedDate(props.dateComplete)}</small> : <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.date) + 1)} days</small>}
+// </Card.Footer>

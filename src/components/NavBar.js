@@ -18,17 +18,15 @@ export default function NavBar(props) {
                     Wilson
                     </Navbar.Brand>
             <Nav className="mr-auto">
-                <LinkContainer to="/today">
-                    <Nav.Link>Home</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to="/calendar">
-                    <Nav.Link>Calendar</Nav.Link>
-                </LinkContainer>
+
                 <LinkContainer to="/goals">
                     <Nav.Link>Completed</Nav.Link>
                 </LinkContainer>
             </Nav>
-                <Button variant="outline-secondary">{props.loggedinUser ? props.loggedinUser : 'Please Login'}</Button>
+            <LinkContainer to={props.loggedinUser ? "/" : "/login"}>
+                <Nav.Link><Button variant="outline-secondary">{props.loggedinUser ? props.loggedinUser : 'Please Login'}</Button></Nav.Link>
+            </LinkContainer>
+                
         </Navbar>
     )
 }

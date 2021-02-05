@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import {Modal, Button, Form} from 'react-bootstrap'
 
+
 export default function NewTask(props) {
     
     const [name, setName] = useState('')
@@ -9,25 +10,19 @@ export default function NewTask(props) {
 
     const onSubmit = e => {
         e.preventDefault()
-        if (name !== '') {
-            fetch("https://wilson-backend.herokuapp.com/api/v1/tasks", {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    goal_id: props.clickedGoalid,
-                    name: name,
-                })
+        fetch(`http://localhost:3001/tasks`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+            },
+            body: JSON.stringify({
+                name: name,
+                goal_id: props.clickedGoalid
             })
-            .then(response => response.json())
-            .then(task => {
-                props.getNewTaskId(task.data.id)
-            })
-            setName('')
-        } else {
-            alert('Feilds are empty')
-        }
+        })
+        .then(response => response.json())
+        .then(task => props.handleNewTaskId(task.id))
     }
 
     return (

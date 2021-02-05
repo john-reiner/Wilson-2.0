@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import Task from './Task'
+import NewTask from './NewTask'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function Goal(props) {
-
-    const [tasks, setTasks] = useState(null)
 
     // const renderTasks = () => {
     //     fetch(`http://localhost:3001/goals/${props.id}`, {
@@ -55,16 +54,17 @@ export default function Goal(props) {
     //     return month + "/" + day + "/" + year;
     // }
 
-        const renderTasks = () => {
-            return props.tasks.map(task => {
-                return <Task complete={task.is_complete} rgb={props.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} key={task.id}/>
-            })
+    const renderTasks = () => {
+        return props.tasks.map(task => {
+            return <Task complete={task.is_complete} rgb={props.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} key={task.id}/>
+        })
     }
-
-    console.log(props)
 
     return (
         <div style={{ padding: '0px', display: "inline-block"}}>
+
+            
+
             <Accordion>
                 <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
                         <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>
@@ -73,14 +73,17 @@ export default function Goal(props) {
                         </div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
-                    <Card.Body>
+                    <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>
                             <LinkContainer to="goal_showpage">
                                 <Button variant="danger" >
                                     Show
                                 </Button>
-                                <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button>
                             </LinkContainer>
+                            
+                                <Button variant="primary" onClick={props.handleTaskModalShow}>Add Task</Button>
+                                
                         {renderTasks()}
+
                     </Card.Body>
                 </Accordion.Collapse>
             </Accordion>

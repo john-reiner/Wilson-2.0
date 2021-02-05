@@ -5,23 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import Goal from './Goal'
 
 
-export default function Today(props) {
-
-    const [goals, setGoals] = useState([])
-
-    useEffect(() => {
-        fetch(`http://localhost:3001/goals`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-            }
-        })
-        .then(response => response.json())
-        .then(goals => {
-            setGoals(goals)
-        })
-    }, [])
+export default function Main(props) {
 
     // const updateTasks = () => {
     //     fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${props.loggedinUser.id}`)
@@ -86,9 +70,9 @@ export default function Today(props) {
 
 
     let renderGoals = () => {
-        if (goals.length > 0) {
-            return goals.map(goal => {
-                return <Goal completeTaskids={props.completeTaskids} tasks={goal.tasks} taskModalOpen={props.taskModalOpen}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
+        if (props.goals.length > 0) {
+            return props.goals.map(goal => {
+                return <Goal handleClickedGoalId={props.handleClickedGoalId} completeTaskids={props.completeTaskids} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
         }
     }
@@ -97,11 +81,9 @@ export default function Today(props) {
 
     return (
         <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '3%', minHeight: "80vh", width: "100%"}}>
-            <LinkContainer to='/add_goal'>
-                <Button variant="secondary" size="lg" style={{width: '50%'}}>
+                <Button variant="secondary" size="lg" style={{width: '50%'}} onClick={props.handleGoalModalShow}>
                     Add A Goal
                 </Button>
-            </LinkContainer>
             <Row>
             <Col>
                 <hr style={{borderTop: "3px solid white"}}/>

@@ -68,11 +68,10 @@ export default function Main(props) {
     //     updateResources()
     // }, [props.newResourceId])
 
-
     let renderGoals = () => {
         if (props.goals.length > 0) {
             return props.goals.map(goal => {
-                return <Goal handleClickedGoalId={props.handleClickedGoalId} completeTaskids={props.completeTaskids} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
+                return <Goal completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
         }
     }
@@ -96,16 +95,3 @@ export default function Main(props) {
         </Container>
     )
 }
-
-{/* <Col sm={8} >
-<h2 style={{textAlign: "center"}} >Goals</h2>
-
-<div style={{display: "flex", flexWrap: "wrap"}}>
-    
-</div>
-
-</Col>
-<Col sm={4}>
-<h2 style={{textAlign: "center"}} >Tasks</h2>
-<hr style={{borderTop: "3px solid white"}}/>
-{/* {renderTasks()} */}

@@ -56,7 +56,7 @@ export default function Goal(props) {
 
     const renderTasks = () => {
         return props.tasks.map(task => {
-            return <Task complete={task.is_complete} rgb={props.rgb} id={task.id} completeTask={props.completeTask} completeTaskids={props.completeTaskids} name={task.name} key={task.id}/>
+            return <Task completeTask={props.completeTask} completed={task.completed} rgb={props.rgb} id={task.id} name={task.name} key={task.id}/>
         })
     }
 

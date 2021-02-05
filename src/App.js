@@ -21,7 +21,6 @@ function App(props) {
   const [loggedinUserId, setLoggedinUserId] = useState(null)
 
   const [clickedGoalid, setClickedGoalid] = useState('')
-  const [completeTaskids, setCompleteTaskids] = useState([])
   // const [deleteModalShow, setDeleteModalShow] = useState(false)
   const [goalModalShow, setGoalModalShow] = useState(false)
   
@@ -33,6 +32,7 @@ function App(props) {
   const [taskModalShow, setTaskModalShow] = useState(false)
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
+  const [completedTaskId, setCompletedTaskId] = useState([])
 
   const handleTaskModalShow = () => setTaskModalShow(true)
   const handleTaskModalClose = () => setTaskModalShow(false)
@@ -144,34 +144,50 @@ function App(props) {
   // }, [completeTaskids])
 
   const completeTask = id => {
-    
+
+    fetch(`http://localhost:3001/complete-task/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+      }
+    })
+    .then(response => response.json())
+    .then(task => {
+      console.log(task)
+    })
   }
 
-  const completeTask = id => {
-    if (completeTaskids.includes(id)) {
-      fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
-        method: "PATCH",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          is_complete: false
-        })
-      })
-      setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
-    } else {
-      setCompleteTaskids([...completeTaskids, id])
-      fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
-        method: "PATCH",
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          is_complete: true
-        })
-      })
-    }
-  }
+  // useEffect(() => {
+  //   console.log('fetch that goal')
+  //   fetchGoals()
+  // }, [completedTaskId])
+
+  // const completeTask = id => {
+  //   if (completeTaskids.includes(id)) {
+  //     fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
+  //       method: "PATCH",
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         is_complete: false
+  //       })
+  //     })
+  //     setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
+  //   } else {
+  //     setCompleteTaskids([...completeTaskids, id])
+  //     fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
+  //       method: "PATCH",
+  //       headers: {
+  //           'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         is_complete: true
+  //       })
+  //     })
+  //   }
+  // }
 
   // const checkUserTasks = () => {
   //   if (loggedinUser.goals !== undefined && completeTaskids.length !== 0) {
@@ -222,7 +238,7 @@ function App(props) {
     <div>
       
       <NavBar loggedinUser={loggedinUser}/>
-      <Route exact path="/" render={() => <Main handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} confirmedCompletedGoal={props.confirmedCompletedGoal}  loggedinUser={props.loggedinUser} completeTask={props.completeTask} completeTaskids={props.completeTaskids} handleGoalClick={props.handleGoalClick}/>} />
+      <Route exact path="/" render={() => <Main completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} />} />
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
       <Route exact path="/goal_showpage" render={() => <GoalShowPage />} />
       <DeleteGoal completeGoal={props.completeGoal} completedGoal={props.completedGoal} show={props.deleteModalShow} onHide={props.deleteModalClose}  />

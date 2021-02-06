@@ -23,6 +23,7 @@ export default function NewTask(props) {
         })
         .then(response => response.json())
         .then(task => props.handleNewTaskId(task.id))
+        setName('')
     }
 
     return (

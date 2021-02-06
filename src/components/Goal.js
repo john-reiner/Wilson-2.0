@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react'
 import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import Task from './Task'
+import CompleteGoal from './CompleteGoal'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function Goal(props) {
 
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
+    const [completeModalShow, setCompleteModalShow] = useState(false)
+
+    const handleCompleteModalShow = () => setCompleteModalShow(true)
+    const handleCompleteModalClose = () => setCompleteModalShow(false)
 
     useEffect(() => {
         let count = 0
@@ -31,7 +36,7 @@ export default function Goal(props) {
 
     const checkIfCompleted = () => {
         if (updateProgress() === 100) {
-            props.handleCompleteModalShow()
+            handleCompleteModalShow()
         }
     }
     
@@ -39,6 +44,38 @@ export default function Goal(props) {
         updateProgress()
         checkIfCompleted()
     }, [completedTaskCount])
+
+    const completeGoal = (id) => {
+        fetch(`http://localhost:3001/complete-goal/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+            }
+        })
+        .then(response => response.json())
+        .then(goal => {
+            if (goal.completed) {
+                handleCompleteModalClose()
+                props.getCompletedGoalId(goal.id)
+            }
+        })
+    
+        // let goal = loggedinUser.goals.find(goal => goal.id === id)
+        // setCompleteTaskids([...completeTaskids].filter(ids => goal.tasks.forEach(task => task.id)))
+        // setConfirmedCompletedGoal(goal.tasks)
+        // fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${id}`, {
+        //   method: "PUT",
+        //   headers: {
+        //       'Content-Type': 'application/json'
+        //   },
+        //   body: JSON.stringify({
+        //       is_complete: true,
+        //       date_completed: new Date()
+        //   })
+        // })
+        // deleteModalClose()
+      }
 
     // const renderTasks = () => {
         //     fetch(`http://localhost:3001/goals/${props.id}`, {
@@ -85,6 +122,7 @@ export default function Goal(props) {
     return (
 
         <div style={{ padding: '0px', display: "inline-block"}}>
+            <CompleteGoal id={props.id} completeGoal={completeGoal} completedGoal={props.completedGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion>
                 <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
                         <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>

@@ -11,12 +11,10 @@ export default function CompleteGoal(props) {
             </Modal.Header>
             <Modal.Body>Would you like to mark this goal as complete?</Modal.Body>
             <Modal.Footer>
-            <Button variant="secondary" onClick={() => props.completeGoal(props.completedGoal.id)}>
+            <Button variant="primary" onClick={() => props.completeGoal(props.id)} block>
                 Complete
             </Button>
-            <Button variant="primary" onClick={props.onHide}>
-                Add Task
-            </Button>
+
             </Modal.Footer>
         </Modal>
     )

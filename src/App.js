@@ -25,7 +25,7 @@ function App(props) {
   const [goalModalShow, setGoalModalShow] = useState(false)
   
 
-  const [completedGoal, setCompletedGoal] = useState({})
+  const [completedGoalId, setCompletedGoalId] = useState()
   const [confirmedCompletedGoal, setConfirmedCompletedGoal] = useState({})
   const [loggingIn, setloggingIn] = useState(false)
   const [goals, setGoals] = useState([])
@@ -33,10 +33,14 @@ function App(props) {
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
   const [completedTaskId, setCompletedTaskId] = useState([])
-  const [completeModalShow, setCompleteModalShow] = useState(false)
+  const [completedGoals, setCompletedGoals] = useState([])
 
-  const handleCompleteModalShow = () => setCompleteModalShow(true)
-  const handleCompleteModalClose = () => setCompleteModalShow(false)
+
+  const getCompletedGoalId = id => setCompletedGoalId(id)
+
+  useEffect(() => {
+    fetchGoals()
+  }, [completedGoalId])
 
   const handleTaskModalShow = () => setTaskModalShow(true)
   const handleTaskModalClose = () => setTaskModalShow(false)
@@ -54,7 +58,17 @@ function App(props) {
     })
     .then(response => response.json())
     .then(goals => {
-        setGoals(goals)
+      let goalsComplete = []
+      let goalsNotComplete = []
+      goals.forEach(goal => {
+        if (goal.completed) {
+          goalsComplete.push(goal)
+        } else {
+          goalsNotComplete.push(goal)
+        }
+      })
+        setGoals(goalsNotComplete)
+        setCompletedGoals(goalsComplete)
     })
   }
 
@@ -209,22 +223,7 @@ function App(props) {
 
 
 
-  // const completeGoal = (id) => {
-  //   let goal = loggedinUser.goals.find(goal => goal.id === id)
-  //   setCompleteTaskids([...completeTaskids].filter(ids => goal.tasks.forEach(task => task.id)))
-  //   setConfirmedCompletedGoal(goal.tasks)
-  //   fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${id}`, {
-  //     method: "PUT",
-  //     headers: {
-  //         'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //         is_complete: true,
-  //         date_completed: new Date()
-  //     })
-  //   })
-  //   deleteModalClose()
-  // }
+
 
   const getNewTaskId = (id) => setNewTaskId(id)
   const handleClickedGoalId = id => setClickedGoalid(id)
@@ -235,10 +234,10 @@ function App(props) {
   return (
     <div>
       <NavBar loggedinUser={loggedinUser}/>
-      <Route exact path="/" render={() => <Main handleCompleteModalShow={handleCompleteModalShow} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} />} />
+      <Route exact path="/" render={() => <Main getCompletedGoalId={getCompletedGoalId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} />} />
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
       <Route exact path="/goal_showpage" render={() => <GoalShowPage />} />
-      <CompleteGoal completeGoal={props.completeGoal} completedGoal={props.completedGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
+      
       <Route exact path="/completed" render={() => <Completed goals={goals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
       <Route exact path="/signup" render={() => <SignUp />} />
       <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />

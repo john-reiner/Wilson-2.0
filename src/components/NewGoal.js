@@ -31,7 +31,11 @@ export default function NewGoal(props) {
             })
         })
         .then(response => response.json())
-        .then(goal => props.handleNewGoalId(goal.id))
+        .then(goal => {
+            console.log(date)
+            props.handleNewGoalId(goal.id)
+
+        })
     }
 
     return (

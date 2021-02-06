@@ -68,13 +68,7 @@ export default function Goal(props) {
         return (dayToCalc - today) / 1000 / 60 / 60 / 24
     }
 
-    // function getFormattedDate(d) {
-    //     var date = new Date(d);
-    //     var month = date.getMonth() + 1;
-    //     var day = date.getDate();
-    //     var year = date.getFullYear();
-    //     return month + "/" + day + "/" + year;
-    // }
+
 
     const renderTasks = () => {
         return props.tasks.map(task => {
@@ -90,7 +84,7 @@ export default function Goal(props) {
                         <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>
                             {props.name}
                         <ProgressBar animated now={updateProgress()} style={{marginLeft: "10px"}}/>
-                        <div><small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small></div>
+                        <div>{props.due_date && <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small>}</div>
                         </div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>

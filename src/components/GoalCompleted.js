@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import TaskCompleted from './TaskCompleted'
-import CompleteGoal from './CompleteGoal'
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function GoalCompleted(props) {
@@ -22,7 +21,7 @@ export default function GoalCompleted(props) {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>
-                            <LinkContainer to="goal_showpage">
+                            <LinkContainer to="goal-showpage">
                                 <Button variant="danger" >
                                     Show
                                 </Button>

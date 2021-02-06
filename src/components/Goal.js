@@ -74,7 +74,7 @@ export default function Goal(props) {
         //   })
         // })
         // deleteModalClose()
-      }
+    }
 
     // const renderTasks = () => {
         //     fetch(`http://localhost:3001/goals/${props.id}`, {
@@ -131,7 +131,7 @@ export default function Goal(props) {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>
-                            <LinkContainer to="goal_showpage">
+                            <LinkContainer to="goal-showpage">
                                 <Button variant="danger" >
                                     Show
                                 </Button>
@@ -147,22 +147,3 @@ export default function Goal(props) {
         </div>
     )
 }
-
-{/* <Card style={{color: 'black', width: '254px', height:'260px'}} onClick={() => props.handleGoalClick(props.id)}>
-<Card.Img variant="top" as='div' style={{ backgroundColor: props.rgb, width: '254px', height: '50px' }} />
-<Card.Body>
-    <Card.Title>{props.name}</Card.Title>
-    <Card.Text>
-        <ProgressBar animated now={updateProgress()} />
-    </Card.Text>
-        {props.taskModalOpen && props.resourceModalOpen ? <Button variant="primary" onClick={props.taskModalOpen}>Add Task</Button> : null}
-        {/* {props.resourceModalOpen ? <Button variant="primary" onClick={props.resourceModalOpen}>Add Resource</Button> : null} */}
-//     <LinkContainer style={{float: 'right'}} to="goal_showpage">
-//         <Button variant="danger" >
-//             Show
-//         </Button>
-//     </LinkContainer>
-//     </Card.Body>
-//     <Card.Footer>
-//     {props.dateComplete ? <small>Completed on: {getFormattedDate(props.dateComplete)}</small> : <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.date) + 1)} days</small>}
-// </Card.Footer>

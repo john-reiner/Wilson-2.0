@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import {Container, Row, Col, ListGroup} from 'react-bootstrap'
 import GoalCompleted from './GoalCompleted'
 
-export default function AllGoals(props) {
+export default function Completed(props) {
 
     const renderCompletedGoals = () => {
         if (props.completedGoals.length > 0) {
             return props.completedGoals.map(goal => {
-                return <GoalCompleted tasks={goal.tasks} name={goal.name} id={goal.id} rgb={goal.rgb} />
+                return <GoalCompleted handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} name={goal.name} id={goal.id} rgb={goal.rgb} />
             })
         }
     }
@@ -17,12 +17,12 @@ export default function AllGoals(props) {
     return (
         <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '3%', minHeight: "80vh", width: "100%"}}>
             <Row>
-            <Col>
-                <hr style={{borderTop: "3px solid white"}}/>
-                <ListGroup>
-                    {renderCompletedGoals()}
-                </ListGroup>
-            </Col>
+                <Col>
+                    <hr style={{borderTop: "3px solid white"}}/>
+                    <ListGroup>
+                        {renderCompletedGoals()}
+                    </ListGroup>
+                </Col>
                 
             </Row>
         </Container>

@@ -4,7 +4,6 @@ import Task from './Task'
 import CompleteGoal from './CompleteGoal'
 import { LinkContainer } from "react-router-bootstrap";
 
-
 export default function Goal(props) {
 
     const [completedTaskCount, setCompletedTaskCount] = useState(0)

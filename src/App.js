@@ -238,7 +238,7 @@ function App(props) {
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
       <Route exact path="/goal_showpage" render={() => <GoalShowPage />} />
       
-      <Route exact path="/completed" render={() => <Completed goals={goals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
+      <Route exact path="/completed" render={() => <Completed completedGoals={completedGoals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
       <Route exact path="/signup" render={() => <SignUp />} />
       <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
       <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>

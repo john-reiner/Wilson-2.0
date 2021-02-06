@@ -1,12 +1,23 @@
 import React, { useState, useEffect } from 'react'
+import { Route, withRouter } from 'react-router-dom';
 import {Container, Row, Col, Jumbotron, Button, ListGroup} from 'react-bootstrap'
 
 import Goal from './Goal'
 
 
-export default function GoalShowPage(props) {
+function GoalShowPage(props) {
 
     const [goal, setGoal] = useState('')
+
+    const [completedGoalId, setCompletedGoalId] = useState('')
+
+    const getCompletedGoalId = id => setCompletedGoalId(id)
+
+    useEffect(() => {
+        if (completedGoalId !== '') {
+            props.history.push('/')
+        }
+    }, [completedGoalId])
 
     useEffect(() => {
         renderGoal()
@@ -39,7 +50,7 @@ export default function GoalShowPage(props) {
             <Row>
                 <Col>
                     <ListGroup>
-                        {goal ? <Goal completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} id={goal.id} tasks={goal.tasks} rgb={goal.rgb} name={goal.name} handleTaskModalShow={props.handleTaskModalShow} /> : null}
+                        {goal ? <Goal getCompletedGoalId={getCompletedGoalId} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} id={goal.id} tasks={goal.tasks} rgb={goal.rgb} name={goal.name} handleTaskModalShow={props.handleTaskModalShow} /> : null}
                     </ListGroup>
                 </Col>
 
@@ -47,3 +58,4 @@ export default function GoalShowPage(props) {
         </Container>
     )    
 }
+export default withRouter(GoalShowPage)

@@ -6,10 +6,26 @@ import Goal from './Goal'
 export default function Main(props) {
 
     const [goals, setGoals] = useState([])
+    const [completedGoalId, setCompletedGoalId] = useState()
+
+    const getCompletedGoalId = id => setCompletedGoalId(id)
 
     useEffect(() => {
         fetchGoals()
     }, [])
+
+    useEffect(() => {
+        fetchGoals()
+    }, [props.newTaskId])
+
+    useEffect(() => {
+        fetchGoals()
+    }, [props.newGoalId])
+    
+
+    useEffect(() => {
+        fetchGoals()
+    }, [completedGoalId])
 
     const fetchGoals = () => {
         fetch(`http://localhost:3001/goals`, {
@@ -34,7 +50,7 @@ export default function Main(props) {
     let renderGoals = () => {
         if (goals.length > 0) {
             return goals.map(goal => {
-                return <Goal getCompletedGoalId={props.getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
+                return <Goal getCompletedGoalId={getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
         }
     }

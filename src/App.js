@@ -7,7 +7,7 @@ import SignUp from './components/SignUp'
 import Login from './components/Login'
 import GoalShowPage from './components/GoalShowPage'
 import NewGoal from './components/NewGoal'
-import AllGoals from './components/AllGoals'
+import Completed from './components/Completed'
 import NewTask from './components/NewTask'
 import DeleteGoal from './components/DeleteGoal'
 
@@ -65,7 +65,6 @@ function App(props) {
 
   useEffect(() => {
     if (localStorage.getItem('wilsonUserToken').length > 1) {
-
       props.history.push('/')
     } else {
       props.history.push('/login')
@@ -237,7 +236,7 @@ function App(props) {
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
       <Route exact path="/goal_showpage" render={() => <GoalShowPage />} />
       <DeleteGoal completeGoal={props.completeGoal} completedGoal={props.completedGoal} show={props.deleteModalShow} onHide={props.deleteModalClose}  />
-      <Route exact path="/goals" render={() => <AllGoals resourceModalOpen={props.resourceModalOpen}  loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
+      <Route exact path="/completed" render={() => <Completed goals={goals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
       <Route exact path="/signup" render={() => <SignUp />} />
       <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
       <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>

@@ -5,23 +5,18 @@ import Goal from './Goal'
 
 export default function AllGoals(props) {
 
-    const [goals, setGoals] = useState([])
-
-    useEffect(() => {
-        fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${props.loggedinUser.id}`)
-        .then(response => response.json())
-        .then(user => setGoals(user.goals))
-    }, [])
 
     const renderCompletedGoals = () => {
-        if (goals.length > 0) {
-            return goals.map(goal => {
-                if (goal.is_complete) {
+        if (props.goals.length > 0) {
+            return props.goals.map(goal => {
+                if (goal.completed) {
                     return <Goal tasks={goal.tasks} rgb={goal.rgb} description={goal.goal_description} dateComplete={goal.date_completed} complete={goal.is_complete} id={goal.id} handleGoalClick={props.handleGoalClick} name={goal.goal_name} key={goal.id} />
                 }
             })
         }
     }
+
+    console.log(props)
     
     return (
         <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '1%', minHeight: "80vh", width: "100%"}}>

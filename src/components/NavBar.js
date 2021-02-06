@@ -19,7 +19,7 @@ export default function NavBar(props) {
                     </Navbar.Brand>
             <Nav className="mr-auto">
 
-                <LinkContainer to="/goals">
+                <LinkContainer to="/completed">
                     <Nav.Link>Completed</Nav.Link>
                 </LinkContainer>
             </Nav>

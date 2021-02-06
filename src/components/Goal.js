@@ -118,10 +118,12 @@ export default function Goal(props) {
         })
     }
 
+    console.log(props)
+
     return (
 
         <div style={{ padding: '0px', display: "inline-block"}}>
-            <CompleteGoal id={props.id} completeGoal={completeGoal} completedGoal={props.completedGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
+            <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion>
                 <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
                         <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>

@@ -9,7 +9,7 @@ import GoalShowPage from './components/GoalShowPage'
 import NewGoal from './components/NewGoal'
 import Completed from './components/Completed'
 import NewTask from './components/NewTask'
-import CompleteGoal from './components/CompleteGoal'
+
 
 function App(props) {
 
@@ -26,7 +26,6 @@ function App(props) {
   
 
   const [completedGoalId, setCompletedGoalId] = useState()
-  const [confirmedCompletedGoal, setConfirmedCompletedGoal] = useState({})
   const [loggingIn, setloggingIn] = useState(false)
   const [goals, setGoals] = useState([])
   const [taskModalShow, setTaskModalShow] = useState(false)
@@ -226,10 +225,7 @@ function App(props) {
 
 
   const getNewTaskId = (id) => setNewTaskId(id)
-  const handleClickedGoalId = id => {
-    console.log(id)
-    setClickedGoalid(id)
-  }
+  const handleClickedGoalId = id => setClickedGoalid(id)
   const handleNewTaskId = id => setNewTaskId(id)
   const handleNewGoalId = id => setNewGoalId(id)
 
@@ -239,9 +235,9 @@ function App(props) {
       <NavBar loggedinUser={loggedinUser}/>
       <Route exact path="/" render={() => <Main getCompletedGoalId={getCompletedGoalId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} />} />
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
-      <Route exact path="/goal-showpage" render={() => <GoalShowPage handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
+      <Route exact path="/goal-showpage" render={() => <GoalShowPage handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
       
-      <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} handleClickedGoalId={handleClickedGoalId} completedGoals={completedGoals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
+      <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} completedGoals={completedGoals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
       <Route exact path="/signup" render={() => <SignUp />} />
       <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
       <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>

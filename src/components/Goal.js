@@ -31,8 +31,7 @@ export default function Goal(props) {
 
     const checkIfCompleted = () => {
         if (updateProgress() === 100) {
-            
-
+            props.handleCompleteModalShow()
         }
     }
     
@@ -84,7 +83,7 @@ export default function Goal(props) {
     }
 
     return (
-        
+
         <div style={{ padding: '0px', display: "inline-block"}}>
             <Accordion>
                 <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>

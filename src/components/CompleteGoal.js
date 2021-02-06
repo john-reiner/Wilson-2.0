@@ -2,7 +2,7 @@ import React from 'react'
 import {Modal, Button} from 'react-bootstrap'
 
 
-export default function DeleteGoal(props) {
+export default function CompleteGoal(props) {
 
     return (
         <Modal show={props.show} onHide={props.onHide}>

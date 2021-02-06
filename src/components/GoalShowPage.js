@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Route, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import {Container, Row, Col, Jumbotron, Button, ListGroup} from 'react-bootstrap'
 
 import Goal from './Goal'

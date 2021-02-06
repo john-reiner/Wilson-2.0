@@ -1,10 +1,36 @@
 import React from 'react'
-import {Button, Nav, Navbar} from 'react-bootstrap'
+import {DropdownButton, Button, Dropdown, Nav, Navbar} from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function NavBar(props) {
-    
+
+
+    const renderDropdown = () => {
+        if (props.loggedinUser) {
+            return (
+                <DropdownButton
+                    menuAlign="right"
+                    title={props.loggedinUser}
+                    id="dropdown-menu-align-right"
+                >
+                    <LinkContainer to={"/"}>
+                        <Dropdown.Item>Home</Dropdown.Item>
+                    </LinkContainer>
+                    <LinkContainer to={"/completed"}>
+                        <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
+                    </LinkContainer>
+                    <Dropdown.Divider />
+                    <Dropdown.Item eventKey="4" onClick={props.logoutUser(1)}>Logout</Dropdown.Item>
+                </DropdownButton>
+            )
+        } else {
+            return (
+                <Button variant="secondary">Please Login</Button>
+            )
+        }
+    }
+
     return (
         <Navbar bg="dark" variant="dark">
                 <Navbar.Brand>
@@ -23,10 +49,7 @@ export default function NavBar(props) {
                     <Nav.Link>Completed</Nav.Link>
                 </LinkContainer>
             </Nav>
-            <LinkContainer to={props.loggedinUser ? "/" : "/login"}>
-                <Nav.Link><Button variant="outline-secondary">{props.loggedinUser ? props.loggedinUser : 'Please Login'}</Button></Nav.Link>
-            </LinkContainer>
-                
+                {renderDropdown()}
         </Navbar>
     )
 }

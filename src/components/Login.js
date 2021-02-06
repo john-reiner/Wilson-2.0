@@ -33,7 +33,7 @@ export default function Login(props) {
                         <Form.Text className="text-muted">
                             Not registered? <Link to='/signup' href="#">Create an account</Link>
                         </Form.Text>
-                        {props.loggingIn ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button variant="primary" type="submit">Submit</Button>}
+                        {props.loggingIn ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button variant="primary" type="submit">Login</Button>}
                     </Form>
                 </Col>
             </Row>

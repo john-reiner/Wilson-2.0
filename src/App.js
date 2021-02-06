@@ -29,12 +29,13 @@ function App(props) {
   const [taskModalShow, setTaskModalShow] = useState(false)
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
+  const [userId, setUserId] = useState('')
 
 
-
-
-
-
+  const logoutUser = number => {
+    localStorage.setItem('wilsonUserToken', '')
+    setUserId(number)
+  }
 
   const handleTaskModalShow = () => setTaskModalShow(true)
   const handleTaskModalClose = () => setTaskModalShow(false)
@@ -43,12 +44,13 @@ function App(props) {
   const handleGoalModalClose = () => setGoalModalShow(false)
 
   useEffect(() => {
-    if (localStorage.getItem('wilsonUserToken').length > 1) {
+    let storage = localStorage.getItem('wilsonUserToken')
+    if (storage !== '') {
       props.history.push('/')
     } else {
       props.history.push('/login')
     }
-  }, [])
+  }, [userId])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -75,11 +77,13 @@ function App(props) {
         setLogginError(null)
         props.history.push('/')
       } else {
-        localStorage['wilsonUserToken'] = ''
+        localStorage.setItem('wilsonUserToken', '')
         setLogginError(token.message)
       }
     })
     .catch((error) => setLogginError(error));
+    setUsername('')
+    setPassword('')
   }
 
   useEffect(() => {
@@ -112,15 +116,16 @@ function App(props) {
 
   return (
     <div>
-      <NavBar loggedinUser={loggedinUser}/>
-      <Route exact path="/" render={() => <Main newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} />} />
-      <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
-      <Route exact path="/goal-showpage" render={() => <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
-      
-      <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
-      <Route exact path="/signup" render={() => <SignUp />} />
+      <NavBar logoutUser={logoutUser} loggedinUser={loggedinUser}/>
       <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
+      <Route exact path="/signup" render={() => <SignUp />} />
+
+      <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
       <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>
+      
+      <Route exact path="/" render={() => <Main newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} />} />
+      <Route exact path="/goal-showpage" render={() => <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
+      <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
     </div>
   );
 } 

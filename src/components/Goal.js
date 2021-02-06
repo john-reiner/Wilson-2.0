@@ -27,23 +27,18 @@ export default function Goal(props) {
         let taskCount = props.tasks.length
         let ratio =  (count / taskCount)
         return ratio * 100
-        // if (props.tasks.length !== 0) {
-        //     let tasksCount =  props.tasks.length
-        //     let completedTasks = 0
-        //     props.tasks.forEach(task => {
-        //         if (task.completed) {
-        //             completedTasks ++
-        //         }
-        //     })
-        //     console.log(completedTasks, completedTaskCount, tasksCount)
-        //     return (completedTasks + completedTaskCount / tasksCount) * 100
-        // } else {
-        //     return 0
-        // }
+    }
+
+    const checkIfCompleted = () => {
+        if (updateProgress() === 100) {
+            
+
+        }
     }
     
     useEffect(() => {
         updateProgress()
+        checkIfCompleted()
     }, [completedTaskCount])
 
     // const renderTasks = () => {
@@ -89,10 +84,8 @@ export default function Goal(props) {
     }
 
     return (
+        
         <div style={{ padding: '0px', display: "inline-block"}}>
-
-            
-
             <Accordion>
                 <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
                         <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>

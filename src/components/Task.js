@@ -6,11 +6,18 @@ export default function Task(props) {
 
     const [clicked, setClicked] = useState(props.completed)
 
-    //check props.completed for a t/f value 
     const handleCheckClick = id => {
         props.completeTask(id)
         setClicked(!clicked)
+        console.log(clicked, id)
+        if (clicked === true) {
+            props.handleProgressBarChange(-1)
+        } else {
+            props.handleProgressBarChange(1)
+        }
     }
+
+    console.log(clicked, props.id)
 
     return (
         <ListGroup.Item style={{textDecoration: clicked ? 'line-through' : '', borderRadius: '5px', color: "black", backgroundColor: props.rgb, margin: '10px'}} >

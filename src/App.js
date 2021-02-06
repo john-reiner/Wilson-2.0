@@ -144,17 +144,12 @@ function App(props) {
   // }, [completeTaskids])
 
   const completeTask = id => {
-
     fetch(`http://localhost:3001/complete-task/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
       }
-    })
-    .then(response => response.json())
-    .then(task => {
-      console.log(task)
     })
   }
 

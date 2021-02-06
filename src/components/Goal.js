@@ -1,14 +1,53 @@
 import React, { useState, useEffect } from 'react'
 import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import Task from './Task'
-import NewTask from './NewTask'
 import { LinkContainer } from "react-router-bootstrap";
 
 
 export default function Goal(props) {
 
+    const [completedTaskCount, setCompletedTaskCount] = useState(0)
+
+    useEffect(() => {
+        let count = 0
+        props.tasks.forEach(task => {
+            if (task.completed) {
+                count ++
+            }
+        })
+        setCompletedTaskCount(count)
+    }, [])
+
+    const handleProgressBarChange = value => {
+        setCompletedTaskCount(completedTaskCount + value)
+    }
+    
+    const updateProgress = () => {
+        let count = completedTaskCount
+        let taskCount = props.tasks.length
+        let ratio =  (count / taskCount)
+        return ratio * 100
+        // if (props.tasks.length !== 0) {
+        //     let tasksCount =  props.tasks.length
+        //     let completedTasks = 0
+        //     props.tasks.forEach(task => {
+        //         if (task.completed) {
+        //             completedTasks ++
+        //         }
+        //     })
+        //     console.log(completedTasks, completedTaskCount, tasksCount)
+        //     return (completedTasks + completedTaskCount / tasksCount) * 100
+        // } else {
+        //     return 0
+        // }
+    }
+    
+    useEffect(() => {
+        updateProgress()
+    }, [completedTaskCount])
+
     // const renderTasks = () => {
-    //     fetch(`http://localhost:3001/goals/${props.id}`, {
+        //     fetch(`http://localhost:3001/goals/${props.id}`, {
     //         method: 'GET',
     //         headers: {
     //             'Content-Type': 'application/json',
@@ -25,20 +64,9 @@ export default function Goal(props) {
     //     })
     // }
 
-    const updateProgress = () => {
-        if (props.tasks.length !== 0) {
-            let tasksCount =  props.tasks.length
-            let completedTaskCount = 0
-            props.tasks.forEach(task => {
-                if (task.is_complete) {
-                    completedTaskCount ++
-                }
-            })
-            return (completedTaskCount / tasksCount) * 100
-        } else {
-            return 0
-        }
-    }
+    // const handleTaskChange = () => console.log(completedTaskCount)
+
+
 
     // let calcDaysFromToday = (date) => {
     //     let today = new Date()
@@ -56,7 +84,7 @@ export default function Goal(props) {
 
     const renderTasks = () => {
         return props.tasks.map(task => {
-            return <Task completeTask={props.completeTask} completed={task.completed} rgb={props.rgb} id={task.id} name={task.name} key={task.id}/>
+            return <Task handleProgressBarChange={handleProgressBarChange} completeTask={props.completeTask} completed={task.completed} rgb={props.rgb} id={task.id} name={task.name} key={task.id}/>
         })
     }
 

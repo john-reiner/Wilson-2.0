@@ -59,43 +59,7 @@ export default function Goal(props) {
                 props.getCompletedGoalId(goal.id)
             }
         })
-    
-        // let goal = loggedinUser.goals.find(goal => goal.id === id)
-        // setCompleteTaskids([...completeTaskids].filter(ids => goal.tasks.forEach(task => task.id)))
-        // setConfirmedCompletedGoal(goal.tasks)
-        // fetch(`https://wilson-backend.herokuapp.com/api/v1/goals/${id}`, {
-        //   method: "PUT",
-        //   headers: {
-        //       'Content-Type': 'application/json'
-        //   },
-        //   body: JSON.stringify({
-        //       is_complete: true,
-        //       date_completed: new Date()
-        //   })
-        // })
-        // deleteModalClose()
     }
-
-    // const renderTasks = () => {
-        //     fetch(`http://localhost:3001/goals/${props.id}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //         }
-    //     })
-    //     .then(response => response.json())
-    //     .then(goal => {
-    //         let goal_tasks = []
-    //         goal.tasks.forEach(task => {
-    //             goal_tasks.push(task)
-    //         })
-    //         setTasks(goal_tasks)
-    //     })
-    // }
-
-    // const handleTaskChange = () => console.log(completedTaskCount)
-
 
 
     // let calcDaysFromToday = (date) => {
@@ -118,10 +82,7 @@ export default function Goal(props) {
         })
     }
 
-    console.log(props)
-
     return (
-
         <div style={{ padding: '0px', display: "inline-block"}}>
             <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion>

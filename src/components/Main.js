@@ -1,15 +1,39 @@
-  
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import {Container, Row, Col, Button, ListGroup} from 'react-bootstrap'
-import { LinkContainer } from "react-router-bootstrap";
 import Goal from './Goal'
 
 
 export default function Main(props) {
 
+    const [goals, setGoals] = useState([])
+
+    useEffect(() => {
+        fetchGoals()
+    }, [])
+
+    const fetchGoals = () => {
+        fetch(`http://localhost:3001/goals`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+            }
+        })
+        .then(response => response.json())
+        .then(goals => {
+            let goalsNotComplete = []
+            goals.forEach(goal => {
+                if (!goal.completed) {
+                    goalsNotComplete.push(goal)
+                }
+            })
+            setGoals(goalsNotComplete)
+        })
+    }
+
     let renderGoals = () => {
-        if (props.goals.length > 0) {
-            return props.goals.map(goal => {
+        if (goals.length > 0) {
+            return goals.map(goal => {
                 return <Goal getCompletedGoalId={props.getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
         }

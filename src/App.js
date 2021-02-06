@@ -21,7 +21,6 @@ function App(props) {
   const [loggedinUserId, setLoggedinUserId] = useState(null)
 
   const [clickedGoalid, setClickedGoalid] = useState('')
-  // const [deleteModalShow, setDeleteModalShow] = useState(false)
   const [goalModalShow, setGoalModalShow] = useState(false)
   
 
@@ -31,7 +30,6 @@ function App(props) {
   const [taskModalShow, setTaskModalShow] = useState(false)
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
-  const [completedTaskId, setCompletedTaskId] = useState([])
   const [completedGoals, setCompletedGoals] = useState([])
 
 
@@ -118,22 +116,6 @@ function App(props) {
       }
     })
     .catch((error) => setLogginError(error));
-
-    // fetch("https://wilson-backend.herokuapp.com/api/v1/users")
-    // .then(response => response.json())
-    // .then(users => {
-      
-    //   let user = users.find(user => user.username === username)
-    //   if (user && user.password ===  password) {
-    //       setLoggedinUser(user)
-    //       setLoggedinUserId(user.id)
-    //       props.history.push('/today')
-    //   } else {
-    //       alert('Wrong Username or Password')
-    //       setloggingIn(false)
-    //   }
-    // })
-    // setloggingIn(true)
   }
 
   useEffect(() => {
@@ -148,17 +130,6 @@ function App(props) {
     .then(user => setLoggedinUser(user.username))
   }, [loggedinUserId])
 
-  // useEffect(() => {
-  //   if (completeTaskids.length > 0) {
-  //     fetch(`https://wilson-backend.herokuapp.com/api/v1/users/${loggedinUser.id}`)
-  //     .then(response => response.json())
-  //     .then(user => {
-  //       setLoggedinUser(user)
-  //       checkUserTasks()
-  //     })
-  //   }
-  // }, [completeTaskids])
-
   const completeTask = id => {
     fetch(`http://localhost:3001/complete-task/${id}`, {
       method: 'PUT',
@@ -169,61 +140,6 @@ function App(props) {
     })
   }
 
-  // useEffect(() => {
-  //   console.log('fetch that goal')
-  //   fetchGoals()
-  // }, [completedTaskId])
-
-  // const completeTask = id => {
-  //   if (completeTaskids.includes(id)) {
-  //     fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({
-  //         is_complete: false
-  //       })
-  //     })
-  //     setCompleteTaskids(completeTaskids.filter(taskId => taskId !== id))
-  //   } else {
-  //     setCompleteTaskids([...completeTaskids, id])
-  //     fetch(`https://wilson-backend.herokuapp.com/api/v1/tasks/${id}`, {
-  //       method: "PATCH",
-  //       headers: {
-  //           'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({
-  //         is_complete: true
-  //       })
-  //     })
-  //   }
-  // }
-
-  // const checkUserTasks = () => {
-  //   if (loggedinUser.goals !== undefined && completeTaskids.length !== 0) {
-  //       loggedinUser.goals.forEach(goal => {
-  //         let target = []
-  //         goal.tasks.forEach(task => {
-  //           target.push(task.id)
-  //         })
-  //         if (target.length !== 0 ) {
-  //           if (target.every(v => completeTaskids.includes(v))) {
-  //             deleteModalOpen()
-  //             setCompletedGoal(goal)
-  //           }
-  //         }
-  //       });
-  //   }
-  // }
-
-  // const deleteModalOpen = () => setDeleteModalShow(true)
-  // const deleteModalClose = () => setDeleteModalShow(false)
-
-
-
-
-
   const getNewTaskId = (id) => setNewTaskId(id)
   const handleClickedGoalId = id => setClickedGoalid(id)
   const handleNewTaskId = id => setNewTaskId(id)
@@ -233,9 +149,9 @@ function App(props) {
   return (
     <div>
       <NavBar loggedinUser={loggedinUser}/>
-      <Route exact path="/" render={() => <Main getCompletedGoalId={getCompletedGoalId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} goals={goals} />} />
+      <Route exact path="/" render={() => <Main getCompletedGoalId={getCompletedGoalId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} />} />
       <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
-      <Route exact path="/goal-showpage" render={() => <GoalShowPage handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
+      <Route exact path="/goal-showpage" render={() => <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
       
       <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} completedGoals={completedGoals} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
       <Route exact path="/signup" render={() => <SignUp />} />

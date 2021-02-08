@@ -17,14 +17,15 @@ export default function Task(props) {
     }
 
     return (
-        <ListGroup.Item style={{textDecoration: clicked ? 'line-through' : '', borderRadius: '5px', color: "black", backgroundColor: props.rgb, margin: '10px'}} >
-            <div style={{userSelect: "none", color: "black", backgroundColor: 'whitesmoke', padding: '4px', borderRadius: '5px', textAlign: 'center'}}>
-            <Form.Check 
-                custom
-                onClick={() => handleCheckClick(props.id)}
-                defaultChecked={props.completed}
-                id={props.id}
-            />
+        <ListGroup.Item className='task' style={{textDecoration: clicked ? 'line-through' : '' }} >
+            <div style={{}}>
+                <Form.Check 
+                    custom
+                    onClick={() => handleCheckClick(props.id)}
+                    defaultChecked={props.completed}
+                    id={props.id}
+                    className="check"
+                />
                 {props.name}
             </div>
         </ListGroup.Item>

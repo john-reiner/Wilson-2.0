@@ -26,3 +26,63 @@ body {
   font-family: 'Chelsea Market', cursive;
   background-color: cornflowerblue;
 }
+
+.task {
+  /* border-radius: 5px; */
+  color: black;
+  margin: 10px;
+  opacity: .9;
+  user-select: none;
+  color: black;
+  background-color: whitesmoke;
+  padding: 4px;
+  width: 90%;
+  /* border-radius: 5px;  */
+  /* text-align: center; */
+
+}
+
+.task .check {
+  float: left;
+  margin-left: 1rem;
+}
+
+.goal {
+  user-select: "none";
+  background-color: black;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+}
+
+.goal-listgroup {
+  padding: 1px;
+  margin-bottom: .2rem;  
+}
+
+.goal-name {
+  /* border: #333 1px solid; */
+  text-align: center;
+  width: 25%;
+  /* padding: .3rem; */
+  float: left;
+  /* border-radius: 3px; */
+}
+
+.progress {
+  width: 25%;
+  float: center;
+  /* border: solid red 1px; */
+  /* flex-grow: 2; */
+}
+
+.goal-due {
+  float: right;
+  width: 25%;
+  color: white;
+  /* border: solid red 1px; */
+
+  text-align: center;
+}

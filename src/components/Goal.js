@@ -77,15 +77,22 @@ export default function Goal(props) {
     }
 
     return (
-        <div style={{ padding: '0px', display: "inline-block"}}>
+        <div>
             <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
-            <Accordion>
-                <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
-                        <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>
+            <Accordion >
+                <Accordion.Toggle className='goal-listgroup' style={{ backgroundColor: props.rgb}} eventKey={props.id} as={ListGroup.Item} >
+                    <div className="goal" >
+                        <div className='goal-name'>
                             {props.name}
-                        <ProgressBar animated now={updateProgress()} style={{marginLeft: "10px"}}/>
-                        <div>{props.due_date && <small className="text-muted">Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small>}</div>
                         </div>
+                        {/* <div className='progress' > */}
+                            <ProgressBar animated now={updateProgress()} />
+                        {/* </div> */}
+
+                        <div className="goal-due">
+                            {props.due_date && <small>Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small>}
+                        </div>
+                    </div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>

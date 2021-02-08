@@ -5,7 +5,6 @@ import { LinkContainer } from "react-router-bootstrap";
 
 export default function NavBar(props) {
 
-
     const renderDropdown = () => {
         if (props.loggedinUser) {
             return (
@@ -21,7 +20,7 @@ export default function NavBar(props) {
                         <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
                     </LinkContainer>
                     <Dropdown.Divider />
-                    <Dropdown.Item eventKey="4" onClick={props.logoutUser(1)}>Logout</Dropdown.Item>
+                    <Dropdown.Item eventKey="4" onClick={() => props.logoutUser(1)}>Logout</Dropdown.Item>
                 </DropdownButton>
             )
         } else {

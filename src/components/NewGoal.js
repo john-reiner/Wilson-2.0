@@ -6,16 +6,13 @@ export default function NewGoal(props) {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
+    const [errors, setErrors] = useState('')
 
     const handleNameChange = e => setName(e.target.value)
     const handleDescriptionChange = e => setDescription(e.target.value)
-    const handleDateChange = e => {
-        console.log(e.target.value)
-        setDate(e.target.value) 
-    }
+    const handleDateChange = e => setDate(e.target.value) 
 
     const onSubmit = e => {
-        console.log(date)
         e.preventDefault()
         fetch("http://localhost:3001/goals", {
             method: "POST",
@@ -32,10 +29,24 @@ export default function NewGoal(props) {
         })
         .then(response => response.json())
         .then(goal => {
-            console.log(date)
-            props.handleNewGoalId(goal.id)
-
+            if (!goal.error) {
+                props.handleNewGoalId(goal.id)
+                setName('')
+                setDescription('')
+                setDate('')
+                setErrors('')
+                props.onHide()
+            } else {
+                setErrors(readableError(goal.exception))
+            }
         })
+    }
+
+    const readableError = error => {
+        let errorArray = error.split(':')
+        let untrimmedError = errorArray[errorArray.length - 1]
+        let wellGroomedError = untrimmedError.trim().slice(0, -1)
+        return wellGroomedError
     }
 
     return (
@@ -58,9 +69,12 @@ export default function NewGoal(props) {
                         <Form.Control type="date" onChange={handleDateChange} />
                     </Form.Group>
 
-                    <Button variant="primary" type="submit" onClick={props.onHide}>
-                        Submit
-                    </Button>
+                    <div className="button-error-container">
+                        <Button variant="primary" type="submit" >
+                            Submit
+                        </Button>
+                        <div className='error' >{errors}</div>                        
+                    </div>
                 </Form>
             </Modal.Body>               
         </Modal>

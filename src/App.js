@@ -9,6 +9,7 @@ import GoalShowPage from './components/GoalShowPage'
 import NewGoal from './components/NewGoal'
 import Completed from './components/Completed'
 import NewTask from './components/NewTask'
+import ModalErrors from './components/ModalErrors'
 
 
 function App(props) {
@@ -27,6 +28,7 @@ function App(props) {
 
   const [loggingIn, setloggingIn] = useState(false)
   const [taskModalShow, setTaskModalShow] = useState(false)
+  const [errorModalShow, setErrorModalShow] = useState(false)
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
   const [userId, setUserId] = useState('')
@@ -80,6 +82,7 @@ function App(props) {
       } else {
         localStorage.setItem('wilsonUserToken', '')
         setLogginError(token.message)
+        handleErrorShow()
       }
     })
     .catch((error) => setLogginError(error));
@@ -115,13 +118,16 @@ function App(props) {
 
 
 
+  const handleErrorClose = () => setErrorModalShow(false);
+  const handleErrorShow = () => setErrorModalShow(true);
+
   return (
     <div>
           <NavBar logoutUser={logoutUser} loggedinUser={loggedinUser}/>
           <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} username={username} password={password} {...routerProps}/>} />
           <Route exact path="/signup" render={() => <SignUp />} />
 
-      
+          <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />
           <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
           <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>
           <Route exact path="/" render={() => <Main newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleGoalModalShow={handleGoalModalShow} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} />} />

@@ -22,11 +22,17 @@ export default function GoalCompleted(props) {
     return (
         <div style={{ padding: '0px', display: "inline-block"}}>
             <Accordion>
-                <Accordion.Toggle eventKey={props.id} as={ListGroup.Item} style={{color: "white", backgroundColor: props.rgb, border: `sold white 10px`}}>
-                        <div style={{userSelect: "none", color: "#333", backgroundColor: 'whitesmoke', padding: '4px'}}>
-                            {props.name}
-                            <div><small>Completed on: {getFormattedDate(props.completedDate)}</small></div>
-                        </div>
+                <Accordion.Toggle style={{ backgroundColor: props.rgb}} className='goal-listgroup' eventKey={props.id} as={ListGroup.Item}>
+                    <div className="goal" >
+                            <div className='goal-name'>
+                                {props.name}
+                            </div>
+
+                            <div className="goal-due">
+                                Completed on: {getFormattedDate(props.completedDate)}
+                            </div>
+                    </div>
+
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>

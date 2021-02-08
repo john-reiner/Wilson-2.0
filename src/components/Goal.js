@@ -95,7 +95,7 @@ export default function Goal(props) {
                     </div>
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
-                    <Card.Body onClick={() => props.handleClickedGoalId(props.id)}>
+                    <Card.Body className="goal-body" onClick={() => props.handleClickedGoalId(props.id)}>
                             <LinkContainer to="goal-showpage">
                                 <Button variant="danger" >
                                     Show

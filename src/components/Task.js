@@ -17,8 +17,8 @@ export default function Task(props) {
     }
 
     return (
-        <ListGroup.Item className='task' style={{textDecoration: clicked ? 'line-through' : '' }} >
-            <div style={{}}>
+        <ListGroup.Item className='task' style={{textDecoration: clicked ? 'line-through' : '', backgroundColor: props.rgb }} >
+            <div className='task-body'>
                 <Form.Check 
                     custom
                     onClick={() => handleCheckClick(props.id)}

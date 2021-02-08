@@ -2,8 +2,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
-.main-body {
+.error {
+  color: red;
+  /* float: right; */
+  flex-grow: 2;
+  text-align: center;
+}
+
+.button-error-container {
+  display: flex;
+  align-items: center;
+}
+
+.main {
   padding-top: 46px;
+  background-color: #333;
+  color: whitesmoke; 
+  padding: 3%; 
+  min-height: 80vh; 
+  width: 100%;
 }
 
 .drop-container {
@@ -13,33 +30,26 @@
   text-align: center;
 }
 
-.all-goals {
-  background-color: #333;
-  display: grid;
-}
-
 h2 {
   text-align: center;
 }
 
 body {
   font-family: 'Chelsea Market', cursive;
-  background-color: cornflowerblue;
+  background-color: #333;
 }
 
 .task {
-  /* border-radius: 5px; */
-  color: black;
-  margin: 10px;
+  margin: 10px 0;
   opacity: .9;
   user-select: none;
-  color: black;
-  background-color: whitesmoke;
-  padding: 4px;
+  padding: 1px;
   width: 90%;
-  /* border-radius: 5px;  */
-  /* text-align: center; */
+}
 
+.task-body {
+  color: #333;
+  background-color: whitesmoke;
 }
 
 .task .check {
@@ -49,7 +59,7 @@ body {
 
 .goal {
   user-select: "none";
-  background-color: black;
+  background-color: #333;
   padding: 10px 0;
   display: flex;
   align-items: center;
@@ -86,3 +96,7 @@ body {
 
   text-align: center;
 }
+
+.goal-body {
+}
+

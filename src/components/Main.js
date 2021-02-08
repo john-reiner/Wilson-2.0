@@ -56,7 +56,7 @@ export default function Main(props) {
     }
 
     return (
-        <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '3%', minHeight: "80vh", width: "100%"}}>
+        <Container fluid className="main">
                 <Button variant="secondary" size="lg" style={{width: '50%'}} onClick={props.handleGoalModalShow}>
                     Add A Goal
                 </Button>

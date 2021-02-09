@@ -6,6 +6,9 @@
   float: right;
 }
 
+.edit-task-button {
+  float: right;
+}
 #navbar-right {
   display: flex;
 }

@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import {Container, Row, Col, ListGroup} from 'react-bootstrap'
 import GoalCompleted from './GoalCompleted'
+import { withRouter } from 'react-router-dom';
 
-export default function Completed(props) {
+function Completed(props) {
 
     const [completedGoals, setCompletedGoals] = useState([])
 
@@ -20,13 +21,17 @@ export default function Completed(props) {
         })
         .then(response => response.json())
         .then(goals => {
-            let goalsComplete = []
-            goals.forEach(goal => {
-            if (goal.completed) {
-                goalsComplete.push(goal)
-            }
-        })
+            if (goals.error) {
+                props.history.push('/login')
+            } else {
+                let goalsComplete = []
+                goals.forEach(goal => {
+                    if (goal.completed) {
+                        goalsComplete.push(goal)
+                    }
+                })
             setCompletedGoals(goalsComplete)
+        }
         })
     }
 
@@ -55,3 +60,4 @@ export default function Completed(props) {
     
 }
 
+export default withRouter(Completed);

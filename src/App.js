@@ -56,7 +56,7 @@ function App(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    loginUser() 
+    loginUser()
   }
 
   const handleUsernameChange = e => setUsername(e.target.value)

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {Form, Button, Modal} from 'react-bootstrap'
 
 export default function NewGoal(props) {
@@ -8,16 +8,25 @@ export default function NewGoal(props) {
     const [date, setDate] = useState('')
     const [errors, setErrors] = useState('')
     const [color, setColor] = useState('red') 
+    const [editCount, setEditCount] = useState(0)
 
     const handleNameChange = e => setName(e.target.value)
     const handleDescriptionChange = e => setDescription(e.target.value)
     const handleDateChange = e => setDate(e.target.value)
-    const handleColorChange = e => setColor(e.target.value.toLowerCase())
+    const handleColorChange = e => setColor(e.target.value)
 
-    const onSubmit = e => {
+    useEffect(() => {
+        setName(props.name)
+        setDescription(props.description)
+        setDate(props.due_date)
+        setColor(props.color)
+    }, [])
+
+    const handleSubmit = e => {
         e.preventDefault()
-        fetch("http://localhost:3001/goals", {
-            method: "POST",
+        setEditCount(editCount + 1)
+        fetch(`http://localhost:3001/goals/${props.id}`, {
+            method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
@@ -32,11 +41,9 @@ export default function NewGoal(props) {
         .then(response => response.json())
         .then(goal => {
             if (!goal.error) {
-                props.handleNewGoalId(goal.id)
-                setName('')
-                setDescription('')
-                setDate('')
-                setErrors('')
+                props.getCompletedGoalId(editCount)
+                console.log(goal)
+                setErrors('')         
                 props.onHide()
             } else {
                 setErrors(readableError(goal.exception))
@@ -54,10 +61,10 @@ export default function NewGoal(props) {
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton >
-            <Modal.Title>New Goal</Modal.Title>
+            <Modal.Title>Edit Goal</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <Form onSubmit={onSubmit}>
+                <Form onSubmit={handleSubmit}>
                     <Form.Group>
                         <Form.Label>Goal Name:</Form.Label>
                         <Form.Control type="text" placeholder="Goal Name" value={name} onChange={handleNameChange} />
@@ -68,21 +75,21 @@ export default function NewGoal(props) {
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Complete Goal By: </Form.Label>
-                        <Form.Control type="date" onChange={handleDateChange} value={date} />
+                        <Form.Control type="date" onChange={handleDateChange} value={date}/>
                     </Form.Group>
 
                     <Form.Group controlId="exampleForm.ControlSelect1">
                         <Form.Label>Color</Form.Label>
-                        <Form.Control as="select" onChange={handleColorChange}>
-                            <option>Red</option>
-                            <option>Orange</option>
-                            <option>Yellow</option>
-                            <option>Green</option>
-                            <option>Blue</option>
-                            <option>Purple</option>
-                            <option>Pink</option>
-                            <option>White</option>
-                            <option>Black</option>
+                        <Form.Control as="select" onChange={handleColorChange} value={color}>
+                            <option>red</option>
+                            <option>orange</option>
+                            <option>yellow</option>
+                            <option>green</option>
+                            <option>blue</option>
+                            <option>purple</option>
+                            <option>pink</option>
+                            <option>white</option>
+                            <option>black</option>
                         </Form.Control>
                     </Form.Group>
 

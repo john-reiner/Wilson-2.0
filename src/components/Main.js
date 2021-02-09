@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Row, Col, Button, ListGroup} from 'react-bootstrap'
+import {Container, Row, Col, ListGroup} from 'react-bootstrap'
+import { withRouter } from 'react-router-dom';
 import Goal from './Goal'
 
 
-export default function Main(props) {
+function Main(props) {
 
     const [goals, setGoals] = useState([])
     const [completedGoalId, setCompletedGoalId] = useState()
@@ -37,20 +38,24 @@ export default function Main(props) {
         })
         .then(response => response.json())
         .then(goals => {
-            let goalsNotComplete = []
-            goals.forEach(goal => {
-                if (!goal.completed) {
-                    goalsNotComplete.push(goal)
-                }
-            })
-            setGoals(goalsNotComplete)
+            if (goals.error) {
+                props.history.push('/login')
+            } else {
+                let goalsNotComplete = []
+                goals.forEach(goal => {
+                    if (!goal.completed) {
+                        goalsNotComplete.push(goal)
+                    }
+                })
+                setGoals(goalsNotComplete)
+            }
         })
     }
 
     let renderGoals = () => {
         if (goals.length > 0) {
             return goals.map(goal => {
-                return <Goal handleNewTaskId={props.handleNewTaskId} due_date={goal.due_date} getCompletedGoalId={getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
+                return <Goal description={goal.description} handleNewTaskId={props.handleNewTaskId} due_date={goal.due_date} getCompletedGoalId={getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
         }
     }
@@ -70,3 +75,4 @@ export default function Main(props) {
         </Container>
     )
 }
+export default withRouter(Main);

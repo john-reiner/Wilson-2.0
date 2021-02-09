@@ -3,6 +3,7 @@ import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import Task from './Task'
 import CompleteGoal from './CompleteGoal'
 import DeleteModal from './DeleteModal'
+import EditGoalModal from './EditGoalModal'
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function Goal(props) {
@@ -10,11 +11,15 @@ export default function Goal(props) {
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
     const [completeModalShow, setCompleteModalShow] = useState(false)
     const [deleteModleOpen, setDeleteModalOpen] = useState(false)
+    const [editModalShow, setEditModalShow] = useState(false)
 
     const handleCompleteModalShow = () => setCompleteModalShow(true)
     const handleCompleteModalClose = () => setCompleteModalShow(false)
     const handleDeleteModalShow = () => setDeleteModalOpen(true)
     const handleDeleteModalClose = () => setDeleteModalOpen(false)
+
+    const handleEditModalShow = () => setEditModalShow(true)
+    const handleEditModalClose = () => setEditModalShow(false)
 
     useEffect(() => {
         let count = 0
@@ -82,6 +87,7 @@ export default function Goal(props) {
 
     return (
         <div>
+            <EditGoalModal getCompletedGoalId={props.getCompletedGoalId} id={props.id} due_date={props.due_date} name={props.name} date={props.date} description={props.description} color={props.rgb} handleEditModalClose={handleEditModalClose} onHide={handleEditModalClose} handleEditModalShow={handleEditModalShow} show={editModalShow} />
             <DeleteModal getCompletedGoalId={props.getCompletedGoalId} id={props.id} handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
             <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion >
@@ -108,7 +114,9 @@ export default function Goal(props) {
                             </LinkContainer>
                             
                             <Button variant="primary" className='add-task-button' onClick={props.handleTaskModalShow}>Add Task</Button>
+                            <Button variant="secondary" className='edit-goal-button' onClick={handleEditModalShow}>Edit</Button>
                             <Button variant="danger" className='delete-goal-button' onClick={handleDeleteModalShow}>Delete</Button>
+                            
                         {renderTasks()}
 
                     </Card.Body>

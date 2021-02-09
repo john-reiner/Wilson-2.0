@@ -76,13 +76,13 @@ export default function Goal(props) {
 
     const renderTasks = () => {
         return props.tasks.map(task => {
-            return <Task handleProgressBarChange={handleProgressBarChange} completeTask={props.completeTask} completed={task.completed} rgb={props.rgb} id={task.id} name={task.name} key={task.id}/>
+            return <Task handleNewTaskId={props.handleNewTaskId} handleProgressBarChange={handleProgressBarChange} completeTask={props.completeTask} completed={task.completed} rgb={props.rgb} id={task.id} name={task.name} key={task.id}/>
         })
     }
 
     return (
         <div>
-            <DeleteModal handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
+            <DeleteModal getCompletedGoalId={props.getCompletedGoalId} id={props.id} handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
             <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion >
                 <Accordion.Toggle className='goal-listgroup' style={{ backgroundColor: props.rgb}} eventKey={props.id} as={ListGroup.Item} >
@@ -91,7 +91,7 @@ export default function Goal(props) {
                             {props.name}
                         </div>
                         {/* <div className='progress' > */}
-                            <ProgressBar animated now={updateProgress()} />
+                            <ProgressBar style={{backgroundColor: "white", color: props.rgb}} now={updateProgress()} />
                         {/* </div> */}
 
                         <div className="goal-due">

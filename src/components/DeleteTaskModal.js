@@ -4,7 +4,7 @@ import {Modal, Button} from 'react-bootstrap'
 export default function DeleteModal(props) {
 
     const handleDelete = () => {
-        fetch(`http://localhost:3001/goals/${props.id}`, {
+        fetch(`http://localhost:3001/tasks/${props.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',
@@ -13,7 +13,7 @@ export default function DeleteModal(props) {
         })
         .then(response => response.json())
         .then(goal => {
-            props.getCompletedGoalId(goal.id)
+            props.handleNewTaskId(goal.id)
             props.handleDeleteModalClose()
         })
     }
@@ -24,7 +24,7 @@ export default function DeleteModal(props) {
             <Modal.Header closeButton>
                 <Modal.Title>Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Delete "{props.name}" Goal?</Modal.Body>
+                <Modal.Body>Delete "{props.name}" Task?</Modal.Body>
             <Modal.Footer>
                 <Button variant="danger" onClick={handleDelete}>
                     Confirm

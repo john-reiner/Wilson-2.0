@@ -2,6 +2,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
+.delete-task-button {
+  float: right;
+}
 
 #navbar-right {
   display: flex;

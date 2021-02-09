@@ -1,5 +1,5 @@
 import React from 'react'
-import ModalErrors from './ModalErrors'
+
 import {Form, Button, Container, Row, Col, Image, Spinner} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 

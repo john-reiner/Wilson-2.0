@@ -8,20 +8,25 @@ export default function NavBar(props) {
     const renderDropdown = () => {
         if (props.loggedinUser) {
             return (
-                <DropdownButton
-                    menuAlign="right"
-                    title={props.loggedinUser}
-                    id="dropdown-menu-align-right"
-                >
-                    <LinkContainer to={"/"}>
-                        <Dropdown.Item>Home</Dropdown.Item>
-                    </LinkContainer>
-                    <LinkContainer to={"/completed"}>
-                        <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
-                    </LinkContainer>
-                    <Dropdown.Divider />
-                    <Dropdown.Item eventKey="4" onClick={() => props.logoutUser(1)}>Logout</Dropdown.Item>
-                </DropdownButton>
+                <div id="navbar-right">
+                    <Button variant="secondary" id="new-goal-button" onClick={props.handleGoalModalShow}>
+                        New Goal
+                    </Button>
+                    <DropdownButton
+                        menuAlign="right"
+                        title={props.loggedinUser}
+                        id="dropdown-menu-align-right"
+                    >
+                        <LinkContainer to={"/"}>
+                            <Dropdown.Item>Home</Dropdown.Item>
+                        </LinkContainer>
+                        <LinkContainer to={"/completed"}>
+                            <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
+                        </LinkContainer>
+                        <Dropdown.Divider />
+                        <Dropdown.Item eventKey="4" onClick={() => props.logoutUser(1)}>Logout</Dropdown.Item>
+                    </DropdownButton>
+                </div>
             )
         } else {
             return (

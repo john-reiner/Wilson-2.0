@@ -2,15 +2,19 @@ import React, { useState, useEffect } from 'react'
 import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
 import Task from './Task'
 import CompleteGoal from './CompleteGoal'
+import DeleteModal from './DeleteModal'
 import { LinkContainer } from "react-router-bootstrap";
 
 export default function Goal(props) {
 
     const [completedTaskCount, setCompletedTaskCount] = useState(0)
     const [completeModalShow, setCompleteModalShow] = useState(false)
+    const [deleteModleOpen, setDeleteModalOpen] = useState(false)
 
     const handleCompleteModalShow = () => setCompleteModalShow(true)
     const handleCompleteModalClose = () => setCompleteModalShow(false)
+    const handleDeleteModalShow = () => setDeleteModalOpen(true)
+    const handleDeleteModalClose = () => setDeleteModalOpen(false)
 
     useEffect(() => {
         let count = 0
@@ -78,6 +82,7 @@ export default function Goal(props) {
 
     return (
         <div>
+            <DeleteModal handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
             <CompleteGoal id={props.id} completeGoal={completeGoal} show={completeModalShow} onHide={handleCompleteModalClose}  />
             <Accordion >
                 <Accordion.Toggle className='goal-listgroup' style={{ backgroundColor: props.rgb}} eventKey={props.id} as={ListGroup.Item} >
@@ -97,13 +102,13 @@ export default function Goal(props) {
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body className="goal-body" onClick={() => props.handleClickedGoalId(props.id)}>
                             <LinkContainer to="goal-showpage">
-                                <Button variant="danger" >
+                                <Button variant="secondary" >
                                     Show
                                 </Button>
                             </LinkContainer>
                             
-                                <Button variant="primary" onClick={props.handleTaskModalShow}>Add Task</Button>
-                                
+                            <Button variant="primary" className='add-task-button' onClick={props.handleTaskModalShow}>Add Task</Button>
+                            <Button variant="danger" className='delete-goal-button' onClick={handleDeleteModalShow}>Delete</Button>
                         {renderTasks()}
 
                     </Card.Body>

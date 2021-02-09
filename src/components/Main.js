@@ -57,9 +57,7 @@ export default function Main(props) {
 
     return (
         <Container fluid className="main">
-                <Button variant="secondary" size="lg" style={{width: '50%'}} onClick={props.handleGoalModalShow}>
-                    Add A Goal
-                </Button>
+
             <Row>
             <Col>
                 <hr style={{borderTop: "3px solid white"}}/>

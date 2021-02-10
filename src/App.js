@@ -53,7 +53,7 @@ function App(props) {
 
   useEffect(() => {
     let storage = localStorage.getItem('wilsonUserToken')
-    if (storage.length > 0) {
+    if (storage || storage.length > 0) {
       props.history.push('/main')
     } else {
       props.history.push('/wilson-2.0')
@@ -121,7 +121,7 @@ function App(props) {
   return (
     <div>
           <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
-          <Route exact path="/wilson-2.0/" render={(routerProps) => <Login handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
+          <Route exact path="/wilson-2.0" render={(routerProps) => <Login handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
           <Route exact path="/signup" render={() => <SignUp />} />
 
           <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />

@@ -70,7 +70,7 @@ function App(props) {
       localStorage.setItem('wilsonUserToken', token.token)
       setLoggedinUserId(token.id)
       setLogginError('')
-      props.history.push('/')
+      props.history.push('/main')
     } else {
       localStorage.setItem('wilsonUserToken', '')
       setLogginError(token.message)

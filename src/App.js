@@ -43,17 +43,18 @@ function App(props) {
   const handleErrorClose = () => setErrorModalShow(false);
   const handleErrorShow = () => setErrorModalShow(true);
   
+
+
   const logoutUser = () => {
     setLoggedinUser(null)
-    localStorage.setItem('wilsonUserToken', '')
+    localStorage.removeItem('wilsonUserToken')
     props.history.push('/wilson-2.0')
-
   }
 
 
   useEffect(() => {
     let storage = localStorage.getItem('wilsonUserToken')
-    if (storage || storage.length > 0) {
+    if (storage) {
       props.history.push('/main')
     } else {
       props.history.push('/wilson-2.0')
@@ -72,7 +73,6 @@ function App(props) {
       setLogginError('')
       props.history.push('/main')
     } else {
-      localStorage.setItem('wilsonUserToken', '')
       setLogginError(token.message)
       handleErrorShow()
     }

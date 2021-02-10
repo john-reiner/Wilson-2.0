@@ -16,7 +16,7 @@ export default function NavBar(props) {
                         menuAlign="right"
                         title={props.loggedinUser}
                     >
-                        <LinkContainer to={"/"}>
+                        <LinkContainer to={"/main"}>
                             <Dropdown.Item active='false' >Home</Dropdown.Item>
                         </LinkContainer>
                         <LinkContainer to={"/completed"}>
@@ -29,7 +29,7 @@ export default function NavBar(props) {
             )
         } else {
             return (
-                <LinkContainer to='/login'><Button variant="secondary">Please Login</Button></LinkContainer>
+                <LinkContainer to='/wilson-2.0'><Button variant="secondary">Please Login</Button></LinkContainer>
             )
         }
     }

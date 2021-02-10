@@ -46,7 +46,7 @@ function App(props) {
   const logoutUser = () => {
     setLoggedinUser(null)
     localStorage.setItem('wilsonUserToken', '')
-    props.history.push('/login')
+    props.history.push('/wilson-2.0')
 
   }
 

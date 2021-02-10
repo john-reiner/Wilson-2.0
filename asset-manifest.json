@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/wilson-2.0/static/css/main.27ece160.chunk.css",
-    "main.js": "/wilson-2.0/static/js/main.48667dc3.chunk.js",
-    "main.js.map": "/wilson-2.0/static/js/main.48667dc3.chunk.js.map",
+    "main.js": "/wilson-2.0/static/js/main.9dc21a1b.chunk.js",
+    "main.js.map": "/wilson-2.0/static/js/main.9dc21a1b.chunk.js.map",
     "runtime-main.js": "/wilson-2.0/static/js/runtime-main.00dc1448.js",
     "runtime-main.js.map": "/wilson-2.0/static/js/runtime-main.00dc1448.js.map",
     "static/js/2.ad7a0cd6.chunk.js": "/wilson-2.0/static/js/2.ad7a0cd6.chunk.js",
@@ -17,6 +17,6 @@
     "static/js/runtime-main.00dc1448.js",
     "static/js/2.ad7a0cd6.chunk.js",
     "static/css/main.27ece160.chunk.css",
-    "static/js/main.48667dc3.chunk.js"
+    "static/js/main.9dc21a1b.chunk.js"
   ]
 }

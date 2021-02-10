@@ -12,8 +12,8 @@ export default function DeleteModal(props) {
             },
         })
         .then(response => response.json())
-        .then(goal => {
-            props.handleNewTaskId(goal.id)
+        .then(task => {
+            props.getRemovedTaskId(task.id)
             props.handleDeleteModalClose()
         })
     }

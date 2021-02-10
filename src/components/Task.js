@@ -29,7 +29,7 @@ export default function Task(props) {
     return (
         <div>
             <EditTaskModal handleNewTaskId={props.handleNewTaskId} id={props.id} onHide={handleEditModalClose} name={props.name} show={editModalShow} />
-            <DeleteTaskModal handleNewTaskId={props.handleNewTaskId} id={props.id} handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
+            <DeleteTaskModal getRemovedTaskId={props.getRemovedTaskId} handleNewTaskId={props.handleNewTaskId} id={props.id} handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
             <ListGroup.Item className='task' style={{textDecoration: clicked ? 'line-through' : '', backgroundColor: props.rgb }} >
                 <div className='task-body'>
                     <div className='task-content'>

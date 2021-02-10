@@ -29,7 +29,7 @@ export default function NavBar(props) {
             )
         } else {
             return (
-                <Button variant="secondary">Please Login</Button>
+                <LinkContainer to='/login'><Button variant="secondary">Please Login</Button></LinkContainer>
             )
         }
     }
@@ -47,10 +47,7 @@ export default function NavBar(props) {
                     Wilson
                     </Navbar.Brand>
             <Nav className="mr-auto">
-
-                <LinkContainer to="/completed">
-                    <Nav.Link>Completed</Nav.Link>
-                </LinkContainer>
+                {props.loggedinUser && <LinkContainer to="/completed"><Nav.Link >Completed</Nav.Link></LinkContainer>}
             </Nav>
                 {renderDropdown()}
         </Navbar>

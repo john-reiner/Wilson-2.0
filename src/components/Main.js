@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Row, Col, ListGroup} from 'react-bootstrap'
+import {Container, Row, Col, ListGroup, Button} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 import Goal from './Goal'
 
@@ -9,11 +9,15 @@ function Main(props) {
     const [goals, setGoals] = useState([])
     const [completedGoalId, setCompletedGoalId] = useState()
 
-    const getCompletedGoalId = id => setCompletedGoalId(id)
 
+    const getCompletedGoalId = id => setCompletedGoalId(id)
     useEffect(() => {
         fetchGoals()
     }, [])
+
+    useEffect(() => {
+        fetchGoals()
+    }, [props.removedTaskId])
 
     useEffect(() => {
         fetchGoals()
@@ -55,14 +59,35 @@ function Main(props) {
     let renderGoals = () => {
         if (goals.length > 0) {
             return goals.map(goal => {
-                return <Goal description={goal.description} handleNewTaskId={props.handleNewTaskId} due_date={goal.due_date} getCompletedGoalId={getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
+                return <Goal getRemovedTaskId={props.getRemovedTaskId} description={goal.description} handleNewTaskId={props.handleNewTaskId} due_date={goal.due_date} getCompletedGoalId={getCompletedGoalId} handleCompleteModalShow={props.handleCompleteModalShow} completeTask={props.completeTask} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} handleTaskModalShow={props.handleTaskModalShow}  rgb={goal.rgb} id={goal.id} handleGoalClick={props.handleGoalClick} date={goal.date} name={goal.name} key={goal.id} />
             })
+        }
+    }
+
+    const renderMainTitle = () => {
+        if (goals.length === 0) {
+            return (
+                <Col id='main-title-container'>
+                    <h1>Click </h1>
+                        <Button variant="secondary" id='main-title-button' onClick={props.handleGoalModalShow}>New Goal</Button>
+                    <h1>to create a Goal!</h1>                   
+                    </Col>
+            )
+        } else {
+            return (
+            <Col id='main-title-container'>
+                <h1>{goals.length === 1 ? goals.length + ' Goal Remaining!' : goals.length + ' Goals Remaining'}</h1>
+            </Col>                
+            )
+
         }
     }
 
     return (
         <Container fluid className="main">
-
+            
+                {renderMainTitle()}
+            
             <Row>
             <Col>
                 <hr style={{borderTop: "3px solid white"}}/>

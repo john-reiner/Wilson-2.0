@@ -10,7 +10,7 @@ export default function NewTask(props) {
 
     useEffect(() => {
         setName(props.name)
-    }, [])
+    }, [props.name])
 
     const handleChange = e => setName(e.target.value)
 

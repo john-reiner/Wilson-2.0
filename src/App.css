@@ -2,13 +2,14 @@
 @import url('https://fonts.googleapis.com/css2?family=Chelsea+Market&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Quicksand&display=swap');
 
-.delete-task-button {
+/* .delete-task-button {
   float: right;
-}
+/* } */
 
 .edit-task-button {
-  float: right;
-}
+  margin-right: .25rem ;
+} 
+
 #navbar-right {
   display: flex;
 }
@@ -18,7 +19,7 @@
 }
 
 .add-task-button {
-  margin-left: 1rem;
+  margin: 0 1rem;
 }
 
 .error {
@@ -71,12 +72,25 @@ body {
   opacity: .9;
   user-select: none;
   padding: 1px;
-  width: 90%;
+
+  color: #333;
+  /* margin: '10px'; */
 }
+
 
 .task-body {
   color: #333;
   background-color: whitesmoke;
+  display: flex;
+  align-items: center;
+  padding: .25rem;
+  justify-content: space-between;
+}
+
+.task-body-complete {
+  color: #333;
+  background-color: whitesmoke;
+  padding-left: 1rem;
 }
 
 .task .check {

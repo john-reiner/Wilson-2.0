@@ -15,16 +15,15 @@ export default function NavBar(props) {
                     <DropdownButton
                         menuAlign="right"
                         title={props.loggedinUser}
-                        id="dropdown-menu-align-right"
                     >
                         <LinkContainer to={"/"}>
-                            <Dropdown.Item>Home</Dropdown.Item>
+                            <Dropdown.Item active='false' >Home</Dropdown.Item>
                         </LinkContainer>
                         <LinkContainer to={"/completed"}>
                             <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
                         </LinkContainer>
                         <Dropdown.Divider />
-                        <Dropdown.Item eventKey="4" onClick={() => props.logoutUser(1)}>Logout</Dropdown.Item>
+                        <Dropdown.Item onClick={props.logoutUser}>Logout</Dropdown.Item>
                     </DropdownButton>
                 </div>
             )

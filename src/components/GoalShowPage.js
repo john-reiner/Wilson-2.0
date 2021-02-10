@@ -37,6 +37,8 @@ function GoalShowPage(props) {
         })
     }
 
+    
+
     return (
         <Container fluid style={{backgroundColor: '#333', padding: '50px'}}>
             <Row>

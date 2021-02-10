@@ -39,7 +39,7 @@ function Completed(props) {
     const renderCompletedGoals = () => {
         if (completedGoals.length > 0) {
             return completedGoals.map(goal => {
-                return <GoalCompleted completedDate={goal.completed_date} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} name={goal.name} id={goal.id} rgb={goal.rgb} />
+                return <GoalCompleted key={goal.id} completedDate={goal.completed_date} handleClickedGoalId={props.handleClickedGoalId} tasks={goal.tasks} name={goal.name} id={goal.id} rgb={goal.rgb} />
             })
         }
     }

@@ -32,20 +32,26 @@ export default function Task(props) {
             <DeleteTaskModal handleNewTaskId={props.handleNewTaskId} id={props.id} handleDeleteModalClose={handleDeleteModalClose} name={props.name} show={deleteModleOpen} />
             <ListGroup.Item className='task' style={{textDecoration: clicked ? 'line-through' : '', backgroundColor: props.rgb }} >
                 <div className='task-body'>
-                    <Form.Check 
-                        custom
-                        onClick={() => handleCheckClick(props.id)}
-                        defaultChecked={props.completed}
-                        id={props.id}
-                        className="check"
-                    />
-                    {props.name}
-                    <Button className='delete-task-button' variant="danger" size="sm" onClick={handleDeleteModalShow}>
-                        Remove
-                    </Button>
-                    <Button className='edit-task-button' variant="secondary" size="sm" onClick={handleEditModalShow}>
-                        Edit
-                    </Button>
+                    <div className='task-content'>
+                        <Form.Check 
+                            custom
+                            onClick={() => handleCheckClick(props.id)}
+                            defaultChecked={props.completed}
+                            id={props.id}
+                            className="check"
+                        />
+                        {props.name}                        
+                    </div>
+
+                    <div className='task-buttons'>
+                        <Button className='edit-task-button' variant="secondary" size="sm" onClick={handleEditModalShow}>
+                            Edit
+                        </Button>
+                        <Button className='delete-task-button' variant="danger" size="sm" onClick={handleDeleteModalShow}>
+                            Remove
+                        </Button>
+                    </div>
+
                 </div>
             </ListGroup.Item>
         </div>

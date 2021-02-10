@@ -4,8 +4,8 @@ import {ListGroup} from 'react-bootstrap'
 
 export default function TaskCompleted(props) {
     return (
-        <ListGroup.Item style={{textDecoration: 'line-through', borderRadius: '5px', color: "black", backgroundColor: props.rgb, margin: '10px'}} >
-            <div style={{userSelect: "none", color: "black", backgroundColor: 'whitesmoke', padding: '4px', borderRadius: '5px', textAlign: 'center'}}>
+        <ListGroup.Item className='task' style={{  backgroundColor: props.rgb }} >
+            <div className="task-body-complete">
                 {props.name}
             </div>
         </ListGroup.Item>

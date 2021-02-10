@@ -20,7 +20,7 @@ export default function NewGoal(props) {
         setDescription(props.description)
         setDate(props.due_date)
         setColor(props.color)
-    }, [])
+    }, [props.name, props.description, props.due_date, props.color])
 
     const handleSubmit = e => {
         e.preventDefault()

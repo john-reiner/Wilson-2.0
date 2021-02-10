@@ -44,8 +44,10 @@ function App(props) {
   const handleErrorShow = () => setErrorModalShow(true);
   
   const logoutUser = () => {
+    setLoggedinUser(null)
     localStorage.setItem('wilsonUserToken', '')
     props.history.push('/login')
+
   }
 
 
@@ -56,7 +58,7 @@ function App(props) {
     } else {
       props.history.push('/login')
     }
-  }, [props.history])
+  }, [])
 
   const handleSubmit = e => {
     e.preventDefault()
@@ -77,7 +79,7 @@ function App(props) {
   }
 
   const loginUser = () => {
-    fetch('http://localhost:3001/login', {
+    fetch('https://wilson-rails.herokuapp.com/login', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -94,7 +96,7 @@ function App(props) {
   }
 
   useEffect(() => {
-    fetch(`http://localhost:3001/user`, {
+    fetch(`https://wilson-rails.herokuapp.com/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -106,7 +108,7 @@ function App(props) {
   }, [loggedinUserId])
 
   const completeTask = id => {
-    fetch(`http://localhost:3001/complete-task/${id}`, {
+    fetch(`https://wilson-rails.herokuapp.com/complete-task/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +127,7 @@ function App(props) {
           <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />
           <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
           <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>
-          <Route exact path="/" render={() => <Main removedTaskId={removedTaskId} getRemovedTaskId={getRemovedTaskId} handleNewTaskId={handleNewTaskId} newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} handleGoalModalShow={handleGoalModalShow} />} />
+          <Route exact path="/wilson-2.0/" render={() => <Main removedTaskId={removedTaskId} getRemovedTaskId={getRemovedTaskId} handleNewTaskId={handleNewTaskId} newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} handleGoalModalShow={handleGoalModalShow} />} />
           <Route exact path="/goal-showpage" render={() => <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
           <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
     </div>

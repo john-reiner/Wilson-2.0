@@ -21,7 +21,7 @@ function SignUp(props) {
 
     const onSubmit = e => {
         e.preventDefault()
-        fetch("http://localhost:3001/users", {
+        fetch("https://wilson-rails.herokuapp.com/users", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

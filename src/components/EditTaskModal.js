@@ -17,7 +17,7 @@ export default function NewTask(props) {
     const handleSubmit = e => {
         e.preventDefault()
         setEditCount(editCount + 1)
-        fetch(`http://localhost:3001/tasks/${props.id}`, {
+        fetch(`https://wilson-rails.herokuapp.com/tasks/${props.id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

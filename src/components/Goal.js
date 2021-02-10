@@ -54,7 +54,7 @@ export default function Goal(props) {
     }, [completedTaskCount])
 
     const completeGoal = (id) => {
-        fetch(`http://localhost:3001/complete-goal/${id}`, {
+        fetch(`https://wilson-rails.herokuapp.com/complete-goal/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',

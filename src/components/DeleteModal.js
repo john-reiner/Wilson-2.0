@@ -4,7 +4,7 @@ import {Modal, Button} from 'react-bootstrap'
 export default function DeleteModal(props) {
 
     const handleDelete = () => {
-        fetch(`http://localhost:3001/goals/${props.id}`, {
+        fetch(`https://wilson-rails.herokuapp.com/goals/${props.id}`, {
             method: "DELETE",
             headers: {
                 'Content-Type': 'application/json',

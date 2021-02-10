@@ -16,7 +16,7 @@ export default function NewGoal(props) {
 
     const onSubmit = e => {
         e.preventDefault()
-        fetch("http://localhost:3001/goals", {
+        fetch("https://wilson-rails.herokuapp.com/goals", {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -31,6 +31,7 @@ export default function NewGoal(props) {
         })
         .then(response => response.json())
         .then(goal => {
+            console.log(goal)
             if (!goal.error) {
                 props.handleNewGoalId(goal.id)
                 setName('')

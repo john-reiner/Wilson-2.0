@@ -11,7 +11,7 @@ export default function NewTask(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/tasks`, {
+        fetch(`https://wilson-rails.herokuapp.com/tasks`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -25,7 +25,7 @@ function GoalShowPage(props) {
     }, [props.newTaskId])
 
     const fetchGoal = () => {
-        fetch(`http://localhost:3001/goals/${props.clickedGoalid}`, {
+        fetch(`https://wilson-rails.herokuapp.com/goals/${props.clickedGoalid}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

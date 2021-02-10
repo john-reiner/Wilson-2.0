@@ -54,7 +54,7 @@ function App(props) {
   useEffect(() => {
     let storage = localStorage.getItem('wilsonUserToken')
     if (storage.length > 0) {
-      props.history.push('/')
+      props.history.push('/wilson-2.0/')
     } else {
       props.history.push('/login')
     }

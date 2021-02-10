@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/wilson-2.0/static/css/main.27ece160.chunk.css",
-    "main.js": "/wilson-2.0/static/js/main.5ec67575.chunk.js",
-    "main.js.map": "/wilson-2.0/static/js/main.5ec67575.chunk.js.map",
+    "main.css": "/wilson-2.0/static/css/main.c4249846.chunk.css",
+    "main.js": "/wilson-2.0/static/js/main.0287094d.chunk.js",
+    "main.js.map": "/wilson-2.0/static/js/main.0287094d.chunk.js.map",
     "runtime-main.js": "/wilson-2.0/static/js/runtime-main.00dc1448.js",
     "runtime-main.js.map": "/wilson-2.0/static/js/runtime-main.00dc1448.js.map",
     "static/js/2.ad7a0cd6.chunk.js": "/wilson-2.0/static/js/2.ad7a0cd6.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.fad3da4b.chunk.js": "/wilson-2.0/static/js/3.fad3da4b.chunk.js",
     "static/js/3.fad3da4b.chunk.js.map": "/wilson-2.0/static/js/3.fad3da4b.chunk.js.map",
     "index.html": "/wilson-2.0/index.html",
-    "static/css/main.27ece160.chunk.css.map": "/wilson-2.0/static/css/main.27ece160.chunk.css.map",
+    "static/css/main.c4249846.chunk.css.map": "/wilson-2.0/static/css/main.c4249846.chunk.css.map",
     "static/js/2.ad7a0cd6.chunk.js.LICENSE.txt": "/wilson-2.0/static/js/2.ad7a0cd6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.00dc1448.js",
     "static/js/2.ad7a0cd6.chunk.js",
-    "static/css/main.27ece160.chunk.css",
-    "static/js/main.5ec67575.chunk.js"
+    "static/css/main.c4249846.chunk.css",
+    "static/js/main.0287094d.chunk.js"
   ]
 }

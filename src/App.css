@@ -6,6 +6,11 @@
   float: right;
 /* } */
 
+#completed-title-container {
+  display: flex;
+  justify-content: center;
+}
+
 .button-link-container {
   display: flex;
   justify-content: space-between;

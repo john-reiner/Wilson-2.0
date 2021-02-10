@@ -46,6 +46,10 @@ function Completed(props) {
     
     return (
         <Container fluid style={{backgroundColor: '#333', color: 'white', padding: '3%', minHeight: "80vh", width: "100%"}}>
+            <Col id='completed-title-container'>
+                <h1>Completed</h1>
+            </Col>
+
             <Row>
                 <Col>
                     <hr style={{borderTop: "3px solid white"}}/>

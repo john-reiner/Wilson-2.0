@@ -1,5 +1,5 @@
 import React from 'react'
-import {DropdownButton, Button, Dropdown, Nav, Navbar} from 'react-bootstrap'
+import {NavDropdown, Button, Dropdown, Nav, Navbar} from 'react-bootstrap'
 import { LinkContainer } from "react-router-bootstrap";
 
 
@@ -12,19 +12,16 @@ export default function NavBar(props) {
                     <Button variant="secondary" id="new-goal-button" onClick={props.handleGoalModalShow}>
                         New Goal
                     </Button>
-                    <DropdownButton
-                        menuAlign="right"
-                        title={props.loggedinUser}
-                    >
+                    <NavDropdown title={props.loggedinUser} id="basic-nav-dropdown" menuAlign="right">
                         <LinkContainer to={"/main"}>
-                            <Dropdown.Item active='false' >Home</Dropdown.Item>
+                            <NavDropdown.Item>Home</NavDropdown.Item>
                         </LinkContainer>
                         <LinkContainer to={"/completed"}>
-                            <Dropdown.Item href="/completed">Completed Goals</Dropdown.Item>
+                            <NavDropdown.Item >Completed Goals</NavDropdown.Item>
                         </LinkContainer>
-                        <Dropdown.Divider />
-                        <Dropdown.Item onClick={props.logoutUser}>Logout</Dropdown.Item>
-                    </DropdownButton>
+                        <NavDropdown.Divider />
+                        <NavDropdown.Item onClick={props.logoutUser}>Logout</NavDropdown.Item>
+                    </NavDropdown>
                 </div>
             )
         } else {
@@ -35,7 +32,7 @@ export default function NavBar(props) {
     }
 
     return (
-        <Navbar bg="dark" variant="dark">
+        <Navbar bg="dark" variant="dark" expand="md">
                 <Navbar.Brand>
                     <img
                         alt=""
@@ -45,11 +42,16 @@ export default function NavBar(props) {
                         className="d-inline-block align-top"
                     />{' '}
                     Wilson
-                    </Navbar.Brand>
-            <Nav className="mr-auto">
-                {props.loggedinUser && <LinkContainer to="/completed"><Nav.Link >Completed</Nav.Link></LinkContainer>}
-            </Nav>
-                {renderDropdown()}
+                </Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav">
+                    <Nav className="mr-auto">
+                        {props.loggedinUser && <LinkContainer to="/completed"><Nav.Link >Completed</Nav.Link></LinkContainer>}
+                    </Nav>
+                    {renderDropdown()}
+
+
+                </Navbar.Collapse>
         </Navbar>
     )
 }

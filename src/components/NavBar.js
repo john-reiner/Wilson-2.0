@@ -26,7 +26,7 @@ export default function NavBar(props) {
             )
         } else {
             return (
-                <LinkContainer to='/wilson-2.0'><Button variant="secondary">Please Login</Button></LinkContainer>
+                <LinkContainer to='/'><Button variant="secondary">Please Login</Button></LinkContainer>
             )
         }
     }

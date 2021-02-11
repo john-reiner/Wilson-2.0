@@ -34,7 +34,7 @@ function SignUp(props) {
         .then(response => response.json())
         .then(user => {
             if (user.message) {
-                props.history.push('/wilson-2.0')
+                props.history.push('/')
             } else {
                 setErrors(readableError(user.exception))
                 handleErrorShow()

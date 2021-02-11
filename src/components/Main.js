@@ -43,7 +43,7 @@ function Main(props) {
         .then(response => response.json())
         .then(goals => {
             if (goals.error) {
-                props.history.push('/wilson-2.0')
+                props.history.push('/')
             } else {
                 let goalsNotComplete = []
                 goals.forEach(goal => {

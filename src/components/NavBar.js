@@ -9,11 +9,8 @@ export default function NavBar(props) {
         if (props.loggedinUser) {
             return (
                 <div id="navbar-right">
-                    <Button variant="secondary" id="new-goal-button" onClick={props.handleGoalModalShow}>
-                        New Goal
-                    </Button>
-                    <NavDropdown title={props.loggedinUser} id="basic-nav-dropdown" menuAlign="right">
-                        <LinkContainer to={"/main"}>
+                    <NavDropdown id="signed-in-dropdown" title={props.loggedinUser} >
+                        <LinkContainer to={"/"}>
                             <NavDropdown.Item>Home</NavDropdown.Item>
                         </LinkContainer>
                         <LinkContainer to={"/completed"}>
@@ -22,11 +19,14 @@ export default function NavBar(props) {
                         <NavDropdown.Divider />
                         <NavDropdown.Item onClick={props.logoutUser}>Logout</NavDropdown.Item>
                     </NavDropdown>
+                    <Button variant="secondary" onClick={props.handleGoalModalShow}>
+                        New Goal
+                    </Button>
                 </div>
             )
         } else {
             return (
-                <LinkContainer to='/'><Button variant="secondary">Please Login</Button></LinkContainer>
+                <LinkContainer to='/login'><Button variant="secondary">Please Login</Button></LinkContainer>
             )
         }
     }
@@ -48,9 +48,9 @@ export default function NavBar(props) {
                     <Nav className="mr-auto">
                         {props.loggedinUser && <LinkContainer to="/completed"><Nav.Link >Completed</Nav.Link></LinkContainer>}
                     </Nav>
-                    {renderDropdown()}
-
-
+                    <Nav>
+                        {renderDropdown()}
+                    </Nav>
                 </Navbar.Collapse>
         </Navbar>
     )

@@ -13,6 +13,7 @@ export default function DeleteModal(props) {
         })
         .then(response => response.json())
         .then(goal => {
+            console.log(goal)
             props.getCompletedGoalId(goal.id)
             props.handleDeleteModalClose()
         })

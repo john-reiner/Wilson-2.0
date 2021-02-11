@@ -114,7 +114,7 @@ export default function Goal(props) {
                             </LinkContainer>
                             
                             <Button variant="primary" className='add-task-button' onClick={props.handleTaskModalShow}>Add Task</Button>
-                            <Button variant="secondary" className='edit-goal-button' onClick={handleEditModalShow}>Edit</Button>
+                            <Button variant="secondary" onClick={handleEditModalShow}>Edit</Button>
                             <Button variant="danger" className='delete-goal-button' onClick={handleDeleteModalShow}>Delete</Button>
                             
                         {renderTasks()}

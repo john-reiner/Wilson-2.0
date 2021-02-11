@@ -22,7 +22,7 @@ function Completed(props) {
         .then(response => response.json())
         .then(goals => {
             if (goals.error) {
-                props.history.push('/')
+                props.history.push('/login')
             } else {
                 let goalsComplete = []
                 goals.forEach(goal => {

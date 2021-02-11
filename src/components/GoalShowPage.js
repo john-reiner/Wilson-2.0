@@ -16,7 +16,7 @@ function GoalShowPage(props) {
 
     useEffect(() => {
         if (completedGoalId !== '') {
-            props.history.push('/main')
+            props.history.push('/')
         }
     }, [completedGoalId])
 

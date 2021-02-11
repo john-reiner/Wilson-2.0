@@ -110,7 +110,7 @@ export default function Goal(props) {
                         <Navbar.Collapse id="basic-navbar-nav" className="goal-navbar">
                             <Nav.Item>
                                 <LinkContainer to="goal-showpage">
-                                    <Button variant="secondary">Show</Button>
+                                    <Button variant="success">Show</Button>
                                 </LinkContainer>                                    
                             </Nav.Item>
                             <Nav.Item><Button variant="primary" onClick={props.handleTaskModalShow}>Add Task</Button></Nav.Item>

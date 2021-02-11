@@ -8,6 +8,7 @@ function Main(props) {
 
     const [goals, setGoals] = useState([])
     const [completedGoalId, setCompletedGoalId] = useState()
+    const [loading, setLoading] = useState(false)
 
 
     const getCompletedGoalId = id => setCompletedGoalId(id)
@@ -44,6 +45,7 @@ function Main(props) {
         .then(goals => {
             if (goals.error) {
                 props.history.push('/login')
+                setLoading(false)
             } else {
                 let goalsNotComplete = []
                 goals.forEach(goal => {
@@ -51,9 +53,11 @@ function Main(props) {
                         goalsNotComplete.push(goal)
                     }
                 })
+                setLoading(false)
                 setGoals(goalsNotComplete)
             }
         })
+        setLoading(true)
     }
 
     let renderGoals = () => {
@@ -65,21 +69,30 @@ function Main(props) {
     }
 
     const renderMainTitle = () => {
-        if (goals.length === 0) {
+        if (loading) {
             return (
                 <Col id='main-title-container'>
-                    <h1>Click </h1>
-                        <Button variant="secondary" id='main-title-button' onClick={props.handleGoalModalShow}>New Goal</Button>
-                    <h1>to create a Goal!</h1>                   
-                    </Col>
+                    <h1>Loading...</h1>
+                </Col>    
             )
         } else {
-            return (
-            <Col id='main-title-container'>
-                <h1>{goals.length === 1 ? goals.length + ' Goal Remaining!' : goals.length + ' Goals Remaining'}</h1>
-            </Col>                
-            )
-
+            
+            if (goals.length === 0) {
+                return (
+                    <Col id='main-title-container'>
+                        <h1>Click </h1>
+                            <Button variant="secondary" id='main-title-button' onClick={props.handleGoalModalShow}>New Goal</Button>
+                        <h1>to create a Goal!</h1>                   
+                    </Col>
+                )
+            } else {
+                return (
+                <Col id='main-title-container'>
+                    <h1>{goals.length === 1 ? goals.length + ' Goal Remaining!' : goals.length + ' Goals Remaining'}</h1>
+                </Col>                
+                )
+    
+            }
         }
     }
 

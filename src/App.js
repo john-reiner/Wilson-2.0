@@ -26,6 +26,8 @@ function App(props) {
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
   const [removedTaskId, setRemovedTaskId] = useState(0)
+  const [loggingIn, setLoggingIn] = useState(false)  
+
   const getRemovedTaskId = id => setRemovedTaskId(id)
   
   const handleTaskModalShow = () => setTaskModalShow(true)
@@ -72,9 +74,14 @@ function App(props) {
       setLoggedinUserId(token.id)
       setLogginError('')
       props.history.push('/main')
+      setUsername('')
+      setPassword('')
+      setLoggingIn(false)
     } else {
       setLogginError(token.message)
       handleErrorShow()
+      setPassword('')
+      setLoggingIn(false)
     }
   }
 
@@ -91,8 +98,8 @@ function App(props) {
       verifyToken(token)
     })
     .catch((error) => setLogginError(error));
-    setUsername('')
-    setPassword('')
+    setLoggingIn(true)
+
   }
 
   useEffect(() => {
@@ -121,7 +128,7 @@ function App(props) {
   return (
     <div>
           <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
-          <Route exact path="/wilson-2.0" render={(routerProps) => <Login handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
+          <Route exact path="/wilson-2.0" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
           <Route exact path="/signup" render={() => <SignUp />} />
 
           <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />

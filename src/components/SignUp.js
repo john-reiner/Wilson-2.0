@@ -73,7 +73,7 @@ function SignUp(props) {
                             </Form.Group>
 
                             <Button variant="primary" type="submit">
-                                Submit
+                                Sign Up
                             </Button>
 
                         </Form>

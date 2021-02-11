@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import {Accordion, Card, Button, ProgressBar, ListGroup} from 'react-bootstrap'
+import {Accordion, Card, Button, ProgressBar, ListGroup, Navbar, Nav, Container} from 'react-bootstrap'
 import Task from './Task'
 import CompleteGoal from './CompleteGoal'
 import DeleteModal from './DeleteModal'
@@ -96,10 +96,7 @@ export default function Goal(props) {
                         <div className='goal-name'>
                             {props.name}
                         </div>
-                        {/* <div className='progress' > */}
                             <ProgressBar style={{backgroundColor: "white", color: props.rgb}} now={updateProgress()} />
-                        {/* </div> */}
-
                         <div className="goal-due">
                             {props.due_date && <small>Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small>}
                         </div>
@@ -107,15 +104,20 @@ export default function Goal(props) {
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey={props.id}>
                     <Card.Body className="goal-body" onClick={() => props.handleClickedGoalId(props.id)}>
-                            <LinkContainer to="goal-showpage">
-                                <Button variant="secondary" >
-                                    Show
-                                </Button>
-                            </LinkContainer>
-                            
-                            <Button variant="primary" className='add-task-button' onClick={props.handleTaskModalShow}>Add Task</Button>
-                            <Button variant="secondary" onClick={handleEditModalShow}>Edit</Button>
-                            <Button variant="danger" className='delete-goal-button' onClick={handleDeleteModalShow}>Delete</Button>
+
+                    <Navbar expand="md" className="justify-content-center">
+                        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                        <Navbar.Collapse id="basic-navbar-nav" className="goal-navbar">
+                            <Nav.Item>
+                                <LinkContainer to="goal-showpage">
+                                    <Button variant="secondary">Show</Button>
+                                </LinkContainer>                                    
+                            </Nav.Item>
+                            <Nav.Item><Button variant="primary" onClick={props.handleTaskModalShow}>Add Task</Button></Nav.Item>
+                            <Nav.Item><Button variant="secondary" onClick={handleEditModalShow}>Edit</Button></Nav.Item>
+                            <Nav.Item><Button variant="danger" onClick={handleDeleteModalShow}>Delete</Button></Nav.Item>
+                        </Navbar.Collapse>
+                    </Navbar>
                             
                         {renderTasks()}
 

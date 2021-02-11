@@ -5,6 +5,10 @@
 /* .delete-task-button {
   float: right;
 /* } */
+.goal-navbar {
+  display: flex;
+  justify-content: space-evenly;
+}
 
 #completed-title-container {
   display: flex;

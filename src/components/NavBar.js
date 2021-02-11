@@ -8,7 +8,7 @@ export default function NavBar(props) {
     const renderDropdown = () => {
         if (props.loggedinUser) {
             return (
-                <div id="navbar-right">
+                <Nav className="justify-content-end">
                     <NavDropdown id="signed-in-dropdown" title={props.loggedinUser} >
                         <LinkContainer to={"/"}>
                             <NavDropdown.Item>Home</NavDropdown.Item>
@@ -22,7 +22,7 @@ export default function NavBar(props) {
                     <Button variant="secondary" onClick={props.handleGoalModalShow}>
                         New Goal
                     </Button>
-                </div>
+                </Nav>
             )
         } else {
             return (

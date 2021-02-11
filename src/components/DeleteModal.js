@@ -1,7 +1,9 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import {Modal, Button} from 'react-bootstrap'
 
 export default function DeleteModal(props) {
+
+    const [error, setError] = useState(false)
 
     const handleDelete = () => {
         fetch(`https://wilson-rails.herokuapp.com/goals/${props.id}`, {
@@ -13,10 +15,19 @@ export default function DeleteModal(props) {
         })
         .then(response => response.json())
         .then(goal => {
-            console.log(goal)
+
             props.getCompletedGoalId(goal.id)
             props.handleDeleteModalClose()
         })
+        .catch(error => {
+            console.log(error)
+            setError(true)
+        })
+    }
+
+    const handleClose = () => {
+        props.handleDeleteModalClose()
+        setError(false)
     }
 
 
@@ -25,14 +36,13 @@ export default function DeleteModal(props) {
             <Modal.Header closeButton>
                 <Modal.Title>Delete</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>Delete "{props.name}" Goal?</Modal.Body>
+                <Modal.Body>{`Delete "${props.name}" Goal?`}</Modal.Body>
             <Modal.Footer>
-                <Button variant="danger" onClick={handleDelete}>
-                    Confirm
-                </Button>
-                <Button variant="secondary" onClick={props.handleDeleteModalClose}>
-                    Close
-                </Button>
+
+                {error ? <div className='error' >Please delete all Tasks associated with this Goal to confirm.</div> : <Button variant="danger" onClick={handleDelete}>Confirm</Button>}  
+
+                <Button variant="secondary" onClick={handleClose}>Close</Button>
+
             </Modal.Footer>
         </Modal>
     )

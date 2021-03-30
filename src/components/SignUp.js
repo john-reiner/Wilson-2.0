@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import ModalErrors from './ModalErrors'
-import {Container, Row, Col, Form, Button, Modal} from 'react-bootstrap'
+import {Spinner, Form, Button, Modal} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 
 
@@ -10,6 +9,7 @@ function SignUp(props) {
     const [password, setPassword] = useState('')
     const [confirmedPassword, setConfirmedPassword] = useState('')
     const [errors, setErrors] = useState('')
+    const [loading, setLoading] = useState(false);
     const [errorModalShow, setErrorModalShow] = useState(false)
 
     const handleUsernameChange = e => setUsername(e.target.value)
@@ -35,11 +35,14 @@ function SignUp(props) {
         .then(user => {
             if (user.message) {
                 props.history.push('/login')
+                setLoading(false)
+                props.handleSignUpClose()
             } else {
                 console.log(user)
                 setErrors(readableError(user.exception))
             }
         })
+        setLoading(true)
     }
 
     const readableError = error => {
@@ -78,15 +81,15 @@ function SignUp(props) {
                             <Form.Label>Re-enter password:</Form.Label>
                             <Form.Control type="password" placeholder="Re-enter password" value={confirmedPassword} onChange={handleConfirmedPasswordChange} />
                         </Form.Group>
-
-                            <Button variant="primary" type="submit">
+                            {loading ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button id={'login-button'} variant="primary" type="submit">Sign Up</Button>}
+                            {/* <Button variant="primary" type="submit">
                             Sign Up
-                        </Button>
+                        </Button> */}
                     </Form>
                 </Modal.Body>
-                <Modal.Footer>
-                    {}
-                </Modal.Footer>
+                
+                    {<Modal.Footer></Modal.Footer>}
+                
             </Modal>
     )
 }

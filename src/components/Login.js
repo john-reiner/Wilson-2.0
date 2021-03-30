@@ -1,18 +1,22 @@
-import React from 'react'
+import React, {useState} from 'react'
 
 import {Form, Button, Container, Row, Col, Image, Spinner} from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import SignUp from './SignUp';
 
 
 
 export default function Login(props) {
 
-    
+    const [signUpShow, setSignUpShow] = useState(false)
+
+    const handleSignUpClose = () => setSignUpShow(false);
+    const handleSignUpShow = () => setSignUpShow(true);
 
     
     return (
         <div>
-
+            <SignUp signUpShow={signUpShow} handleSignUpClose={handleSignUpClose}/>
             <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
                 <Row style={{marginBottom: "3%"}}>
                     <Col sm={4} style={{textAlign: "center"}}>   
@@ -39,9 +43,7 @@ export default function Login(props) {
                             </Form.Group>
                             <div className="button-link-container">
                                 {props.loggingIn ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button id={'login-button'} variant="primary" type="submit">Login</Button>}
-                                <Form.Text className="text-muted">
-                                    Not registered? <Link to='/signup'>Create an account</Link>
-                                </Form.Text>
+                                <Button variant="danger" onClick={handleSignUpShow}>Sign Up</Button>
                             </div>
                         </Form>
                     </Col>

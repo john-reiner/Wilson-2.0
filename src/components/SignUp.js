@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ModalErrors from './ModalErrors'
-import {Container, Row, Col, Form, Button} from 'react-bootstrap'
+import {Container, Row, Col, Form, Button, Modal} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 
 
@@ -36,8 +36,8 @@ function SignUp(props) {
             if (user.message) {
                 props.history.push('/login')
             } else {
+                console.log(user)
                 setErrors(readableError(user.exception))
-                handleErrorShow()
             }
         })
     }
@@ -48,40 +48,55 @@ function SignUp(props) {
         let wellGroomedError = untrimmedError.trim().slice(0, -1)
         return wellGroomedError
     }
-
+    console.log(errors)
     return (
-        <div>
-            <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={errors}/>
-            <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
-                <Row>
-                    <Col>
-                        <Form onSubmit={onSubmit}>
-                        
-                            <Form.Group >
-                                <Form.Label>Create Username:</Form.Label>
-                                <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
-                            </Form.Group>
+        <Modal
+            show={props.signUpShow}
+            onHide={props.handleSignUpClose}
+            backdrop="static"
+            keyboard={false}
+            size='lg'
+            centered
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Sign Up for Wilson!</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={onSubmit}>
+            
+                        <Form.Group >
+                            <Form.Label>Create Username:</Form.Label>
+                            <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
+                        </Form.Group>
 
-                            <Form.Group >
-                                <Form.Label>Password:</Form.Label>
-                                <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
-                            </Form.Group>
+                        <Form.Group >
+                            <Form.Label>Password:</Form.Label>
+                            <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+                        </Form.Group>
 
-                            <Form.Group >
-                                <Form.Label>Re-enter password:</Form.Label>
-                                <Form.Control type="password" placeholder="Re-enter password" value={confirmedPassword} onChange={handleConfirmedPasswordChange} />
-                            </Form.Group>
+                        <Form.Group >
+                            <Form.Label>Re-enter password:</Form.Label>
+                            <Form.Control type="password" placeholder="Re-enter password" value={confirmedPassword} onChange={handleConfirmedPasswordChange} />
+                        </Form.Group>
 
                             <Button variant="primary" type="submit">
-                                Sign Up
-                            </Button>
-
-                        </Form>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                            Sign Up
+                        </Button>
+                    </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                    {}
+                </Modal.Footer>
+            </Modal>
     )
 }
 
 export default withRouter(SignUp);
+            // <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={errors}/>
+            // <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
+            //     <Row>
+            //         <Col>
+       
+            //         </Col>
+            //     </Row>
+            // </Container>

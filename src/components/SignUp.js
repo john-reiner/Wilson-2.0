@@ -8,18 +8,15 @@ function SignUp(props) {
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [confirmedPassword, setConfirmedPassword] = useState('')
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState({})
     const [loading, setLoading] = useState(false);
-    const [errorModalShow, setErrorModalShow] = useState(false)
 
     const handleUsernameChange = e => setUsername(e.target.value)
     const handlePasswordChange = e => setPassword(e.target.value)
     const handleConfirmedPasswordChange = e => setConfirmedPassword(e.target.value)
 
-    const handleErrorShow = () => setErrorModalShow(true)
-    const handleErrorClose = () => setErrorModalShow(false)
-
     const onSubmit = e => {
+        setErrors({})
         e.preventDefault()
         fetch("https://wilson-rails.herokuapp.com/users", {
             method: "POST",
@@ -29,29 +26,43 @@ function SignUp(props) {
             body: JSON.stringify({
                 username: username,
                 password: password,
+                password_confirmation: confirmedPassword
             })
         })
         .then(response => response.json())
         .then(user => {
-            if (user.message) {
-                props.history.push('/login')
-                setLoading(false)
-                props.handleSignUpClose()
+            if (user.errors) {
+                setErrors(user.errors)
             } else {
-                console.log(user)
-                setErrors(readableError(user.exception))
+                console.log("USER", user)
             }
+            setLoading(false)
+            // if (user.message) {
+            //     props.history.push('/login')
+            //     setLoading(false)
+            //     props.handleSignUpClose()
+            // } else {
+            //     setErrors(readableError(user.exception))
+                // setLoading(false)
+            // }
+        })
+        .catch(errors => {
+            // console.log(Error:errors)
+            // setErrors(readableError(errors))
+            setLoading(false)
         })
         setLoading(true)
     }
 
     const readableError = error => {
-        let errorArray = error.split(':')
-        let untrimmedError = errorArray[errorArray.length - 1]
-        let wellGroomedError = untrimmedError.trim().slice(0, -1)
-        return wellGroomedError
+        console.log(error)
+
+        // let errorArray = error.split(':')
+        // let untrimmedError = errorArray[errorArray.length - 1]
+        // let wellGroomedError = untrimmedError.trim().slice(0, -1)
+        // return wellGroomedError
     }
-    console.log(errors)
+
     return (
         <Modal
             show={props.signUpShow}
@@ -70,36 +81,26 @@ function SignUp(props) {
                         <Form.Group >
                             <Form.Label>Create Username:</Form.Label>
                             <Form.Control type="text" placeholder="Enter username" value={username} onChange={handleUsernameChange} />
+                            {errors.username && <p className="signup-error">{errors.username[0]}</p>}
                         </Form.Group>
 
                         <Form.Group >
                             <Form.Label>Password:</Form.Label>
                             <Form.Control type="password" placeholder="Password" value={password} onChange={handlePasswordChange} />
+                            {errors.password && <p className="signup-error">{errors.password[0]}</p>}
                         </Form.Group>
 
                         <Form.Group >
                             <Form.Label>Re-enter password:</Form.Label>
                             <Form.Control type="password" placeholder="Re-enter password" value={confirmedPassword} onChange={handleConfirmedPasswordChange} />
+                            {errors.password_confirmation && <p className="signup-error">{errors.password_confirmation[0]}</p>}
                         </Form.Group>
                             {loading ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button id={'login-button'} variant="primary" type="submit">Sign Up</Button>}
-                            {/* <Button variant="primary" type="submit">
-                            Sign Up
-                        </Button> */}
                     </Form>
                 </Modal.Body>
-                
-                    {<Modal.Footer></Modal.Footer>}
                 
             </Modal>
     )
 }
 
 export default withRouter(SignUp);
-            // <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={errors}/>
-            // <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
-            //     <Row>
-            //         <Col>
-       
-            //         </Col>
-            //     </Row>
-            // </Container>

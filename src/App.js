@@ -65,7 +65,7 @@ function App(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    loginUser()
+    loginUser(username, password)
   }
 
   const verifyToken = token => {
@@ -85,7 +85,7 @@ function App(props) {
     }
   }
 
-  const loginUser = () => {
+  const loginUser = (username, password) => {
     fetch('https://wilson-rails.herokuapp.com/login', {
       method: 'POST',
       headers: {
@@ -99,7 +99,6 @@ function App(props) {
     })
     .catch((error) => setLogginError(error));
     setLoggingIn(true)
-
   }
 
   useEffect(() => {
@@ -128,7 +127,7 @@ function App(props) {
   return (
     <div>
           <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
-          <Route exact path="/login" render={(routerProps) => <Login loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
+          <Route exact path="/login" render={(routerProps) => <Login loginUser={loginUser} setLoggedinUserId={setLoggedinUserId} loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
           <Route exact path="/signup" render={() => <SignUp />} />
 
           <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />

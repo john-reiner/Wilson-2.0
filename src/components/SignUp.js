@@ -35,32 +35,17 @@ function SignUp(props) {
                 setErrors(user.errors)
             } else {
                 console.log("USER", user)
+                props.setLoggedinUserId(user.id)
+                props.loginUser(username, password)
+                props.handleSignUpClose()
             }
             setLoading(false)
-            // if (user.message) {
-            //     props.history.push('/login')
-            //     setLoading(false)
-            //     props.handleSignUpClose()
-            // } else {
-            //     setErrors(readableError(user.exception))
-                // setLoading(false)
-            // }
         })
         .catch(errors => {
-            // console.log(Error:errors)
-            // setErrors(readableError(errors))
+            setErrors("Database Error: Please try again later.")
             setLoading(false)
         })
         setLoading(true)
-    }
-
-    const readableError = error => {
-        console.log(error)
-
-        // let errorArray = error.split(':')
-        // let untrimmedError = errorArray[errorArray.length - 1]
-        // let wellGroomedError = untrimmedError.trim().slice(0, -1)
-        // return wellGroomedError
     }
 
     return (

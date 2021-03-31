@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
 
 import {Form, Button, Container, Row, Col, Image, Spinner} from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import SignUp from './SignUp';
 
 
@@ -16,7 +15,7 @@ export default function Login(props) {
     
     return (
         <div>
-            <SignUp signUpShow={signUpShow} handleSignUpClose={handleSignUpClose}/>
+            <SignUp loginUser={props.loginUser} setLoggedinUserId={props.setLoggedinUserId} signUpShow={signUpShow} handleSignUpClose={handleSignUpClose}/>
             <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
                 <Row style={{marginBottom: "3%"}}>
                     <Col sm={4} style={{textAlign: "center"}}>   

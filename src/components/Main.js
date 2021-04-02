@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {Container, Row, Col, ListGroup, Button} from 'react-bootstrap'
+import {Container, Row, Col, ListGroup, Button, Spinner} from 'react-bootstrap'
 import { withRouter } from 'react-router-dom';
 import Goal from './Goal'
 
@@ -72,7 +72,7 @@ function Main(props) {
         if (loading) {
             return (
                 <Col id='main-title-container'>
-                    <h1>Loading...</h1>
+                    <h1>Loading <Spinner animation="border" variant="secondary" /> Please wait... fetching from Heroku</h1>
                 </Col>    
             )
         } else {

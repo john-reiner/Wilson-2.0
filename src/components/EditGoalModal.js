@@ -40,7 +40,6 @@ export default function NewGoal(props) {
         })
         .then(response => response.json())
         .then(goal => {
-            console.log(goal)
             if (goal.errors) {
                 setErrors(goal.errors)
             } else {

@@ -6,7 +6,7 @@ export default function NewGoal(props) {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState({})
     const [color, setColor] = useState('red') 
     const [editCount, setEditCount] = useState(0)
 
@@ -40,22 +40,15 @@ export default function NewGoal(props) {
         })
         .then(response => response.json())
         .then(goal => {
-            if (!goal.error) {
-                props.getCompletedGoalId(editCount)
-                console.log(goal)
-                setErrors('')         
-                props.onHide()
+            console.log(goal)
+            if (goal.errors) {
+                setErrors(goal.errors)
             } else {
-                setErrors(readableError(goal.exception))
+                props.getCompletedGoalId(editCount)
+                setErrors({})      
+                props.onHide()
             }
         })
-    }
-
-    const readableError = error => {
-        let errorArray = error.split(':')
-        let untrimmedError = errorArray[errorArray.length - 1]
-        let wellGroomedError = untrimmedError.trim().slice(0, -1)
-        return wellGroomedError
     }
 
     return (
@@ -68,10 +61,12 @@ export default function NewGoal(props) {
                     <Form.Group>
                         <Form.Label>Goal Name:</Form.Label>
                         <Form.Control type="text" placeholder="Goal Name" value={name} onChange={handleNameChange} />
+                        {errors.name && <p className="signup-error">{errors.name[0]}</p>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Goal Description</Form.Label>
                         <Form.Control as="textarea" rows={5} value={description} onChange={handleDescriptionChange}/>
+                        {errors.description && <p className="signup-error">{errors.description[0]}</p>}
                     </Form.Group>
                     <Form.Group>
                         <Form.Label>Complete Goal By: </Form.Label>
@@ -97,7 +92,6 @@ export default function NewGoal(props) {
                         <Button variant="primary" type="submit" >
                             Submit
                         </Button>
-                        <div className='error' >{errors}</div>                        
                     </div>
                 </Form>
             </Modal.Body>               

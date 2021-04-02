@@ -5,7 +5,7 @@ import {Modal, Button, Form} from 'react-bootstrap'
 export default function NewTask(props) {
     
     const [name, setName] = useState('')
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState({})
 
     const handleChange = e => setName(e.target.value)
 
@@ -24,22 +24,17 @@ export default function NewTask(props) {
         })
         .then(response => response.json())
         .then(task => {
-            if (!task.error) {
+            
+            if (task.errors) {
+                setErrors(task.errors)
+            } else {
                 props.handleNewTaskId(task.id)
                 setName('')
                 setErrors('')         
                 props.onHide()
-            } else {
-                setErrors(readableError(task.exception))
+                setErrors({})          
             }
         })
-    }
-
-    const readableError = error => {
-        let errorArray = error.split(':')
-        let untrimmedError = errorArray[errorArray.length - 1]
-        let wellGroomedError = untrimmedError.trim().slice(0, -1)
-        return wellGroomedError
     }
 
     return (
@@ -52,12 +47,12 @@ export default function NewTask(props) {
                     <Form.Group controlId="formBasicEmail">
                         <Form.Label>Task:</Form.Label>
                         <Form.Control type="text" placeholder="Enter Task" name={'task'} value={name} onChange={handleChange} />
+                        {errors.name && <p className="signup-error">{errors.name[0]}</p>}
                     </Form.Group>
                     <div className="button-error-container">
                         <Button variant="primary" type="submit" >
                             Submit
-                        </Button>
-                        <div className='error' >{errors}</div>                        
+                        </Button>                     
                     </div>
                 </Form>
             </Modal.Body>               

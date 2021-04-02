@@ -5,7 +5,7 @@ import {Modal, Button, Form} from 'react-bootstrap'
 export default function NewTask(props) {
     
     const [name, setName] = useState(props.name)
-    const [errors, setErrors] = useState('')
+    const [errors, setErrors] = useState({})
     const [editCount, setEditCount] = useState(0)
 
     useEffect(() => {

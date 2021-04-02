@@ -32,7 +32,7 @@ export default function NewGoal(props) {
         .then(response => response.json())
         .then(goal => {
             if (goal.errors) {
-                // console.log(goal.errors)
+
                 setErrors(goal.errors)
             } else {
                 props.handleNewGoalId(goal.id)
@@ -44,8 +44,6 @@ export default function NewGoal(props) {
             }
         })
     }
-
-    console.log(errors)
 
     return (
         <Modal show={props.show} onHide={props.onHide}>

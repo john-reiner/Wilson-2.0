@@ -48,7 +48,7 @@ export default function Task(props) {
                             Edit
                         </Button>
                         <Button className='delete-task-button' variant="danger" size="sm" onClick={handleDeleteModalShow}>
-                            Remove
+                            Delete
                         </Button>
                     </div>
 

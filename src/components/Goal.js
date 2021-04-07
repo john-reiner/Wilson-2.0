@@ -74,7 +74,9 @@ export default function Goal(props) {
     let calcDaysFromToday = (date) => {
         let today = new Date()
         let dayToCalc = new Date(date)
-        return (dayToCalc - today) / 1000 / 60 / 60 / 24
+        let returnDate = (dayToCalc - today) / 1000 / 60 / 60 / 24
+        console.log(returnDate)
+        return returnDate <=  1 ? "Today" : `Due in ${Math.ceil(returnDate)} days`
     }
 
 
@@ -98,7 +100,7 @@ export default function Goal(props) {
                         </div>
                             <ProgressBar style={{backgroundColor: "white", color: props.rgb}} now={updateProgress()} />
                         <div className="goal-due">
-                            {props.due_date && <small>Due in {Math.ceil(calcDaysFromToday(props.due_date) + 1)} days</small>}
+                            {props.due_date && <small>{calcDaysFromToday(props.due_date)}</small>}
                         </div>
                     </div>
                 </Accordion.Toggle>

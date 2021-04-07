@@ -75,7 +75,7 @@ export default function Goal(props) {
         let today = new Date()
         let dayToCalc = new Date(date)
         let returnDate = (dayToCalc - today) / 1000 / 60 / 60 / 24
-        console.log(returnDate)
+        
         return returnDate <=  1 ? "Today" : `Due in ${Math.ceil(returnDate)} days`
     }
 

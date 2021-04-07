@@ -7,7 +7,7 @@ export default function CompleteGoal(props) {
     return (
         <Modal show={props.show} onHide={props.onHide}>
             <Modal.Header closeButton>
-            <Modal.Title>{`Congrats!! You Completed the SOMEGOAL`}</Modal.Title>
+            <Modal.Title>{`Congrats!! You Completed a Goal!`}</Modal.Title>
             </Modal.Header>
             <Modal.Body>Would you like to mark this goal as complete?</Modal.Body>
             <Modal.Footer>

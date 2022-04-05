@@ -102,7 +102,7 @@ function App(props) {
   }
 
   useEffect(() => {
-    fetch(`https://wilson-rails.herokuapp.com/user`, {
+    fetch(`https://wilson-rails.herokuapp.com/api/v1/user`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -110,11 +110,14 @@ function App(props) {
       }
     })
     .then(response => response.json())
-    .then(user => setLoggedinUser(user.username))
+    .then(user => {
+      setLoggedinUser(user.username)
+      console.log(user)
+    })
   }, [loggedinUserId])
 
   const completeTask = id => {
-    fetch(`https://wilson-rails.herokuapp.com/complete-task/${id}`, {
+    fetch(`https://wilson-rails.herokuapp.com/api/v1/complete-task/${id}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

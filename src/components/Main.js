@@ -34,7 +34,7 @@ function Main(props) {
     }, [completedGoalId])
 
     const fetchGoals = () => {
-        fetch(`https://wilson-rails.herokuapp.com/goals`, {
+        fetch(`https://wilson-rails.herokuapp.com/api/v1/goals`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

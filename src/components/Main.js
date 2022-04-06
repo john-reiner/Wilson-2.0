@@ -34,6 +34,7 @@ function Main(props) {
     }, [completedGoalId])
 
     const fetchGoals = () => {
+
         fetch(`https://wilson-rails.herokuapp.com/api/v1/goals`, {
             method: 'GET',
             headers: {
@@ -57,6 +58,7 @@ function Main(props) {
                 setGoals(goalsNotComplete)
             }
         })
+        .catch(errors => console.log(errors))
         setLoading(true)
     }
 

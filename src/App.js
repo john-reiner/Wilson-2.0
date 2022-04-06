@@ -14,8 +14,7 @@ import ModalErrors from './components/ModalErrors'
 
 function App(props) {
 
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
+
   const [logginError, setLogginError] = useState(null)
   const [loggedinUser, setLoggedinUser] = useState(null)
   const [loggedinUserId, setLoggedinUserId] = useState(null)
@@ -36,8 +35,8 @@ function App(props) {
   const handleGoalModalShow = () => setGoalModalShow(true)
   const handleGoalModalClose = () => setGoalModalShow(false)
   
-  const handleUsernameChange = e => setUsername(e.target.value)
-  const handlePasswordChange = e => setPassword(e.target.value)
+  // const handleUsernameChange = e => setUsername(e.target.value)
+  // const handlePasswordChange = e => setPassword(e.target.value)
   const handleClickedGoalId = id => setClickedGoalid(id)
   const handleNewTaskId = id => setNewTaskId(id)
   const handleNewGoalId = id => setNewGoalId(id)
@@ -57,51 +56,33 @@ function App(props) {
   useEffect(() => {
     let storage = localStorage.getItem('wilsonUserToken')
     if (storage) {
+      console.log("STORAGE:", localStorage.getItem('wilsonUserToken'))
       props.history.push('/')
     } else {
       props.history.push('/login')
     }
   }, [])
 
-  const handleSubmit = e => {
-    e.preventDefault()
-    loginUser(username, password)
-  }
 
-  const verifyToken = token => {
-    if (token.token) {
-      localStorage.setItem('wilsonUserToken', token.token)
-      setLoggedinUserId(token.id)
-      setLogginError('')
-      props.history.push('/')
-      setUsername('')
-      setPassword('')
-      setLoggingIn(false)
-    } else {
-      setLogginError(token.message)
-      handleErrorShow()
-      setPassword('')
-      setLoggingIn(false)
-    }
-  }
 
-  const loginUser = (username, password) => {
-    fetch('https://wilson-rails.herokuapp.com/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({username, password}),
-    })
-    .then(response => response.json())
-    .then(token => {
-      verifyToken(token)
-    })
-    .catch((error) => setLogginError(error));
-    setLoggingIn(true)
-  }
+  // const loginUser = (username, password) => {
+  //   fetch('https://wilson-rails.herokuapp.com/login', {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify({username, password}),
+  //   })
+  //   .then(response => response.json())
+  //   .then(token => {
+  //     verifyToken(token)
+  //   })
+  //   .catch((error) => setLogginError(error));
+  //   setLoggingIn(true)
+  // }
 
   useEffect(() => {
+    
     fetch(`https://wilson-rails.herokuapp.com/api/v1/user`, {
       method: 'GET',
       headers: {
@@ -114,6 +95,7 @@ function App(props) {
       setLoggedinUser(user.username)
       console.log(user)
     })
+    .catch(errors => console.log(errors, localStorage.getItem('wilsonUserToken')))
   }, [loggedinUserId])
 
   const completeTask = id => {
@@ -126,19 +108,25 @@ function App(props) {
     })
   }
 
+  const renderView = (index) => {
+    let componentViews = [
+      <Login setLoggedinUserId={setLoggedinUserId} loggingIn={loggingIn} loggedinUser={loggedinUser} />,
+      // <SignUp />,
+      // <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />,
+      // <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />,
+      // <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>,
+      // <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />,
+      // <Completed handleClickedGoalId={handleClickedGoalId} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>,
+      <Main removedTaskId={removedTaskId} getRemovedTaskId={getRemovedTaskId} handleNewTaskId={handleNewTaskId} newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} handleGoalModalShow={handleGoalModalShow} />
+    ]
+    return componentViews[index]
+  }
+
 
   return (
     <div>
-          <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
-          <Route exact path="/login" render={(routerProps) => <Login loginUser={loginUser} setLoggedinUserId={setLoggedinUserId} loggingIn={loggingIn} handleSubmit={handleSubmit} username={username} password={password} handleUsernameChange={handleUsernameChange} handlePasswordChange={handlePasswordChange} loggedinUser={loggedinUser} {...routerProps}/>} />
-          <Route exact path="/signup" render={() => <SignUp />} />
-
-          <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />
-          <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />
-          <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>
-          <Route exact path="/" render={() => <Main removedTaskId={removedTaskId} getRemovedTaskId={getRemovedTaskId} handleNewTaskId={handleNewTaskId} newGoalId={newGoalId} newTaskId={newTaskId} completeTask={completeTask} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} handleGoalModalShow={handleGoalModalShow} />} />
-          <Route exact path="/goal-showpage" render={() => <GoalShowPage completeTask={completeTask} newTaskId={newTaskId} handleClickedGoalId={handleClickedGoalId} handleTaskModalShow={handleTaskModalShow} clickedGoalid={clickedGoalid} />} />
-          <Route exact path="/completed" render={() => <Completed handleClickedGoalId={handleClickedGoalId} loggedinUser={props.loggedinUser} handleGoalClick={props.handleGoalClick}/>} />     
+      <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
+      {renderView(0)}
     </div>
   );
 } 

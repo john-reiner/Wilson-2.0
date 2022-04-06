@@ -12,6 +12,39 @@ import ModalErrors from './components/ModalErrors'
 
 
 export default function App() {
+  
+  const [token, setToken] = useState(null);
+  const [user, setUser] = useState({});
+  const [componentIndex, setComponentIndex] = useState(0);
+
+  // checks localStorage for a user token every time app is rendered
+  useEffect(() => {
+    if (localStorage.getItem('wilsonUserToken')) {
+      fetchUser()
+    }
+  }, [token]);
+
+  const fetchUser = () => {
+    fetch('http://localhost:3001/api/v1/user', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+      }
+    })
+    .then(response => response.json())
+    .then(user => {
+      setUser(user)
+      setComponentIndex(1)
+    })
+    .catch((error) => setLogginError(error));
+  }
+
+
+  console.log(user)
+
+
+
 
 
   const [logginError, setLogginError] = useState(null)
@@ -24,7 +57,8 @@ export default function App() {
   const [newTaskId, setNewTaskId] = useState('')
   const [newGoalId, setNewGoalId] = useState('')
   const [removedTaskId, setRemovedTaskId] = useState(0)
-  const [loggingIn, setLoggingIn] = useState(false)  
+  const [loggingIn, setLoggingIn] = useState(false)
+
 
   const getRemovedTaskId = id => setRemovedTaskId(id)
   
@@ -51,19 +85,6 @@ export default function App() {
     // props.history.push('/login')
   }
 
-
-  useEffect(() => {
-    let storage = localStorage.getItem('wilsonUserToken')
-    if (storage) {
-      console.log("STORAGE:", localStorage.getItem('wilsonUserToken'))
-      // props.history.push('/')
-    } else {
-      // props.history.push('/login')
-    }
-  }, [])
-
-
-
   // const loginUser = (username, password) => {
   //   fetch('https://wilson-rails.herokuapp.com/login', {
   //     method: 'POST',
@@ -80,22 +101,22 @@ export default function App() {
   //   setLoggingIn(true)
   // }
 
-  useEffect(() => {
+  // useEffect(() => {
     
-    fetch(`https://wilson-rails.herokuapp.com/api/v1/user`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-      }
-    })
-    .then(response => response.json())
-    .then(user => {
-      setLoggedinUser(user.username)
-      console.log(user)
-    })
-    .catch(errors => console.log(errors, localStorage.getItem('wilsonUserToken')))
-  }, [loggedinUserId])
+  //   fetch(`https://wilson-rails.herokuapp.com/api/v1/user`, {
+  //     method: 'GET',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //       'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+  //     }
+  //   })
+  //   .then(response => response.json())
+  //   .then(user => {
+  //     setLoggedinUser(user.username)
+  //     console.log(user)
+  //   })
+  //   .catch(errors => console.log(errors, localStorage.getItem('wilsonUserToken')))
+  // }, [loggedinUserId])
 
   const completeTask = id => {
     fetch(`https://wilson-rails.herokuapp.com/api/v1/complete-task/${id}`, {
@@ -109,8 +130,7 @@ export default function App() {
 
   const renderView = (index) => {
     let componentViews = [
-      <Login setLoggedinUserId={setLoggedinUserId} loggingIn={loggingIn} loggedinUser={loggedinUser} />,
-      // <SignUp />,
+      <Login setToken={setToken} setLoggedinUserId={setLoggedinUserId} loggingIn={loggingIn} loggedinUser={loggedinUser} />,
       // <ModalErrors show={errorModalShow} handleErrorClose={handleErrorClose} errors={logginError} />,
       // <NewTask handleNewTaskId={handleNewTaskId} show={taskModalShow} onHide={handleTaskModalClose} goalId={props.id} clickedGoalid={clickedGoalid} />,
       // <NewGoal handleNewGoalId={handleNewGoalId} onHide={handleGoalModalClose} show={goalModalShow} loggedinUser={loggedinUser}/>,
@@ -125,7 +145,7 @@ export default function App() {
   return (
     <div>
       <NavBar handleGoalModalShow={handleGoalModalShow} logoutUser={logoutUser} loggedinUser={loggedinUser}/>
-      {renderView(0)}
+      {renderView(componentIndex)}
     </div>
   );
 }

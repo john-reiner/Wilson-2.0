@@ -12,7 +12,7 @@ export default function Login(props) {
         password: ""
     });
     const [signupShow, setSignupShow] = useState(false);
-    const handleSignUpClose = () => setSignupShow(false)
+    const handleSignupClose = () => setSignupShow(false)
 
     const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
 
@@ -48,7 +48,7 @@ export default function Login(props) {
     
     return (
         <div>
-            <SignUp signupShow={signupShow} handleSignUpClose={handleSignUpClose}/>
+            <SignUp signupShow={signupShow} handleSignupClose={handleSignupClose} setToken={props.setToken} />
             <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
                 <Row style={{marginBottom: "3%"}}>
                     <Col sm={4} style={{textAlign: "center"}}>   
@@ -75,7 +75,7 @@ export default function Login(props) {
                             </Form.Group>
                             <div className="button-link-container">
                                 {props.loggingIn ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button id={'login-button'} variant="primary" type="submit">Login</Button>}
-                                <Button variant="danger">Sign Up</Button>
+                                <Button variant="danger" onClick={() => setSignupShow(true)}>Sign Up</Button>
                             </div>
                         </Form>
                     </Col>

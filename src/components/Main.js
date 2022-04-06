@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import {Container, Row, Col, ListGroup, Button, Spinner} from 'react-bootstrap'
-import { withRouter } from 'react-router-dom';
 import Goal from './Goal'
 
 
-function Main(props) {
+export default function Main(props) {
 
     const [goals, setGoals] = useState([])
     const [completedGoalId, setCompletedGoalId] = useState()
@@ -115,4 +114,3 @@ function Main(props) {
         </Container>
     )
 }
-export default withRouter(Main);

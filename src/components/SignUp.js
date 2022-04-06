@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import {Spinner, Form, Button, Modal} from 'react-bootstrap'
-import { withRouter } from 'react-router-dom';
 
 
-function SignUp(props) {
+
+export default function SignUp(props) {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -87,5 +87,3 @@ function SignUp(props) {
             </Modal>
     )
 }
-
-export default withRouter(SignUp);

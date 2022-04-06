@@ -11,10 +11,10 @@ export default function Login(props) {
         username: "",
         password: ""
     });
+    const [signupShow, setSignupShow] = useState(false);
+    const handleSignUpClose = () => setSignupShow(false)
 
     const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
-
-    console.log(user)
 
     // const [signUpShow, setSignUpShow] = useState(false)
     // const [username, setUsername] = useState('')
@@ -48,7 +48,7 @@ export default function Login(props) {
     
     return (
         <div>
-            {/* <SignUp loginUser={props.loginUser} setLoggedinUserId={props.setLoggedinUserId} signUpShow={signUpShow} handleSignUpClose={handleSignUpClose}/> */}
+            <SignUp signupShow={signupShow} handleSignUpClose={handleSignUpClose}/>
             <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
                 <Row style={{marginBottom: "3%"}}>
                     <Col sm={4} style={{textAlign: "center"}}>   
@@ -83,5 +83,4 @@ export default function Login(props) {
             </Container>
         </div>
     )
-    
 }

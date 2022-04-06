@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import {Container, Row, Col, ListGroup} from 'react-bootstrap'
 import GoalCompleted from './GoalCompleted'
-import { withRouter } from 'react-router-dom';
 
-function Completed(props) {
+export default function Completed(props) {
 
     const [completedGoals, setCompletedGoals] = useState([])
 
@@ -63,5 +62,3 @@ function Completed(props) {
     )        
     
 }
-
-export default withRouter(Completed);

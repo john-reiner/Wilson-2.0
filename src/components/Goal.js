@@ -4,7 +4,6 @@ import Task from './Task'
 import CompleteGoal from './CompleteGoal'
 import DeleteModal from './DeleteModal'
 import EditGoalModal from './EditGoalModal'
-import { LinkContainer } from "react-router-bootstrap";
 
 export default function Goal(props) {
 
@@ -111,9 +110,7 @@ export default function Goal(props) {
                         <Navbar.Toggle aria-controls="basic-navbar-nav" />
                         <Navbar.Collapse id="basic-navbar-nav" className="goal-navbar">
                             <Nav.Item>
-                                <LinkContainer to="goal-showpage">
-                                    <Button variant="success">Show</Button>
-                                </LinkContainer>                                    
+                                <Button variant="success">Show</Button>                                  
                             </Nav.Item>
                             <Nav.Item><Button variant="primary" onClick={props.handleTaskModalShow}>Add Task</Button></Nav.Item>
                             <Nav.Item><Button variant="secondary" onClick={handleEditModalShow}>Edit</Button></Nav.Item>

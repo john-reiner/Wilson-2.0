@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { Route, withRouter } from 'react-router-dom';
 import NavBar from './components/NavBar'
 import Main from './components/Main'
 import SignUp from './components/SignUp'
@@ -12,7 +11,7 @@ import NewTask from './components/NewTask'
 import ModalErrors from './components/ModalErrors'
 
 
-function App(props) {
+export default function App() {
 
 
   const [logginError, setLogginError] = useState(null)
@@ -49,7 +48,7 @@ function App(props) {
   const logoutUser = () => {
     setLoggedinUser(null)
     localStorage.removeItem('wilsonUserToken')
-    props.history.push('/login')
+    // props.history.push('/login')
   }
 
 
@@ -57,9 +56,9 @@ function App(props) {
     let storage = localStorage.getItem('wilsonUserToken')
     if (storage) {
       console.log("STORAGE:", localStorage.getItem('wilsonUserToken'))
-      props.history.push('/')
+      // props.history.push('/')
     } else {
-      props.history.push('/login')
+      // props.history.push('/login')
     }
   }, [])
 
@@ -129,5 +128,4 @@ function App(props) {
       {renderView(0)}
     </div>
   );
-} 
-export default withRouter(App);
+}

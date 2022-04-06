@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { withRouter } from 'react-router-dom';
 import {Container, Row, Col, Jumbotron, Button, ListGroup} from 'react-bootstrap'
 
 import Goal from './Goal'
 import GoalCompleted from './GoalCompleted'
 
 
-function GoalShowPage(props) {
+export default function GoalShowPage(props) {
 
     const [goal, setGoal] = useState('')
 
@@ -67,4 +66,3 @@ function GoalShowPage(props) {
         </Container>
     )    
 }
-export default withRouter(GoalShowPage)

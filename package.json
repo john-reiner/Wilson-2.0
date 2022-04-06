@@ -2,7 +2,7 @@
   "name": "wilson-2.0",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://john-reiner.github.io/wilson-2.0",
+  "homepage": "https://john-reiner.github.io/",
   "dependencies": {
     "@testing-library/jest-dom": "^5.11.4",
     "@testing-library/react": "^11.1.0",
@@ -12,9 +12,7 @@
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.3",
     "react-dom": "^17.0.1",
-    "react-router-bootstrap": "^0.25.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "4.0.2",
+    "react-scripts": "^5.0.0",
     "web-vitals": "^1.0.1"
   },
   "scripts": {

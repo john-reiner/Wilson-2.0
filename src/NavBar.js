@@ -22,14 +22,14 @@ const NavBar = (props) => {
     }
 
     return (
-        <Navbar bg="dark" variant="dark" expand="sm" sticky="top">
+        <Navbar id="nav-bar" variant="dark" expand="sm" sticky="top">
             <Container fluid>
             <Navbar.Brand onClick={() => props.setComponentIndex(0)} className="text-secondary" id="wilson-text">
                 Wilson
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav id="nav-nav-bar" className="me-auto">
                 <Nav.Link href="#home">Home</Nav.Link>
                 <Nav.Link href="#link">Link</Nav.Link>
                 <NavDropdown title="Dropdown" id="basic-nav-dropdown">

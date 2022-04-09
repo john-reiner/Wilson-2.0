@@ -1,0 +1,21 @@
+/* The following block can be included in a custom.scss */
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Comfortaa:wght@300;400;500;600;700&family=Nanum+Pen+Script&family=Play&family=Share+Tech+Mono&family=Varela+Round&display=swap');
+/* make the customizations */
+$theme-colors: (
+    "secondary": #C1121F,
+    "primary": #669BBC,
+    "danger": #780000,
+    "dark": #003049,
+    "light": #FDF0D5,
+);
+
+$white: #FDF0D5;
+$black: #003049;
+body {
+    font-family: "Comfortaa"!important;
+}
+
+
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";

@@ -1,0 +1,44 @@
+// #left-navbar-container {
+//     height: 100%;
+//     color: #FDF0D5;
+//     position: fixed;
+//     z-index: 1;
+//     top: 0;
+//     left: 0;
+//     background-color: #003049;
+//     overflow-x: hidden;
+//     transition: 0.5s;
+//     padding-top: 60px;
+//     padding-top: 10%;
+//     max-width: 20vw;
+//     margin-right: 200px;
+// }
+
+// #main-container {
+//     width: 80vw;
+// }
+
+#main-container {
+    display: flex;
+
+}
+
+#left-bar-container {
+    width: 200px;
+    margin-right: 200px;
+    background-color: red;
+    position: fixed;
+    height: 100%;
+}
+
+#main-content {
+    background-color: blue;
+    width: 100%;
+    margin-left: 200px;
+}
+
+#close-nav-button {
+    padding: 1em;
+    float: right;
+}
+

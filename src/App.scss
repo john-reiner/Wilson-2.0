@@ -1,0 +1,31 @@
+@import "custom";
+@import "~bootstrap/scss/bootstrap";
+
+#wilson-text {
+    font-family: "Permanent Marker";
+}
+#wilson-text:hover {
+    cursor: pointer;
+}
+
+#login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 5vh;
+}
+
+#login-form {
+    width: 80vw;
+    max-width: 800px;
+    // border: solid red;
+}
+
+#signup-container {
+    border: solid #003049 1px;
+    color: #003049;
+    padding: 1em;
+    border-radius: 10px;
+    width: 80vw;
+    max-width: 800px;
+}

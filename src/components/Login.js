@@ -1,86 +1,69 @@
 import React, {useState} from 'react'
-
-import {Form, Button, Container, Row, Col, Image, Spinner} from 'react-bootstrap'
-import SignUp from './SignUp';
-
-
+import { Form, FloatingLabel, Container, Row, Col, Stack, Button } from 'react-bootstrap';
 
 export default function Login(props) {
 
     const [user, setUser] = useState({
-        username: "",
+        email: "",
         password: ""
     });
-    const [signupShow, setSignupShow] = useState(false);
-    const handleSignupClose = () => setSignupShow(false)
+
+    const [errors, setErrors] = useState(null);
+    const [errorShow, setErrorShow] = useState(false);
+    const handleErrorClose = () => setErrorShow(false)
 
     const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
 
-    // const [signUpShow, setSignUpShow] = useState(false)
-    // const [username, setUsername] = useState('')
-    // const [password, setPassword] = useState('')
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        console.log(user)
+        fetch(`http://localhost:3001/login`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({user: user})
+        })
+        .then(response => response.json())
+        .then(payload => {
+            if (payload.status === "unauthorized") {
+                setErrorShow(true)
+                setErrors(payload.message)
+            } else if (payload.status === "ok") {
+                localStorage.setItem('wilsonUserToken', payload.token)
+                props.setToken(payload.token)
+            } else {
+                console.error(payload)
+            }
+        })
+        .catch(errors => console.error(errors))
+    }
 
-    // const handleSignUpClose = () => setSignUpShow(false);
-    // const handleSignUpShow = () => setSignUpShow(true);
-
-    // const handleSubmit = e => {
-    //     e.preventDefault()
-    //     loginUser(username, password)
-    // }
-
-    // const verifyToken = token => {
-    // if (token.token) {
-    //     localStorage.setItem('wilsonUserToken', token.token)
-    //     setLoggedinUserId(token.id)
-    //     setLogginError('')
-    //     props.history.push('/')
-    //     setUsername('')
-    //     setPassword('')
-    //     setLoggingIn(false)
-    // } else {
-    //     setLogginError(token.message)
-    //     handleErrorShow()
-    //     setPassword('')
-    //     setLoggingIn(false)
-    // }
-    // }
-
-    
     return (
-        <div>
-            <SignUp signupShow={signupShow} handleSignupClose={handleSignupClose} setToken={props.setToken} />
-            <Container style={{backgroundColor: '#333', color: 'white', padding: '3%'}}>
-                <Row style={{marginBottom: "3%"}}>
-                    <Col sm={4} style={{textAlign: "center"}}>   
-                    <Image style={{height: "200px", width: "200px"}} src="wilson.png" rounded />
-                    </Col>
-
-                    <Col sm={8} style={{margin: 'auto 0'}}>
-                        <h1>Welcome to <span style={{color: 'rgb(214, 17, 18)'}}>Wilson</span></h1>
-
-                        <h5>A simple app to keep track of your goals</h5>
-                    </Col>
-
-                </Row>
-                <Row>
-                    <Col id='login-container'>
-                        <Form onSubmit={props.handleSubmit} id='login-form'>
-                            <Form.Group controlId="username">
-                            <Form.Label>Username:</Form.Label>
-                            <Form.Control type="username" placeholder="Enter username" name={'username'} value={user.username} onChange={handleChange} />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicPassword">
-                            <Form.Label>Password</Form.Label>
-                            <Form.Control type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} />
-                            </Form.Group>
-                            <div className="button-link-container">
-                                {props.loggingIn ?   <Button variant="primary" disabled><Spinner as="span" animation="grow" size="sm" role="status" aria-hidden="true" /> Loading...</Button> : <Button id={'login-button'} variant="primary" type="submit">Login</Button>}
-                                <Button variant="danger" onClick={() => setSignupShow(true)}>Sign Up</Button>
-                            </div>
+        <Container id="login-container">
+            <Row>
+                <Col>
+                    <Stack gap={3}>
+                        <h3 className="text-center" >Log in to your account</h3>
+                        <Form onSubmit={handleSubmit} id='login-form'>
+                            <FloatingLabel
+                                controlId="floatingInput"
+                                label="Email address"
+                                className="mb-3"
+                            >
+                            <Form.Control type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/>
+                            </FloatingLabel>
+                            <FloatingLabel controlId="floatingPassword" label="Password" className="mb-3">
+                                <Form.Control type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required />
+                            </FloatingLabel>
+                            <Stack>
+                                <Button id={'login-button'} variant="dark" type="submit">Login</Button>
+                            </Stack>
                         </Form>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
+                        <h6 className="text-center">Don't have an account yet?<Button onClick={() => props.setComponentIndex(1)} variant="link">Sign Up</Button></h6>
+                    </Stack>
+                </Col>
+            </Row>
+        </Container>
     )
 }

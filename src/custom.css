@@ -1,0 +1,8 @@
+/* The following block can be included in a custom.scss */
+@import url("https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Comfortaa:wght@300;400;500;600;700&family=Nanum+Pen+Script&family=Play&family=Share+Tech+Mono&family=Varela+Round&display=swap");
+/* make the customizations */
+@font-fmaily : "Comfortaa"
+
+/* import bootstrap to set changes */
+@import "~bootstrap/scss/bootstrap";
+/*# sourceMappingURL=custom.css.map */

@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Main.css'
 import Projects from './Projects/Projects';
+import ProjectShow from './Projects/ProjectShow'
 import HomeView from './Home/HomeView';
 import { ArrowLeft } from 'react-bootstrap-icons';
 import { Container, Col, Row, Nav, NavDropdown } from 'react-bootstrap'
@@ -11,6 +12,12 @@ export default function Main(props) {
     const [navOpen, setNavOpen] = useState(true);
     const [navOpenCloseEvent, setNavOpenCloseEvent] = useState(false);
     const [viewToShow, setViewToShow] = useState(0);
+
+    const views = [
+        <HomeView user={props.user} viewTitle="Home" />,
+        <Projects setViewToShow={setViewToShow} userId={props.user.id} viewTitle="Projects" />,
+        <ProjectShow viewTitle="Project" />
+    ]
 
     useEffect(() => {
         if (navOpenCloseEvent) {
@@ -23,18 +30,18 @@ export default function Main(props) {
             } else {
                 document.getElementById("left-bar-container").style.width = "200px"
                 document.getElementById("main-content").style.marginLeft = "200px"
+                document.getElementById("main-content").style.width = "calc(100% - 200px)"
                 setNavOpen(true)
                 setNavOpenCloseEvent(false)            
             }
         }
     }, [navOpen, navOpenCloseEvent]);
 
-    const renderView = viewToShow => {
-        const views = [
-            <HomeView user={props.user} />,
-            <Projects userId={props.user.id}/>
-        ]
-        return views[viewToShow]
+    const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
+
+    const renderTitle = () => {
+        let view = renderView(viewToShow, views)
+        return view.props.viewTitle
     }
 
     return (
@@ -47,25 +54,13 @@ export default function Main(props) {
                 </ul>
             </div>
             <div id="main-content">
-                {!navOpen && <div onClick={() => setNavOpenCloseEvent(true)} id="open-nav-button">></div>}
-                {renderView(viewToShow)}
+                <div id="main-content-heading">
+                    {!navOpen && <div onClick={() => setNavOpenCloseEvent(true)} id="open-nav-button">></div>}
+                    <h2>{renderTitle()}</h2>
+                </div>
+
+                {renderView(viewToShow, views)}
             </div>
         </div>
     )
 }
-        // <Container fluid>
-        //     <Row>
-        //         <Col id="left-navbar-container" menuVariant="dark">            
-        //             <ArrowLeft className="ml-auto" />
-        //             <Nav variant="dark" bg="dark" defaultActiveKey="/home" className="flex-column" closeButton>
-        //                 <Nav.Link href="/home">Active</Nav.Link>
-        //                 <Nav.Link eventKey="link-1">Link</Nav.Link>
-        //                 <Nav.Link eventKey="link-2">Link</Nav.Link>
-        //                 <Nav.Link eventKey="disabled" disabled>
-        //                     Disabled
-        //                 </Nav.Link>
-        //             </Nav>
-        //         </Col>
-        //         <Col xs={10} id="main-container">{props.user.first_name}</Col>
-        //     </Row>
-        // </Container>

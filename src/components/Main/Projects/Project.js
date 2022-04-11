@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import ProjectTab from './ProjectTab';
 import Info from './Tabs/Info';
 import Features from './Tabs/Features';
+import Col from 'react-bootstrap/Col'
 
 
 
@@ -30,21 +31,25 @@ export default function Project(props) {
                     handleTabClick={handleTabClick}
                     projectTabIndex={projectTabIndex}
                     index={tabComponents.indexOf(tab)}
+                    key={keyNum}
                     />
         })
     }
 
     return (
-        <div className="project-container">
-            <div className="project-nav">
-                <ul className="project-nav-list">
-                    {renderTabs(tabComponents)}
-                </ul>
+        <Col>
+            <div className="project-container">
+                <div className="project-nav">
+                    <ul className="project-nav-list">
+                        {renderTabs(tabComponents)}
+                    </ul>
+                </div>
+                <div className="project-body">
+                    {renderContent(tabComponents, projectTabIndex)}
+                    <div className="show-button" onClick={() => props.setViewToShow(2)}>Show</div>
+                </div>
             </div>
-            <div className="project-body">
-                {renderContent(tabComponents, projectTabIndex)}
-                <div className="show-button">Show</div>
-            </div>
-        </div>
+
+        </Col>
     )
 }

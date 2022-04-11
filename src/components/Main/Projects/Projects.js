@@ -41,6 +41,7 @@ export default function Projects(props) {
                         id={project.id} 
                         key={project.id} 
                         title={project.title}
+                        setViewToShow={props.setViewToShow}
                         />
             })
         } else {
@@ -54,7 +55,9 @@ export default function Projects(props) {
         <Container fluid>
             <Row>
                 <Col id="projects-container">
-                    {renderProjects()}
+                    <Row xs={1} sm={1} md={1} lg={2} xl={2} xxl={3}>
+                        {renderProjects()}
+                    </Row>
                 </Col>
             </Row>            
         </Container>

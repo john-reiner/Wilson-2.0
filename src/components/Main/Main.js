@@ -3,8 +3,7 @@ import './Main.css'
 import Projects from './Projects/Projects';
 import ProjectShow from './Projects/ProjectShow'
 import HomeView from './Home/HomeView';
-import { ArrowLeft } from 'react-bootstrap-icons';
-import { Container, Col, Row, Nav, NavDropdown } from 'react-bootstrap'
+import NewProject from './Projects/New/NewProject'
 
 
 export default function Main(props) {
@@ -12,12 +11,14 @@ export default function Main(props) {
     const [navOpen, setNavOpen] = useState(true);
     const [navOpenCloseEvent, setNavOpenCloseEvent] = useState(false);
     const [viewToShow, setViewToShow] = useState(0);
+    const [projectShowId, setProjectShowId] = useState(null);
 
-    const views = [
-        <HomeView user={props.user} viewTitle="Home" />,
-        <Projects setViewToShow={setViewToShow} userId={props.user.id} viewTitle="Projects" />,
-        <ProjectShow viewTitle="Project" />
-    ]
+
+
+    const handleProjectShow = id => {
+        setProjectShowId(id)
+        setViewToShow(2)
+    }
 
     useEffect(() => {
         if (navOpenCloseEvent) {
@@ -43,6 +44,19 @@ export default function Main(props) {
         let view = renderView(viewToShow, views)
         return view.props.viewTitle
     }
+
+    const views = [
+        <HomeView user={props.user} viewTitle="Home" />,
+        <Projects 
+            setViewToShow={setViewToShow}
+            handleProjectShow={handleProjectShow} 
+            userId={props.user.id} 
+            viewTitle="Projects" 
+
+            />,
+        <ProjectShow id={projectShowId} userId={props.user.id} viewTitle="Project" />,
+        <NewProject viewTitle="New Project" setViewToShow={setViewToShow} userId={props.user.id}/>
+    ]
 
     return (
         <div id="main-container">

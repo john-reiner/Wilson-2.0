@@ -82,3 +82,10 @@
     cursor: pointer;
     background-color: #C1121F;
 }
+
+#new-project-button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1em;
+}

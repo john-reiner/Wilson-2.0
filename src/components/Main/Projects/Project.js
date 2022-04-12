@@ -46,7 +46,7 @@ export default function Project(props) {
                 </div>
                 <div className="project-body">
                     {renderContent(tabComponents, projectTabIndex)}
-                    <div className="show-button" onClick={() => props.setViewToShow(2)}>Show</div>
+                    <div className="show-button" onClick={() => props.handleProjectShow(props.id)}>Show</div>
                 </div>
             </div>
 

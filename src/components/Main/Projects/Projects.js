@@ -21,7 +21,8 @@ export default function Projects(props) {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-            }
+            }, 
+            
             })
         .then(response => response.json())
         .then(payload => {
@@ -42,6 +43,7 @@ export default function Projects(props) {
                         key={project.id} 
                         title={project.title}
                         setViewToShow={props.setViewToShow}
+                        handleProjectShow={props.handleProjectShow}
                         />
             })
         } else {
@@ -53,6 +55,11 @@ export default function Projects(props) {
 
     return (
         <Container fluid>
+            <Row>
+                <Col id="new-project-button-container">
+                    <div className="show-button" onClick={() => props.setViewToShow(3)}>New Project</div>
+                </Col>
+            </Row>
             <Row>
                 <Col id="projects-container">
                     <Row xs={1} sm={1} md={1} lg={2} xl={2} xxl={3}>

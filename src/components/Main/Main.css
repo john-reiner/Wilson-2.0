@@ -26,6 +26,8 @@
   margin-left: 200px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  overflow-y: auto;
+  padding-bottom: 4em;
 }
 
 #close-nav-button {

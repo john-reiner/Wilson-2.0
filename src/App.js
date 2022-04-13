@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import useFetch from './hooks/useFetch'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.scss';
 
@@ -10,11 +11,13 @@ import SignUp from './components/SignUp';
 
 
 export default function App() {
-  
+
   const [token, setToken] = useState(null);
-  const [user, setUser] = useState({});
+  // const [user, setUser] = useState({});
   const [componentIndex, setComponentIndex] = useState(0);
   const [loggedIn, setLoggedIn] = useState(false);
+
+  const [{requestedData: user, errors, loading}, goFetch] = useFetch(null)
 
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
@@ -31,27 +34,13 @@ export default function App() {
   }
 
   const fetchUser = () => {
-    fetch('http://localhost:3001/api/v1/user', {
+    goFetch('http://localhost:3001/api/v2/users/user', {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
       }
     })
-    .then(response => response.json())
-    .then(response => {
-      if (response.status === "ok") {
-        setUser(response.user)
-        setLoggedIn(true)
-        setComponentIndex(3)
-      } else {
-        setToken(null)
-        localStorage.removeItem('wilsonUserToken')
-        console.error(response.error + ":", response.message)
-        setLoggedIn(false)
-      }
-    })
-    .catch((error) => console.error("error:", error));
   }
 
   const renderView = (index) => {
@@ -63,7 +52,6 @@ export default function App() {
     ]
     return componentViews[index]
   }
-
 
   return (
       <div>

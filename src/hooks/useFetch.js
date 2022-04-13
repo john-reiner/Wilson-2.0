@@ -1,10 +1,10 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 
 export default function useFetch() {
 
-    const [response, setResponse] = useState(null);
+    const [requestedData, setRequestedData] = useState({});
     const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState(null);
+    const [errors, setErrors] = useState({});
 
     const goFetch = (url, options={}) => {
         setLoading(true)
@@ -12,7 +12,7 @@ export default function useFetch() {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "ok") {
-                setResponse(payload)
+                setRequestedData(payload.message)
             } else {
                 setErrors(payload.errors)
             }
@@ -24,5 +24,5 @@ export default function useFetch() {
             alert("Something went wrong. Please try again later.")
         })
     }
-    return [{response, errors, loading}, goFetch]
+    return [{requestedData, errors, loading}, goFetch]
 }

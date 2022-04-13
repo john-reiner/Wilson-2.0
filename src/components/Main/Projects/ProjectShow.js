@@ -1,15 +1,16 @@
 import React, {useState, useEffect} from 'react'
+import { Container, Row, Col } from 'react-bootstrap';
 import useFetch from '../../../hooks/useFetch';
 
 
 export default function ProjectShow(props) {
 
-    const [project, setProject] = useState({});
+    // const [project, setProject] = useState(null);
 
-    const [{response, errors, loading}, goFetch] = useFetch("")
+    const [{requestedData: project, errors, loading}, goFetch] = useFetch("")
 
     useEffect(() => {
-        if (props.id) {
+        if (props.id && props.userId) {
             goFetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.id}`, {
                 method: 'GET',
                 headers: {
@@ -17,35 +18,22 @@ export default function ProjectShow(props) {
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 }
             })
-            }
+        }
     }, [props.id, props.userId]);
 
-
-
-    // const fetchProject = () => {
-    //     fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.id}`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //         }
-    //         })
-    //     .then(response => response.json())
-    //     .then(payload => {
-    //         if (payload.status === "ok") {
-    //             setProject(payload.project)
-    //         } else {
-    //             console.error("Something went wrong")
-    //         }
-    //     })
-    //     .catch(errors => console.error("Something went wrong...", errors))
-    // }
-
-    console.log({response, errors, loading})
+    useEffect(() => {
+        if (project.title) {
+            props.setProjectTitle(project.title)
+        }
+    }, [project]);
 
     return (
-        <div>
-            {loading && "loading..."}
-        </div>
+        <Container fluid>
+            <Row>
+                <Col id="project-show-container">
+                    {project.title}
+                </Col>
+            </Row>
+        </Container>
     )
 }

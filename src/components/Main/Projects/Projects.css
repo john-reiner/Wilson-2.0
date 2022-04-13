@@ -100,4 +100,9 @@
           align-items: center;
   margin-bottom: 1em;
 }
+
+#project-show-container {
+  border: solid red;
+  background-color: #FDF0D5;
+}
 /*# sourceMappingURL=Projects.css.map */

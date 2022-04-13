@@ -12,6 +12,7 @@ export default function Main(props) {
     const [navOpenCloseEvent, setNavOpenCloseEvent] = useState(false);
     const [viewToShow, setViewToShow] = useState(0);
     const [projectShowId, setProjectShowId] = useState(null);
+    const [projectTitle, setProjectTitle] = useState(null);
 
 
 
@@ -54,7 +55,7 @@ export default function Main(props) {
             viewTitle="Projects" 
 
             />,
-        <ProjectShow id={projectShowId} userId={props.user.id} viewTitle="Project" />,
+        <ProjectShow setProjectTitle={setProjectTitle} id={projectShowId} userId={props.user.id} viewTitle="Project" />,
         <NewProject viewTitle="New Project" setViewToShow={setViewToShow} userId={props.user.id}/>
     ]
 
@@ -70,7 +71,7 @@ export default function Main(props) {
             <div id="main-content">
                 <div id="main-content-heading">
                     {!navOpen && <div onClick={() => setNavOpenCloseEvent(true)} id="open-nav-button">></div>}
-                    <h2>{renderTitle()}</h2>
+                    <h2>{projectTitle ? projectTitle : renderTitle()}</h2>
                 </div>
 
                 {renderView(viewToShow, views)}

@@ -39,27 +39,6 @@ export default function Login(props) {
             },
             body: JSON.stringify({user: user})
         })
-        // console.log(user)
-        // fetch(`http://localhost:3001/login`, {
-        //     method: "POST",
-        //     headers: {
-        //         'Content-Type': 'application/json'
-        //     },
-        //     body: JSON.stringify({user: user})
-        // })
-        // .then(response => response.json())
-        // .then(payload => {
-        //     if (payload.status === "unauthorized") {
-        //         setErrorShow(true)
-        //         setErrors(payload.message)
-        //     } else if (payload.status === "ok") {
-        //         localStorage.setItem('wilsonUserToken', payload.token)
-        //         props.setToken(payload.token)
-        //     } else {
-        //         console.error(payload)
-        //     }
-        // })
-        // .catch(errors => console.error(errors))
     }
 
     return (

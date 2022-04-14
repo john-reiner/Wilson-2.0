@@ -23,6 +23,7 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem('wilsonUserToken')) {
       fetchUser()
+      setComponentIndex(3)
     }
   }, [token]);
 

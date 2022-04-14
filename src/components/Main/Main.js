@@ -2,7 +2,6 @@ import React, {useState, useEffect} from 'react'
 import './Main.css'
 import Projects from './Projects/Projects';
 import ProjectShow from './Projects/ProjectShow'
-import HomeView from './Home/HomeView';
 import NewProject from './Projects/New/NewProject'
 
 
@@ -18,7 +17,7 @@ export default function Main(props) {
 
     const handleProjectShow = id => {
         setProjectShowId(id)
-        setViewToShow(2)
+        setViewToShow(1)
     }
 
     // useEffect(() => {
@@ -54,13 +53,11 @@ export default function Main(props) {
     }
 
     const views = [
-        <HomeView user={props.user} viewTitle="Home" />,
         <Projects 
             setViewToShow={setViewToShow}
             handleProjectShow={handleProjectShow} 
             userId={props.user.id} 
             viewTitle="Projects" 
-
             />,
         <ProjectShow setProjectTitle={setProjectTitle} id={projectShowId} userId={props.user.id} viewTitle="Project" />,
         <NewProject viewTitle="New Project" setViewToShow={setViewToShow} userId={props.user.id}/>
@@ -71,8 +68,7 @@ export default function Main(props) {
             <div id="left-bar-container">
                 <div onClick={() => setNavOpenCloseEvent(true)} id="close-nav-button">X</div>
                 <ul id="left-nav-list">
-                    <li onClick={() => setViewToShow(0)} className="left-nav-item">Home</li>
-                    <li onClick={() => setViewToShow(1)} className="left-nav-item">Projects</li>
+                    <li onClick={() => setViewToShow(0)} className="left-nav-item">Projects</li>
                 </ul>
             </div>
             <div id="main-content">

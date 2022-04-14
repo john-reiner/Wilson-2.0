@@ -13,7 +13,7 @@ export default function Projects(props) {
         if (props.userId) {
             fetchProjects()
         }
-    }, []);
+    }, [props.userId]);
 
     const fetchProjects = () => {
         fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
@@ -57,7 +57,7 @@ export default function Projects(props) {
         <Container fluid>
             <Row>
                 <Col id="new-project-button-container">
-                    <div className="show-button" onClick={() => props.setViewToShow(3)}>New Project</div>
+                    <div className="show-button" onClick={() => props.setViewToShow(2)}>New Project</div>
                 </Col>
             </Row>
             <Row>

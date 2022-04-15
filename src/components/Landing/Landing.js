@@ -13,7 +13,7 @@ export default function Landing(props) {
                         <Stack gap={4}>
                             <h1 className="display-1 text-secondary text-center" id="wilson-text">Wilson</h1>
                             <h2 className="text-white text-center">A project management app built for individuals and small teams.</h2>
-                            <Button variant="dark" id="landing-button" onClick={() => props.setComponentIndex(1)}>Get Started</Button>{' '}
+                            <Button variant="dark" id="landing-button" onClick={() => props.setAppComponent("signup")}>Get Started</Button>{' '}
                         </Stack>
 
                     </Col>

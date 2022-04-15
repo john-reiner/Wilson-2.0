@@ -14,7 +14,7 @@ export default function App() {
 
   const [token, setToken] = useState(null);
   // const [user, setUser] = useState({});
-  const [componentIndex, setComponentIndex] = useState(0);
+  const [appComponent, setAppComponent] = useState('landing');
   const [loggedIn, setLoggedIn] = useState(false);
 
   const [{requestedData: user, errors, loading}, goFetch] = useFetch(null)
@@ -23,7 +23,8 @@ export default function App() {
   useEffect(() => {
     if (localStorage.getItem('wilsonUserToken')) {
       fetchUser()
-      setComponentIndex(3)
+      setAppComponent('main')
+      setLoggedIn(true)
     }
   }, [token]);
 
@@ -31,7 +32,7 @@ export default function App() {
     setToken(null)
     localStorage.removeItem('wilsonUserToken')
     setLoggedIn(false)
-    setComponentIndex(0)
+    setAppComponent(0)
   }
 
   const fetchUser = () => {
@@ -44,20 +45,24 @@ export default function App() {
     })
   }
 
-  const renderView = (index) => {
-    let componentViews = [
-      <Landing setComponentIndex={setComponentIndex} />,
-      <SignUp setToken={setToken} />,
-      <Login setToken={setToken} setComponentIndex={setComponentIndex}/>,
-      <Main user={user} />
-    ]
-    return componentViews[index]
+  const renderView = (componentViewName, componentViews) => {
+    if (componentViewName) {
+      let combo = componentViews.find(combo => combo[1] === componentViewName)
+      return combo[0]
+    }
   }
+  
+  let componentViews = [
+    [<Landing setAppComponent={setAppComponent} />, "landing"],
+    [<SignUp setToken={setToken} />, "signup"],
+    [<Login setToken={setToken} setAppComponent={setAppComponent}/>, "login"],
+    [<Main user={user} />, "main"]
+  ]
 
   return (
       <div>
-        <NavBar logout={logout} firstName={user.first_name} loggedIn={loggedIn} setComponentIndex={setComponentIndex}/>
-        {renderView(componentIndex)}
+        <NavBar logout={logout} firstName={user.first_name} loggedIn={loggedIn} setAppComponent={setAppComponent}/>
+        {renderView(appComponent, componentViews)}
       </div>
   );
 }

@@ -7,34 +7,17 @@ import NavBar from './NavBar'
 import Main from './components/Main/Main'
 import Login from './components/Login'
 import Landing from './components/Landing/Landing';
-import SignUp from './components/SignUp';
+import SignUp from './components/SignUp/SignUp';
 
 
 export default function App() {
 
   const [token, setToken] = useState(null);
-  // const [user, setUser] = useState({});
   const [appComponent, setAppComponent] = useState('landing');
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [{requestedData: user, errors, loading}, goFetch] = useFetch(null)
-
-  // checks localStorage for a user token every time app is rendered
-  useEffect(() => {
-    if (localStorage.getItem('wilsonUserToken')) {
-      fetchUser()
-      setAppComponent('main')
-      setLoggedIn(true)
-    }
-  }, [token]);
-
-  const logout = () => {
-    setToken(null)
-    localStorage.removeItem('wilsonUserToken')
-    setLoggedIn(false)
-    setAppComponent(0)
-  }
-
+  const [{requestedData: user}, goFetch] = useFetch(null)
+  
   const fetchUser = () => {
     goFetch('http://localhost:3001/api/v2/users/user', {
       method: 'GET',
@@ -44,6 +27,23 @@ export default function App() {
       }
     })
   }
+  // checks localStorage for a user token every time app is rendered
+  useEffect(() => {
+    if (localStorage.getItem('wilsonUserToken')) {
+      fetchUser()
+      setAppComponent('main')
+      setLoggedIn(true)
+    }
+  }, [token, fetchUser]);
+
+  const logout = () => {
+    setToken(null)
+    localStorage.removeItem('wilsonUserToken')
+    setLoggedIn(false)
+    setAppComponent(0)
+  }
+
+
 
   const renderView = (componentViewName, componentViews) => {
     if (componentViewName) {

@@ -1,5 +1,9 @@
-import React, {useState} from 'react';
-import { Navbar, Container, Nav, NavDropdown, Button, Stack} from 'react-bootstrap';
+import React from 'react';
+import Navbar from 'react-bootstrap/Navbar'
+import Container from 'react-bootstrap/Container'
+import Nav from 'react-bootstrap/Nav'
+import Button from 'react-bootstrap/Button'
+import Stack from 'react-bootstrap/Stack'
 
 const NavBar = (props) => {
 

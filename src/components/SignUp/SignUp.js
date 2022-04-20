@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Stack, Button } from 'react-bootstrap';
-import SignUpStepOne from './SignUpStepOne';
+import SignUpStepOne from './steps/SignUpStepOne';
 import SignUpStepTwo from './SignUpStepTwo'
 
 export default function SignUp(props) {
@@ -26,7 +26,10 @@ export default function SignUp(props) {
         }
     }, [nextStep, step]);
 
-    const handleChange = (e) => setNewUser({...newUser, [e.target.name]: e.target.value})
+    const handleChange = (e) => {
+        
+        setNewUser({...newUser, [e.target.name]: e.target.value})
+    }
     
     const handleSubmit = e => {
         setErrors({})
@@ -66,9 +69,9 @@ export default function SignUp(props) {
     }
 
     return (
-        <Container id="login-container">
+        <Container>
             <Row>
-                <Col id="signup-container">
+                <Col className="mt-5 form-container">
                     <Stack gap={3}>
                         <h2 className="text-center" >Welcome to <span className="text-secondary" id="wilson-text">Wilson</span></h2>
                         <p className="text-center" >Get started - it's free!</p>

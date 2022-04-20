@@ -1,9 +1,10 @@
 import React, {useState} from 'react'
+import useFetch from '../../../hooks/useFetch'
 import { Form, FloatingLabel, Stack, Button, Col, Row } from 'react-bootstrap'
 
 export default function SignUpStepTwo(props) {
-    const [loading, setLoading] = useState(false);
-    const [errors, setErrors] = useState('');
+
+    const [{requestedData, loading, errors}, goFetch, clearFetch] = useFetch(null)
 
     const handleSubmit = e => {
         setLoading(true)

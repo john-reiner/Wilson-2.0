@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import useFetch from '../../../hooks/useFetch'
 import { Form, FloatingLabel, Stack, Button, Col, Row } from 'react-bootstrap'
 
@@ -6,33 +6,54 @@ export default function SignUpStepTwo(props) {
 
     const [{requestedData, loading, errors}, goFetch, clearFetch] = useFetch(null)
 
+    useEffect(() => {
+        if (requestedData.length > 0) {
+            localStorage.setItem("wilsonUserToken", requestedData)
+            props.setToken(requestedData)
+        }
+
+        if (errors.length > 0) {
+            console.log(errors)
+        }
+    }, [requestedData]);
+
     const handleSubmit = e => {
-        setLoading(true)
         e.preventDefault()
-        fetch("http://localhost:3001/api/v2/users", {
+
+        goFetch("http://localhost:3001/api/v2/users",  {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({user: props.newUser})
         })
-        .then(response => response.json())
-        .then(payload => {
-            if (payload.status === "ok") {
-                localStorage.setItem("wilsonUserToken", payload.token)
-                props.setToken(payload.token)
-            }
-        })
-        .catch(errors => {
-            setErrors("Database Error: Please try again later.")
-            setLoading(false)
-            console.error(errors)
-        })
+
+        // fetch("http://localhost:3001/api/v2/users", {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({user: props.newUser})
+        // })
+        // .then(response => response.json())
+        // .then(payload => {
+        //     if (payload.status === "ok") {
+        //         localStorage.setItem("wilsonUserToken", payload.token)
+        //         props.setToken(payload.token)
+        //     }
+        // })
+        // .catch(errors => {
+        //     setErrors("Database Error: Please try again later.")
+        //     setLoading(false)
+        //     console.error(errors)
+        // })
     }
+
+    
 
     return (
         <Form onSubmit={handleSubmit} id='signup-form'>
-            <h6 className="text-center">Welcome <span className="text-secondary">{props.newUser.email}</span>!</h6> 
+            <h6 className="text-center">elksome <span className="text-secondary">{props.newUser.email}</span>!</h6> 
             <h6 className="text-center mb-3">Please fill out the form below.</h6>
             <Row>
                 <Col>
@@ -57,7 +78,7 @@ export default function SignUpStepTwo(props) {
                 </Col>
             </Row>
             <Stack>
-                <Button id={'login-button'} variant="dark" type="submit">Next</Button>
+                {/* <Button variant="secondary" type="submit">N</Button> */}
             </Stack>
         </Form>
     )

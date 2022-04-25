@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Stack, Button } from 'react-bootstrap';
 import SignUpStepOne from './steps/SignUpStepOne';
-import SignUpStepTwo from './SignUpStepTwo'
+import SignUpStepTwo from './steps/SignUpStepTwo'
 
 export default function SignUp(props) {
 

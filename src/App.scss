@@ -3,6 +3,7 @@
 
 #wilson-text {
     font-family: "Permanent Marker";
+    color: #C1121F;
 }
 #wilson-text:hover {
     cursor: pointer;
@@ -31,8 +32,10 @@
 }
 
 #nav-bar {
-    background-color: #003049;
-    color: #FDF0D5;
+    
+    background-color: black;
+    color: #fff;
+    // color: #FDF0D5;
 }
 
 .nav {
@@ -56,4 +59,14 @@
 
 .form-floating {
     color: black;
+}
+
+.primary-button-one {
+    // border: solid red;
+    background-color: #669BBC;
+    padding: 1em;
+    border-radius: 3px;
+    text-align: center;
+
+
 }

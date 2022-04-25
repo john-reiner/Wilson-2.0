@@ -10,12 +10,15 @@ export default function Landing(props) {
                 <Row>
                     <Col>
                         <Row className="mt-5">
-                            <Col sm={4}>
-                                <h1 id="landing-heading"> <span className="text-secondary" id="wilson-text">Wilson</span> is your project management HQ</h1>
+                            <Col id="landing-image-container" sm={4}>
+                                <img id="landing-image" src="landing.svg" alt="landing"/>
                             </Col>      
-                            <Col sm={8}>
-                                <h2>A project management app built for individuals and small teams.</h2>
-                                <Button variant="dark" id="landing-button" onClick={() => props.setAppComponent("signup")}>Get Started</Button>{' '}
+                            <Col id="landing-heading-container" sm={8}>
+                                <div id="landing-heading">
+                                    <h1><span id="wilson-text">Wilson</span></h1>
+                                    <h2>Your project management HQ</h2>
+                                    <div className="primary-button-one" onClick={() => props.setAppComponent("signup")}>Get Started</div>
+                                </div>
                             </Col>              
                         </Row>
 

@@ -8,8 +8,8 @@ export default function SignUpStepTwo(props) {
 
     useEffect(() => {
         if (requestedData.length > 0) {
-            localStorage.setItem("wilsonUserToken", requestedData)
-            props.setToken(requestedData)
+            // localStorage.setItem("wilsonUserToken", requestedData)
+            // props.setToken(requestedData)
         }
 
         if (errors.length > 0) {
@@ -53,7 +53,7 @@ export default function SignUpStepTwo(props) {
 
     return (
         <Form onSubmit={handleSubmit} id='signup-form'>
-            <h6 className="text-center">elksome <span className="text-secondary">{props.newUser.email}</span>!</h6> 
+            <h6 className="text-center">Welcome <span className="text-secondary">{props.newUser.email}</span>!</h6> 
             <h6 className="text-center mb-3">Please fill out the form below.</h6>
             <Row>
                 <Col>
@@ -78,7 +78,7 @@ export default function SignUpStepTwo(props) {
                 </Col>
             </Row>
             <Stack>
-                {/* <Button variant="secondary" type="submit">N</Button> */}
+                <Button variant="secondary" type="submit">Submit</Button>
             </Stack>
         </Form>
     )

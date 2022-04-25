@@ -1,10 +1,38 @@
 #landing-container {
   height: 700px;
   background-color: #FDF0D5;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
-#landing-heading {
-  font-size: 44px;
+#landing-heading-container {
+  color: #003049;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+#landing-heading h1 {
+  font-size: 90px;
+}
+
+#landing-heading h2 {
+  font-size: 40px;
+}
+
+#landing-image {
+  width: 100%;
+}
+
+#landing-image-container {
+  max-width: 500px;
 }
 
 #landing-button {

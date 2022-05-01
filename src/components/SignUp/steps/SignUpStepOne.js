@@ -1,9 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import useFetch from '../../../hooks/useFetch';
-import Form from 'react-bootstrap/Form'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import Stack from 'react-bootstrap/Stack'
-import Button from 'react-bootstrap/Button'
+
 
 export default function SignUpStepOne(props) {
 
@@ -32,18 +29,20 @@ export default function SignUpStepOne(props) {
     console.log({requestedData, loading, errors})
 
     return (
-        <Form onSubmit={handleSubmit} id='signup-form'>
-            {error.length > 0 && <small className='text-secondary'>{errors}</small>}
-            <FloatingLabel
-                controlId="floatingInput"
-                label="Email address"
-                className="mb-3"
-            >
-            <Form.Control type="email" placeholder="name@example.com" name={'email'} value={props.newUser.email} onChange={props.handleChange} required/>
-            </FloatingLabel>
-            <Stack>
-                {loading ? <Button variant="secondary" disabled>Loading...</Button> : <Button id={'login-button'} variant="secondary" type="submit">Next</Button>}
-            </Stack>
-        </Form>
+        <div>Signup Step one</div>
     )
 }
+
+        // <Form onSubmit={handleSubmit} id='signup-form'>
+        //     {error.length > 0 && <small className='text-secondary'>{errors}</small>}
+        //     <FloatingLabel
+        //         controlId="floatingInput"
+        //         label="Email address"
+        //         className="mb-3"
+        //     >
+        //     <Form.Control type="email" placeholder="name@example.com" name={'email'} value={props.newUser.email} onChange={props.handleChange} required/>
+        //     </FloatingLabel>
+        //     <Stack>
+        //         {loading ? <Button variant="secondary" disabled>Loading...</Button> : <Button id={'login-button'} variant="secondary" type="submit">Next</Button>}
+        //     </Stack>
+        // </Form>

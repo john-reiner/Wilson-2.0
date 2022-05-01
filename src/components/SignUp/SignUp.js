@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col, Stack, Button } from 'react-bootstrap';
 import SignUpStepOne from './steps/SignUpStepOne';
 import SignUpStepTwo from './steps/SignUpStepTwo'
 
@@ -69,20 +68,23 @@ export default function SignUp(props) {
     }
 
     return (
-        <Container>
-            <Row>
-                <Col className="mt-5 form-container">
-                    <Stack gap={3}>
-                        <h2 className="text-center" >Welcome to <span className="text-secondary" id="wilson-text">Wilson</span></h2>
-                        <p className="text-center" >Get started - it's free!</p>
-                        {signupSteps(step)}
-                        <h6 className="text-center">Already have an account?<Button onClick={() => props.setComponentIndex(1)} variant="link">Login</Button></h6>
-                    </Stack>
-                </Col>
-            </Row>
-        </Container>
+        <div>
+            Sign up
+        </div>
     )
 }
+        // <Container>
+        //     <Row>
+        //         <Col className="mt-5 form-container">
+        //             <Stack gap={3}>
+        //                 <h2 className="text-center" >Welcome to <span className="text-secondary" id="wilson-text">Wilson</span></h2>
+        //                 <p className="text-center" >Get started - it's free!</p>
+        //                 {signupSteps(step)}
+        //                 <h6 className="text-center">Already have an account?<Button onClick={() => props.setComponentIndex(1)} variant="link">Login</Button></h6>
+        //             </Stack>
+        //         </Col>
+        //     </Row>
+        // </Container>
     //     <Modal
     //         show={props.signupShow}
     //         onHide={props.handleSignupClose}

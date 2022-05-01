@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import { Container, Row, Col } from 'react-bootstrap';
 import useFetch from '../../../hooks/useFetch';
 
 
@@ -28,12 +27,16 @@ export default function ProjectShow(props) {
     }, [project]);
 
     return (
-        <Container fluid>
-            <Row>
-                <Col id="project-show-container">
-                    {project.title}
-                </Col>
-            </Row>
-        </Container>
+        <div>
+            Project show
+        </div>
     )
 }
+
+        // <Container fluid>
+        //     <Row>
+        //         <Col id="project-show-container">
+        //             {project.title}
+        //         </Col>
+        //     </Row>
+        // </Container>

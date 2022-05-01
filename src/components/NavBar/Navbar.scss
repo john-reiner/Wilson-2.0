@@ -1,0 +1,24 @@
+#navbar-container {
+    background-color: #100B00;
+    position: fixed;
+    top: 0;
+    width: 100%;
+
+}
+
+#right-side-items {
+    color: whitesmoke;
+    padding: .5em .5em;
+    margin: 0;
+    border: solid red 1px;
+    float: right;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    /* height: 100px; */
+}
+
+#right-side-items li {
+    border: solid greenyellow 1px;
+    margin: 0 .5em;
+}

@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import useFetch from './hooks/useFetch'
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.scss';
+import useFetch from '../../hooks/useFetch'
+import './App.css';
 
-import NavBar from './NavBar'
-import Main from './components/Main/Main'
-import Login from './components/Login'
-import Landing from './components/Landing/Landing';
-import SignUp from './components/SignUp/SignUp';
+import NavBar from '../NavBar/NavBar'
+import Main from '../Main/Main'
+import Login from '../Login/Login'
+import Landing from '../Landing/Landing';
+import SignUp from '../SignUp/SignUp';
 
 
 export default function App() {

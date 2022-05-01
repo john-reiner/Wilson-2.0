@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react'
 import useFetch from '../../../../hooks/useFetch'
-import Form from 'react-bootstrap/Form'
-import FloatingLabel from 'react-bootstrap/FloatingLabel'
-import Button from 'react-bootstrap/Button'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 
 
 export default function NewProject(props) {
@@ -52,63 +46,60 @@ export default function NewProject(props) {
     console.log(errors)
 
     return (
-        <Container>
-
-            <Row>
-
-                <Col className="mt-5 form-container">
-                    <Form onSubmit={handleSubmit}>
-                        <h4>Create a New Project</h4>
-                        <small>Configure your new projects basic settings. Click next to add more options.</small>
-                        <hr></hr>
-                        {(errors && errors.title) ? <small style={{color: "red"}}>{errors.title[0]}</small> : null}
-                        <FloatingLabel controlId="floatingTextarea" label="Project Title" className="mb-3">
-                            <Form.Control placeholder="Title" name="title" onChange={handleChange} value={newProject.title}/>
-                        </FloatingLabel>
-                        {(errors && errors.description) ? <small style={{color: "red"}}>{errors.title[0]}</small> : null}
-                        <FloatingLabel controlId="floatingTextarea2" label="Description" className="mb-3">
-                            <Form.Control
-                                as="textarea"
-                                placeholder="Description"
-                                style={{ height: '100px' }}
-                                name="description"
-                                onChange={handleChange}
-                                value={newProject.description}
-                            />
-                        </FloatingLabel>
-                        <FloatingLabel controlId="floatingTextarea" label="GitHub URL" className="mb-3">
-                            <Form.Control placeholder="Github" name="github_url" onChange={handleChange} value={newProject.github_url}/>
-                        </FloatingLabel>
-                        <div>
-                            <Form.Check
-                                type={'radio'}
-                                label={"Public"}
-                                name="public"
-                                className="mb-3"
-                                onChange={handlePublicTrue}
-                                value={true}
-                                checked={newProject.public}
-                                style={{color: "#fff"}}
-                            />
-                            <Form.Check
-                                type={'radio'}
-                                label={"Private"}
-                                name="public"
-                                className="mb-3"
-                                
-                                onChange={handlePublicFalse}
-                                value={false}
-                                checked={!newProject.public}
-                                // style={{color: "red"}}
-                            />
-                        </div>
-
-                        {loading ? <Button variant="secondary" disabled >Loading...</Button> : <Button variant="secondary" type="submit">Next</Button>}
-                    </Form>
-
-                </Col>
-            </Row>
-
-        </Container>
+        <div>
+            <h4>Create a New Project</h4>
+            <small>Configure your new projects basic settings. Click next to add more options.</small>
+            <hr></hr>
+        </div>
     )
 }
+
+// {(errors && errors.title) ? <small style={{color: "red"}}>{errors.title[0]}</small> : null}
+// <FloatingLabel controlId="floatingTextarea" label="Project Title" className="mb-3">
+//     <Form.Control placeholder="Title" name="title" onChange={handleChange} value={newProject.title}/>
+// </FloatingLabel>
+// {(errors && errors.description) ? <small style={{color: "red"}}>{errors.title[0]}</small> : null}
+// <FloatingLabel controlId="floatingTextarea2" label="Description" className="mb-3">
+//     <Form.Control
+//         as="textarea"
+//         placeholder="Description"
+//         style={{ height: '100px' }}
+//         name="description"
+//         onChange={handleChange}
+//         value={newProject.description}
+//     />
+// </FloatingLabel>
+// <FloatingLabel controlId="floatingTextarea" label="GitHub URL" className="mb-3">
+//     <Form.Control placeholder="Github" name="github_url" onChange={handleChange} value={newProject.github_url}/>
+// </FloatingLabel>
+// <div>
+//     <Form.Check
+//         type={'radio'}
+//         label={"Public"}
+//         name="public"
+//         className="mb-3"
+//         onChange={handlePublicTrue}
+//         value={true}
+//         checked={newProject.public}
+//         style={{color: "#fff"}}
+//     />
+//     <Form.Check
+//         type={'radio'}
+//         label={"Private"}
+//         name="public"
+//         className="mb-3"
+        
+//         onChange={handlePublicFalse}
+//         value={false}
+//         checked={!newProject.public}
+//         // style={{color: "red"}}
+//     />
+// </div>
+
+// {loading ? <Button variant="secondary" disabled >Loading...</Button> : <Button variant="secondary" type="submit">Next</Button>}
+// </Form>
+
+// </Col>
+// </Row>
+
+// </Container>

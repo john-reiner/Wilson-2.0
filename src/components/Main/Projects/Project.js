@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import ProjectTab from './ProjectTab';
 import Info from './Tabs/Info';
 import Features from './Tabs/Features';
-import Col from 'react-bootstrap/Col'
 
 
 
@@ -37,19 +36,16 @@ export default function Project(props) {
     }
 
     return (
-        <Col>
-            <div className="project-container">
-                <div className="project-nav">
-                    <ul className="project-nav-list">
-                        {renderTabs(tabComponents)}
-                    </ul>
-                </div>
-                <div className="project-body">
-                    {renderContent(tabComponents, projectTabIndex)}
-                    <div className="show-button" onClick={() => props.handleProjectShow(props.id)}>Show</div>
-                </div>
+        <div className="project-container">
+            <div className="project-nav">
+                <ul className="project-nav-list">
+                    {renderTabs(tabComponents)}
+                </ul>
             </div>
-
-        </Col>
+            <div className="project-body">
+                {renderContent(tabComponents, projectTabIndex)}
+                <div className="show-button" onClick={() => props.handleProjectShow(props.id)}>Show</div>
+            </div>
+        </div>
     )
 }

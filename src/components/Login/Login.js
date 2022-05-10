@@ -44,6 +44,13 @@ export default function Login(props) {
         <div>
             {error.length > 0 && <h3 className="text-center" style={{color: "red"}}>{error}</h3>}
             <h3 className="text-center" >Log in to your account</h3>
+            <form>
+                <label className="mb-3">Email:</label>
+                <input type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/> 
+                <label for="password">Password:</label>
+                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
+                <input type="submit" value="Submit"/>
+            </form>
         </div>
     )
 }

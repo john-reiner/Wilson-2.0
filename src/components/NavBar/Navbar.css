@@ -1,28 +1,74 @@
-#navbar-container {
-  background-color: #100B00;
-  position: fixed;
-  top: 0;
-  width: 100%;
+* {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+  margin: 0;
 }
 
-#right-side-items {
-  color: whitesmoke;
-  padding: .5em .5em;
+nav {
+  background-color: #EEF0F2;
+  padding: .5px 20px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
   margin: 0;
-  border: solid red 1px;
-  float: right;
-  list-style: none;
+}
+
+.navbar-menu li {
+  color: #100b00;
+  padding: 15px 5px;
+}
+
+.navbar-menu li:hover {
+  cursor: pointer;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.navbar-menu {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  /* height: 100px; */
 }
 
-#right-side-items li {
-  border: solid greenyellow 1px;
-  margin: 0 .5em;
+.bars {
+  background-color: #999;
+  display: inline-block;
+  height: 2px;
+  position: relative;
+  width: 18px;
+}
+
+.bars::before, .bars::after {
+  background-color: #999;
+  content: "";
+  display: inline-block;
+  height: 2px;
+  position: absolute;
+  width: 18px;
+}
+
+.bars::before {
+  top: 5px;
+}
+
+.bars::after {
+  bottom: 5px;
+}
+
+.toggle {
+  cursor: pointer;
 }
 /*# sourceMappingURL=Navbar.css.map */

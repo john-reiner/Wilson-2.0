@@ -1,5 +1,4 @@
-@import "custom";
-@import "~bootstrap/scss/bootstrap";
+@import "../../custom.scss";
 
 #wilson-text {
     font-family: "Permanent Marker";
@@ -39,7 +38,7 @@
 }
 
 .nav {
-    color: #FDF0D5;
+    color: whitesmoke;
 }
 
 .form-container {

@@ -22,15 +22,15 @@ const NavBar = (props) => {
     // }
 
     return (
-        <div id="navbar-container">
-            <ul id="left-side-items">
-                <li id="navbar-logo">Wilson</li>             
+        <nav>
+            <ul className='navbar-menu'>
+                <li className="logo" onClick={() => props.setAppComponent("landing")}>Wilson</li>
+                <li className="item">About</li>
+                <li className="item button" onClick={() => props.setAppComponent("signup")}>Sign Up</li>
+                <li className="item button" onClick={() => props.setAppComponent("login")}>Login</li>
+                <li className="toggle"><span className="bars"></span></li>
             </ul>
-            <ul id="right-side-items">
-                <li>Login</li>
-                <li>Sign Up</li>
-            </ul>
-        </div>
+        </nav>
     );
 };
 export default NavBar;

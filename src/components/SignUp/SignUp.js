@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
+import useFetch from '../../hooks/useFetch';
+import Container from 'react-bootstrap/Container';
 import SignUpStepOne from './steps/SignUpStepOne';
 import SignUpStepTwo from './steps/SignUpStepTwo'
 
 export default function SignUp(props) {
 
-    const [errors, setErrors] = useState({})
-    const [loading, setLoading] = useState(false);
     const [newUser, setNewUser] = useState({
         email: "",
         first_name: "",
@@ -15,6 +15,8 @@ export default function SignUp(props) {
     });
     const [step, setStep] = useState(0);
     const [nextStep, setNextStep] = useState(false);
+
+    const [{requestedData: token, loading, errors}, goFetch, clearFetch] = useFetch(null)
 
     useEffect(() => {
         if (nextStep) {
@@ -31,32 +33,40 @@ export default function SignUp(props) {
     }
     
     const handleSubmit = e => {
-        setErrors({})
         e.preventDefault()
-        fetch("http://localhost:3001/api/v1/users", {
+
+        goFetch(`http://localhost:3001/api/v2/users`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({user: newUser})
         })
-        .then(response => response.json())
-        .then(payload => {
-            if (payload.errors) {
-                setErrors(payload.errors)
-            } else {
-                localStorage.setItem('wilsonUserToken', payload.token)
-                props.setToken(payload.token)
-                props.handleSignupClose()
-            }
-            setLoading(false)
-        })
-        .catch(errors => {
-            setErrors("Database Error: Please try again later.")
-            setLoading(false)
-            console.error(errors)
-        })
-        setLoading(true)
+        // setErrors({})
+        // fetch("http://localhost:3001/api/v1/users", {
+        //     method: "POST",
+        //     headers: {
+        //         'Content-Type': 'application/json'
+        //     },
+        //     body: JSON.stringify({user: newUser})
+        // })
+        // .then(response => response.json())
+        // .then(payload => {
+        //     if (payload.errors) {
+        //         setErrors(payload.errors)
+        //     } else {
+        //         localStorage.setItem('wilsonUserToken', payload.token)
+        //         props.setToken(payload.token)
+        //         props.handleSignupClose()
+        //     }
+        //     setLoading(false)
+        // })
+        // .catch(errors => {
+        //     setErrors("Database Error: Please try again later.")
+        //     setLoading(false)
+        //     console.error(errors)
+        // })
+        // setLoading(true)
     }
 
     const signupSteps = index => {
@@ -67,10 +77,26 @@ export default function SignUp(props) {
         return forms[index]
     }
 
+    console.log(token, loading, errors)
+
     return (
-        <div>
-            Sign up
-        </div>
+        <Container>
+            <h3 className="text-center" >Create a New Account</h3>
+            <form onSubmit={handleSubmit}>
+                <label>Email:</label><br></br>
+                <input type="email" placeholder="name@example.com" name={'email'} value={newUser.email} onChange={handleChange} required/> <br></br>
+                
+                <label>First Name:</label><br></br>
+                <input type="text" placeholder="First Name" name={'first_name'} value={newUser.first_name} onChange={handleChange} required/> <br></br>
+                <label>Last Name:</label><br></br>
+                <input type="text" placeholder="Last Name" name={'last_name'} value={newUser.last_name} onChange={handleChange} required/> <br></br>
+                <label>Password:</label><br></br>
+                <input type="password" placeholder="Password" name={'password'} value={newUser.password} onChange={handleChange} required/><br></br>
+                <label>Password Confirmation:</label><br></br>
+                <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/><br></br>
+                <input type="submit" value="Submit"/>
+            </form>
+        </Container>
     )
 }
         // <Container>

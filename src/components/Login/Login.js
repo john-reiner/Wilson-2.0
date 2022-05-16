@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import Container from 'react-bootstrap/Container';
 import useFetch from '../../hooks/useFetch';
 
 export default function Login(props) {
@@ -41,17 +42,17 @@ export default function Login(props) {
     }
 
     return (
-        <div>
+        <Container>
             {error.length > 0 && <h3 className="text-center" style={{color: "red"}}>{error}</h3>}
             <h3 className="text-center" >Log in to your account</h3>
             <form>
-                <label className="mb-3">Email:</label>
-                <input type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/> 
-                <label for="password">Password:</label>
-                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
+                <label>Email:</label><br></br>
+                <input type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/><br></br>
+                <label for="password">Password:</label><br></br>
+                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/><br></br>
                 <input type="submit" value="Submit"/>
             </form>
-        </div>
+        </Container>
     )
 }
 

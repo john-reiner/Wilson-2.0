@@ -55,7 +55,7 @@
 }
 
 nav {
-    background-color: #EEF0F2;
+    background-color: black;
     padding: .5px 20px;
 }
 
@@ -66,7 +66,7 @@ ul {
 }
 
 .navbar-menu li {
-    color: #100b00;
+    color: #EEF0F2;
     // font-size: 18px;
     padding: 15px 5px;
     
@@ -76,9 +76,11 @@ ul {
     cursor: pointer;
 }
 
-.logo {
+#logo {
     // border: solid red 1px;
     font-size: 24px;
+    font-family: 'Permanent Marker', cursive;
+    color: #85CB33;
 }
 // Mobile Menu
 
@@ -90,7 +92,7 @@ ul {
 }
 
 .bars {
-    background-color: #999;
+    background-color: #EEF0F2;
     display: inline-block;
     height: 2px;
     position: relative;
@@ -98,7 +100,7 @@ ul {
 }
 
 .bars::before,.bars::after{
-    background-color: #999;
+    background-color: #EEF0F2;
     content:"";
     display: inline-block;
     height: 2px;

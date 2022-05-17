@@ -25,7 +25,7 @@ const NavBar = (props) => {
     return (
         <nav>
             <ul className='navbar-menu'>
-                <li className="logo" onClick={() => props.setAppComponent("landing")}>Wilson</li>
+                <li id="logo" onClick={() => props.setAppComponent("landing")}>Wilson</li>
                 <li className="item">About</li>
                 {renderLogin()}
                 <li className="toggle"><span className="bars"></span></li>

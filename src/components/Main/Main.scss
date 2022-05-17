@@ -5,16 +5,17 @@
 #left-bar-container {
     width: fit-content;
     margin-right: 200px;
-    background-color: #003049;
-    color: #FDF0D5;
+    background-color: black;
+    color: #EEF0F2;
     position: fixed;
     height: 100%;
     transition: 0.5s;
+    // border-top: solid 1px #85CB33;
 }
 
 #main-content {
-    background-color: #669BBC;
-    color: #003049;
+    background-color: #100b00;
+    color: #EEF0F2;
     height: 100%;
     width: calc(100% - 200px);
     position: fixed;
@@ -28,14 +29,14 @@
 #close-nav-button {
     padding: .5em;
     margin: .5em;
-    border-radius: 5px;
+    // border-radius: 5px;
     float: right;
 }
 
 #close-nav-button:hover {
+    background-color: #85CB33;
+    color: #100B00;
     cursor: pointer;
-    background-color: #C1121F;
-    box-shadow: 5px 5px 5px black;
 }
 
 #close-nav-button:active {
@@ -46,17 +47,16 @@
     position: absolute;
     left: 0;
     padding: .5em;
-
-    border-top-right-radius: 5px;
-    border-bottom-right-radius: 5px;
     width: fit-content;
-    background-color: #003049;
-    color: #FDF0D5;
+    margin-left: 1em;
+    // border-radius: 2px;
+    background-color: #85CB33;
+    color: #100b00;
 }
 
 #open-nav-button:hover {
     cursor: pointer;
-    background-color: #C1121F;
+    background-color: #85CB33;
 }
 
 #left-nav-list {
@@ -68,25 +68,21 @@
 
 .left-nav-item {
     list-style: none;
-    background-color: #C1121F;
+    // background-color: #85CB33;
+    color: #EEF0F2;
     padding: .5em 1em .5em 2em;
     padding-left: 2em;
     padding-top: .5em ;
     padding-bottom: .5em ;
-    margin: .5em;
-    border-radius: 5px;
-    box-shadow: 5px 5px 5px black;
+    margin: .5em 0;
+    // border-radius: 5px;
+    // box-shadow: 5px 5px 5px #EEF0F2;
 }
 
 .left-nav-item:hover {
-    background-color: #780000;
+    background-color: #85CB33;
+    color: #100B00;
     cursor: pointer;
-}
-
-.left-nav-item:active {
-    box-shadow: none;
-    cursor: pointer;
-    background-color: #C1121F;
 }
 
 #main-content-heading {

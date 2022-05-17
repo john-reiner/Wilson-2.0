@@ -51,8 +51,8 @@ export default function Projects(props) {
     }
 
     return (
-        <div>
-            all projects
+        <div id="projects-container">
+            {renderProjects()}
         </div>
     )
 }
@@ -66,7 +66,6 @@ export default function Projects(props) {
         //     <Row>
         //         <Col id="projects-container">
         //             <Row xs={1} sm={1} md={1} lg={2} xl={2} xxl={3}>
-        //                 {renderProjects()}
         //             </Row>
         //         </Col>
         //     </Row>            

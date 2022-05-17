@@ -9,8 +9,6 @@ import Login from '../Login/Login'
 import Landing from '../Landing/Landing';
 import SignUp from '../SignUp/SignUp';
 
-import { Button } from 'react-bootstrap';
-
 export default function App() {
 
   const [token, setToken] = useState(null);
@@ -19,6 +17,7 @@ export default function App() {
 
   const [{requestedData: user}, goFetch] = useFetch(null)
   
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const fetchUser = () => {
     goFetch('http://localhost:3001/api/v2/users/user', {
       method: 'GET',
@@ -28,15 +27,18 @@ export default function App() {
       }
     })
   }
+  
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
-    if (localStorage.getItem('wilsonUserToken')) {
+    let userToken = localStorage.getItem('wilsonUserToken')
+    if (userToken.length > 100 && !loggedIn) {
       fetchUser()
       setAppComponent('main')
       setLoggedIn(true)
     }
-  }, [token, fetchUser]);
-
+  }, [token, fetchUser, loggedIn]);
+  
+  
   const logout = () => {
     setToken(null)
     localStorage.removeItem('wilsonUserToken')
@@ -62,7 +64,7 @@ export default function App() {
 
   return (
       <div>
-        <NavBar logout={logout} firstName={user.first_name} loggedIn={loggedIn} setAppComponent={setAppComponent}/>
+        <NavBar logout={logout} firstName={user.first_name} setAppComponent={setAppComponent}/>
         {renderView(appComponent, componentViews)}
       </div>
   );

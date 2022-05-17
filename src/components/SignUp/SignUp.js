@@ -13,22 +13,19 @@ export default function SignUp(props) {
         password: "",
         password_confirmation: ""
     });
-    const [step, setStep] = useState(0);
-    const [nextStep, setNextStep] = useState(false);
+    // const [step, setStep] = useState(0);
+    // const [nextStep, setNextStep] = useState(false);
 
     const [{requestedData: token, loading, errors}, goFetch, clearFetch] = useFetch(null)
 
     useEffect(() => {
-        if (nextStep) {
-            let newStep = step
-            newStep ++ 
-            setStep(newStep)
-            setNextStep(false)
+        if (token.length > 1) {
+            localStorage.setItem('wilsonUserToken', token)
+            props.setToken(token)
         }
-    }, [nextStep, step]);
+    }, [token, props]);
 
     const handleChange = (e) => {
-        
         setNewUser({...newUser, [e.target.name]: e.target.value})
     }
     
@@ -69,13 +66,13 @@ export default function SignUp(props) {
         // setLoading(true)
     }
 
-    const signupSteps = index => {
-        let forms = [
-            <SignUpStepOne setNextStep={setNextStep} newUser={newUser} handleChange={handleChange} />,
-            <SignUpStepTwo setToken={props.setToken} setNextStep={setNextStep} newUser={newUser} handleChange={handleChange} />
-        ]
-        return forms[index]
-    }
+    // const signupSteps = index => {
+    //     let forms = [
+    //         <SignUpStepOne setNextStep={setNextStep} newUser={newUser} handleChange={handleChange} />,
+    //         <SignUpStepTwo setToken={props.setToken} setNextStep={setNextStep} newUser={newUser} handleChange={handleChange} />
+    //     ]
+    //     return forms[index]
+    // }
 
     console.log(token, loading, errors)
 
@@ -94,8 +91,9 @@ export default function SignUp(props) {
                 <input type="password" placeholder="Password" name={'password'} value={newUser.password} onChange={handleChange} required/><br></br>
                 <label>Password Confirmation:</label><br></br>
                 <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/><br></br>
-                <input type="submit" value="Submit"/>
+                {!loading ? <input type="submit" value="Submit"/> : "loading..."}
             </form>
+            <div>{errors && errors[0]}</div>
         </Container>
     )
 }

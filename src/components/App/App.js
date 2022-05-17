@@ -11,9 +11,9 @@ import SignUp from '../SignUp/SignUp';
 
 export default function App() {
 
-  const [token, setToken] = useState(null);
   const [appComponent, setAppComponent] = useState('landing');
   const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedInStatusChange, setLoggedInStatusChange] = useState(true);
 
   const [{requestedData: user}, goFetch] = useFetch(null)
   
@@ -30,20 +30,19 @@ export default function App() {
   
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
-    let userToken = localStorage.getItem('wilsonUserToken')
-    if (userToken.length > 100 && !loggedIn) {
+    if (localStorage.wilsonUserToken !== undefined && !loggedIn) {
+      console.log("Fetching User...")
       fetchUser()
-      setAppComponent('main')
       setLoggedIn(true)
+      setLoggedInStatusChange(false)
+      setAppComponent('main')
     }
-  }, [token, fetchUser, loggedIn]);
-  
-  
+  }, [fetchUser, loggedIn, loggedInStatusChange]);
+
   const logout = () => {
-    setToken(null)
     localStorage.removeItem('wilsonUserToken')
     setLoggedIn(false)
-    setAppComponent(0)
+    setAppComponent('login')
   }
 
 
@@ -57,14 +56,14 @@ export default function App() {
   
   let componentViews = [
     [<Landing setAppComponent={setAppComponent} />, "landing"],
-    [<SignUp setToken={setToken} />, "signup"],
-    [<Login setToken={setToken} setAppComponent={setAppComponent}/>, "login"],
+    [<SignUp />, "signup"],
+    [<Login setLoggedInStatusChange={setLoggedInStatusChange} setAppComponent={setAppComponent}/>, "login"],
     [<Main user={user} />, "main"]
   ]
 
   return (
       <div>
-        <NavBar logout={logout} firstName={user.first_name} setAppComponent={setAppComponent}/>
+        <NavBar loggedIn={loggedIn} logout={logout} firstName={user.first_name} setAppComponent={setAppComponent}/>
         {renderView(appComponent, componentViews)}
       </div>
   );

@@ -13,13 +13,16 @@ export default function Login(props) {
     const [{requestedData: token, loading, errors}, goFetch, clearFetch] = useFetch(null)
 
     useEffect(() => {
+        
         if (token.length > 0) {
+            console.log("hi")
             localStorage.setItem('wilsonUserToken', token)
-            props.setToken(token)
-        } else if (errors.length > 0) {
+            props.setLoggedInStatusChange(true)
+        } 
+        if (errors.length > 0) {
             setError(errors)
         }
-    }, [token, errors]);
+    }, [token, errors, props]);
 
     const handleChange = (e) => {
         if (error.length > 0) {
@@ -31,7 +34,6 @@ export default function Login(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault()
-
         goFetch(`http://localhost:3001/login`, {
             method: "POST",
             headers: {
@@ -45,10 +47,10 @@ export default function Login(props) {
         <Container>
             {error.length > 0 && <h3 className="text-center" style={{color: "red"}}>{error}</h3>}
             <h3 className="text-center" >Log in to your account</h3>
-            <form>
+            <form onSubmit={handleSubmit}>
                 <label>Email:</label><br></br>
                 <input type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/><br></br>
-                <label for="password">Password:</label><br></br>
+                <label>Password:</label><br></br>
                 <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/><br></br>
                 <input type="submit" value="Submit"/>
             </form>

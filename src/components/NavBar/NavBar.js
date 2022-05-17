@@ -3,31 +3,31 @@ import './Navbar.css'
 
 const NavBar = (props) => {
 
-    // const renderLogin = () => {
-    //     if (props.loggedIn) {
-    //         return (
-    //             <Stack direction="horizontal" gap={4}>
-    //                 <Nav.Link onClick={props.logout}>Logout</Nav.Link>
-    //                 <Button variant="secondary" onClick={null}>{props.firstName}</Button>
-    //             </Stack>
-    //         )
-    //     } else {
-    //         return (
-    //             <Stack direction="horizontal" gap={4}>
-    //                 <Nav.Link onClick={() => props.setAppComponent('login')}>Login</Nav.Link>
-    //                 <Button variant="secondary" onClick={() => props.setAppComponent('signup')}>Get Started</Button>
-    //             </Stack>
-    //         )
-    //     }
-    // }
+    const renderLogin = () => {
+        if (!props.loggedIn) {
+            return (
+                <div>
+                    <li className="item button" onClick={() => props.setAppComponent("signup")}>Sign Up</li>
+                    <li className="item button" onClick={() => props.setAppComponent("login")}>Login</li>
+                </div>
+            )
+        } else {
+            return (
+                <div>
+                    <li className="item button" onClick={props.logout}>Logout</li>
+                </div>
+            )
+        }
+    }
+
+
 
     return (
         <nav>
             <ul className='navbar-menu'>
                 <li className="logo" onClick={() => props.setAppComponent("landing")}>Wilson</li>
                 <li className="item">About</li>
-                <li className="item button" onClick={() => props.setAppComponent("signup")}>Sign Up</li>
-                <li className="item button" onClick={() => props.setAppComponent("login")}>Login</li>
+                {renderLogin()}
                 <li className="toggle"><span className="bars"></span></li>
             </ul>
         </nav>

@@ -11,7 +11,7 @@ export default function Project(props) {
     const [projectTabIndex, setProjectTabIndex] = useState(0);
 
     let tabComponents = [
-        <Info tabName="Info" />,
+        <Info github_url={props.github_url} public={props.public} description={props.description} tabName="Info" />,
         <Features tabName="Features"/>        
     ]
 
@@ -38,6 +38,7 @@ export default function Project(props) {
     return (
         <div className="project-container">
             <div className="project-nav">
+                <div className='project-nav-title'>{props.title}</div>
                 <ul className="project-nav-list">
                     {renderTabs(tabComponents)}
                 </ul>

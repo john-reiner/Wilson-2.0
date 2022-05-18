@@ -1,7 +1,11 @@
 import React from 'react'
 
-export default function Info() {
+export default function Info(props) {
     return (
-        <div>Info</div>
+        <div>
+            <p>{props.description}</p>
+            <p><a href={props.github_url}>GitHub</a></p>
+            {props.public && <p>Public</p>}
+        </div>
     )
 }

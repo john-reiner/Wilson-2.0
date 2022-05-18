@@ -39,6 +39,9 @@ export default function Projects(props) {
                         id={project.id} 
                         key={project.id} 
                         title={project.title}
+                        description={project.description}
+                        github_url={project.github_url}
+                        public={project.public}
                         setViewToShow={props.setViewToShow}
                         handleProjectShow={props.handleProjectShow}
                         />
@@ -49,6 +52,8 @@ export default function Projects(props) {
             )
         }
     }
+
+    console.log(projects)
 
     return (
         <div id="projects-container">

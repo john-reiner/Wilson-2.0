@@ -5,26 +5,22 @@
 
 .project-container {
   margin-bottom: 1em;
-  border-radius: 5px;
-  -webkit-box-shadow: 5px 5px 5px black;
-          box-shadow: 5px 5px 5px black;
 }
 
 .project-nav {
-  background-color: #003049;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  color: #FDF0D5;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  color: white;
 }
 
 .project-nav-list {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  margin: .5em .5em 0 1em;
   padding: 0;
 }
 
@@ -33,60 +29,47 @@
   padding: .5em;
 }
 
+.project-nav-title {
+  padding: .5em;
+}
+
 .project-nav-item:hover {
   list-style: none;
   padding: .5em;
-  border: solid #FDF0D5 1px;
+  border: solid #85CB33 1px;
   border-bottom: none;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
   cursor: pointer;
 }
 
 .project-nav-item-active {
   list-style: none;
-  background-color: #FDF0D5;
-  color: #003049;
+  background-color: #85CB33;
+  border: #85CB33 solid 1px;
+  color: black;
   padding: .5em;
-  border: solid #FDF0D5 1px;
-  border-bottom: none;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  border-bottom-left-radius: -50px;
+  padding-bottom: 1px;
+  position: relative;
+  z-index: 2;
 }
 
 .project-body {
-  background-color: #FDF0D5;
-  border: #003049 solid 2px;
-  border-top: none;
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  padding: 1em;
+  background-color: black;
+  border: #85CB33 solid 1px;
+  padding: .5em;
 }
 
 .show-button {
   width: -webkit-fit-content;
   width: -moz-fit-content;
   width: fit-content;
-  color: #FDF0D5;
+  color: black;
   list-style: none;
-  background-color: #C1121F;
+  background-color: #85CB33;
   padding: .5em;
-  border-radius: 5px;
-  -webkit-box-shadow: 5px 5px 5px black;
-          box-shadow: 5px 5px 5px black;
 }
 
 .show-button:hover {
-  background-color: #780000;
   cursor: pointer;
-}
-
-.show-button:active {
-  -webkit-box-shadow: none;
-          box-shadow: none;
-  cursor: pointer;
-  background-color: #C1121F;
 }
 
 #new-project-button-container {

@@ -7,12 +7,14 @@ export default function ProjectNotes(props) {
     if (props.notes.length > 0) {
         return props.notes.map(note => {
             return <Note 
-                        title={note.title}
+                      title={note.title}
+                      content={note.content}
+                      key={note.id}
                     />
         })
     } else {
         return (
-            <p>No Projects</p>
+            <p>No Notes</p>
         )
     }
   }

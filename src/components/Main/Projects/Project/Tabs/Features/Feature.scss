@@ -1,0 +1,19 @@
+.feature-container {
+    border: #85CB33 solid 1px;
+    margin: 1em;
+    padding: 1em;
+}
+
+.feature-title-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px #85CB33 solid;
+}
+
+.feature-content-container {
+    margin-top: 1em;
+    background-color: #111;
+    border: #85CB33 solid 1px;
+    padding: 1em;
+}

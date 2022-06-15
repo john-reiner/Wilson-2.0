@@ -1,8 +1,6 @@
 #projects-container {
-
-    // margin-top: 10vh;
     height: 100%;
-    padding: 0 1em;
+    padding: 1em;
 }
 
 .projects-project-container {
@@ -11,13 +9,9 @@
 }
 
 .project-nav {
-    // background-color: #100b00;
     display: flex;
     justify-content: space-between;
     color: white;
-    // border-bottom: #85CB33 solid 1px;
-    // border-top-left-radius: 5px;
-    // border-top-right-radius: 5px;
 }
 
 .project-nav-list {
@@ -30,9 +24,6 @@
 .projects-project-body {
     background-color: black;
     border: #85CB33 solid 1px;
-    // border-top: none;
-    // border-bottom-left-radius: 5px;
-    // border-bottom-right-radius: 5px;
     padding: .5em;
 }
 

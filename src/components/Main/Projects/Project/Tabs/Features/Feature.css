@@ -1,0 +1,26 @@
+.feature-container {
+  border: #85CB33 solid 1px;
+  margin: 1em;
+  padding: 1em;
+}
+
+.feature-title-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-bottom: 1px #85CB33 solid;
+}
+
+.feature-content-container {
+  margin-top: 1em;
+  background-color: #111;
+  border: #85CB33 solid 1px;
+  padding: 1em;
+}
+/*# sourceMappingURL=Feature.css.map */

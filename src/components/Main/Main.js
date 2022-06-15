@@ -47,10 +47,10 @@ export default function Main(props) {
 
     const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
 
-    const renderTitle = () => {
-        let view = renderView(viewToShow, views)
-        return view.props.viewTitle
-    }
+    // const renderTitle = () => {
+    //     let view = renderView(viewToShow, views)
+    //     return view.props.viewTitle
+    // }
 
     const views = [
         <Projects 
@@ -72,9 +72,9 @@ export default function Main(props) {
                 </ul>
             </div>
             <div id="main-content">
-                <div id="main-content-heading">
+                <div>
                     {!navOpen && <div onClick={() => setNavOpenCloseEvent(true)} id="open-nav-button">></div>}
-                    <h2>{projectTitle ? projectTitle : renderTitle()}</h2>
+                    {/* <h2>{projectTitle ? projectTitle : renderTitle()}</h2> */}
                 </div>
 
                 {renderView(viewToShow, views)}

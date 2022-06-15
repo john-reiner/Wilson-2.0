@@ -4,6 +4,7 @@
   padding: 1em;
   margin: 1em;
   border-radius: 2px;
+  height: calc(100vh - 6em);
 }
 
 #project-show-nav {
@@ -45,5 +46,10 @@
   color: black;
   padding: .5em;
   border-radius: 2px;
+}
+
+#project-show-title {
+  text-align: center;
+  color: #85CB33;
 }
 /*# sourceMappingURL=Project.css.map */

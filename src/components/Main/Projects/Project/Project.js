@@ -14,7 +14,7 @@ export default function ProjectShow(props) {
 
     const fetchProject = () => {
         console.log("fetching project")
-        fetch(`http://localhost:3001/api/v2/users/1/projects/1`)
+        fetch(`http://localhost:3001/api/v2/users/${props.user_id}/projects/${props.id}`)
         .then(response => response.json())
         .then(payload => {
             setProject(payload)
@@ -71,6 +71,8 @@ export default function ProjectShow(props) {
 
     return (
         <div id='project-show-container'>
+            <h2 id="project-show-title">{project.title}</h2>
+            <hr></hr>
             <ul id="project-show-nav">
                 {renderTabs(tabComponents)}
             </ul>

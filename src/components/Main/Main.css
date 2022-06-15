@@ -87,21 +87,6 @@
   cursor: pointer;
 }
 
-#main-content-heading {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  margin: .5em 0;
-  padding: .5em;
-  border-bottom: #003049 solid 1px;
-}
-
 #main-content-heading h2 {
   margin: 0;
 }

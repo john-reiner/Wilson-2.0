@@ -53,4 +53,17 @@
   text-align: center;
   color: #85CB33;
 }
+
+#new-project-button {
+  padding: .5em;
+  margin: 1em;
+  border: solid #85CB33 1px;
+  border-radius: 2px;
+  text-align: center;
+}
+
+#new-project-button:hover {
+  cursor: pointer;
+  background-color: black;
+}
 /*# sourceMappingURL=Project.css.map */

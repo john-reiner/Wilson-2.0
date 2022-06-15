@@ -1,9 +1,12 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Feature from './Feature'
+import NewFeature from './NewFeature';
 
 export default function Features(props) {
 
-    console.log(props.features)
+    const [newFeatureFormShow, setNewFeatureFormShow] = useState(false);
+
+    console.log(newFeatureFormShow)
 
     const renderFeatures = () => {
         if (props.features.length > 0) {
@@ -17,15 +20,15 @@ export default function Features(props) {
             })
         } else {
             return (
-                <p>No Projects</p>
+                <p>No Features</p>
             )
         }
     }
 
     return (
         <div>
-            <div id="new-feature-button">New Feature</div>
-            {renderFeatures()}
+            {!newFeatureFormShow && <div id="new-feature-button" onClick={() => setNewFeatureFormShow(true)}>New Feature</div>}
+            {newFeatureFormShow ? <NewFeature /> : renderFeatures()}
         </div>
     )
 }

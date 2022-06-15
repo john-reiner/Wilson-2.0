@@ -55,6 +55,7 @@ export default function Projects(props) {
 
     return (
         <div id="projects-container">
+            <div id="new-project-button" onClick={() => props.setViewToShow(2)}>Create a New Project</div>
             {renderProjects()}
         </div>
     )

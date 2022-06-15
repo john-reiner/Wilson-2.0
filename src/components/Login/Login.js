@@ -15,7 +15,7 @@ export default function Login(props) {
     useEffect(() => {
         
         if (token.length > 0) {
-            console.log("hi")
+
             localStorage.setItem('wilsonUserToken', token)
             props.setLoggedInStatusChange(true)
         } 

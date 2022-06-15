@@ -46,7 +46,7 @@ export default function ProjectShow(props) {
     let tabComponents = [
         <ProjectInfo github_url={project.github_url} public={project.public} description={project.description} tabName="Info" />,
         <ProjectFeatures features={project.features} tabName="Features"/>,      
-        <ProjectNotes tabName="Notes" />,
+        <ProjectNotes notes={project.notes} tabName="Notes" />,
     ]
 
     const renderTabs = (tabsArray) => {

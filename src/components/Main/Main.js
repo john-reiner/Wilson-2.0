@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Main.css'
 import Projects from './Projects/Projects';
-import ProjectShow from './Projects/ProjectShow'
+import Project from './Projects/Project/Project'
 import NewProject from './Projects/New/NewProject'
 
 
@@ -59,7 +59,7 @@ export default function Main(props) {
             userId={props.user.id} 
             viewTitle="Projects" 
             />,
-        <ProjectShow setProjectTitle={setProjectTitle} id={projectShowId} userId={props.user.id} viewTitle="Project" />,
+        <Project setProjectTitle={setProjectTitle} id={projectShowId} userId={props.user.id} viewTitle="Project" />,
         <NewProject viewTitle="New Project" setViewToShow={setViewToShow} userId={props.user.id}/>
     ]
 

@@ -45,8 +45,6 @@ export default function App() {
     setAppComponent('login')
   }
 
-
-
   const renderView = (componentViewName, componentViews) => {
     if (componentViewName) {
       let combo = componentViews.find(combo => combo[1] === componentViewName)

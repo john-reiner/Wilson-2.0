@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import './Projects.css'
-import Project from './Project';
+import MainProject from './MainProject/MainProject';
 
 export default function Projects(props) {
 
@@ -35,15 +35,15 @@ export default function Projects(props) {
     const renderProjects = () => {
         if (projects.length > 0) {
             return projects.map(project => {
-                return <Project 
-                        id={project.id} 
-                        key={project.id} 
-                        title={project.title}
-                        description={project.description}
-                        github_url={project.github_url}
-                        public={project.public}
-                        setViewToShow={props.setViewToShow}
-                        handleProjectShow={props.handleProjectShow}
+                return <MainProject 
+                            id={project.id} 
+                            key={project.id} 
+                            title={project.title}
+                            description={project.description}
+                            github_url={project.github_url}
+                            public={project.public}
+                            setViewToShow={props.setViewToShow}
+                            handleProjectShow={props.handleProjectShow}
                         />
             })
         } else {
@@ -53,25 +53,9 @@ export default function Projects(props) {
         }
     }
 
-    console.log(projects)
-
     return (
         <div id="projects-container">
             {renderProjects()}
         </div>
     )
 }
-
-        // <Container fluid>
-        //     <Row>
-        //         <Col id="new-project-button-container">
-        //             <div className="show-button" onClick={() => props.setViewToShow(2)}>New Project</div>
-        //         </Col>
-        //     </Row>
-        //     <Row>
-        //         <Col id="projects-container">
-        //             <Row xs={1} sm={1} md={1} lg={2} xl={2} xxl={3}>
-        //             </Row>
-        //         </Col>
-        //     </Row>            
-        // </Container>

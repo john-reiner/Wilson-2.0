@@ -1,5 +1,5 @@
 import React from 'react'
-import Feature from './Features/Feature'
+import Feature from './Feature'
 
 export default function Features(props) {
 
@@ -24,6 +24,7 @@ export default function Features(props) {
 
     return (
         <div>
+            <div id="new-feature-button">New Feature</div>
             {renderFeatures()}
         </div>
     )

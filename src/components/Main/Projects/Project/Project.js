@@ -1,10 +1,9 @@
 import React, {useState, useEffect} from 'react'
-// import useFetch from '../../../../hooks/useFetch';
 import './Project.css'
 import ProjectTab from './ProjectTab';
 import ProjectInfo from './Tabs/ProjectInfo';
-import ProjectFeatures from './Tabs/ProjectFeatures';
-import ProjectNotes from './Tabs/ProjectNotes';
+import ProjectFeatures from './Tabs/Features/ProjectFeatures';
+import ProjectNotes from './Tabs/Notes/ProjectNotes';
 
 
 export default function ProjectShow(props) {

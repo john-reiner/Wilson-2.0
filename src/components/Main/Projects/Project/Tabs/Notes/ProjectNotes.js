@@ -10,6 +10,7 @@ export default function ProjectNotes(props) {
                       title={note.title}
                       content={note.content}
                       key={note.id}
+                      created={note.created}
                     />
         })
     } else {
@@ -21,7 +22,7 @@ export default function ProjectNotes(props) {
 
   return (
     <div>
-      <h2>Notes</h2>
+      <div id="new-note-button">New Note</div>
       {renderNotes()}
     </div>
   )

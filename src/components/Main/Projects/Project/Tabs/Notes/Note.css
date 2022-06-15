@@ -1,10 +1,10 @@
-.feature-container {
+.note-container {
   border: #85CB33 solid 1px;
   margin: 1em;
   padding: 1em;
 }
 
-.feature-title-container {
+.note-title-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -17,14 +17,12 @@
   border-bottom: 1px #85CB33 solid;
 }
 
-.feature-content-container {
+.note-content-container {
   margin-top: 1em;
-  background-color: #111;
-  border: #85CB33 solid 1px;
   padding: 1em;
 }
 
-#new-feature-button {
+#new-note-button {
   padding: .5em;
   margin: 1em;
   border: solid #85CB33 1px;
@@ -32,8 +30,8 @@
   text-align: center;
 }
 
-#new-feature-button:hover {
+#new-note-button:hover {
   cursor: pointer;
   background-color: #111;
 }
-/*# sourceMappingURL=Feature.css.map */
+/*# sourceMappingURL=Note.css.map */

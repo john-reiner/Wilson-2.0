@@ -74,7 +74,6 @@ export default function SignUp(props) {
     //     return forms[index]
     // }
 
-    console.log(token, loading, errors)
 
     return (
         <Container>

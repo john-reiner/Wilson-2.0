@@ -6,8 +6,6 @@ export default function Features(props) {
 
     const [newFeatureFormShow, setNewFeatureFormShow] = useState(false);
 
-    console.log(newFeatureFormShow)
-
     const renderFeatures = () => {
         if (props.features.length > 0) {
             return props.features.map(feature => {

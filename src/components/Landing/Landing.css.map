@@ -1,9 +1,0 @@
-{
-    "version": 3,
-    "mappings": "AAsCA,AAAA,eAAe,CAAC;EAEZ,KAAK,EAAE,WAAW;EAClB,YAAY,EAAE,IAAI;EAClB,WAAW,EAAE,IAAI;CACpB",
-    "sources": [
-        "Landing.scss"
-    ],
-    "names": [],
-    "file": "Landing.css"
-}

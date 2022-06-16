@@ -58,16 +58,9 @@ export default function NewProject(props) {
         })
         .catch(errors => {
             console.error(errors)
-        })        // goFetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-        //     },
-        //     body: JSON.stringify({project: newProject})
-        //     })
+        })
     }
-    console.log(newProject)
+    
     return (
         <div id="new-project-container">
             <h2 id="new-project-title">Create a New Project</h2>

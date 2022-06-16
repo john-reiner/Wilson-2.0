@@ -31,7 +31,6 @@ export default function App() {
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
     if (localStorage.wilsonUserToken !== undefined && !loggedIn) {
-      console.log("Fetching User...")
       fetchUser()
       setLoggedIn(true)
       setLoggedInStatusChange(false)

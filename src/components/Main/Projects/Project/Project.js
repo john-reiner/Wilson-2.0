@@ -10,9 +10,10 @@ export default function ProjectShow(props) {
 
     const [projectTabIndex, setProjectTabIndex] = useState(0);
     const [project, setProject] = useState({});
+    const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
 
     const fetchProject = () => {
-        console.log("fetching project")
+        console.log("fetching")
         fetch(`http://localhost:3001/api/v2/users/${props.user_id}/projects/${props.id}`)
         .then(response => response.json())
         .then(payload => {
@@ -23,29 +24,15 @@ export default function ProjectShow(props) {
         })
     }
 
-    // const [{requestedData: project, errors, loading}, goFetch] = useFetch("")
-
-    // useEffect(() => {
-    //     if (props.id && props.userId) {
-    //         console.log(props.id, props.userId)
-    //         goFetch(`http://localhost:3001/api/v2/users/1/projects/1`, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //             }
-    //         })
-    //     }
-    // }, [props.id, props.userId]);
-
     useEffect(() => {
         fetchProject()
-    }, []);
+        setFetchAgainFlag(false)
+    }, [fetchAgainFlag]);
 
     let tabComponents = [
         <ProjectInfo github_url={project.github_url} public={project.public} description={project.description} tabName="Info" />,
         <ProjectFeatures features={project.features} tabName="Features"/>,      
-        <ProjectNotes notes={project.notes} tabName="Notes" />,
+        <ProjectNotes setFetchAgainFlag={setFetchAgainFlag} userId={props.userId} projectId={props.id} notes={project.notes} tabName="Notes" />,
     ]
 
     const renderTabs = (tabsArray) => {
@@ -62,10 +49,7 @@ export default function ProjectShow(props) {
         })
     }
 
-    console.log(project)
-
     const renderContent = (tabsArray, index) => tabsArray[index]
-
     const handleTabClick = (index) => setProjectTabIndex(index)
 
     return (

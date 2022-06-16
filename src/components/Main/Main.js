@@ -20,13 +20,6 @@ export default function Main(props) {
         setViewToShow(1)
     }
 
-    // useEffect(() => {
-    //     if (projectTitle) {
-    //         console.log(projectTitle)
-    //         setProjectTitle(null)
-    //     }
-    // }, []);
-
     useEffect(() => {
         if (navOpenCloseEvent) {
             if (navOpen) {

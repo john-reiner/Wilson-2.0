@@ -26,8 +26,6 @@ export default function SignUpStepOne(props) {
         )
     }
 
-    console.log({requestedData, loading, errors})
-
     return (
         <div>Signup Step one</div>
     )

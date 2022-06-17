@@ -26,7 +26,7 @@ export default function Features(props) {
     return (
         <div>
             {!newFeatureFormShow && <div id="new-feature-button" onClick={() => setNewFeatureFormShow(true)}>New Feature</div>}
-            {newFeatureFormShow ? <NewFeature /> : renderFeatures()}
+            {newFeatureFormShow ? <NewFeature setFetchAgainFlag={props.setFetchAgainFlag} projectId={props.projectId} userId={props.userId} setNewFeatureFormShow={setNewFeatureFormShow} /> : renderFeatures()}
         </div>
     )
 }

@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export default function NewFeature() {
+export default function NewFeature(props) {
 
     const [newFeature, setNewFeature] = useState({
         title: "",
@@ -9,8 +9,36 @@ export default function NewFeature() {
         public: 'false',
     });
 
+    console.log(props)
+
     const handleSubmit = e => {
         e.preventDefault()
+        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/features`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({feature: newFeature})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            if (payload.status === "created") {
+                setNewFeature(
+                    {
+                        title: "",
+                        description: "",
+                        due_date: "",
+                        public: 'false',
+                    }
+                    )
+                props.setFetchAgainFlag(true)
+                props.setNewFeatureFormShow(false)
+            }
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
     }
 
     const handleChange = e => setNewFeature({...newFeature, [e.target.name]:e.target.value})

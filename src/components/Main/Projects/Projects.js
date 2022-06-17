@@ -1,16 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import './Projects.css'
-import MainProject from './MainProject/MainProject';
+import MainProject from './ProjectLink/ProjectLink';
 
 export default function Projects(props) {
 
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        if (props.userId) {
-            fetchProjects()
-        }
-    }, [props.userId]);
+        fetchProjects()
+    }, []);
 
     const fetchProjects = () => {
         fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
@@ -55,7 +53,11 @@ export default function Projects(props) {
 
     return (
         <div id="projects-container">
-            <div id="new-project-button" onClick={() => props.setViewToShow(2)}>Create a New Project</div>
+            <div id="projects-show-heading">
+                <h4>Projects</h4>
+                <div id="new-project-button" onClick={() => props.setViewToShow(2)}>New Project</div>
+            </div>
+            <hr></hr>
             {renderProjects()}
         </div>
     )

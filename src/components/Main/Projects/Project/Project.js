@@ -31,7 +31,7 @@ export default function ProjectShow(props) {
 
     let tabComponents = [
         <ProjectInfo github_url={project.github_url} public={project.public} description={project.description} tabName="Info" />,
-        <ProjectFeatures features={project.features} tabName="Features"/>,      
+        <ProjectFeatures setFetchAgainFlag={setFetchAgainFlag} projectId={props.id} userId={props.userId} features={project.features} tabName="Features"/>,      
         <ProjectNotes setFetchAgainFlag={setFetchAgainFlag} userId={props.userId} projectId={props.id} notes={project.notes} tabName="Notes" />,
     ]
 

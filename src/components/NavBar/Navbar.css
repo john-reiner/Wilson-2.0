@@ -19,6 +19,7 @@ ul {
 .navbar-menu li {
   color: #EEF0F2;
   padding: 15px 5px;
+  margin-right: 1em;
 }
 
 .navbar-menu li:hover {
@@ -45,32 +46,9 @@ ul {
           align-items: center;
 }
 
-.bars {
-  background-color: #EEF0F2;
-  display: inline-block;
-  height: 2px;
-  position: relative;
-  width: 18px;
-}
-
-.bars::before, .bars::after {
-  background-color: #EEF0F2;
-  content: "";
-  display: inline-block;
-  height: 2px;
-  position: absolute;
-  width: 18px;
-}
-
-.bars::before {
-  top: 5px;
-}
-
-.bars::after {
-  bottom: 5px;
-}
-
-.toggle {
-  cursor: pointer;
+.navbar-right {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 /*# sourceMappingURL=Navbar.css.map */

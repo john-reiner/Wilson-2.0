@@ -1,6 +1,6 @@
 #projects-container {
     height: 100%;
-    padding: 1em;
+    padding: .5em 1em;
 }
 
 .projects-project-container {
@@ -39,10 +39,25 @@
     cursor: pointer;
 }
 
-#new-project-button-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 1em;
+#new-project-button {
+    padding: .1em .5em;
+    border: solid #85CB33 1px;
+    border-radius: 5px;
+    text-align: center;
 }
 
+#new-project-button:hover {
+    cursor: pointer;
+    background-color: black;
+}
+
+#projects-show-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // margin-bottom: 1em;
+}
+
+#projects-show-heading h4{
+    margin: 0;
+}

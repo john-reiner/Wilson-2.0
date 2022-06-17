@@ -1,42 +1,49 @@
 import React, { useState, useEffect } from 'react';
-import useFetch from '../../hooks/useFetch'
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import NavBar from '../NavBar/NavBar'
-import Main from '../Main/Main'
-import Login from '../Login/Login'
-import Landing from '../Landing/Landing';
-import SignUp from '../SignUp/SignUp';
+import NavBar from './components/NavBar/NavBar'
+import Main from './components/Main/Main'
+import Login from './components/Login/Login'
+import SignUp from './components/SignUp/SignUp';
 
 export default function App() {
 
-  const [appComponent, setAppComponent] = useState('landing');
+  const [appComponent, setAppComponent] = useState('login');
   const [loggedIn, setLoggedIn] = useState(false);
-  const [loggedInStatusChange, setLoggedInStatusChange] = useState(true);
-
-  const [{requestedData: user}, goFetch] = useFetch(null)
+  const [loggedInStatusChange, setLoggedInStatusChange] = useState(false);
+  const [userId, setUserId] = useState(null);
   
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const fetchUser = () => {
-    goFetch('http://localhost:3001/api/v2/users/user', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-      }
+    fetch('http://localhost:3001/api/v2/users/user', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+        }
     })
+    .then(response => response.json())
+    .then(data => {
+      if (data.status === "ok") {
+        setUserId(data.message.id)
+        setLoggedIn(true)
+        setAppComponent('main')
+      } else {
+        alert("something went wrong...")
+      }
+    });
   }
   
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
-    if (localStorage.wilsonUserToken !== undefined && !loggedIn) {
+    var wilsonToken = localStorage.getItem("wilsonUserToken")
+    if (wilsonToken) {
       fetchUser()
-      setLoggedIn(true)
       setLoggedInStatusChange(false)
       setAppComponent('main')
     }
-  }, [fetchUser, loggedIn, loggedInStatusChange]);
+  }, [loggedInStatusChange]);
 
   const logout = () => {
     localStorage.removeItem('wilsonUserToken')
@@ -52,15 +59,14 @@ export default function App() {
   }
   
   let componentViews = [
-    [<Landing setAppComponent={setAppComponent} />, "landing"],
-    [<SignUp />, "signup"],
+    [<SignUp setLoggedInStatusChange={setLoggedInStatusChange} />, "signup"],
     [<Login setLoggedInStatusChange={setLoggedInStatusChange} setAppComponent={setAppComponent}/>, "login"],
-    [<Main user={user} />, "main"]
+    [<Main userId={userId} />, "main"]
   ]
 
   return (
       <div>
-        <NavBar loggedIn={loggedIn} logout={logout} firstName={user.first_name} setAppComponent={setAppComponent}/>
+        <NavBar loggedIn={loggedIn} logout={logout} setAppComponent={setAppComponent}/>
         {renderView(appComponent, componentViews)}
       </div>
   );

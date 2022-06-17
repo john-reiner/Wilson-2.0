@@ -1,5 +1,5 @@
 import React from 'react'
-import './MainProject.css'
+import './ProjectLink.css'
 
 export default function Project(props) {
 

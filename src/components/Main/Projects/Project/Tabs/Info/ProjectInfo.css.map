@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,kBAAkB,CAAC;EACf,MAAM,EAAE,aAAa;CACxB;;AAED,AAAA,uBAAuB,CAAC;EACpB,MAAM,EAAE,cAAc;CACzB",
+    "sources": [
+        "ProjectInfo.scss"
+    ],
+    "names": [],
+    "file": "ProjectInfo.css"
+}

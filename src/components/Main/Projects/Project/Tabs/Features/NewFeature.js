@@ -9,8 +9,6 @@ export default function NewFeature(props) {
         public: 'false',
     });
 
-    console.log(props)
-
     const handleSubmit = e => {
         e.preventDefault()
         fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/features`, {

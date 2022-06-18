@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import './Project.css'
 import ProjectTab from './ProjectTab';
-import ProjectInfo from './Tabs/ProjectInfo';
+import ProjectInfo from './Tabs/Info/ProjectInfo';
 import ProjectFeatures from './Tabs/Features/ProjectFeatures';
 import ProjectNotes from './Tabs/Notes/ProjectNotes';
 
@@ -13,7 +13,6 @@ export default function ProjectShow(props) {
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
 
     const fetchProject = () => {
-        console.log("fetching")
         fetch(`http://localhost:3001/api/v2/users/${props.user_id}/projects/${props.id}`)
         .then(response => response.json())
         .then(payload => {

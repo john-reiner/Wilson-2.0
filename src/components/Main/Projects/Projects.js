@@ -1,10 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import './Projects.css'
-import MainProject from './ProjectLink/ProjectLink';
+import ProjectLink from './ProjectLink/ProjectLink';
 
 export default function Projects(props) {
 
     const [projects, setProjects] = useState([]);
+    
+
+    console.log(projects)
 
     useEffect(() => {
         fetchProjects()
@@ -22,7 +25,7 @@ export default function Projects(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "ok") {
-                setProjects(payload.projects)
+                setProjects(payload)
             } else {
                 console.error("Something went wrong")
             }
@@ -31,17 +34,17 @@ export default function Projects(props) {
     }
 
     const renderProjects = () => {
-        if (projects.length > 0) {
-            return projects.map(project => {
-                return <MainProject 
+        if (projects.projects) {
+            return projects.projects.map(project => {
+                return <ProjectLink 
                             id={project.id} 
                             key={project.id} 
                             title={project.title}
-                            description={project.description}
-                            github_url={project.github_url}
-                            public={project.public}
                             setViewToShow={props.setViewToShow}
                             handleProjectShow={props.handleProjectShow}
+                            author={project.author_first + " " + project.author_last}
+                            modified={project.modified}
+                            created={project.created}
                         />
             })
         } else {
@@ -58,7 +61,22 @@ export default function Projects(props) {
                 <div id="new-project-button" onClick={() => props.setViewToShow(2)}>New Project</div>
             </div>
             <hr></hr>
-            {renderProjects()}
+            <div id="all-projects-container">
+                <div id="all-projects-header">
+                    <h3>All Projects</h3>
+                    <span><b>{projects.projects_total}</b> total</span>
+                </div>
+                <table>
+                    <tr>
+                        <th><b>Name</b></th>
+                        <th><b>Author</b></th>
+                        <th><b>Modified</b></th>
+                        <th><b>Created</b></th>
+                    </tr>
+                    {renderProjects()}
+                </table>
+
+            </div>
         </div>
     )
 }

@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import Col from 'react-bootstrap/Col';
 import './Projects.css'
 import ProjectLink from './ProjectLink/ProjectLink';
 
@@ -66,9 +67,10 @@ export default function Projects(props) {
                     <h3>All Projects</h3>
                     <span><b>{projects.projects_total}</b> total</span>
                 </div>
-                <table>
-                    <tr>
-                        <th><b>Name</b></th>
+                <table id="links">
+                    <tr id="links-heading">
+                        <th className="link-title"><b>Title</b></th>
+                        
                         <th><b>Author</b></th>
                         <th><b>Modified</b></th>
                         <th><b>Created</b></th>

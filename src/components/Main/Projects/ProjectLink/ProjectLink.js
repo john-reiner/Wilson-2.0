@@ -1,4 +1,5 @@
 import React from 'react'
+import Col from 'react-bootstrap/Col';
 import './ProjectLink.css'
 
 export default function Project(props) {
@@ -27,13 +28,13 @@ export default function Project(props) {
     }
 
     return (
-        <tr onClick={() => props.handleProjectShow(props.id)}>
-            <td>{props.title}</td>
+        <tr onClick={() => props.handleProjectShow(props.id)} className='project-link'>
+            <td className='link-title'>{props.title}</td>
                 {/* <div className='project-title'><h4>{props.title}</h4></div>
                 <div className="show-button" onClick={() => props.handleProjectShow(props.id)}>Show</div> */}
-            <td>{props.author}</td>
-            <td>{convertDate(props.modified)}</td>
-            <td>{convertDate(props.created)}</td>
+            <td className='link-author'>{props.author}</td>
+            <td className='link-modified'>{convertDate(props.modified)}</td>
+            <td className='link-created'>{convertDate(props.created)}</td>
         </tr>
     )
 }

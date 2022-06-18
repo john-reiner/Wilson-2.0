@@ -63,7 +63,7 @@
 }
 
 #all-projects-container {
-    border: #85CB33 solid 1px;
+    border: grey solid 1px;
     border-radius: 5px;
 }
 
@@ -71,3 +71,25 @@
     padding: 1em;
 }
 
+#links {
+    width: 100%;
+}
+
+#links-heading {
+    border-bottom: solid grey 1px;
+    border-top: solid grey 1px;
+    margin-bottom: 1em;
+}
+
+.project-link {
+    border-top: 1px grey solid;
+}
+.link-title {
+    width: 50%;
+    padding: 0 1em;
+}
+
+.project-link:hover {
+    cursor: pointer;
+    background-color: #222;
+}

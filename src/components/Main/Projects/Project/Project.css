@@ -6,6 +6,9 @@
 #project-show-header {
   background-color: black;
   padding: 1em;
+}
+
+.header-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -15,6 +18,14 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.icons {
+  float: right;
+}
+
+.project-header-icon {
+  font-size: 24;
 }
 
 #project-show-nav {

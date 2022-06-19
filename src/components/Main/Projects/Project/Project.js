@@ -5,6 +5,8 @@ import ProjectInfo from './Tabs/Info/ProjectInfo';
 import ProjectFeatures from './Tabs/Features/ProjectFeatures';
 import ProjectNotes from './Tabs/Notes/ProjectNotes';
 
+import { FaGithub } from 'react-icons/fa'
+
 
 export default function ProjectShow(props) {
 
@@ -54,11 +56,16 @@ export default function ProjectShow(props) {
     return (
         <div id='project-show-container'>
             <div id='project-show-header'>
-                <h2 id="project-show-title">{project.title}</h2>
-                <div id="project-show-nav">
-                    {renderTabs(tabComponents)}
+                <div className="header-row">
+                    <h2 id="project-show-title">{project.title}</h2>
+                    <div id="project-show-nav">
+                        {renderTabs(tabComponents)}
+                    </div>
+                    <div id="edit-project-button">Edit</div>
                 </div>
-                <div id="edit-project-button">Edit</div>
+                <div className="header-row icons">
+                    <FaGithub className="project-header-icon"/>
+                </div>
 
             </div>
             <></>

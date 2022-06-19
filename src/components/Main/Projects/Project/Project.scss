@@ -7,9 +7,21 @@
 #project-show-header {
     background-color: black;
     padding: 1em;
+
+}
+
+.header-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.icons {
+    float: right;
+}
+
+.project-header-icon {
+    font-size: 24;
 }
 
 #project-show-nav {

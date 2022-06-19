@@ -1,4 +1,24 @@
 
 #project-info-container {
-    border: solid blue 1px;
+    padding: 1em;
+    
+}
+
+.info-section-container {
+    border: solid grey 1px;
+    width: fit-content;
+    min-width: 40%;
+    border-radius: 5px;
+}
+
+.container-heading {
+    border-bottom: 1px solid grey;
+    padding: .5em;
+}
+.container-heading h4 {
+    margin: 0;
+}
+
+.info-content-container{
+    padding: 1em;
 }

@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-import NavBar from './components/NavBar/NavBar'
 import Main from './components/Main/Main'
 import Login from './components/Login/Login'
 import SignUp from './components/SignUp/SignUp';
@@ -66,7 +65,6 @@ export default function App() {
 
   return (
       <div>
-        <NavBar loggedIn={loggedIn} logout={logout} setAppComponent={setAppComponent}/>
         {renderView(appComponent, componentViews)}
       </div>
   );

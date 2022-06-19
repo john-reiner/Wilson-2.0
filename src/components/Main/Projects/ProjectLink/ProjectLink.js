@@ -1,8 +1,7 @@
 import React from 'react'
-import Col from 'react-bootstrap/Col';
 import './ProjectLink.css'
 
-export default function Project(props) {
+export default function ProjectLink(props) {
 
     const convertDate = dateString => {
         function pad(n) {

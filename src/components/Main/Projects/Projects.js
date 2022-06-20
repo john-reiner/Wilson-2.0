@@ -68,7 +68,7 @@ export default function Projects(props) {
                 </div>
                 <table id="links">
                     <tr id="links-heading">
-                        <th className="link-title"><b>Title</b></th>
+                        <th className="link-title-head"><b>Title</b></th>
                         
                         <th><b>Author</b></th>
                         <th><b>Modified</b></th>

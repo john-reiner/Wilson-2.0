@@ -48,17 +48,22 @@
                 border-top: solid $grey 1px;
                 margin-bottom: 1em;
 
-                .link-title {
+                .link-title-head {
                     width: 50%;
                     padding: 0 1em;
                 }
             }
             .project-link {
                 border-top: 1px $grey solid;
+                .link-title {
+                    padding: 0 1em;
+                }
+
             }
             .project-link:hover {
                 cursor: pointer;
-                background-color: $blue;
+                // background-color: $blue;
+                color: $green;
             }
             
         }

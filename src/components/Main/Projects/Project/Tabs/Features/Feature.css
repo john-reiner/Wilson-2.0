@@ -41,12 +41,6 @@
   text-align: center;
 }
 
-form {
-  border: #85CB33 solid 1px;
-  padding: 1em;
-  border-radius: 5px;
-}
-
 form label {
   margin-bottom: 1em;
 }

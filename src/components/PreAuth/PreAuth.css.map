@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,eAAe,CAAC;EACZ,MAAM,EAAE,KAAK;EACb,gBAAgB,ECFb,OAAO;EDGV,KAAK,EAAE,UAAU;EACjB,OAAO,EAAE,IAAI;EACb,cAAc,EAAE,MAAM;EACtB,WAAW,EAAE,MAAM;EACnB,WAAW,EAAE,EAAE;CAUlB;;AAjBD,AAQI,eARW,CAQX,EAAE,CAAC;EACC,aAAa,EAAE,EAAE;EACjB,SAAS,EAAE,GAAG;CACjB;;AAXL,AAYI,eAZW,CAYX,YAAY,CAAC;EACT,KAAK,ECfL,OAAO;EDgBP,WAAW,EAAE,kBAAkB;CAClC",
+    "sources": [
+        "PreAuth.scss",
+        "../../Variables.scss"
+    ],
+    "names": [],
+    "file": "PreAuth.css"
+}

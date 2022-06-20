@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import './App.css';
+// import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Main from './components/Main/Main'
-import Login from './components/Login/Login'
-import SignUp from './components/SignUp/SignUp';
+
+import PreAuth from './components/PreAuth/PreAuth';
 
 export default function App() {
 
@@ -50,22 +50,24 @@ export default function App() {
     setAppComponent('login')
   }
 
-  const renderView = (componentViewName, componentViews) => {
-    if (componentViewName) {
-      let combo = componentViews.find(combo => combo[1] === componentViewName)
-      return combo[0]
-    }
-  }
+  // const renderView = (componentViewName, componentViews) => {
+  //   if (componentViewName) {
+  //     let combo = componentViews.find(combo => combo[1] === componentViewName)
+  //     return combo[0]
+  //   }
+  // }
   
-  let componentViews = [
-    [<SignUp setLoggedInStatusChange={setLoggedInStatusChange} />, "signup"],
-    [<Login setLoggedInStatusChange={setLoggedInStatusChange} setAppComponent={setAppComponent}/>, "login"],
-    [<Main userId={userId} />, "main"]
-  ]
+  // let componentViews = [
+  //   [<SignUp setLoggedInStatusChange={setLoggedInStatusChange} />, "signup"],
+  //   [<Login setLoggedInStatusChange={setLoggedInStatusChange} setAppComponent={setAppComponent}/>, "login"],
+  //   [<PreAuth />, "preauth"],
+  //   [<Main userId={userId} />, "main"]
+  // ]
 
   return (
       <div>
-        {renderView(appComponent, componentViews)}
+        {/* {renderView(appComponent, componentViews)} */}
+        {loggedIn ? <Main userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
       </div>
   );
 }

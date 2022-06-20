@@ -1,0 +1,27 @@
+.page-container {
+  height: 100vh;
+  background-color: #3e3e3f;
+  color: whitesmoke;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding-top: 5%;
+}
+
+.page-container h1 {
+  margin-bottom: 5%;
+  font-size: 4em;
+}
+
+.page-container .wilson-logo {
+  color: #85CB33;
+  font-family: "Permanent Marker";
+}
+/*# sourceMappingURL=PreAuth.css.map */

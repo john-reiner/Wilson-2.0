@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import Container from 'react-bootstrap/Container';
+import './Login.css'
 
 export default function Login(props) {
 
@@ -35,15 +35,17 @@ export default function Login(props) {
     }
 
     return (
-        <Container>
-            <h3 className="text-center" >Log in to your account</h3>
-            <form onSubmit={handleSubmit}>
-                <label>Email:</label><br></br>
-                <input type="email" placeholder="name@example.com" name={'email'} value={user.email} onChange={handleChange} required/><br></br>
-                <label>Password:</label><br></br>
-                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/><br></br>
-                <input type="submit" value="Submit"/>
+        <div className="form-container">
+            <div className="form-heading-container">
+                <h2>Login</h2>
+            </div>
+            <form onSubmit={handleSubmit} className="form-content-container">
+                <input type="email" placeholder="Email" name={'email'} value={user.email} onChange={handleChange} required/>
+                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
+                <input type="submit" value="Submit" className='submit-button'/>
+                <hr></hr>
+                <p id="signup-link" onClick={() => props.setComponentViewName("signup")}>Sign up for an account</p>
             </form>
-        </Container>
+        </div>
     )
 }

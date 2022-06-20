@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import Container from 'react-bootstrap/Container';
+import React, { useState } from 'react'
 
 export default function SignUp(props) {
 
@@ -15,7 +14,6 @@ export default function SignUp(props) {
     
     const handleSubmit = e => {
         e.preventDefault()
-        console.log(newUser)
         fetch('http://localhost:3001/api/v2/users', {
             method: 'POST',
             headers: {
@@ -39,7 +37,7 @@ export default function SignUp(props) {
 
 
     return (
-        <Container>
+        <div className="form-container">
             <h3 className="text-center" >Create a New Account</h3>
             <form onSubmit={handleSubmit}>
                 <label>Email:</label><br></br>
@@ -55,6 +53,6 @@ export default function SignUp(props) {
                 <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/><br></br>
                 <input type='submit' /><br></br>
             </form>
-        </Container>
+        </div>
     )
 }

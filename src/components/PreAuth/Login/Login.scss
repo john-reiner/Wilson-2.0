@@ -1,0 +1,50 @@
+@import '../../../Variables.scss';
+
+.form-container {
+    background-color: $white;
+    color: $dark;
+    width: fit-content;
+    // padding: 1em;
+    // border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    box-shadow: 0 0 10px $darker;
+    .form-heading-container {
+        // border: solid blue 1px;
+        padding: 1em;
+        // border-bottom: solid grey 1px;
+        text-align: center;
+        h2 {
+            margin: 0;
+        }
+    }
+    .form-content-container {
+        // border: solid orange 1px;
+        padding: 1em;
+        display: flex;
+        flex-direction: column;
+        input {
+            margin-bottom: 1em;
+            border: grey 2px solid;
+            padding: .5em;
+            background-color: $white;
+            border-radius: 5px;
+        };
+        .submit-button {
+            background-color: $blue;
+            color: $white;
+            border: none;
+        }
+        #signup-link {
+            color: $blue;
+            text-align: center;
+        }
+        #signup-link:hover {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
+}
+
+
+

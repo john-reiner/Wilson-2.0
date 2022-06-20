@@ -10,7 +10,7 @@ export default function PreAuth(props) {
     const [componentViewName, setComponentViewName] = useState('login');
 
     let componentViews = [
-        [<SignUp setLoggedInStatusChange={props.setLoggedInStatusChange} />, "signup"],
+        [<SignUp setComponentViewName={setComponentViewName} setLoggedInStatusChange={props.setLoggedInStatusChange} />, "signup"],
         [<Login setComponentViewName={setComponentViewName} setLoggedInStatusChange={props.setLoggedInStatusChange}/>, "login"],
     ]
 

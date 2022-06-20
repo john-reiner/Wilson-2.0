@@ -1,63 +1,9 @@
 #projects-container {
   height: 100%;
-  padding: .5em 1em;
+  color: whitesmoke;
 }
 
-.projects-project-container {
-  margin-bottom: 1em;
-  max-width: 700px;
-}
-
-.project-nav {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  color: white;
-}
-
-.project-nav-list {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  padding: 0;
-}
-
-.projects-project-body {
-  background-color: black;
-  border: #85CB33 solid 1px;
-  padding: .5em;
-}
-
-.show-button {
-  width: -webkit-fit-content;
-  width: -moz-fit-content;
-  width: fit-content;
-  color: black;
-  list-style: none;
-  background-color: #85CB33;
-  padding: .5em;
-}
-
-.show-button:hover {
-  cursor: pointer;
-}
-
-#new-project-button {
-  padding: .1em .5em;
-  border: solid #85CB33 1px;
-  border-radius: 5px;
-  text-align: center;
-}
-
-#new-project-button:hover {
-  cursor: pointer;
-  background-color: black;
-}
-
-#projects-show-heading {
+#projects-container #projects-show-heading {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -67,42 +13,61 @@
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  padding: .5em 1em;
+  border-bottom: grey solid 1px;
+  margin-bottom: 1em;
 }
 
-#projects-show-heading h4 {
+#projects-container #projects-show-heading h2 {
   margin: 0;
+  font-family: "Permanent Marker";
+  color: #85CB33;
 }
 
-#all-projects-container {
+#projects-container #projects-show-heading #new-project-button {
+  padding: .1em .5em;
+  background-color: #0075b3;
+  border: solid #005380 1px;
+  border-radius: 5px;
+  text-align: center;
+}
+
+#projects-container #projects-show-heading #new-project-button:hover {
+  cursor: pointer;
+  border: solid #85CB33 1px;
+}
+
+#projects-container #all-projects-container {
   border: grey solid 1px;
   border-radius: 5px;
+  margin: 1em;
 }
 
-#all-projects-header {
+#projects-container #all-projects-container #all-projects-header {
   padding: 1em;
 }
 
-#links {
+#projects-container #all-projects-container #links {
   width: 100%;
 }
 
-#links-heading {
+#projects-container #all-projects-container #links #links-heading {
   border-bottom: solid grey 1px;
   border-top: solid grey 1px;
   margin-bottom: 1em;
 }
 
-.project-link {
-  border-top: 1px grey solid;
-}
-
-.link-title {
+#projects-container #all-projects-container #links #links-heading .link-title {
   width: 50%;
   padding: 0 1em;
 }
 
-.project-link:hover {
+#projects-container #all-projects-container #links .project-link {
+  border-top: 1px grey solid;
+}
+
+#projects-container #all-projects-container #links .project-link:hover {
   cursor: pointer;
-  background-color: #222;
+  background-color: #0075b3;
 }
 /*# sourceMappingURL=Projects.css.map */

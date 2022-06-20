@@ -22,7 +22,6 @@ export default function Login(props) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
             if (data.status === 'ok') {
                 localStorage.setItem('wilsonUserToken', data.message)
                 props.setLoggedInStatusChange(true)

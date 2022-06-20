@@ -35,6 +35,9 @@
             color: $white;
             border: none;
         }
+        .submit-button:hover {
+            background-color: $darkerBlue;
+        }
         #signup-link {
             color: $blue;
             text-align: center;

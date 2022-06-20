@@ -44,6 +44,10 @@
   border: none;
 }
 
+.form-container .form-content-container .submit-button:hover {
+  background-color: #005380;
+}
+
 .form-container .form-content-container #signup-link {
   color: #0075b3;
   text-align: center;

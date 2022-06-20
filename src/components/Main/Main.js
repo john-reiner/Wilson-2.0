@@ -54,10 +54,31 @@ export default function Main(props) {
     return (
         <div id="main-container">
             <div id="left-bar-container">
-                <div onClick={() => setNavOpenCloseEvent(true)} id="close-nav-button">X</div>
-                <ul id="left-nav-list">
-                    <li onClick={() => setViewToShow(0)} className="left-nav-item">Projects</li>
-                </ul>
+                <div id="header-container">
+                    <div onClick={() => setNavOpenCloseEvent(true)} id="close-nav-button-container">
+                        <span id="close-nav-button">X</span>
+                    </div>
+                    <div id="logo-nav-container">
+                        <span className="wilson-logo-w">W</span>
+                    </div>
+                </div>
+
+                <div id="lists-container">
+                    <div id="left-nav-list">
+                        <div onClick={() => setViewToShow(0)} className="left-nav-item">Projects</div>
+                    </div>
+                    <div id="bottom-nav-list">
+                        <div className="bottom-nav-item">
+                            {props.userInfo.first_name}
+                            <div className="bottom-nav-sublist">
+                                <div className="bottom-nav-subitem" onClick={props.logout}>Logout</div>
+                                <div className="bottom-nav-subitem">Settings</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
             </div>
             <div id="main-content">
                 <div>

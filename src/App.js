@@ -12,6 +12,7 @@ export default function App() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInStatusChange, setLoggedInStatusChange] = useState(false);
   const [userId, setUserId] = useState(null);
+  const [userInfo, setUserInfo] = useState(null);
   
 
   const fetchUser = () => {
@@ -24,8 +25,10 @@ export default function App() {
     })
     .then(response => response.json())
     .then(data => {
+      console.log(data)
       if (data.status === "ok") {
-        setUserId(data.message.id)
+        setUserId(data.user.id)
+        setUserInfo(data.user)
         setLoggedIn(true)
         setAppComponent('main')
       } else {
@@ -47,7 +50,6 @@ export default function App() {
   const logout = () => {
     localStorage.removeItem('wilsonUserToken')
     setLoggedIn(false)
-    setAppComponent('login')
   }
 
   // const renderView = (componentViewName, componentViews) => {
@@ -67,7 +69,7 @@ export default function App() {
   return (
       <div>
         {/* {renderView(appComponent, componentViews)} */}
-        {loggedIn ? <Main userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
+        {loggedIn ? <Main logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
       </div>
   );
 }

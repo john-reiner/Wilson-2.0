@@ -58,10 +58,9 @@ export default function Projects(props) {
     return (
         <div id="projects-container">
             <div id="projects-show-heading">
-                <h4>Projects</h4>
+                <h2>Projects</h2>
                 <div id="new-project-button" onClick={() => props.setViewToShow(2)}>New Project</div>
             </div>
-            <hr></hr>
             <div id="all-projects-container">
                 <div id="all-projects-header">
                     <h3>All Projects</h3>

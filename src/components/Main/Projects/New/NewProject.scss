@@ -1,17 +1,70 @@
+@import '../../../../Variables.scss';
+
 #new-project-container{
-    padding: 1em;
-}
+    height: 100%;
+    color: $white;
+    #new-project-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: .5em 1em;
+        border-bottom: $grey solid 1px;
+        margin-bottom: 1em;
+        h2 {
+            margin: 0;
+            font-family: $primary-font;
+            color: $green;
+        }
 
-#new-project-title {
-    text-align: center;
-}
+        #back-button {
+            padding: .1em .5em;
+            background-color: $blue;
+            border: solid $darkerBlue 1px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        
+        #back-button:hover {
+            cursor: pointer;
+            border: solid $green 1px;
+        }
+    }
+    .new-project-form-container {
+        
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5em;
+        
+        form {
 
-// form {
-//     border: #85CB33 solid 1px;
-//     padding: 1em;
-//     border-radius: 5px;
-// }
+            max-width: 80%;
+            width: 800px;
 
-form label{
-    margin-bottom: 1em;
+            label {
+
+                display: flex;
+                flex-direction: column;
+
+                input {
+                    border-radius: 5px;
+                    border: solid $grey 2px;
+                }
+                textarea {
+                    border-radius: 5px;
+                    border: solid $grey 2px;
+                }
+                select {
+                    width: fit-content;
+                    border-radius: 5px;
+                    // border: solid $grey 2px;
+                }
+            }
+        }
+
+    }
+
+
+
 }

@@ -6,4 +6,16 @@ $blue: rgb(0, 117, 179);
 $darkerBlue: rgb(0, 83, 128);
 $grey: grey;
 
-$primary-font: "Permanent Marker"
+$primary-font: "Permanent Marker";
+
+@mixin button($color) {
+    padding: .1em .5em;
+    border: solid $color 1px;
+    border-radius: 5px;
+    text-align: center;
+    &:hover {
+        cursor: pointer;
+        background-color: lighten($color: $color, $amount: 5);
+        transition: .25s;
+    }
+}

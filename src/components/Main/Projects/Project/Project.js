@@ -57,14 +57,14 @@ export default function ProjectShow(props) {
         <div id='project-show-container'>
             <div id='project-show-header'>
                 <div className="header-row">
-                    <h2 id="project-show-title">{project.title}</h2>
-                    <div id="project-show-nav">
-                        {renderTabs(tabComponents)}
-                    </div>
+                    <h2>{project.title}</h2>
                     <div id="edit-project-button">Edit</div>
                 </div>
                 <div className="header-row icons">
-                    <FaGithub className="project-header-icon"/>
+                    <div id="project-show-nav">
+                        {renderTabs(tabComponents)}
+                    </div>
+                    <a href={project.github}><FaGithub className="project-header-icon"/></a>
                 </div>
 
             </div>

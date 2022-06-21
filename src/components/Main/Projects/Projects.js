@@ -1,14 +1,10 @@
 import React, {useState, useEffect} from 'react'
-import Col from 'react-bootstrap/Col';
 import './Projects.css'
 import ProjectLink from './ProjectLink/ProjectLink';
 
 export default function Projects(props) {
 
     const [projects, setProjects] = useState([]);
-    
-
-    console.log(projects)
 
     useEffect(() => {
         fetchProjects()

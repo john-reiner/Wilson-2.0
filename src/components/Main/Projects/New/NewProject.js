@@ -10,27 +10,8 @@ export default function NewProject(props) {
         github_url: "",
         public: 'false',
     });
-
-
-    // const [{response, errors, loading}, goFetch] = useFetch("")
-
-    // useEffect(() => {
-    //     if (response || errors) {
-    //         if (response) {
-    //             props.setViewToShow(1)
-    //             setNewProject({
-    //                 title: "",
-    //                 description: "",
-    //                 github_url: "",
-    //                 public: false,
-    //             })
-    //         }         
-    //     }
-    // }, [response, errors]);
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
-    // const handlePublicTrue = () => setNewProject({...newProject, public: true})
-    // const handlePublicFalse = () => setNewProject({...newProject, public: false})
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -63,30 +44,35 @@ export default function NewProject(props) {
     
     return (
         <div id="new-project-container">
-            <h2 id="new-project-title">Create a New Project</h2>
-            <form onSubmit={handleSubmit}>
-                <label>
-                    Title: 
-                    <input type="text" name="title" value={newProject.title} onChange={handleChange}/>
-                </label><br></br>
-                <label>
-                    Description: 
-                    <textarea type="text" name="description" value={newProject.description} onChange={handleChange} />
-                </label><br></br>
-                <label>
-                    Github URL: 
-                    <input type="text" name="github_url" value={newProject.github_url} onChange={handleChange} />
-                </label><br></br>
-                <label>
-                    Public:
-                    <select name="public" value={newProject.public} onChange={handleChange}>
-                        <option value={true}>Public</option>
-                        <option value={false}>Private</option>
-                    </select>
-                    {/* <input type="text" name="public" value={newProject.public} onChange={handleChange} /> */}
-                </label><br></br>
-                <input type="submit" value="Submit" />
-            </form>
+            <div id="new-project-heading">
+                <h2>Create a New Project</h2>
+                <div id="back-button" onClick={() => props.setViewToShow(0)}>Back</div>
+            </div>
+            <div className="new-project-form-container">
+                <form onSubmit={handleSubmit}>
+                    <label>
+                        Title: 
+                        <input type="text" name="title" value={newProject.title} onChange={handleChange}/>
+                    </label>
+                    <label>
+                        Description: 
+                        <textarea type="text" name="description" value={newProject.description} onChange={handleChange} />
+                    </label>
+                    <label>
+                        Github URL: 
+                        <input type="text" name="github_url" value={newProject.github_url} onChange={handleChange} />
+                    </label>
+                    <label>
+                        Public:
+                        <select name="public" value={newProject.public} onChange={handleChange}>
+                            <option value={true}>Public</option>
+                            <option value={false}>Private</option>
+                        </select>
+                        {/* <input type="text" name="public" value={newProject.public} onChange={handleChange} /> */}
+                    </label>
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
         </div>
     )
 }

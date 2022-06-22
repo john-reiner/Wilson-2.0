@@ -2,9 +2,8 @@
     "version": 3,
     "mappings": "",
     "sources": [
-        "PreAuth.scss",
-        "../../Variables.scss"
+        "index.scss"
     ],
     "names": [],
-    "file": "PreAuth.css"
+    "file": "index.css"
 }

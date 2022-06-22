@@ -4,6 +4,7 @@ $dark: #3e3e3f;
 $darker: #111;
 $blue: rgb(0, 117, 179);
 $darkerBlue: rgb(0, 83, 128);
+$error: rgb(234, 50, 35);
 $grey: grey;
 
 $primary-font: "Permanent Marker";
@@ -15,7 +16,7 @@ $primary-font: "Permanent Marker";
     text-align: center;
     &:hover {
         cursor: pointer;
-        background-color: lighten($color: $color, $amount: 5);
+        background-color: $color;
         transition: .25s;
     }
 }

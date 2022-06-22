@@ -1,4 +1,6 @@
 import React, {useState, useEffect} from 'react'
+import { Container, Card, Grid, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
+
 import './Login.css'
 
 export default function Login(props) {
@@ -34,17 +36,20 @@ export default function Login(props) {
     }
 
     return (
-        <div className="form-container">
-            <div className="form-heading-container">
-                <h2>Login</h2>
-            </div>
-            <form onSubmit={handleSubmit} className="form-content-container">
-                <input type="email" placeholder="Email" name={'email'} value={user.email} onChange={handleChange} required/>
-                <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
-                <input type="submit" value="Submit" className='submit-button'/>
-                <hr></hr>
-                <p id="signup-link" onClick={() => props.setComponentViewName("signup")}>Sign up for an account</p>
-            </form>
-        </div>
+        <Grid>
+
+        </Grid>
     )
 }
+        // <div className="form-container">
+        //     <div className="form-heading-container">
+        //         <h2>Login</h2>
+        //     </div>
+        //     <form onSubmit={handleSubmit} className="form-content-container">
+        //         <input type="email" placeholder="Email" name={'email'} value={user.email} onChange={handleChange} required/>
+        //         <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
+        //         <input type="submit" value="Submit" className='submit-button'/>
+        //         <hr></hr>
+        //         <p id="signup-link" onClick={() => props.setComponentViewName("signup")}>Sign up for an account</p>
+        //     </form>
+        // </div>

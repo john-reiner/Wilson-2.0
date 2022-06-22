@@ -2,8 +2,8 @@
     "version": 3,
     "mappings": "AAAA,AAAA,sBAAsB,CAAC;EACnB,gBAAgB,EAAE,KAAK;EACvB,MAAM,EAAE,iBAAiB;EACzB,OAAO,EAAE,IAAI;EACb,OAAO,EAAE,IAAI;EACb,eAAe,EAAE,aAAa;EAC9B,WAAW,EAAE,MAAM;CACtB;;AAED,AAAA,cAAc,CAAC,EAAE,CAAA;EACb,MAAM,EAAE,CAAC;CACZ",
     "sources": [
-        "MainProject.scss"
+        "ProjectLink.scss"
     ],
     "names": [],
-    "file": "MainProject.css"
+    "file": "ProjectLink.css"
 }

@@ -44,7 +44,7 @@
 
 #project-show-container #project-show-header .header-row #edit-project-button:hover {
   cursor: pointer;
-  background-color: #0086cd;
+  background-color: #0075b3;
   -webkit-transition: .25s;
   transition: .25s;
 }

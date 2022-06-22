@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
 // import './App.css';
+import { MantineProvider, Paper, ActionIcon } from '@mantine/core';
+import { Sun, MoonStars } from 'tabler-icons-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+// @ts-ignore
 import Main from './components/Main/Main'
-
+// @ts-ignore
 import PreAuth from './components/PreAuth/PreAuth';
 
 export default function App() {
@@ -13,7 +16,12 @@ export default function App() {
   const [loggedInStatusChange, setLoggedInStatusChange] = useState(false);
   const [userId, setUserId] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
+
+  const [darkMode, setDarkMode] = useState(false);
   
+  const toggleDarkmode = () => setDarkMode(!darkMode)
+
+  console.log(darkMode)
 
   const fetchUser = () => {
     fetch('http://localhost:3001/api/v2/users/user', {
@@ -67,9 +75,19 @@ export default function App() {
   // ]
 
   return (
-      <div>
-        {/* {renderView(appComponent, componentViews)} */}
-        {loggedIn ? <Main logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
-      </div>
+        <MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light'}} withGlobalStyles withNormalizeCSS>
+          <Paper radius={0} style={{minHeight: "100vh"}}>
+          <ActionIcon
+            variant="outline"
+            color={!darkMode ? 'yellow' : 'blue'}
+            onClick={() => setDarkMode(!darkMode)}
+            title="Toggle color scheme"
+          >
+            {!darkMode ? <Sun size={18} /> : <MoonStars size={18} />}
+          </ActionIcon>
+          {loggedIn ? <Main logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
+          </Paper>
+          {/* {renderView(appComponent, componentViews)} */}
+        </MantineProvider>
   );
 }

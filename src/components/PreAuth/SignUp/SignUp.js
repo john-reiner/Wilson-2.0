@@ -1,4 +1,7 @@
 import React, { useState } from 'react'
+import { Space, Grid, TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
+import { At, Lock } from 'tabler-icons-react';
+
 
 export default function SignUp(props) {
 
@@ -35,28 +38,83 @@ export default function SignUp(props) {
         });        
     }
 
+    console.log(newUser)
+
 
     return (
-        <div className="form-container">
-            <div className="form-heading-container">
-                <h2 >Create a New Account</h2>
-            </div>
-            <form onSubmit={handleSubmit} className="form-content-container">
+        <form onSubmit={handleSubmit} style={{textAlign: "left"}}>
+            <Grid grow>
+                <Grid.Col md={6} lg={3}>
+                    <TextInput
+                        placeholder="First name"
+                        label="First name"
+                        name={'first_name'} 
+                        value={newUser.first_name} 
+                        onChange={handleChange}
+                        required
+                    />
+                </Grid.Col>
+                <Grid.Col md={6} lg={3}>
+                    <TextInput
+                        placeholder="Last name"
+                        label="Last name"
+                        name={'last_name'} 
+                        value={newUser.last_name} 
+                        onChange={handleChange}
+                        required
+                    />
+                </Grid.Col>
+            </Grid>
+            <Space h="sm" />
+            <Stack>
+                <TextInput
+                    label="Email"
+                    icon={<At />}
+                    placeholder="example@provider.com"
+                    required
+                    value={newUser.email} 
+                    onChange={handleChange}
+                    name={'email'}
+                />
+                <PasswordInput
+                    label="Password"
+                    placeholder="Password"
+                    required
+                    icon={<Lock size={16} />}
+                    name={'password'} 
+                    value={newUser.password} 
+                    onChange={handleChange}
+                />       
+                <PasswordInput
+                    label="Password Confirmation"
+                    placeholder="Confirm Password"
+                    required
+                    icon={<Lock size={16} />}
+                    name={'password_confirmation'} 
+                    value={newUser.password_confirmation} 
+                    onChange={handleChange}
+                />
+                <Group position="apart" mt="md">
+                    <Anchor onClick={() => props.setComponentViewName("login")}>
+                        Login
+                    </Anchor>
+                    <Button type="submit">Submit</Button>
+                </Group>   
+            </Stack>
 
-                <input type="email" placeholder="name@example.com" name={'email'} value={newUser.email} onChange={handleChange} required/> 
-                
-
-                <input type="text" placeholder="First Name" name={'first_name'} value={newUser.first_name} onChange={handleChange} required/> 
-
-                <input type="text" placeholder="Last Name" name={'last_name'} value={newUser.last_name} onChange={handleChange} required/> 
-
-                <input type="password" placeholder="Password" name={'password'} value={newUser.password} onChange={handleChange} required/>
-
-                <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/>
-                <input type='submit' className='submit-button'/>
-                <hr></hr>
-                <p id="signup-link" onClick={() => props.setComponentViewName("login")}>Login</p>
-            </form>
-        </div>
+        </form>
     )
 }
+            // <input type="email" placeholder="name@example.com" name={'email'} value={newUser.email} onChange={handleChange} required/> 
+            
+
+            // <input type="text" placeholder="First Name" name={'first_name'} value={newUser.first_name} onChange={handleChange} required/> 
+
+            // <input type="text" placeholder="Last Name" name={'last_name'} value={newUser.last_name} onChange={handleChange} required/> 
+
+            // <input type="password" placeholder="Password" name={'password'} value={newUser.password} onChange={handleChange} required/>
+
+            // <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/>
+            // <input type='submit' className='submit-button'/>
+            // <hr></hr>
+            // <p id="signup-link" onClick={() => props.setComponentViewName("login")}>Login</p>

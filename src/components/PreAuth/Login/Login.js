@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Container, Card, Grid, Image, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core';
+import { TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
+import { At, Lock } from 'tabler-icons-react';
 
 import './Login.css'
 
@@ -36,16 +37,34 @@ export default function Login(props) {
     }
 
     return (
-        <Grid>
-
-        </Grid>
+        <form onSubmit={handleSubmit} style={{minWidth: "300px"}}>
+            <Stack>
+                <TextInput
+                    icon={<At />}
+                    placeholder="example@provider.com"
+                    required
+                    value={user.email} 
+                    onChange={handleChange}
+                    name={'email'}
+                />
+                <PasswordInput
+                    placeholder="Password"
+                    required
+                    icon={<Lock size={16} />}
+                    name={'password'} 
+                    value={user.password} 
+                    onChange={handleChange}
+                />
+                <Group position="apart" mt="md">
+                    <Anchor onClick={() => props.setComponentViewName("signup")}>
+                        Sign Up
+                    </Anchor>
+                    <Button type="submit">Submit</Button>
+                </Group>
+            </Stack>
+        </form>
     )
 }
-        // <div className="form-container">
-        //     <div className="form-heading-container">
-        //         <h2>Login</h2>
-        //     </div>
-        //     <form onSubmit={handleSubmit} className="form-content-container">
         //         <input type="email" placeholder="Email" name={'email'} value={user.email} onChange={handleChange} required/>
         //         <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
         //         <input type="submit" value="Submit" className='submit-button'/>

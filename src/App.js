@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-// import './App.css';
+import './App.css';
 import { MantineProvider, Paper, ActionIcon } from '@mantine/core';
 import { Sun, MoonStars } from 'tabler-icons-react';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -75,16 +75,16 @@ export default function App() {
   // ]
 
   return (
-        <MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light'}} withGlobalStyles withNormalizeCSS>
+        <MantineProvider theme={{ colorScheme: 'dark'}} withGlobalStyles withNormalizeCSS>
           <Paper radius={0} style={{minHeight: "100vh"}}>
-          <ActionIcon
+          {/* <ActionIcon
             variant="outline"
             color={!darkMode ? 'yellow' : 'blue'}
             onClick={() => setDarkMode(!darkMode)}
             title="Toggle color scheme"
           >
             {!darkMode ? <Sun size={18} /> : <MoonStars size={18} />}
-          </ActionIcon>
+          </ActionIcon> */}
           {loggedIn ? <Main logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
           </Paper>
           {/* {renderView(appComponent, componentViews)} */}

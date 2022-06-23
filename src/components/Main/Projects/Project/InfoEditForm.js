@@ -27,7 +27,6 @@ export default function InfoEditForm(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             props.setEditModalOpen(false)
             props.setFetchAgainFlag(true)
         })

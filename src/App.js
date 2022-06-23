@@ -3,14 +3,13 @@ import './App.css';
 import { MantineProvider, Paper} from '@mantine/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// @ts-ignore
+
 import Main from './components/Main/Main'
-// @ts-ignore
+
 import PreAuth from './components/PreAuth/PreAuth';
 
 export default function App() {
 
-  const [appComponent, setAppComponent] = useState('login');
   const [loggedIn, setLoggedIn] = useState(false);
   const [loggedInStatusChange, setLoggedInStatusChange] = useState(false);
   const [userId, setUserId] = useState(null);
@@ -19,8 +18,6 @@ export default function App() {
   const [darkMode, setDarkMode] = useState(true);
   
   const toggleDarkmode = () => setDarkMode(!darkMode)
-
-  console.log(darkMode)
 
   const fetchUser = () => {
     fetch('http://localhost:3001/api/v2/users/user', {
@@ -32,12 +29,10 @@ export default function App() {
     })
     .then(response => response.json())
     .then(data => {
-      console.log(data)
       if (data.status === "ok") {
         setUserId(data.user.id)
         setUserInfo(data.user)
         setLoggedIn(true)
-        setAppComponent('main')
       } else {
         alert("something went wrong...")
       }
@@ -50,7 +45,6 @@ export default function App() {
     if (wilsonToken) {
       fetchUser()
       setLoggedInStatusChange(false)
-      setAppComponent('main')
     }
   }, [loggedInStatusChange]);
 
@@ -60,9 +54,28 @@ export default function App() {
   }
 
   return (
-        <MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light'}} withGlobalStyles withNormalizeCSS>
-          <Paper radius={0} style={{minHeight: "100vh"}}>
-          {loggedIn ? <Main darkMode={darkMode} setDarkMode={setDarkMode} toggleDarkmode={toggleDarkmode} logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
+        <MantineProvider 
+          theme={{ colorScheme: darkMode ? 'dark' : 'light'}} 
+          withGlobalStyles withNormalizeCSS
+        >
+          <Paper 
+            radius={0} 
+            style={{minHeight: "100vh"}}
+          >
+          {loggedIn ? 
+                      <Main 
+                        darkMode={darkMode} 
+                        setDarkMode={setDarkMode} 
+                        toggleDarkmode={toggleDarkmode} 
+                        logout={logout} userInfo={userInfo} 
+                        userId={userId} 
+
+                        /> 
+                    : 
+                      <PreAuth 
+                        setLoggedInStatusChange={setLoggedInStatusChange}
+                      />
+          }
           </Paper>
         </MantineProvider>
   );

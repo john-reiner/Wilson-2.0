@@ -17,9 +17,9 @@ import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
 import ProjectTab from './ProjectTab';
-import ProjectInfo from './Tabs/Info/ProjectInfo';
-import ProjectFeatures from './Tabs/Features/ProjectFeatures';
-import ProjectNotes from './Tabs/Notes/ProjectNotes';
+import ProjectInfo from './ProjectComponents/Info/ProjectInfo';
+import ProjectFeatures from './ProjectComponents/Features/ProjectFeatures';
+import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
 
 export default function ProjectShow(props) {
 

@@ -26,7 +26,7 @@ export default function SignUp(props) {
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data)
+
             if (data.status === 'ok') {
                 localStorage.setItem('wilsonUserToken', data.message)
                 props.setLoggedInStatusChange(true)
@@ -38,13 +38,13 @@ export default function SignUp(props) {
         });        
     }
 
-    console.log(newUser)
-
-
     return (
         <form onSubmit={handleSubmit} style={{textAlign: "left"}}>
             <Grid grow>
-                <Grid.Col md={6} lg={3}>
+                <Grid.Col 
+                    md={6} 
+                    lg={3}
+                >
                     <TextInput
                         placeholder="First name"
                         label="First name"
@@ -54,7 +54,10 @@ export default function SignUp(props) {
                         required
                     />
                 </Grid.Col>
-                <Grid.Col md={6} lg={3}>
+                <Grid.Col 
+                    md={6} 
+                    lg={3}
+                >
                     <TextInput
                         placeholder="Last name"
                         label="Last name"
@@ -65,7 +68,9 @@ export default function SignUp(props) {
                     />
                 </Grid.Col>
             </Grid>
-            <Space h="sm" />
+            <Space 
+                h="sm" 
+            />
             <Stack>
                 <TextInput
                     label="Email"
@@ -95,26 +100,17 @@ export default function SignUp(props) {
                     onChange={handleChange}
                 />
                 <Group position="apart" mt="md">
-                    <Anchor onClick={() => props.setComponentViewName("login")}>
+                    <Anchor 
+                        onClick={() => props.setComponentViewName("login")}
+                    >
                         Login
                     </Anchor>
-                    <Button type="submit">Submit</Button>
+                    <Button
+                        type="submit">
+                        Submit
+                    </Button>
                 </Group>   
             </Stack>
-
         </form>
     )
 }
-            // <input type="email" placeholder="name@example.com" name={'email'} value={newUser.email} onChange={handleChange} required/> 
-            
-
-            // <input type="text" placeholder="First Name" name={'first_name'} value={newUser.first_name} onChange={handleChange} required/> 
-
-            // <input type="text" placeholder="Last Name" name={'last_name'} value={newUser.last_name} onChange={handleChange} required/> 
-
-            // <input type="password" placeholder="Password" name={'password'} value={newUser.password} onChange={handleChange} required/>
-
-            // <input type="password" placeholder="Confirm Password" name={'password_confirmation'} value={newUser.password_confirmation} onChange={handleChange} required/>
-            // <input type='submit' className='submit-button'/>
-            // <hr></hr>
-            // <p id="signup-link" onClick={() => props.setComponentViewName("login")}>Login</p>

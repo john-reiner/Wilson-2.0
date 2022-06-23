@@ -48,6 +48,7 @@ export default function PreAuth(props) {
                     >
                         {componentViewName === 'login' ? "Please login to your account." : "Sign up for Wilson!"}
                     </Text>
+
                     {renderView(componentViewName, componentViews)}
 
                 </Stack>

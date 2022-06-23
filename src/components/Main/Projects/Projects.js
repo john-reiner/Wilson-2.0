@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import './Projects.css'
+import { Container, Title, Text, Table, Group, Button } from '@mantine/core';
+import { Plus } from 'tabler-icons-react';
+// import './Projects.css'
 import ProjectLink from './ProjectLink/ProjectLink';
 
 export default function Projects(props) {
@@ -52,28 +54,55 @@ export default function Projects(props) {
     }
 
     return (
-        <div id="projects-container">
-            <div id="projects-show-heading">
-                <h2>Projects</h2>
-                <div id="new-project-button" onClick={() => props.setViewToShow(2)}>New Project</div>
-            </div>
-            <div id="all-projects-container">
-                <div id="all-projects-header">
-                    <h3>All Projects</h3>
-                    <span><b>{projects.projects_total}</b> total</span>
+        <Container>
+            <Group position="apart">
+                <div>
+                    <Title order={2} className="wilson-logo-small">Projects</Title>
+                    <Text weight={700}>{projects.projects_total} Total</Text>
                 </div>
-                <table id="links">
-                    <tr id="links-heading">
-                        <th className="link-title-head"><b>Title</b></th>
-                        
+                <div>
+                    <Button onClick={() => props.setViewToShow(2)} leftIcon={<Plus size={14} />}>
+                        New Project
+                    </Button>
+                </div>
+            </Group>
+            <hr></hr>
+            <Table highlightOnHover>
+                <thead>
+                    <tr>
+                        <th style={{width: "33%"}}><b>Title</b></th>
                         <th><b>Author</b></th>
                         <th><b>Modified</b></th>
                         <th><b>Created</b></th>
                     </tr>
+                </thead>
+                <tbody>
                     {renderProjects()}
-                </table>
-
-            </div>
-        </div>
+                </tbody>
+            </Table>
+        </Container>
     )
 }
+        // <div id="projects-container">
+        //     <div id="projects-show-heading">
+        //         <h2>Projects</h2>
+
+        //     </div>
+        //     <div id="all-projects-container">
+        //         <div id="all-projects-header">
+        //             <h3>All Projects</h3>
+        //             <span><b>{projects.projects_total}</b> total</span>
+        //         </div>
+        //         <table id="links">
+        //             <tr id="links-heading">
+        //                 <th className="link-title-head"><b>Title</b></th>
+                        
+        //                 <th><b>Author</b></th>
+        //                 <th><b>Modified</b></th>
+        //                 <th><b>Created</b></th>
+        //             </tr>
+        //             {renderProjects()}
+        //         </table>
+
+        //     </div>
+        // </div>

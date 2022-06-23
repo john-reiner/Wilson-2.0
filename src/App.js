@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import { MantineProvider, Paper, ActionIcon } from '@mantine/core';
-import { Sun, MoonStars } from 'tabler-icons-react';
+import { MantineProvider, Paper} from '@mantine/core';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // @ts-ignore
@@ -17,7 +16,7 @@ export default function App() {
   const [userId, setUserId] = useState(null);
   const [userInfo, setUserInfo] = useState(null);
 
-  const [darkMode, setDarkMode] = useState(false);
+  const [darkMode, setDarkMode] = useState(true);
   
   const toggleDarkmode = () => setDarkMode(!darkMode)
 
@@ -60,34 +59,11 @@ export default function App() {
     setLoggedIn(false)
   }
 
-  // const renderView = (componentViewName, componentViews) => {
-  //   if (componentViewName) {
-  //     let combo = componentViews.find(combo => combo[1] === componentViewName)
-  //     return combo[0]
-  //   }
-  // }
-  
-  // let componentViews = [
-  //   [<SignUp setLoggedInStatusChange={setLoggedInStatusChange} />, "signup"],
-  //   [<Login setLoggedInStatusChange={setLoggedInStatusChange} setAppComponent={setAppComponent}/>, "login"],
-  //   [<PreAuth />, "preauth"],
-  //   [<Main userId={userId} />, "main"]
-  // ]
-
   return (
-        <MantineProvider theme={{ colorScheme: 'dark'}} withGlobalStyles withNormalizeCSS>
+        <MantineProvider theme={{ colorScheme: darkMode ? 'dark' : 'light'}} withGlobalStyles withNormalizeCSS>
           <Paper radius={0} style={{minHeight: "100vh"}}>
-          {/* <ActionIcon
-            variant="outline"
-            color={!darkMode ? 'yellow' : 'blue'}
-            onClick={() => setDarkMode(!darkMode)}
-            title="Toggle color scheme"
-          >
-            {!darkMode ? <Sun size={18} /> : <MoonStars size={18} />}
-          </ActionIcon> */}
-          {loggedIn ? <Main logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
+          {loggedIn ? <Main darkMode={darkMode} setDarkMode={setDarkMode} toggleDarkmode={toggleDarkmode} logout={logout} userInfo={userInfo} userId={userId} /> : <PreAuth setLoggedInStatusChange={setLoggedInStatusChange}/>}
           </Paper>
-          {/* {renderView(appComponent, componentViews)} */}
         </MantineProvider>
   );
 }

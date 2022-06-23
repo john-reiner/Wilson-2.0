@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import './NewProject.css'
+import { TextInput, Container, Group, Title, Textarea, Button, Stack, Switch } from '@mantine/core';
+import { ArrowBackUp, BrandGithub } from 'tabler-icons-react';
 
 
 export default function NewProject(props) {
@@ -8,10 +9,13 @@ export default function NewProject(props) {
         title: "",
         description: "",
         github_url: "",
-        public: 'false',
+        public: false,
     });
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
+    const togglePublic = e => {
+        setNewProject({...newProject, [e.target.name]:e.target.checked})
+    }
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -41,39 +45,90 @@ export default function NewProject(props) {
             console.error(errors)
         })
     }
+
+    console.log(newProject)
+
+
     
     return (
-        <div id="new-project-container">
-            <div id="new-project-heading">
-                <h2>Create a New Project</h2>
-                <div id="back-button" onClick={() => props.setViewToShow(0)}>Back</div>
-            </div>
-            <div className="new-project-form-container">
+        <Container id="new-project-container">
+            <Group position="apart">
+                <div>
+                    <Title order={2} className="wilson-logo-small">Create a Project</Title>
+                </div>
+                <div>
+                    <Button onClick={() => props.setViewToShow(0)} leftIcon={<ArrowBackUp size={14} />}>
+                        Back
+                    </Button>
+                </div>
+            </Group>
+            <hr></hr>
+
                 <form onSubmit={handleSubmit}>
-                    <label>
+                    <Stack>
+                        <TextInput
+                            placeholder="Example Project..."
+                            label="Project Name"
+                            required
+                            name="title" 
+                            value={newProject.title} 
+                            onChange={handleChange}
+                        />
+                        <Textarea
+                            placeholder="Description..."
+                            label="Project Description"
+                            name="description" 
+                            value={newProject.description} 
+                            onChange={handleChange}
+                        />
+                        <TextInput 
+                            label="GitHub URL" 
+                            placeholder="github" 
+                            icon={<BrandGithub size={14} />} 
+                            name="github_url" 
+                            value={newProject.github_url} 
+                            onChange={handleChange}
+
+                            />
+                        <Switch
+                            label="Public"
+                            name="public" 
+                            value={newProject.public}
+                            onChange={togglePublic}
+                            // checked={newProject.public}
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth 
+                            variant="outline"
+                        >
+                            Submit
+                        </Button>
+                    </Stack>
+                    {/* <label>
                         Title: 
                         <input type="text" name="title" value={newProject.title} onChange={handleChange}/>
-                    </label>
-                    <label>
+                    </label> */}
+                    {/* <label>
                         Description: 
                         <textarea type="text" name="description" value={newProject.description} onChange={handleChange} />
-                    </label>
-                    <label>
+                    </label> */}
+                    {/* <label>
                         Github URL: 
                         <input type="text" name="github_url" value={newProject.github_url} onChange={handleChange} />
-                    </label>
-                    <label>
+                    </label> */}
+                    {/* <label>
                         Public:
                         <select name="public" value={newProject.public} onChange={handleChange}>
                             <option value={true}>Public</option>
                             <option value={false}>Private</option>
-                        </select>
+                        </select> */}
                         {/* <input type="text" name="public" value={newProject.public} onChange={handleChange} /> */}
-                    </label>
-                    <input type="submit" value="Submit" />
+                    {/* </label> */}
+                    {/* <input type="submit" value="Submit" /> */}
                 </form>
-            </div>
-        </div>
+
+        </Container>
     )
 }
 

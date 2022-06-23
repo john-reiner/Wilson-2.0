@@ -68,7 +68,6 @@ export default function ProjectShow(props) {
                     <h2>{project.title}</h2>
                     
                     <Menu 
-                        trigger="hover" 
                         opened={opened} 
                         onOpen={handlers.open} 
                         onClose={handlers.close}

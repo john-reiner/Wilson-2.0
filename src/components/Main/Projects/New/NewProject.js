@@ -13,9 +13,7 @@ export default function NewProject(props) {
     });
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
-    const togglePublic = e => {
-        setNewProject({...newProject, [e.target.name]:e.target.checked})
-    }
+    const togglePublic = e => setNewProject({...newProject, [e.target.name]:e.target.checked})
     
     const handleSubmit = e => {
         e.preventDefault()

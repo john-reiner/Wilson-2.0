@@ -24,14 +24,6 @@ export default function NewFeature(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "created") {
-                // setNewFeature(
-                //     {
-                //         title: "",
-                //         description: "",
-                //         due_date: "",
-                //         public: 'false',
-                //     }
-                //     )
                 props.setFetchAgainFlag(true)
                 props.setNewFeatureDrawerOpen(false)
             }
@@ -40,8 +32,6 @@ export default function NewFeature(props) {
             console.error(errors)
         })
     }
-
-    console.log(newFeature)
 
     const handleChange = e => setNewFeature({...newFeature, [e.target.name]:e.target.value})
     const togglePublic = e => setNewFeature({...newFeature, [e.target.name]:e.target.checked})
@@ -103,30 +93,3 @@ export default function NewFeature(props) {
         </Drawer>
         )
     }
-    
-    // <div id="new-feature-container">
-    //     <h2 id="new-feature-title">Create a New Feature Request</h2>
-    //     <form onSubmit={handleSubmit}>
-    //         <label>
-    //             Title: 
-    //             <input type="text" name="title" value={newFeature.title} onChange={handleChange}/>
-    //         </label><br></br>
-    //         <label>
-    //             Description: 
-    //             <textarea type="text" name="description" value={newFeature.description} onChange={handleChange} />
-    //         </label><br></br>
-    //         <label>
-    //             Due: 
-    //             <input type="date" name="due_date" value={newFeature.due_date} onChange={handleChange} />
-    //         </label><br></br>
-    //         <label>
-    //             Public:
-    //             <select name="public" value={newFeature.public} onChange={handleChange}>
-    //                 <option value={true}>Public</option>
-    //                 <option value={false}>Private</option>
-    //             </select>
-    //             {/* <input type="text" name="public" value={newFeature.public} onChange={handleChange} /> */}
-    //         </label><br></br>
-    //         <input type="submit" value="Submit" />
-    //     </form>
-    // </div>

@@ -44,10 +44,6 @@ export default function NewProject(props) {
         })
     }
 
-    console.log(newProject)
-
-
-    
     return (
         <Container id="new-project-container">
             <Group position="apart">

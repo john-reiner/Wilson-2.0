@@ -1,8 +1,17 @@
 import React from 'react'
+import { Button } from '@mantine/core';
 
 export default function ProjectTab(props) {
 
     return (
-        <div onClick={() => props.handleTabClick(props.index)} className={props.index === props.projectTabIndex ? "project-nav-item-active": "project-nav-item"}>{props.name}</div>
+        <Button
+            compact
+            variant="outline" 
+            color="green"
+            onClick={() => props.handleTabClick(props.index)}
+            disabled={props.index === props.projectTabIndex}
+        >
+            {props.name}
+        </Button>
     )
 }

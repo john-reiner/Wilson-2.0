@@ -1,17 +1,25 @@
 import React, {useState, useEffect} from 'react'
-import { ActionIcon, Menu, Text, Divider } from '@mantine/core';
-import { Settings, Edit, Trash } from 'tabler-icons-react';
+import { 
+        ActionIcon, 
+        Menu, 
+        Grid, 
+        Title, 
+        Divider, 
+        Text, 
+        Center,
+        Anchor,
+        Box,
+        Group,
+        Button
+} from '@mantine/core';
+
+import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
-import './Project.css'
 
 import ProjectTab from './ProjectTab';
 import ProjectInfo from './Tabs/Info/ProjectInfo';
 import ProjectFeatures from './Tabs/Features/ProjectFeatures';
 import ProjectNotes from './Tabs/Notes/ProjectNotes';
-
-
-import { FaGithub } from 'react-icons/fa'
-
 
 export default function ProjectShow(props) {
 
@@ -39,9 +47,36 @@ export default function ProjectShow(props) {
     }, [fetchAgainFlag]);
 
     let tabComponents = [
-        <ProjectInfo setFetchAgainFlag={setFetchAgainFlag} userId={props.user_id} projectId={project.id} editType="info" editModalOpen={editModalOpen} setEditModalOpen={setEditModalOpen} title={project.title} github_url={project.github_url} public={project.public} description={project.description} tabName="Info" />,
-        <ProjectFeatures setFetchAgainFlag={setFetchAgainFlag} projectId={props.id} userId={props.userId} features={project.features} tabName="Features"/>,      
-        <ProjectNotes setFetchAgainFlag={setFetchAgainFlag} userId={props.userId} projectId={props.id} notes={project.notes} tabName="Notes" />,
+        <ProjectInfo 
+            setFetchAgainFlag={setFetchAgainFlag} 
+            userId={props.user_id} 
+            projectId={project.id} 
+            editType="info" 
+            editModalOpen={editModalOpen} 
+            setEditModalOpen={setEditModalOpen} 
+            title={project.title} 
+            github_url={project.github_url} 
+            public={project.public} 
+            description={project.description} 
+            tabName="Info" 
+
+        />,
+        <ProjectFeatures 
+            setFetchAgainFlag={setFetchAgainFlag} 
+            projectId={props.id} 
+            userId={props.userId} 
+            features={project.features} 
+            tabName="Features"
+
+        />,      
+        <ProjectNotes 
+            setFetchAgainFlag={setFetchAgainFlag} 
+            userId={props.userId} 
+            projectId={props.id} 
+            notes={project.notes} 
+            tabName="Notes" 
+
+        />,
     ]
 
     const renderTabs = (tabsArray) => {
@@ -49,11 +84,11 @@ export default function ProjectShow(props) {
         return tabsArray.map(tab => {
             keyNum ++
             return <ProjectTab 
-                    name={tab.props.tabName} 
-                    handleTabClick={handleTabClick}
-                    projectTabIndex={projectTabIndex}
-                    index={tabComponents.indexOf(tab)}
-                    key={keyNum}
+                        name={tab.props.tabName} 
+                        handleTabClick={handleTabClick}
+                        projectTabIndex={projectTabIndex}
+                        index={tabComponents.indexOf(tab)}
+                        key={keyNum}
                     />
         })
     }
@@ -62,12 +97,22 @@ export default function ProjectShow(props) {
     const handleTabClick = (index) => setProjectTabIndex(index)
 
     return (
-        <div id='project-show-container'>
-            <div id='project-show-header'>
-                <div className="header-row">
-                    <h2>{project.title}</h2>
-                    
-                    <Menu 
+        <div>
+            <Grid align="center">
+                <Grid.Col span={11}>
+                    <Title 
+                        order={2}
+                        className="wilson-logo-small"
+                    >
+                        {project.title}
+                    </Title>
+                </Grid.Col>
+
+                <Grid.Col 
+                    span={1}
+                    align="right"
+                >
+                    <Menu
                         opened={opened} 
                         onOpen={handlers.open} 
                         onClose={handlers.close}
@@ -80,25 +125,39 @@ export default function ProjectShow(props) {
                             Edit
                         </Menu.Item>
                         <Divider />
-                        <Menu.Item color="red" icon={<Trash size={14} />}>Delete my account</Menu.Item>
+                        <Menu.Item
+                            color="red" 
+                            icon={<Trash size={14} />}
+                        >
+                            Delete my account
+                        </Menu.Item>
                     </Menu>
-                    {/* <Button
-                        variant="outline"
-                        onClick={() => setEdit(!edit)}
-                    >
-                        {!edit ? "Edit" : "Back"}
-                    </Button> */}
-                </div>
-                <div className="header-row icons">
-                    <div id="project-show-nav">
+                </Grid.Col>
+                <Grid.Col 
+                    span={9}
+                >
+                    <Group spacing="xs">
                         {renderTabs(tabComponents)}
-                    </div>
-                    <a href={project.github}><FaGithub className="project-header-icon"/></a>
-                </div>
-
-            </div>
-            <></>
-            {renderContent(tabComponents, projectTabIndex)}
+                    </Group>
+                </Grid.Col>
+                <Grid.Col 
+                    span={3}
+                    align="right"
+                >
+                    <Anchor href={project.github_url} target="_blank">
+                        <Center inline>
+                            <ActionIcon 
+                                variant="hover" 
+                                >
+                                <BrandGithub size={16} />
+                            </ActionIcon>
+                            <Box ml={5}>{project.public ? "Public" : "Private"}</Box>
+                        </Center>
+                    </Anchor>
+                </Grid.Col>
+            </Grid>
+            <hr></hr>
+                {renderContent(tabComponents, projectTabIndex)}
         </div>
     )
 }

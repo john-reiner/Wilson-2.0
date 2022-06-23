@@ -13,8 +13,8 @@ import { Sun, MoonStars } from 'tabler-icons-react';
 
 import LeftNavbar from './LeftNavbar';
 import Projects from './Projects/Projects';
-import Project from './Projects/Project/Project'
-import NewProject from './Projects/New/NewProject'
+import Project from './ProjectShow.js/Project'
+import NewProject from './Projects/NewProject'
 
 export default function Main(props) {
 

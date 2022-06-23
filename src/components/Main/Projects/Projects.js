@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Container, Title, Text, Table, Group, Button } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
-import ProjectLink from './ProjectLink/ProjectLink';
+import ProjectLink from './ProjectLink';
 
 export default function Projects(props) {
 

@@ -68,9 +68,7 @@ export default function SignUp(props) {
                     />
                 </Grid.Col>
             </Grid>
-            <Space 
-                h="sm" 
-            />
+            <Space h="sm" />
             <Stack>
                 <TextInput
                     label="Email"

@@ -21,7 +21,7 @@ export default function PreAuth(props) {
     }
 
     return (
-        <Center style={{ width: '100vw', height: '60vh' }}>
+        <Center style={{ width: '100vw', height: '80vh' }}>
             <Stack justify="space-around">
                 <Title 
                     order={1}

@@ -1,11 +1,8 @@
 import React, {useState} from 'react'
 import { Box, Text, Title, Stack, Center } from '@mantine/core';
 
-
-import './PreAuth.css'
-
-import Login from './Login/Login'
-import SignUp from './SignUp/SignUp';
+import Login from './Login'
+import SignUp from './SignUp';
 
 export default function PreAuth(props) {
 

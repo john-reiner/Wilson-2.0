@@ -1,8 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
 import { At, Lock } from 'tabler-icons-react';
-
-import './Login.css'
 
 export default function Login(props) {
 
@@ -10,7 +8,6 @@ export default function Login(props) {
         email: "",
         password: ""
     });
-    const [errors, setErrors] = useState(null);
 
     const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
     
@@ -37,7 +34,10 @@ export default function Login(props) {
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{minWidth: "300px"}}>
+        <form
+            onSubmit={handleSubmit} 
+            style={{minWidth: "300px"}}
+        >
             <Stack>
                 <TextInput
                     icon={<At />}
@@ -56,19 +56,18 @@ export default function Login(props) {
                     onChange={handleChange}
                 />
                 <Group position="apart" mt="md">
-                    <Anchor onClick={() => props.setComponentViewName("signup")}>
+                    <Anchor
+                        onClick={() => props.setComponentViewName("signup")}
+                    >
                         Sign Up
                     </Anchor>
-                    <Button type="submit">Submit</Button>
+                    <Button
+                        type="submit"
+                    >
+                        Submit
+                    </Button>
                 </Group>
             </Stack>
         </form>
     )
 }
-        //         <input type="email" placeholder="Email" name={'email'} value={user.email} onChange={handleChange} required/>
-        //         <input type="password" placeholder="Password" name={'password'} value={user.password} onChange={handleChange} required/>
-        //         <input type="submit" value="Submit" className='submit-button'/>
-        //         <hr></hr>
-        //         <p id="signup-link" onClick={() => props.setComponentViewName("signup")}>Sign up for an account</p>
-        //     </form>
-        // </div>

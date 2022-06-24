@@ -3,7 +3,6 @@ import { Grid } from '@mantine/core';
 
 import DescriptionCard from './DescriptionCard';
 import EditProjectModal from '../../EditProjectModal';
-import './ProjectInfo.css'
 
 export default function Info(props) {
     return (
@@ -14,12 +13,5 @@ export default function Info(props) {
             </Grid.Col>
             <Grid.Col md={6} lg={3}>Lists</Grid.Col>
         </Grid>
-        // <div id='project-info-container'>
-        //     <div className='info-section-container'>
-        //         
-        //     </div>
-        //     <p><a href={props.github_url}>GitHub</a></p>
-        //     {props.public && <p>Public</p>}
-        // </div>
     )
 }

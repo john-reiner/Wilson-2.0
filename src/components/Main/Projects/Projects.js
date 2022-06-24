@@ -52,7 +52,7 @@ export default function Projects(props) {
     }
 
     return (
-        <Container>
+        <div>
             <Group position="apart">
                 <div>
                     <Title
@@ -92,6 +92,6 @@ export default function Projects(props) {
                     {renderProjects()}
                 </tbody>
             </Table>
-        </Container>
+        </div>
     )
 }

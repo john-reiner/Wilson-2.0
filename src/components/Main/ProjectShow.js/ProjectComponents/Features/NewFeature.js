@@ -24,6 +24,12 @@ export default function NewFeature(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "created") {
+                setNewFeature({
+                    title: "",
+                    description: "",
+                    due_date: "",
+                    public: 'false',
+                })
                 props.setFetchAgainFlag(true)
                 props.setNewFeatureDrawerOpen(false)
             }

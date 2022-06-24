@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Stack, Accordion, Text } from '@mantine/core';
+import { Button, Stack, Table, Text } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 import Feature from './Feature'
 import NewFeature from './NewFeature';
@@ -12,20 +12,20 @@ export default function Features(props) {
         if (props.features.length > 0) {
             return props.features.map(feature => {
                 return (
-                    <Accordion.Item label={feature.title}>
-                        <Stack>
-                            <Text>{feature.description}</Text>
-                            <Text>{feature.due_date}</Text>
-                            {feature.public && "PUBLIC"}
-                        </Stack>
-                    </Accordion.Item>
-                ) 
-                // <Feature 
-                //             title={feature.title}
-                //             description={feature.description}
-                //             dueDate={feature.due_date}
-                //             public={feature.public}
-                //         />
+                    // <Accordion.Item label={feature.title}>
+                    //     <Stack>
+                    //         <Text>{feature.description}</Text>
+                    //         <Text>{feature.due_date}</Text>
+                    //         {feature.public && "PUBLIC"}
+                    //     </Stack>
+                    // </Accordion.Item>
+                    <Feature 
+                        title={feature.title}
+                        description={feature.description}
+                        dueDate={feature.due_date}
+                        public={feature.public}
+                    />
+                )
             })
         } else {
             return (
@@ -50,9 +50,19 @@ export default function Features(props) {
                 setNewFeatureDrawerOpen={setNewFeatureDrawerOpen} 
                 newFeatureDrawerOpen={newFeatureDrawerOpen}
             />
-            <Accordion multiple>
-                {renderFeatures()} 
-            </Accordion>
+            <Table highlightOnHover>
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Description</th>
+                        <th>Due Date</th>
+                        <th>Public</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {renderFeatures()}
+                </tbody>
+            </Table>
         </Stack>
     )
 }

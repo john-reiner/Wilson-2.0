@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Card, Stack, Textarea, Text, Badge, Button, Group, useMantineTheme, Grid, TextInput } from '@mantine/core';
+import { Card, Stack, Textarea, Text, Button, useMantineTheme, Grid, TextInput } from '@mantine/core';
 
 import Note from './Note'
 

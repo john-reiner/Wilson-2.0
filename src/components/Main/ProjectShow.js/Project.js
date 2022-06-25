@@ -20,6 +20,7 @@ import ProjectTab from './ProjectTab';
 import ProjectInfo from './ProjectComponents/Info/ProjectInfo';
 import ProjectFeatures from './ProjectComponents/Features/ProjectFeatures';
 import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
+import DeleteProjectModal from './DeleteProjectModal';
 
 export default function ProjectShow(props) {
 
@@ -27,6 +28,7 @@ export default function ProjectShow(props) {
     const [project, setProject] = useState({});
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
+    const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
     
     const [opened, handlers] = useDisclosure(false);
 
@@ -74,8 +76,7 @@ export default function ProjectShow(props) {
             userId={props.userId} 
             projectId={props.id} 
             notes={project.notes} 
-            tabName="Notes" 
-
+            tabName="Notes"
         />,
     ]
 
@@ -98,6 +99,13 @@ export default function ProjectShow(props) {
 
     return (
         <div>
+            <DeleteProjectModal 
+                opened={deleteConfirmationModalOpen} 
+                setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}
+                id={project.id}
+                setViewToShow={props.setViewToShow}
+                userId={props.userId}
+            />
             <Grid align="center">
                 <Grid.Col span={11}>
                     <Title 
@@ -128,8 +136,9 @@ export default function ProjectShow(props) {
                         <Menu.Item
                             color="red" 
                             icon={<Trash size={14} />}
+                            onClick={() => setDeleteConfirmationModalOpen(true)}
                         >
-                            Delete my account
+                            Delete Project
                         </Menu.Item>
                     </Menu>
                 </Grid.Col>

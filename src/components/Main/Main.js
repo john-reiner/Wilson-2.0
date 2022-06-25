@@ -41,7 +41,8 @@ export default function Main(props) {
         <Project 
             id={projectShowId} 
             userId={props.userId}  
-            viewTitle="Project" 
+            viewTitle="Project"
+            setViewToShow={setViewToShow}
         />,
         <NewProject 
             handleProjectShow={handleProjectShow} 

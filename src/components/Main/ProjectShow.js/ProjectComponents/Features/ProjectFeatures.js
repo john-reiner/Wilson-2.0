@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Button, Stack, Table, Text } from '@mantine/core';
+import { Button, Stack, Table, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 import Feature from './Feature'
 import NewFeature from './NewFeature';
@@ -50,19 +50,25 @@ export default function Features(props) {
                 setNewFeatureDrawerOpen={setNewFeatureDrawerOpen} 
                 newFeatureDrawerOpen={newFeatureDrawerOpen}
             />
-            <Table highlightOnHover>
+            <Grid>
+                {renderFeatures()}
+            </Grid>
+            {/* <Table highlightOnHover>
                 <thead>
                     <tr>
-                        <th>Title</th>
-                        <th>Description</th>
-                        <th>Due Date</th>
-                        <th>Public</th>
+                            <th>Title</th>
+                            <th>Description</th>
+                            <th>Due Date</th>
+                            <th>Public</th>
+                            <th>Edit</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {renderFeatures()}
+                    <Grid>
+                        
+                    </Grid>
                 </tbody>
-            </Table>
+            </Table> */}
         </Stack>
     )
 }

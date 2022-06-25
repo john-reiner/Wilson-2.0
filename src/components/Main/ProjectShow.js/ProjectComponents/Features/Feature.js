@@ -1,13 +1,11 @@
 import React from 'react'
-import { Accordion } from '@mantine/core';
+import { Grid, Paper, Text, Badge, Group } from '@mantine/core';
 
 export default function Feature(props) {
 
     const convertDate = (date) => {
-        
         var dateMill = Date.parse(date)
         var dateObject = new Date(dateMill)
-
         var year = dateObject.getFullYear();
         var month = (1 + dateObject.getMonth()).toString();
         month = month.length > 1 ? month : '0' + month;
@@ -16,14 +14,56 @@ export default function Feature(props) {
         return month + '/' + day + '/' + year;
     }
 
-    console.log(props)
+    const calcOverdue = (date) => {
+        var dateMill = Date.parse(date)
+        var dateObject = new Date(dateMill)
+        var today = new Date()
+        if (dateObject - today < 0) {
+            return true
+        }
+        return false
+    }
 
     return (
-        <tr onClick={null} key={props.id}>
-            <td>{props.title}</td>
-            <td>{props.description}</td>
-            <td>{convertDate(props.dueDate)}</td>
-            <td>{props.public ? "Public" : "Private"}</td>
-        </tr>
+        <Grid.Col md={6}>
+            <Paper 
+                p="md" 
+                withBorder
+                sx={(theme) => ({
+                    backgroundColor: theme.colors.dark,
+                    '&:hover': {
+                    backgroundColor: theme.colors.dark[7],
+                    cursor: "pointer"
+                    },
+                })}
+            >
+                <Grid align="center">
+                    <Grid.Col span={7}>
+                        <Text lineClamp={1} order={3}>{props.title}</Text>
+                    </Grid.Col>
+                    <Grid.Col span={5}>
+                        <Group position="right" spacing="xs">
+                            <Badge
+                                color={calcOverdue(props.dueDate) && "red"}
+                            >
+                                {convertDate(props.dueDate)}
+                            </Badge>
+                            <Badge
+                                color={props.public && "green"}
+                            >
+                                {props.public ? "Public" : "Private"}
+                            </Badge>
+                        </Group>
+                    </Grid.Col>
+                </Grid>
+            </Paper>
+        </Grid.Col>
+        // <tr  onClick={null} key={props.id}>
+        //     <td><Grid.Col></Grid.Col></td>
+        //     <td><Grid.Col>{props.description}</Grid.Col></td>
+        //     <td><Grid.Col>{convertDate(props.dueDate)}</Grid.Col></td>
+        //     <td><Grid.Col>{props.public ? "Public" : "Private"}</Grid.Col></td>
+        //     <td><Grid.Col>{"editbutton"}</Grid.Col></td>
+        // </tr>
     )
 }

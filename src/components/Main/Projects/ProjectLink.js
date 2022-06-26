@@ -1,5 +1,4 @@
 import React from 'react'
-// import './ProjectLink.css'
 
 export default function ProjectLink(props) {
 

@@ -19,7 +19,6 @@ export default function NewNote(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload.status)
             if (payload.status === "created") {
                 setNewNote(
                     {

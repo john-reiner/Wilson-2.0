@@ -54,7 +54,6 @@ export default function Note(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "ok") {
                 props.setFetchAgainFlag(true)
                 setEditProjectFlag(false)

@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Button, Stack, Table, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
-import Feature from './Feature'
+import FeatureLink from './FeatureLink'
 import NewFeature from './NewFeature';
 
 export default function Features(props) {
@@ -19,11 +19,15 @@ export default function Features(props) {
                     //         {feature.public && "PUBLIC"}
                     //     </Stack>
                     // </Accordion.Item>
-                    <Feature 
+                    <FeatureLink 
                         title={feature.title}
                         description={feature.description}
                         dueDate={feature.due_date}
                         public={feature.public}
+                        handleFeatureClick={props.handleFeatureClick}
+                        setFeatureId={props.setFeatureId}
+                        id={feature.id}
+                        key={feature.id}
                     />
                 )
             })
@@ -53,22 +57,6 @@ export default function Features(props) {
             <Grid>
                 {renderFeatures()}
             </Grid>
-            {/* <Table highlightOnHover>
-                <thead>
-                    <tr>
-                            <th>Title</th>
-                            <th>Description</th>
-                            <th>Due Date</th>
-                            <th>Public</th>
-                            <th>Edit</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <Grid>
-                        
-                    </Grid>
-                </tbody>
-            </Table> */}
         </Stack>
     )
 }

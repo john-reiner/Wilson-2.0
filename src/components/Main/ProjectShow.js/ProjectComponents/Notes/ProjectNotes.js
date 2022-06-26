@@ -30,7 +30,6 @@ export default function ProjectNotes(props) {
             })
     .then(response => response.json())
     .then(payload => {
-        console.log(payload.status)
         if (payload.status === "created") {
             setNewNote(
                 {

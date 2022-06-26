@@ -8,8 +8,8 @@ export default function ProjectTab(props) {
             compact
             variant="outline" 
             color="green"
-            onClick={() => props.handleTabClick(props.index)}
-            disabled={props.index === props.projectTabIndex}
+            onClick={() => props.changeProjectContent(props.name)}
+            disabled={props.name === props.projectTab}
         >
             {props.name}
         </Button>

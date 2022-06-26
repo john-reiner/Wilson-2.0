@@ -21,14 +21,17 @@ import ProjectInfo from './ProjectComponents/Info/ProjectInfo';
 import ProjectFeatures from './ProjectComponents/Features/ProjectFeatures';
 import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
 import DeleteProjectModal from './DeleteProjectModal';
+import Feature from './FeatureShow/Feature';
 
 export default function ProjectShow(props) {
 
-    const [projectTabIndex, setProjectTabIndex] = useState(0);
+    const [projectContent, setProjectContent] = useState("Info");
     const [project, setProject] = useState({});
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
     const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
+    const [featureTitle, setFeatureTitle] = useState("");
+    const [featureId, setFeatureId] = useState(null);
     
     const [opened, handlers] = useDisclosure(false);
 
@@ -48,8 +51,16 @@ export default function ProjectShow(props) {
         setFetchAgainFlag(false)
     }, [fetchAgainFlag]);
 
-    let tabComponents = [
-        <ProjectInfo 
+    const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
+    // const handleTabClick = (index) => setprojectContentIndex(index)
+    const changeProjectContent = contentName => setProjectContent(contentName)
+    const handleFeatureClick = id => {
+        setFeatureId(id)
+        setProjectContent("Feature")
+    }
+
+    let projectComponents = [
+        [<ProjectInfo 
             setFetchAgainFlag={setFetchAgainFlag} 
             userId={props.user_id} 
             projectId={project.id} 
@@ -60,42 +71,49 @@ export default function ProjectShow(props) {
             github_url={project.github_url} 
             public={project.public} 
             description={project.description} 
-            tabName="Info" 
-
-        />,
-        <ProjectFeatures 
+        />, "Info"],
+        [<ProjectFeatures 
             setFetchAgainFlag={setFetchAgainFlag} 
             projectId={props.id} 
             userId={props.userId} 
             features={project.features} 
-            tabName="Features"
+            handleFeatureClick={handleFeatureClick}
+            setFeatureId={setFeatureId}
 
-        />,      
-        <ProjectNotes 
+        />, "Features"],      
+        [<ProjectNotes 
             setFetchAgainFlag={setFetchAgainFlag} 
             userId={props.userId} 
             projectId={props.id} 
             notes={project.notes} 
-            tabName="Notes"
-        />,
+        />, "Notes"],
+        [<Feature
+            projectId={project.id}
+            userId={props.userId}
+            featureId={featureId}
+            setFeatureTitle={setFeatureTitle}
+
+        />, "Feature"]
     ]
+
+    const projectShowTabs = ["Info", "Features", "Notes"]
 
     const renderTabs = (tabsArray) => {
         let keyNum = -1
         return tabsArray.map(tab => {
             keyNum ++
             return <ProjectTab 
-                        name={tab.props.tabName} 
-                        handleTabClick={handleTabClick}
-                        projectTabIndex={projectTabIndex}
-                        index={tabComponents.indexOf(tab)}
+                        name={tab} 
+                        // handleTabClick={handleTabClick}
+                        changeProjectContent={changeProjectContent}
+                        projectContent={projectContent}
+                        // index={projectComponents.indexOf(tab)}
                         key={keyNum}
                     />
         })
     }
 
-    const renderContent = (tabsArray, index) => tabsArray[index]
-    const handleTabClick = (index) => setProjectTabIndex(index)
+
 
     return (
         <div>
@@ -112,7 +130,7 @@ export default function ProjectShow(props) {
                         order={2}
                         className="wilson-logo-small"
                     >
-                        {project.title}
+                        {featureTitle ? project.title+ " -> " + featureTitle : project.title}
                     </Title>
                 </Grid.Col>
 
@@ -146,7 +164,7 @@ export default function ProjectShow(props) {
                     span={9}
                 >
                     <Group spacing="xs">
-                        {renderTabs(tabComponents)}
+                        {renderTabs(projectShowTabs)}
                     </Group>
                 </Grid.Col>
                 <Grid.Col 
@@ -166,7 +184,7 @@ export default function ProjectShow(props) {
                 </Grid.Col>
             </Grid>
             <hr></hr>
-                {renderContent(tabComponents, projectTabIndex)}
+                {renderContent(projectComponents, projectContent)}
         </div>
     )
 }

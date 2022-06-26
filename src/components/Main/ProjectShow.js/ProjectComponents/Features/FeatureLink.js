@@ -1,7 +1,7 @@
 import React from 'react'
 import { Grid, Paper, Text, Badge, Group } from '@mantine/core';
 
-export default function Feature(props) {
+export default function FeatureLink(props) {
 
     const convertDate = (date) => {
         var dateMill = Date.parse(date)
@@ -36,6 +36,7 @@ export default function Feature(props) {
                     cursor: "pointer"
                     },
                 })}
+                onClick={() => props.handleFeatureClick(props.id)}
             >
                 <Grid align="center">
                     <Grid.Col span={7}>
@@ -58,12 +59,5 @@ export default function Feature(props) {
                 </Grid>
             </Paper>
         </Grid.Col>
-        // <tr  onClick={null} key={props.id}>
-        //     <td><Grid.Col></Grid.Col></td>
-        //     <td><Grid.Col>{props.description}</Grid.Col></td>
-        //     <td><Grid.Col>{convertDate(props.dueDate)}</Grid.Col></td>
-        //     <td><Grid.Col>{props.public ? "Public" : "Private"}</Grid.Col></td>
-        //     <td><Grid.Col>{"editbutton"}</Grid.Col></td>
-        // </tr>
     )
 }

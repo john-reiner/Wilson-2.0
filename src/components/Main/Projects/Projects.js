@@ -82,10 +82,10 @@ export default function Projects(props) {
             >
                 <thead>
                     <tr>
-                        <th style={{width: "33%"}}><b>Title</b></th>
-                        <th><b>Author</b></th>
-                        <th><b>Modified</b></th>
-                        <th><b>Created</b></th>
+                        <th>Title</th>
+                        <th>Author</th>
+                        <th>Modified</th>
+                        <th>Created</th>
                     </tr>
                 </thead>
                 <tbody>

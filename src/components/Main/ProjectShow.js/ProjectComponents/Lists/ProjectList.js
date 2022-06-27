@@ -5,7 +5,6 @@ import Task from './Task';
 
 export default function ProjectList(props) {
 
-
     const [tasks, setTasks] = useState([]);
 
     const [listTask, setListTask] = useState({
@@ -26,7 +25,6 @@ export default function ProjectList(props) {
             console.log(payload)
             if (payload.status === "ok") {
                 setTasks(payload.tasks)
-                // props.setFetchAgainFlag(true)
             }
         })
         .catch(errors => {
@@ -46,7 +44,6 @@ export default function ProjectList(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "created") {
                 setListTask({
                     content: "",
@@ -65,7 +62,7 @@ export default function ProjectList(props) {
             return tasks.map(task => {
                 return <Task 
                             taskId={task.id}
-                            key={task.key}
+                            key={task.id}
                             content={task.content}
                             completed={task.completed}
                         />

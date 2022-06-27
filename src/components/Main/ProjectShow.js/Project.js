@@ -22,6 +22,7 @@ import ProjectFeatures from './ProjectComponents/Features/ProjectFeatures';
 import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
 import DeleteProjectModal from './DeleteProjectModal';
 import Feature from './FeatureShow/Feature';
+import ProjectLists from './ProjectComponents/Lists/ProjectLists';
 
 export default function ProjectShow(props) {
 
@@ -52,7 +53,6 @@ export default function ProjectShow(props) {
     }, [fetchAgainFlag]);
 
     const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
-    // const handleTabClick = (index) => setprojectContentIndex(index)
     const changeProjectContent = contentName => setProjectContent(contentName)
     const handleFeatureClick = id => {
         setFeatureId(id)
@@ -72,6 +72,14 @@ export default function ProjectShow(props) {
             public={project.public} 
             description={project.description} 
         />, "Info"],
+        [<ProjectLists
+            title={project.title}
+            projectId={props.id} 
+            userId={props.userId} 
+            setFetchAgainFlag={setFetchAgainFlag}
+            lists={project.lists}
+
+        />, "Lists"],
         [<ProjectFeatures 
             setFetchAgainFlag={setFetchAgainFlag} 
             projectId={props.id} 
@@ -92,11 +100,10 @@ export default function ProjectShow(props) {
             userId={props.userId}
             featureId={featureId}
             setFeatureTitle={setFeatureTitle}
-
         />, "Feature"]
     ]
 
-    const projectShowTabs = ["Info", "Features", "Notes"]
+    const projectShowTabs = ["Info", "Lists", "Features", "Notes"]
 
     const renderTabs = (tabsArray) => {
         let keyNum = -1

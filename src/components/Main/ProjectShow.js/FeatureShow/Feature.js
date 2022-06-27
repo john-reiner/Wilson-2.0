@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import { Grid } from '@mantine/core';
 
 export default function Feature(props) {
 
@@ -27,6 +28,11 @@ export default function Feature(props) {
     }
 
     return (
-        <div>Feature</div>
+        <Grid>
+            <Grid.Col md={6} lg={3}>{feature.description}</Grid.Col>
+            <Grid.Col md={6} lg={3}>2</Grid.Col>
+            <Grid.Col md={6} lg={3}>3</Grid.Col>
+            <Grid.Col md={6} lg={3}>4</Grid.Col>
+        </Grid>
     )
 }

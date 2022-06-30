@@ -44,10 +44,6 @@ export default function Projects(props) {
                             created={project.created}
                         />
             })
-        } else {
-            return (
-                <p>No Projects</p>
-            )
         }
     }
 

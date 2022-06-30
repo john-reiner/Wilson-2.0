@@ -10,6 +10,8 @@ export default function NewList(props) {
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
+
+
     const handleSubmit = e => {
         e.preventDefault()
         fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists`, {
@@ -22,11 +24,12 @@ export default function NewList(props) {
                 })
         .then(response => response.json())
         .then(payload => {
+            console.log(payload)
             if (payload.status === "created") {
                 setList({
                     title: "",
                 })
-                props.setFetchAgainFlag(true)
+                props.setReloadLists(true)
                 props.setNewList(false)
             }
         })

@@ -3,8 +3,6 @@ import { Drawer } from '@mantine/core';
 
 export default function TaskShow(props) {
 
-    console.log(props)
-
     return (
         <Drawer
             onClose={() => props.setOpened(false)}

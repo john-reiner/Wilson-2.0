@@ -5,43 +5,19 @@ import Task from './Task';
 
 export default function ProjectList(props) {
 
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState(props.tasks);
 
     const [listTask, setListTask] = useState({
         content: "",
-        completed: false
+        completed: false,
+        list_id: props.listId
     });
-
-    useEffect(() => {
-        fetchTasks()
-    }, []);
 
     const handleChange = e => setListTask({...listTask, [e.target.name]: e.target.value})
 
-    const fetchTasks = () => {
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists/${props.listId}/tasks`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-            }
-        )
-        .then(response => response.json())
-        .then(payload => {
-            console.log(payload)
-            if (payload.status === "ok") {
-                setTasks(payload.tasks)
-            }
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
-    }
-
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists/${props.listId}/tasks`, {
+        fetch(`http://localhost:3001/api/v2/tasks/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -54,7 +30,8 @@ export default function ProjectList(props) {
             if (payload.status === "created") {
                 setListTask({
                     content: "",
-                    completed: false
+                    completed: false,
+                    list_id: props.listId
                 })
                 setTasks([...tasks, payload.message] )
             }

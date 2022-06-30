@@ -16,7 +16,7 @@ export default function Feature(props) {
 
 
     const fetchFeature = () => {
-        fetch(`http://localhost:3001/api/v2/users/${userId}/projects/${projectId}/features/${featureId}`)
+        fetch(`http://localhost:3001/api/v2/projects/${projectId}/features/${featureId}`)
         .then(response => response.json())
         .then(payload => {
             setFeature(payload)

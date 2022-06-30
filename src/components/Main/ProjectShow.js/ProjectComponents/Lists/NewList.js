@@ -12,13 +12,13 @@ export default function NewList(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/project_lists`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({project_list: list})
+                body: JSON.stringify({list: list})
                 })
         .then(response => response.json())
         .then(payload => {

@@ -13,7 +13,7 @@ export default function NewFeature(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/features`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -17,7 +17,7 @@ export default function NewProject(props) {
     
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
+        fetch(`http://localhost:3001/api/v2/projects`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

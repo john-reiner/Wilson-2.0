@@ -4,7 +4,7 @@ import { Modal, Group, Button} from '@mantine/core';
 export default function DeleteProjectModal(props) {
 
     const deleteProject = () => {
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

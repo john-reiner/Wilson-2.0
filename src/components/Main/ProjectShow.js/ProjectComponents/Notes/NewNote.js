@@ -9,7 +9,7 @@ export default function NewNote(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/project_notes`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/notes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

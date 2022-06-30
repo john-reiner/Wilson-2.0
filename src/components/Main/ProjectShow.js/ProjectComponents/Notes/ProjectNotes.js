@@ -6,7 +6,6 @@ import Note from './Note'
 export default function ProjectNotes(props) {
 
   const [newNote, setNewNote] = useState({
-      title: "",
       content: "",
   });
 
@@ -20,20 +19,20 @@ export default function ProjectNotes(props) {
 
   const handleSubmit = e => {
     e.preventDefault()
-    fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/project_notes`, {
+    fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/notes`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
             },
-            body: JSON.stringify({project_note: newNote})
+            body: JSON.stringify({note: newNote})
             })
     .then(response => response.json())
     .then(payload => {
+        console.log(payload)
         if (payload.status === "created") {
             setNewNote(
                 {
-                    title: "",
                     content: "",
                 }
                 )
@@ -55,6 +54,7 @@ export default function ProjectNotes(props) {
                       created={note.created}
                       id={note.id}
                       setFetchAgainFlag={props.setFetchAgainFlag}
+                      projectId={props.projectId}
                     />
         })
     } else {
@@ -85,12 +85,6 @@ export default function ProjectNotes(props) {
           <Text weight={500} align="center">New Note</Text>
           <form onSubmit={handleSubmit}>
             <Stack spacing="md">
-              <TextInput
-                placeholder="Title"
-                name="title"
-                value={newNote.title}
-                onChange={handleChange}
-              />
               <Textarea
                 placeholder="Note..."
                 minRows={2}

@@ -6,7 +6,6 @@ export default function Note(props) {
 
     const [editProjectFlag, setEditProjectFlag] = useState(false);
     const [note, setNote] = useState({
-        title: props.title,
         content: props.content
     });
 
@@ -22,8 +21,9 @@ export default function Note(props) {
         return month + '/' + day + '/' + year;
     }
 
+
     const deleteNote = () => {
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/project_notes/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/notes/${props.id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -32,7 +32,6 @@ export default function Note(props) {
             })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "ok") {
                 props.setFetchAgainFlag(true)
             }
@@ -44,13 +43,13 @@ export default function Note(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects/${props.projectId}/project_notes/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/notes/${props.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({project_note: note})
+                body: JSON.stringify({note: note})
                 })
         .then(response => response.json())
         .then(payload => {
@@ -71,12 +70,6 @@ export default function Note(props) {
             return (
                 <form onSubmit={handleSubmit}>
                     <Stack>
-                        <TextInput
-                            placeholder="Title"
-                            name="title"
-                            value={note.title}
-                            onChange={handleChange}
-                        />
                         <Textarea
                             placeholder="Note..."
                             minRows={2}

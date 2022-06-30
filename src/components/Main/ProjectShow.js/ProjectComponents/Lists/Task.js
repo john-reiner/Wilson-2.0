@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { List, ThemeIcon } from '@mantine/core';
+import { List, ThemeIcon, Paper } from '@mantine/core';
 import { CircleCheck, CircleDashed } from 'tabler-icons-react';
 import TaskShow from './TaskShow';
 
@@ -10,8 +10,8 @@ export default function Task(props) {
     console.log(opened, props.content)
 
     return (
-        <div>
-                        <TaskShow 
+        <Paper shadow="md" radius="xs" p="sm" withBorder>
+            <TaskShow 
                 opened={opened}
                 setOpened={setOpened}
                 content={props.content}
@@ -23,8 +23,9 @@ export default function Task(props) {
                 onClick={() => setOpened(true)}
             >
 
+
                 {props.content}
             </List.Item>
-        </div>
+        </Paper>
     )
 }

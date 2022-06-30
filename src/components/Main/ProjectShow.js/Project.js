@@ -37,7 +37,7 @@ export default function ProjectShow(props) {
     const [opened, handlers] = useDisclosure(false);
 
     const fetchProject = () => {
-        fetch(`http://localhost:3001/api/v2/users/${props.user_id}/projects/${props.id}`)
+        fetch(`http://localhost:3001/api/v2/projects/${props.id}`)
         .then(response => response.json())
         .then(payload => {
             setProject(payload)
@@ -74,10 +74,8 @@ export default function ProjectShow(props) {
         />, "Info"],
         [<ProjectLists
             title={project.title}
-            projectId={props.id} 
+            projectId={props.id}
             userId={props.userId} 
-            setFetchAgainFlag={setFetchAgainFlag}
-            lists={project.lists}
 
         />, "Lists"],
         [<ProjectFeatures 

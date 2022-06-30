@@ -12,7 +12,7 @@ export default function Projects(props) {
     }, []);
 
     const fetchProjects = () => {
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
+        fetch(`http://localhost:3001/api/v2/projects`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

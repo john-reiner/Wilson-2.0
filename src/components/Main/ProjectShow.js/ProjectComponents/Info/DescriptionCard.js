@@ -17,7 +17,7 @@ export default function DescriptionCard(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/users/${props.userId}/projects`, {
+        fetch(`http://localhost:3001/api/${props.userId}/projects`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

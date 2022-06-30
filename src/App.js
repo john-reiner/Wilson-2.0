@@ -20,7 +20,7 @@ export default function App() {
   const toggleDarkmode = () => setDarkMode(!darkMode)
 
   const fetchUser = () => {
-    fetch('http://localhost:3001/api/v2/users/user', {
+    fetch('http://localhost:3001/api/v2/user', {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -30,7 +30,7 @@ export default function App() {
     .then(response => response.json())
     .then(data => {
       if (data.status === "ok") {
-        setUserId(data.user.id)
+        setUserId(data.message)
         setUserInfo(data.user)
         setLoggedIn(true)
       } else {

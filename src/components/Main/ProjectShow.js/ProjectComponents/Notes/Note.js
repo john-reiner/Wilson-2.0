@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Card, Group, Badge, Stack, Text, ActionIcon, Grid, TextInput, Textarea, Button } from '@mantine/core';
+import { Card, Group, Badge, Stack, Text, ActionIcon, Grid, Textarea, Button } from '@mantine/core';
 import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
 
 export default function Note(props) {

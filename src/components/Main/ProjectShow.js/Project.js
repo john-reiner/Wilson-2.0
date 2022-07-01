@@ -5,12 +5,10 @@ import {
         Grid, 
         Title, 
         Divider, 
-        Text, 
         Center,
         Anchor,
         Box,
         Group,
-        Button
 } from '@mantine/core';
 
 import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';

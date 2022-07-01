@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import { MantineProvider, Paper} from '@mantine/core';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 import Main from './components/Main/Main'

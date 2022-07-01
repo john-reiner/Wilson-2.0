@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Drawer, Button, Group, Stack, TextInput, Textarea, Switch } from '@mantine/core';
+import { Drawer, Button, Stack, TextInput, Textarea, Switch } from '@mantine/core';
 import { DatePicker } from '@mantine/dates';
 
 export default function NewFeature(props) {

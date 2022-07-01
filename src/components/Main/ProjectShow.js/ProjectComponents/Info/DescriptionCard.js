@@ -1,7 +1,6 @@
 import { Card, Image, Text, Textarea, Button, Group, useMantineTheme, Stack } from '@mantine/core';
 
 import React, {useState} from 'react'
-import { propTypes } from 'react-bootstrap/esm/Image';
 
 export default function DescriptionCard(props) {
 
@@ -11,9 +10,6 @@ export default function DescriptionCard(props) {
     });
 
     const handleChange = e => setProject({...project, [e.target.name]:e.target.value})
-    const togglePublic = e => {
-        setProject({...project, [e.target.name]:e.target.checked})
-    }
 
     const handleSubmit = e => {
         e.preventDefault()

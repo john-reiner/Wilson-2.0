@@ -17,7 +17,7 @@ export default function EditProjectModal(props) {
                             setFetchAgainFlag={props.setFetchAgainFlag}
                             setEditModalOpen={props.setEditModalOpen}
                         />
-                break;
+                // break;
         
             default:
                 break;

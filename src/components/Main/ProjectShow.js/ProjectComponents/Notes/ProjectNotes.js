@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Card, Stack, Textarea, Text, Button, useMantineTheme, Grid, TextInput } from '@mantine/core';
+import { Card, Stack, Textarea, Text, Button, Grid } from '@mantine/core';
 
 import Note from './Note'
 
@@ -8,12 +8,6 @@ export default function ProjectNotes(props) {
   const [newNote, setNewNote] = useState({
       content: "",
   });
-
-  const theme = useMantineTheme();
-
-  const secondaryColor = theme.colorScheme === 'dark'
-    ? theme.colors.dark[1]
-    : theme.colors.gray[7];
 
   const handleChange = e => setNewNote({...newNote, [e.target.name]:e.target.value})
 
@@ -29,7 +23,6 @@ export default function ProjectNotes(props) {
             })
     .then(response => response.json())
     .then(payload => {
-        console.log(payload)
         if (payload.status === "created") {
             setNewNote(
                 {

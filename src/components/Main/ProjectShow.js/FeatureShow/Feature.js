@@ -3,7 +3,7 @@ import { Grid } from '@mantine/core';
 
 export default function Feature(props) {
 
-    const {projectId, userId, featureId, setFeatureTitle} = props
+    const {projectId, featureId, setFeatureTitle} = props
 
     const [feature, setFeature] = useState({});
 

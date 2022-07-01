@@ -6,6 +6,29 @@ import TaskShow from './TaskShow';
 export default function Task(props) {
 
     const [opened, setOpened] = useState(false);
+    const [task, setTask] = useState({
+        content: props.content,
+        completed: props.completed
+    });
+
+    const changeTaskComplete = () => {
+        setTask({...task, "completed": !task.completed})
+        fetch(`http://localhost:3001/api/v2/tasks/${props.taskId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({task: {completed: !task.completed}})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            console.log(payload)
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
 
     return (
         <Paper 
@@ -28,7 +51,21 @@ export default function Task(props) {
                         }
                     }
                 >
-                    <ActionIcon onClick={() => console.log("clicked")} color={props.completed ? "green" : "blue"} size={24} radius="xl">{ props.completed ? <CircleCheck size={16} /> : <CircleDashed/>}</ActionIcon>
+                    <ActionIcon 
+                        onClick={changeTaskComplete} 
+                        color={task.completed ? "green" : "blue"}
+                        size={24} 
+                        radius="xl"
+                    >
+                        { 
+                            task.completed ? 
+                                <CircleCheck /> 
+
+                            : 
+
+                                <CircleDashed/>
+                        }
+                    </ActionIcon>
                     <Box 
                         onClick={() => setOpened(true)}
                         sx={(theme) => ({
@@ -46,7 +83,7 @@ export default function Task(props) {
                             },
                         })}
                     >
-                        {props.content}
+                        {task.content}
                     </Box>
                 </Box>
         </Paper>

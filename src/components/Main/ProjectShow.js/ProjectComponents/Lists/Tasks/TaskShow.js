@@ -1,5 +1,5 @@
 import React from 'react'
-import { Drawer } from '@mantine/core';
+import { Button, Drawer, Group, Switch, Stack } from '@mantine/core';
 
 export default function TaskShow(props) {
 
@@ -12,7 +12,33 @@ export default function TaskShow(props) {
             size="md"
             position="right" 
         >
-            {/* Drawer content */}
+            <Stack>
+                <Switch
+                    label="Complete"
+                    checked={props.completed}
+                    onChange={props.handleChecked}
+                    name="completed"
+                    value={props.completed}
+                >
+
+                </Switch>
+                <Group
+                    position="apart"
+                >
+                    <Button
+                        variant='outline'
+                        color='gray'
+                        >
+                        Edit
+                    </Button>
+                    <Button 
+                        variant="outline" 
+                        color="red"
+                    >
+                        Delete
+                    </Button>
+                </Group>
+            </Stack>
         </Drawer>
 
     )

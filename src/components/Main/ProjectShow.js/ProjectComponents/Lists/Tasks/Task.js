@@ -1,25 +1,41 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import { Box, ActionIcon, Paper,} from '@mantine/core';
-import { CircleCheck, CircleDashed, FileX } from 'tabler-icons-react';
+import { CircleCheck, CircleDashed } from 'tabler-icons-react';
 import TaskShow from './TaskShow';
 
 export default function Task(props) {
 
-    const [opened, setOpened] = useState(false);
+    const [opened, setOpened] = useState(false)
+    const [completeChange, setCompleteChange] = useState(false);
     const [task, setTask] = useState({
         content: props.content,
         completed: props.completed
     });
 
-    const changeTaskComplete = () => {
-        setTask({...task, "completed": !task.completed})
+    console.log(task.completed)
+
+    useEffect(() => {
+        if (completeChange) {
+            updateTask()
+            setCompleteChange(false)
+        }
+    }, [completeChange]);
+
+    const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+
+    const handleChecked = () => {
+        setTask({...task, 'completed': !task.completed})
+        setCompleteChange(true)
+    }
+
+    const updateTask = () => {
         fetch(`http://localhost:3001/api/v2/tasks/${props.taskId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({task: {completed: !task.completed}})
+                body: JSON.stringify({task: task})
                 })
         .then(response => response.json())
         .then(payload => {
@@ -41,6 +57,9 @@ export default function Task(props) {
                 opened={opened}
                 setOpened={setOpened}
                 content={props.content}
+                completed={task.completed}
+                handleChange={handleChange}
+                handleChecked={handleChecked}
             />
                 <Box 
                     style={
@@ -52,7 +71,7 @@ export default function Task(props) {
                     }
                 >
                     <ActionIcon 
-                        onClick={changeTaskComplete} 
+                        onClick={handleChecked} 
                         color={task.completed ? "green" : "blue"}
                         size={24} 
                         radius="xl"

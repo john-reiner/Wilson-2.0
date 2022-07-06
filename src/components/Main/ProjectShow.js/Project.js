@@ -21,6 +21,7 @@ import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
 import DeleteProjectModal from './DeleteProjectModal';
 import Feature from './FeatureShow/Feature';
 import ProjectLists from './ProjectComponents/Lists/ProjectLists';
+import EditProjectModal from './EditProjectModal';
 
 export default function ProjectShow(props) {
 
@@ -120,6 +121,19 @@ export default function ProjectShow(props) {
 
     return (
         <div>
+            <EditProjectModal 
+                setFetchAgainFlag={setFetchAgainFlag} 
+                userId={props.userId} 
+                projectId={props.projectId} 
+                type={props.editType} 
+                title={props.title} 
+                github_url={props.github_url} 
+                public={props.public} 
+                description={props.description} 
+                setEditModalOpen={props.setEditModalOpen} 
+                editModalOpen={props.editModalOpen} 
+
+            />
             <DeleteProjectModal 
                 opened={deleteConfirmationModalOpen} 
                 setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}

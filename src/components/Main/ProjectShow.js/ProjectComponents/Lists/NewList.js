@@ -24,7 +24,6 @@ export default function NewList(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "created") {
                 setList({
                     title: "",

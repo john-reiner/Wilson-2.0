@@ -17,7 +17,7 @@ export default function InfoEditForm(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/projects/${props.projectId}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

@@ -9,8 +9,20 @@ export default function PreAuth(props) {
     const [componentViewName, setComponentViewName] = useState('login');
 
     let componentViews = [
-        [<SignUp setComponentViewName={setComponentViewName} setLoggedInStatusChange={props.setLoggedInStatusChange} />, "signup"],
-        [<Login setComponentViewName={setComponentViewName} setLoggedInStatusChange={props.setLoggedInStatusChange}/>, "login"],
+        [
+            <SignUp 
+                setComponentViewName={setComponentViewName} 
+                setLoggedIn={props.setLoggedIn}
+
+            />, "signup"
+        ],
+        [
+            <Login 
+                setComponentViewName={setComponentViewName} 
+                setLoggedIn={props.setLoggedIn}
+
+            />, "login"
+        ],
     ]
 
     const renderView = (componentViewName, componentViews) => {

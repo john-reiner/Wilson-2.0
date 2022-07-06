@@ -26,10 +26,9 @@ export default function SignUp(props) {
         })
         .then(response => response.json())
         .then(data => {
-
             if (data.status === 'ok') {
                 localStorage.setItem('wilsonUserToken', data.message)
-                props.setLoggedInStatusChange(true)
+                props.setLoggedIn(true)
             }
             if (data.status === 'unauthorized') {
                 alert(data.errors)

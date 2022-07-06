@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {
     AppShell,
     Navbar,
@@ -23,10 +23,35 @@ export default function Main(props) {
     const [opened, setOpened] = useState(false);
     const [viewToShow, setViewToShow] = useState(0);
     const [projectShowId, setProjectShowId] = useState(null);
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+        fetchUser()
+    }, []);
 
     const handleProjectShow = id => {
         setProjectShowId(id)
         setViewToShow(1)
+    }
+
+    const fetchUser = () => {
+        fetch('http://localhost:3001/api/v2/user', {
+            method: 'GET',
+            headers: {
+            'Content-Type': 'application/json',
+            'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+        if (data.status === "ok") {
+            setUser(data.user)
+
+        } else {
+            alert("something went wrong...")
+            // setLoggedIn(false)
+        }
+        });
     }
 
     const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
@@ -37,6 +62,7 @@ export default function Main(props) {
             handleProjectShow={handleProjectShow} 
             userId={props.userId}
             viewTitle="Projects" 
+            projects={user.projects}
         />,
         <Project 
             id={projectShowId} 
@@ -65,7 +91,10 @@ export default function Main(props) {
             navbar={
                 <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
 
-                    <LeftNavbar setViewToShow={setViewToShow} />
+                    <LeftNavbar 
+                        setViewToShow={setViewToShow} 
+                        logout={props.logout}
+                    />
 
                 </Navbar>
             }
@@ -81,27 +110,27 @@ export default function Main(props) {
                             height: '100%',
                         }}
                     >
-                    <MediaQuery 
-                        largerThan="sm" 
-                        styles={{ display: 'none' }}
-                    >
-                        <Burger
-                            opened={opened}
-                            onClick={() => setOpened((o) => !o)}
-                            size="sm"
-                            color={theme.colors.gray[6]}
+                        <MediaQuery 
+                            largerThan="sm" 
+                            styles={{ display: 'none' }}
+                        >
+                            <Burger
+                                opened={opened}
+                                onClick={() => setOpened((o) => !o)}
+                                size="sm"
+                                color={theme.colors.gray[6]}
+                                mr="xl"
+                            />
+                        </MediaQuery>
+                        <ActionIcon
+                            variant="outline"
+                            color={props.darkMode ? 'yellow' : 'blue'}
+                            onClick={() => props.setDarkMode(!props.darkMode)}
+                            title="Toggle color scheme"
                             mr="xl"
-                        />
-                    </MediaQuery>
-                    <ActionIcon
-                        variant="outline"
-                        color={props.darkMode ? 'yellow' : 'blue'}
-                        onClick={() => props.setDarkMode(!props.darkMode)}
-                        title="Toggle color scheme"
-                        mr="xl"
-                    >
-                        {props.darkMode ? <Sun size={18} /> : <MoonStars size={18} />}
-                    </ActionIcon> 
+                        >
+                            {props.darkMode ? <Sun size={18} /> : <MoonStars size={18} />}
+                        </ActionIcon> 
                     </div>
                 </Header>
             }

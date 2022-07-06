@@ -35,7 +35,16 @@ export default function EditProjectModal(props) {
             transitionDuration={600}
             transitionTimingFunction="ease"
         >
-            {renderContent()}
+            <InfoEditForm 
+                title={props.title} 
+                description={props.description}
+                github_url={props.github_url}
+                public={props.public}
+                projectId={props.projectId}
+                userId={props.userId}
+                setFetchAgainFlag={props.setFetchAgainFlag}
+                setEditModalOpen={props.setEditModalOpen}
+            />
         </Modal>
     )
 }

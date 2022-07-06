@@ -5,14 +5,15 @@ import TaskShow from './TaskShow';
 
 export default function Task(props) {
 
-    const [opened, setOpened] = useState(false)
+    const [taskShowOpened, setTaskShowOpened] = useState(false)
     const [completeChange, setCompleteChange] = useState(false);
+    const [editShow, setEditShow] = useState(false);
     const [task, setTask] = useState({
         content: props.content,
         completed: props.completed
     });
 
-    console.log(task.completed)
+    console.log(task)
 
     useEffect(() => {
         if (completeChange) {
@@ -21,14 +22,21 @@ export default function Task(props) {
         }
     }, [completeChange]);
 
-    const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+    const handleChange = e => {
+        setTask({...task, [e.target.name]:e.target.value})
+    }
 
     const handleChecked = () => {
         setTask({...task, 'completed': !task.completed})
         setCompleteChange(true)
     }
 
-    const updateTask = () => {
+    const submitTask = e => {
+        e.preventDefault()
+        updateTask()
+    }
+
+    const updateTask = e => {
         fetch(`http://localhost:3001/api/v2/tasks/${props.taskId}`, {
                 method: 'PUT',
                 headers: {
@@ -39,7 +47,8 @@ export default function Task(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
+            setTask(payload)
+            setEditShow(false)
         })
         .catch(errors => {
             console.error(errors)
@@ -54,12 +63,16 @@ export default function Task(props) {
             withBorder
         >
             <TaskShow 
-                opened={opened}
-                setOpened={setOpened}
-                content={props.content}
+                taskShowOpened={taskShowOpened}
+                setTaskShowOpened={setTaskShowOpened}
+                content={task.content}
                 completed={task.completed}
                 handleChange={handleChange}
                 handleChecked={handleChecked}
+                submitTask={submitTask}
+                setEditShow={setEditShow}
+                editShow={editShow}
+                id={props.taskId}
             />
                 <Box 
                     style={
@@ -86,7 +99,7 @@ export default function Task(props) {
                         }
                     </ActionIcon>
                     <Box 
-                        onClick={() => setOpened(true)}
+                        onClick={() => setTaskShowOpened(true)}
                         sx={(theme) => ({
                             backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
                             // textAlign: 'center',

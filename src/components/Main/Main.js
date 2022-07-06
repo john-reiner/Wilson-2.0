@@ -63,6 +63,7 @@ export default function Main(props) {
             userId={props.userId}
             viewTitle="Projects" 
             projects={user.projects}
+            projectsTotal={user.projectsTotal}
         />,
         <Project 
             id={projectShowId} 

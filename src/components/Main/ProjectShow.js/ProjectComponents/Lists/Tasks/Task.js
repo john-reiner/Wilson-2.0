@@ -13,8 +13,6 @@ export default function Task(props) {
         completed: props.completed
     });
 
-    console.log(task)
-
     useEffect(() => {
         if (completeChange) {
             updateTask()

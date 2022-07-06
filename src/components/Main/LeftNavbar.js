@@ -15,8 +15,8 @@ export default function LeftNavbar(props) {
         >
             <Stack spacing="sm" style={{height: "100%"}}>
                 <Button variant="outline" onClick={() => props.setViewToShow(0)}>Projects</Button>
-                <Button variant="outline">Lists</Button>
-                <Button variant="outline">Something Else</Button>
+                {/* <Button variant="outline">Lists</Button> */}
+                
             </Stack>
             <Stack>
                 <Button 

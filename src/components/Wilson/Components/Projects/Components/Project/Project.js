@@ -7,9 +7,8 @@ import ProjectInfoContainer from './Containers/ProjectInfoContainer';
 import Features from '../../../Features/Features';
 import NotesContainer from '../../../Notes/Containers/NotesContainer';
 import DeleteProjectModal from './Components/ConfirmDeleteProject';
-import Feature from './Feature/Feature';
+// import Feature from './Feature/Feature';
 import ListsContainer from '../../../Lists/Containers/ListsContainer';
-import EditProjectModal from './EditProjectModal';
 import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
 import ProjectModal from './Containers/ProjectModal';
 
@@ -62,8 +61,6 @@ export default function ProjectShow(props) {
             userId={props.user_id} 
             projectId={project.id} 
             editType="info" 
-            // editModalOpen={editModalOpen} 
-            // setEditModalOpen={setEditModalOpen}
             title={project.title} 
             github_url={project.github_url} 
             public={project.public} 
@@ -82,7 +79,6 @@ export default function ProjectShow(props) {
             projectId={props.id} 
             userId={props.userId} 
             features={project.features} 
-            // handleFeatureClick={handleFeatureClick}
             setFeatureId={setFeatureId}
 
         />, "Features"],      
@@ -91,14 +87,13 @@ export default function ProjectShow(props) {
             userId={props.userId} 
             id={props.id}
             notable="projects"
-            // notes={project.notes}
         />, "Notes"],
-        [<Feature
-            projectId={project.id}
-            userId={props.userId}
-            featureId={featureId}
-            setFeatureTitle={setFeatureTitle}
-        />, "Feature"]
+        // [<Feature
+        //     projectId={project.id}
+        //     userId={props.userId}
+        //     featureId={featureId}
+        //     setFeatureTitle={setFeatureTitle}
+        // />, "Feature"]
     ]
 
     const projectShowTabs = ["Info", "Lists", "Features", "Notes"]
@@ -114,26 +109,6 @@ export default function ProjectShow(props) {
                 setFetchAgainFlag={setFetchAgainFlag}
                 setViewToShow={props.setViewToShow}
             />
-            {/* <EditProjectModal 
-                setFetchAgainFlag={setFetchAgainFlag} 
-                userId={props.userId} 
-                projectId={props.projectId} 
-                type={props.editType} 
-                title={props.title} 
-                github_url={props.github_url} 
-                public={props.public} 
-                description={props.description} 
-                setEditModalOpen={props.setEditModalOpen} 
-                editModalOpen={props.editModalOpen} 
-
-            />
-            <DeleteProjectModal 
-                opened={deleteConfirmationModalOpen} 
-                setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}
-                id={project.id}
-                setViewToShow={props.setViewToShow}
-                userId={props.userId}
-            /> */}
             <MainContainerHeader 
                 title={project.title}
                 handleTabClick={handleTabClick}

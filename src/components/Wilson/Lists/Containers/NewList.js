@@ -10,8 +10,6 @@ export default function NewList(props) {
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
-
-
     const handleSubmit = e => {
         e.preventDefault()
         fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists`, {

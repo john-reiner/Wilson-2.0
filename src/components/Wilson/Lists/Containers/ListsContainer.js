@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Stack, Grid, Button } from '@mantine/core';
-import NewList from './Containers/NewList';
-import ProjectList from './Containers/ProjectList';
+import NewList from './NewList';
+import ProjectList from './ProjectList';
 
 export default function ProjectLists(props) {
 
@@ -19,7 +19,7 @@ export default function ProjectLists(props) {
 
     
     const fetchLists = () => {
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.id}/lists`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -33,6 +33,8 @@ export default function ProjectLists(props) {
             console.error(errors)
         })
     }
+
+    console.log(props.listable, props.id, lists)
 
     const renderLists = () => {
         if (lists.length > 0) { 

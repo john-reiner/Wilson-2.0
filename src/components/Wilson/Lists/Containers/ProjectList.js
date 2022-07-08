@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Grid, Accordion, Divider } from '@mantine/core';
-import Task from './Tasks/Task';
-import NewTask from './Tasks/NewTask';
+import Task from '../Tasks/Task';
+import NewTask from '../Tasks/NewTask';
 
 export default function ProjectList(props) {
 

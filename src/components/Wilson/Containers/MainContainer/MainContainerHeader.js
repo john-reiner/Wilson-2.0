@@ -61,7 +61,7 @@ export default function MainContainerHeader(props) {
                     >
                         <Menu.Item
                             icon={<Edit size={14} />}
-                            onClick={() => props.setEditModalOpen(true)}
+                            onClick={() => props.setEdit(true)}
                         >
                             Edit
                         </Menu.Item>
@@ -69,7 +69,7 @@ export default function MainContainerHeader(props) {
                         <Menu.Item
                             color="red" 
                             icon={<Trash size={14} />}
-                            onClick={() => props.setDeleteConfirmationModalOpen(true)}
+                            onClick={() => props.setConfirmDelete(true)}
                         >
                             Delete Project
                         </Menu.Item>

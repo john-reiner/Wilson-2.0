@@ -17,10 +17,10 @@ import { useDisclosure } from '@mantine/hooks';
 import ProjectTab from '../../Containers/MainContainer/Tab';
 import ProjectInfo from '../Project/Components/Info/ProjectInfo';
 import Features from '../../Features/Features';
-import ProjectNotes from '../../Notes/ProjectNotes';
+import NotesContainer from '../../Notes/Containers/NotesContainer';
 import DeleteProjectModal from './DeleteProjectModal';
 import Feature from './Feature/Feature';
-import ProjectLists from '../../Lists/ProjectLists';
+import ListsContainer from '../../Lists/Containers/ListsContainer';
 import EditProjectModal from './EditProjectModal';
 import MainContainerHeader from '../../Containers/MainContainer/MainContainerHeader';
 
@@ -76,10 +76,12 @@ export default function ProjectShow(props) {
             public={project.public} 
             description={project.description} 
         />, "Info"],
-        [<ProjectLists
+        [<ListsContainer
             title={project.title}
             projectId={props.id}
-            userId={props.userId} 
+            userId={props.userId}
+            listable="projects"
+            id={project.id}
 
         />, "Lists"],
         [<Features 
@@ -91,11 +93,12 @@ export default function ProjectShow(props) {
             setFeatureId={setFeatureId}
 
         />, "Features"],      
-        [<ProjectNotes
+        [<NotesContainer
             setFetchAgainFlag={setFetchAgainFlag} 
             userId={props.userId} 
-            projectId={props.id} 
-            notes={project.notes} 
+            id={props.id}
+            notable="projects"
+            // notes={project.notes}
         />, "Notes"],
         [<Feature
             projectId={project.id}

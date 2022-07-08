@@ -1,7 +1,127 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
+import { Card, Stack, Textarea, Text, Button, Grid } from '@mantine/core';
 
-export default function NotesContainer() {
+import Note from '../Components/Note'
+
+export default function ProjectNotes(props) {
+
+    const [newNote, setNewNote] = useState({
+        content: "",
+    });
+
+    const [notes, setNotes] = useState([]);
+
+    useEffect(() => {
+        fetchNotes()
+    }, []);
+
+    const handleChange = e => setNewNote({...newNote, [e.target.name]:e.target.value})
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.projectId}/notes`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({note: newNote})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            if (payload.status === "created") {
+                setNewNote(
+                    {
+                        content: "",
+                    }
+                    )
+                props.setFetchAgainFlag(true)
+            }
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
+
+    const fetchNotes = () => {
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.id}/notes`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+            }
+        )
+        .then(response => response.json())
+        .then(payload => {
+            setNotes(payload.notes)
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
+
+    console.log(notes)
+
+    const renderNotes = () => {
+        if (notes.length > 0) {
+            return notes.map(note => {
+                return <Note
+                            title={note.title}
+                            content={note.content}
+                            key={note.id}
+                            created={note.created}
+                            id={note.id}
+                            setFetchAgainFlag={props.setFetchAgainFlag}
+                            projectId={props.projectId}
+                        />
+            })
+        } else {
+            return (
+            <p>No Notes</p>
+            )
+        }
+    }
+
     return (
-        <div>NotesContainer</div>
+        <Grid>
+        <Grid.Col 
+            xs={12}
+            sm={6}
+            md={4}
+            lg={3}
+            xl={2}
+        >
+            <Card 
+            shadow="sm" 
+            p="sm"
+            sx={(theme) => ({
+                backgroundColor: theme.colors.dark[4],
+                })
+            }
+            >
+
+            <Text weight={500} align="center">New Note</Text>
+            <form onSubmit={handleSubmit}>
+                <Stack spacing="md">
+                <Textarea
+                    placeholder="Note..."
+                    minRows={2}
+                    name="content"
+                    value={newNote.content}
+                    onChange={handleChange}
+                    required
+                />
+                <Button type='submit' variant="outline" color="blue" fullWidth>
+                    Submit
+                </Button>
+                </Stack>
+            </form>
+            </Card>
+        </Grid.Col>
+        {renderNotes()}
+        {/* {newNoteFormShow ? <NewNote setFetchAgainFlag={props.setFetchAgainFlag} setNewNoteFormShow={setNewNoteFormShow} userId={props.userId} projectId={props.projectId}/> : <div id="new-note-button" onClick={() => setNewNoteFormShow(true)}>New Note</div>}
+        {!newNoteFormShow && renderNotes()} */}
+        </Grid>
     )
 }

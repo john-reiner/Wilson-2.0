@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { Card, Stack, Textarea, Text, Button, Grid } from '@mantine/core';
 
-import Note from './Note'
+import Note from './Components/Note'
 
 export default function ProjectNotes(props) {
 

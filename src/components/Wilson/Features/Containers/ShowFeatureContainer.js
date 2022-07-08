@@ -30,6 +30,8 @@ export default function ShowFeatureContainer(props) {
 
         />, "Lists"],
         [<NotesContainer
+            id={props.id}
+            notable="features"
 
 
         />, "Notes"

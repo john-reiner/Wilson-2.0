@@ -34,8 +34,6 @@ export default function ProjectLists(props) {
         })
     }
 
-    console.log(props.listable, props.id, lists)
-
     const renderLists = () => {
         if (lists.length > 0) { 
             return lists.map(list => {

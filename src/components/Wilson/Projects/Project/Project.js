@@ -149,66 +149,8 @@ export default function ProjectShow(props) {
                 renderTabs={renderTabs}
                 projectShowTabs={projectShowTabs}
             />
-            {/* <Grid align="center">
-                <Grid.Col span={11}>
-                    <Title 
-                        order={2}
-                        className="wilson-logo-small"
-                    >
-                        {project.title}
-                    </Title>
-                </Grid.Col>
-
-                <Grid.Col 
-                    span={1}
-                    align="right"
-                >
-                    <Menu
-                        opened={opened} 
-                        onOpen={handlers.open} 
-                        onClose={handlers.close}
-                        control={<ActionIcon variant="hover" color="blue"><Settings size={16} /></ActionIcon>}
-                    >
-                        <Menu.Item
-                            icon={<Edit size={14} />}
-                            onClick={() => setEditModalOpen(true)}
-                        >
-                            Edit
-                        </Menu.Item>
-                        <Divider />
-                        <Menu.Item
-                            color="red" 
-                            icon={<Trash size={14} />}
-                            onClick={() => setDeleteConfirmationModalOpen(true)}
-                        >
-                            Delete Project
-                        </Menu.Item>
-                    </Menu>
-                </Grid.Col>
-                <Grid.Col 
-                    span={9}
-                >
-                    <Group spacing="xs">
-                        {renderTabs(projectShowTabs)}
-                    </Group>
-                </Grid.Col>
-                <Grid.Col 
-                    span={3}
-                    align="right"
-                >
-                    <Anchor href={project.github_url} target="_blank">
-                        <Center inline>
-                            <ActionIcon 
-                                variant="hover" 
-                                >
-                                <BrandGithub size={16} />
-                            </ActionIcon>
-                            <Box ml={5}>{project.public ? "Public" : "Private"}</Box>
-                        </Center>
-                    </Anchor>
-                </Grid.Col>
-            </Grid> */}
-                {renderContent(projectComponents, projectContent)}
+            <Divider my="xs" />
+            {renderContent(projectComponents, projectContent)}
         </div>
     )
 }

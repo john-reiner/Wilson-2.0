@@ -1,5 +1,4 @@
-import React from 'react'
-
+import React, {useState} from 'react'
 import { 
     ActionIcon, 
     Menu, 
@@ -12,12 +11,29 @@ import {
     Group,
 } from '@mantine/core';
 import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
-
 import { useDisclosure } from '@mantine/hooks';
+
+import Tab from './Tab';
 
 export default function MainContainerHeader(props) {
 
     const [opened, handlers] = useDisclosure(false);
+    const [activeTabIndex, setActiveTabIndex] = useState(0);
+
+    const renderTabs = (tabsArray) => {
+        let keyNum = -1
+        return tabsArray.map(tab => {
+            keyNum ++
+            return <Tab 
+                        name={tab}
+                        activeTabIndex={activeTabIndex}
+                        tabIndex={tabsArray.indexOf(tab)}
+                        handleTabClick={props.handleTabClick}
+                        setActiveTabIndex={setActiveTabIndex}
+                        key={keyNum}
+                    />
+        })
+    }
 
     return (
             <Grid align="center">
@@ -26,7 +42,7 @@ export default function MainContainerHeader(props) {
                         order={2}
                         className="wilson-logo-small"
                     >
-                        {props.project.title}
+                        {props.title}
                     </Title>
                 </Grid.Col>
 
@@ -60,21 +76,21 @@ export default function MainContainerHeader(props) {
                     span={9}
                 >
                     <Group spacing="xs">
-                        {props.renderTabs(props.projectShowTabs)}
+                        {renderTabs(props.tabs)}
                     </Group>
                 </Grid.Col>
                 <Grid.Col 
                     span={3}
                     align="right"
                 >
-                    <Anchor href={props.project.github_url} target="_blank">
+                    <Anchor href={props.github_url} target="_blank">
                         <Center inline>
                             <ActionIcon 
                                 variant="hover" 
                                 >
                                 <BrandGithub size={16} />
                             </ActionIcon>
-                            <Box ml={5}>{props.project.public ? "Public" : "Private"}</Box>
+                            <Box ml={5}>{props.public ? "Public" : "Private"}</Box>
                         </Center>
                     </Anchor>
                 </Grid.Col>

@@ -14,7 +14,7 @@ import {
 import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
-import ProjectTab from './ProjectTab';
+import ProjectTab from '../../Containers/MainContainer/Tab';
 import ProjectInfo from '../Project/Components/Info/ProjectInfo';
 import Features from '../../Features/Features';
 import ProjectNotes from '../../Notes/ProjectNotes';
@@ -54,9 +54,13 @@ export default function ProjectShow(props) {
 
     const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
     const changeProjectContent = contentName => setProjectContent(contentName)
-    const handleFeatureClick = id => {
-        setFeatureId(id)
-        setProjectContent("Feature")
+    // const handleFeatureClick = id => {
+    //     setFeatureId(id)
+    //     setProjectContent("Feature")
+    // }
+
+    const handleTabClick = (tabName) => {
+        setProjectContent(tabName)
     }
 
     let projectComponents = [
@@ -83,11 +87,11 @@ export default function ProjectShow(props) {
             projectId={props.id} 
             userId={props.userId} 
             features={project.features} 
-            handleFeatureClick={handleFeatureClick}
+            // handleFeatureClick={handleFeatureClick}
             setFeatureId={setFeatureId}
 
         />, "Features"],      
-        [<ProjectNotes 
+        [<ProjectNotes
             setFetchAgainFlag={setFetchAgainFlag} 
             userId={props.userId} 
             projectId={props.id} 
@@ -102,23 +106,6 @@ export default function ProjectShow(props) {
     ]
 
     const projectShowTabs = ["Info", "Lists", "Features", "Notes"]
-
-    const renderTabs = (tabsArray) => {
-        let keyNum = -1
-        return tabsArray.map(tab => {
-            keyNum ++
-            return <ProjectTab 
-                        name={tab} 
-                        // handleTabClick={handleTabClick}
-                        changeProjectContent={changeProjectContent}
-                        projectContent={projectContent}
-                        // index={projectComponents.indexOf(tab)}
-                        key={keyNum}
-                    />
-        })
-    }
-
-
 
     return (
         <div>
@@ -143,11 +130,11 @@ export default function ProjectShow(props) {
                 userId={props.userId}
             />
             <MainContainerHeader 
-                project={project}
+                title={project.title}
+                handleTabClick={handleTabClick}
                 setEditModalOpen={setEditModalOpen}
                 setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}
-                renderTabs={renderTabs}
-                projectShowTabs={projectShowTabs}
+                tabs={projectShowTabs}
             />
             <Divider my="xs" />
             {renderContent(projectComponents, projectContent)}

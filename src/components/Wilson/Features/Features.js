@@ -3,10 +3,18 @@ import { Button, Stack, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 import FeatureLink from './Components/FeatureLink'
 import NewFeature from './Components/NewFeature';
+import FeatureModalContainer from './Containers/FeatureModalContainer';
 
 export default function Features(props) {
 
     const [newFeatureDrawerOpen, setNewFeatureDrawerOpen] = useState(false);
+    const [featureModalOpen, setFeatureModalOpen] = useState(false);
+    const [featureId, setFeatureId] = useState(null);
+
+    const handleLinkClick = (id) => {
+        setFeatureId(id)
+        setFeatureModalOpen(true)
+    }
 
     const renderFeatures = () => {
         if (props.features.length > 0) {
@@ -17,10 +25,11 @@ export default function Features(props) {
                         description={feature.description}
                         dueDate={feature.due_date}
                         public={feature.public}
-                        handleFeatureClick={props.handleFeatureClick}
+                        handleLinkClick={handleLinkClick}
                         setFeatureId={props.setFeatureId}
                         id={feature.id}
                         key={feature.id}
+                        
                     />
                 )
             })
@@ -33,6 +42,12 @@ export default function Features(props) {
 
     return (
         <Stack>
+            <FeatureModalContainer 
+                setFeatureModalOpen={setFeatureModalOpen}
+                featureModalOpen={featureModalOpen}
+                featureId={featureId}
+                projectId={props.projectId} 
+            />
             <Button 
                 leftIcon={<Plus size={14} />}
                 onClick={() => setNewFeatureDrawerOpen(true)}

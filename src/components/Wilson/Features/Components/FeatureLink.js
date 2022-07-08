@@ -36,7 +36,7 @@ export default function FeatureLink(props) {
                     cursor: "pointer"
                     },
                 })}
-                onClick={() => props.handleFeatureClick(props.id)}
+                onClick={() => props.handleLinkClick(props.id)}
             >
                 <Grid align="center">
                     <Grid.Col span={7}>

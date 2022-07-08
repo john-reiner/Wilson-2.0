@@ -9,6 +9,7 @@ import {
     Anchor,
     Box,
     Group,
+    Text
 } from '@mantine/core';
 import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
@@ -41,8 +42,10 @@ export default function MainContainerHeader(props) {
                     <Title 
                         order={2}
                         className="wilson-logo-small"
+                        // color="green"
                     >
-                        {props.title}
+                        <Text color="green" inherit component="span">{props.title}</Text>
+                        
                     </Title>
                 </Grid.Col>
 

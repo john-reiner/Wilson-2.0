@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import { Button, Stack, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
-import FeatureLink from './FeatureLink'
-import NewFeature from './NewFeature';
+import FeatureLink from './Components/FeatureLink'
+import NewFeature from './Components/NewFeature';
 
 export default function Features(props) {
 

@@ -11,38 +11,21 @@ export default function Projects(props) {
         setProjects(props.projects)
     }, [props.projects]);
 
-    // const fetchProjects = () => {
-    //     fetch(`http://localhost:3001/api/v2/projects`, {
-    //         method: 'GET',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //         },
-    //         })
-    //     .then(response => response.json())
-    //     .then(payload => {
-    //         if (payload.status === "ok") {
-    //             setProjects(payload)
-    //         } else {
-    //             console.error("Something went wrong")
-    //         }
-    //     })
-    //     .catch(errors => console.error("Something went wrong...", errors))
-    // }
-
     const renderProjects = () => {
         if (projects) {
             return projects.map(project => {
-                return <ProjectLink 
-                            id={project.id} 
-                            key={project.id} 
-                            title={project.title}
-                            setViewToShow={props.setViewToShow}
-                            handleProjectShow={props.handleProjectShow}
-                            author={project.author_first + " " + project.author_last}
-                            modified={project.modified}
-                            created={project.created}
-                        />
+                return (
+                    <ProjectLink 
+                        id={project.id} 
+                        key={project.id} 
+                        title={project.title}
+                        setViewToShow={props.setViewToShow}
+                        handleProjectShow={props.handleProjectShow}
+                        author={project.author_first + " " + project.author_last}
+                        modified={project.modified}
+                        created={project.created}
+                    />                    
+                )
             })
         }
     }

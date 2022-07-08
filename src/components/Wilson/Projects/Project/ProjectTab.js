@@ -7,9 +7,9 @@ export default function ProjectTab(props) {
         <Button
             compact
             variant="outline" 
-            color="green"
+            color={props.name === props.projectContent ? "green" : "blue"}
             onClick={() => props.changeProjectContent(props.name)}
-            disabled={props.name === props.projectTab}
+            // disabled={props.name === props.projectContent}
         >
             {props.name}
         </Button>

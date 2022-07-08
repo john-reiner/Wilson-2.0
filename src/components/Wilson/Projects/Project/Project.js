@@ -15,12 +15,12 @@ import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
 import ProjectTab from './ProjectTab';
-import ProjectInfo from './ProjectComponents/Info/ProjectInfo';
-import ProjectFeatures from './ProjectComponents/Features/ProjectFeatures';
-import ProjectNotes from './ProjectComponents/Notes/ProjectNotes';
+import ProjectInfo from '../Project/Components/Info/ProjectInfo';
+import Features from '../../Features/Features';
+import ProjectNotes from '../../Notes/ProjectNotes';
 import DeleteProjectModal from './DeleteProjectModal';
-import Feature from './FeatureShow/Feature';
-import ProjectLists from './ProjectComponents/Lists/ProjectLists';
+import Feature from './Feature/Feature';
+import ProjectLists from '../../Lists/ProjectLists';
 import EditProjectModal from './EditProjectModal';
 
 export default function ProjectShow(props) {
@@ -77,7 +77,7 @@ export default function ProjectShow(props) {
             userId={props.userId} 
 
         />, "Lists"],
-        [<ProjectFeatures 
+        [<Features 
             setFetchAgainFlag={setFetchAgainFlag} 
             projectId={props.id} 
             userId={props.userId} 
@@ -147,7 +147,7 @@ export default function ProjectShow(props) {
                         order={2}
                         className="wilson-logo-small"
                     >
-                        {featureTitle ? project.title+ " -> " + featureTitle : project.title}
+                        {project.title}
                     </Title>
                 </Grid.Col>
 

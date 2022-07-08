@@ -7,15 +7,15 @@ export default function ProjectModal(props) {
 
     const renderContent = () => {
         switch (props.modalOptions) {
-            case "edit":
+            case "Edit":
                 return <InfoEditForm 
                             project={props.project}
                             setFetchAgainFlag={props.setFetchAgainFlag}
                             setModalOpen={props.setModalOpen}
                         />
-            case "destroy":
+            case "Delete":
                 return <ConfirmDeleteProject 
-                            id={props.id}
+                            id={props.project.id}
                             setViewToShow={props.setViewToShow}
                             userId={props.userId}
                         />
@@ -28,7 +28,7 @@ export default function ProjectModal(props) {
         <Modal
             opened={props.modalOpen}
             onClose={() => props.setModalOpen(false)}
-            title="Edit"
+            title={props.modalOptions}
             size="xl"
             overflow="inside"
             transition="fade"

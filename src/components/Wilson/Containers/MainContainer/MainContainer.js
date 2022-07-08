@@ -21,7 +21,6 @@ export default function MainContainer(props) {
             handleProjectShow={handleProjectShow} 
             userId={props.userId}
             viewTitle="Projects" 
-            projects={props.user.projects}
             projectsTotal={props.user.projectsTotal}
         />,
         <Project 

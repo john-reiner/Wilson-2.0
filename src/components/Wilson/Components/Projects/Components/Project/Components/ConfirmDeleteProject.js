@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Group, Button} from '@mantine/core';
+import { Box, Text, Group, Button} from '@mantine/core';
 
 export default function ConfirmDeleteProject(props) {
 
@@ -15,6 +15,7 @@ export default function ConfirmDeleteProject(props) {
         .then(payload => {
             if (payload.status === "ok") {
                 props.setViewToShow(0)
+                
             }
         })
         .catch(errors => {
@@ -24,7 +25,8 @@ export default function ConfirmDeleteProject(props) {
 
     return (
         <Box
-        >   
+        >
+            <Text>Are you sure you want to delete this project?</Text>
             <Group position="apart" grow>
                 <Button 
                     variant="outline" 

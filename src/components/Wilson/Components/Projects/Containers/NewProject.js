@@ -37,7 +37,7 @@ export default function NewProject(props) {
                         public: 'false',
                     }
                 )
-                props.handleProjectShow(payload.message.id)
+                props.handleProjectShow(payload.project.id)
             }
         })
         .catch(errors => {

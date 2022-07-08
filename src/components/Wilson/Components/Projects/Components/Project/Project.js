@@ -49,11 +49,11 @@ export default function ProjectShow(props) {
 
     const handleEditProjectClick = () => {
         setModalOpen(true)
-        setModalOptions("edit")
+        setModalOptions("Edit")
     }
     const handleDeleteClick = () => {
         setModalOpen(true)
-        setModalOptions("destroy")
+        setModalOptions("Delete")
     }
 
     let projectComponents = [
@@ -112,6 +112,7 @@ export default function ProjectShow(props) {
                 id={project.id}
                 project={project}
                 setFetchAgainFlag={setFetchAgainFlag}
+                setViewToShow={props.setViewToShow}
             />
             {/* <EditProjectModal 
                 setFetchAgainFlag={setFetchAgainFlag} 

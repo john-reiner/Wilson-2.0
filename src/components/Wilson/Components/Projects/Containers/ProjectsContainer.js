@@ -8,8 +8,24 @@ export default function ProjectsContainer(props) {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        setProjects(props.projects)
-    }, [props.projects]);
+        fetchProjects()
+    }, []);
+
+    const fetchProjects = () => {
+        fetch(`http://localhost:3001/api/v2/projects`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+            }
+        )
+        .then(response => response.json())
+        .then(payload => setProjects(payload.projects))
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
 
     const renderProjects = () => {
         if (projects) {

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Stack, Grid, Button } from '@mantine/core';
 import NewList from './NewList';
-import ProjectList from './ProjectList';
+import ListContainer from './ListContainer';
 
 export default function ProjectLists(props) {
 
@@ -37,7 +37,7 @@ export default function ProjectLists(props) {
     const renderLists = () => {
         if (lists.length > 0) { 
             return lists.map(list => {
-                return <ProjectList 
+                return <ListContainer 
                             key={list.id}
                             listId={list.id}
                             title={list.title}

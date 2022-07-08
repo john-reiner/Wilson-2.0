@@ -6,19 +6,18 @@ import NewProject from '../../Projects/NewProject'
 
 export default function MainContainer(props) {
 
-    const [viewToShow, setViewToShow] = useState(0);
     const [projectShowId, setProjectShowId] = useState(null);
 
     const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
 
     const handleProjectShow = id => {
         setProjectShowId(id)
-        setViewToShow(1)
+        props.setViewToShow(1)
     }
 
     const views = [
         <Projects 
-            setViewToShow={setViewToShow}
+            setViewToShow={props.setViewToShow}
             handleProjectShow={handleProjectShow} 
             userId={props.userId}
             viewTitle="Projects" 
@@ -29,19 +28,19 @@ export default function MainContainer(props) {
             id={projectShowId} 
             userId={props.userId}  
             viewTitle="Project"
-            setViewToShow={setViewToShow}
+            setViewToShow={props.setViewToShow}
         />,
         <NewProject 
             handleProjectShow={handleProjectShow} 
             viewTitle="New Project" 
-            setViewToShow={setViewToShow} 
+            setViewToShow={props.setViewToShow} 
             userId={props.userId} 
         />
     ]
 
     return (
         <div>
-            {renderView(viewToShow, views)}
+            {renderView(props.viewToShow, views)}
         </div>
     )
 }

@@ -84,6 +84,8 @@ export default function Wilson(props) {
             <MainContainer 
                 user={user}
                 handleProjectShow={handleProjectShow}
+                setViewToShow={setViewToShow}
+                viewToShow={viewToShow}
             />
         </AppShell>
     )

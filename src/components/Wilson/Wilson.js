@@ -13,7 +13,7 @@ import {
 
 import LeftNavbar from './Containers/LeftNavbar';
 import TopHeader from './Containers/TopHeader';
-import MainContainer from './Containers/MainContainer';
+import MainContainer from './Containers/MainContainer/MainContainer';
 
 export default function Wilson(props) {
 

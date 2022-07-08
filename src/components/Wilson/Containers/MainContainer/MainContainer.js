@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-import Projects from '../Projects/Projects';
-import Project from '../Projects/Project/Project'
-import NewProject from '../Projects/NewProject'
+import Projects from '../../Projects/Projects';
+import Project from '../../Projects/Project/Project'
+import NewProject from '../../Projects/NewProject'
 
 export default function MainContainer(props) {
 

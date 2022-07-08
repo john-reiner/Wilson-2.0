@@ -22,6 +22,7 @@ import DeleteProjectModal from './DeleteProjectModal';
 import Feature from './Feature/Feature';
 import ProjectLists from '../../Lists/ProjectLists';
 import EditProjectModal from './EditProjectModal';
+import MainContainerHeader from '../../Containers/MainContainer/MainContainerHeader';
 
 export default function ProjectShow(props) {
 
@@ -141,7 +142,14 @@ export default function ProjectShow(props) {
                 setViewToShow={props.setViewToShow}
                 userId={props.userId}
             />
-            <Grid align="center">
+            <MainContainerHeader 
+                project={project}
+                setEditModalOpen={setEditModalOpen}
+                setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}
+                renderTabs={renderTabs}
+                projectShowTabs={projectShowTabs}
+            />
+            {/* <Grid align="center">
                 <Grid.Col span={11}>
                     <Title 
                         order={2}
@@ -199,8 +207,7 @@ export default function ProjectShow(props) {
                         </Center>
                     </Anchor>
                 </Grid.Col>
-            </Grid>
-            <hr></hr>
+            </Grid> */}
                 {renderContent(projectComponents, projectContent)}
         </div>
     )

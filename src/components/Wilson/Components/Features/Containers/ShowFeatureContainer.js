@@ -5,7 +5,7 @@ import {
 } from '@mantine/core';
 
 import FeatureInfoContainer from './FeatureInfoContainer';
-import ListsContainer from '../../../Components/Lists/Containers/ListContainer';
+import ListsContainer from '../../../Components/Lists/Containers/ListsContainer';
 import NotesContainer from '../../../Components/Notes/Containers/NotesContainer';
 
 export default function ShowFeatureContainer(props) {

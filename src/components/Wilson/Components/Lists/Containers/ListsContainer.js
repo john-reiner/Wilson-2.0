@@ -9,16 +9,17 @@ export default function ProjectLists(props) {
     const [lists, setLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
 
+    console.log("Here")
     useEffect(() => {
         if (reloadLists) {
             fetchLists()
             setReloadLists(false)
         }
-        // fetchLists()
     }, [reloadLists]);
 
-    
+    console.log(props)
     const fetchLists = () => {
+
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.id}/lists`, {
                 method: 'GET',
                 headers: {
@@ -28,14 +29,19 @@ export default function ProjectLists(props) {
             }
         )
         .then(response => response.json())
-        .then(payload => setLists(payload.lists))
+        .then(payload => {
+            console.log(payload)
+            setLists(payload.lists)
+        })
         .catch(errors => {
             console.error(errors)
         })
     }
 
+    console.log(lists)
+
     const renderLists = () => {
-        if (lists.length > 0) { 
+        if (lists) { 
             return lists.map(list => {
                 return <ListContainer 
                             key={list.id}
@@ -72,7 +78,7 @@ export default function ProjectLists(props) {
                 New List
             </Button>
 
-            <Grid grow gutter="xs">
+            <Grid>
                 {renderNewList(newList)}
                 {renderLists()}
 

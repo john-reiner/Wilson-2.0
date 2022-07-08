@@ -5,19 +5,16 @@ import { BrandGithub } from 'tabler-icons-react';
 
 export default function InfoEditForm(props) {
 
-    const [project, setProject] = useState({
-        title: props.title,
-        description: props.description,
-        github_url: props.github_url,
-        public: props.public,
-    });
+    const [project, setProject] = useState(props.project);
+
+    console.log(props)
 
     const handleChange = e => setProject({...project, [e.target.name]:e.target.value})
     const togglePublic = e => setProject({...project, [e.target.name]:e.target.checked})
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${project.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -27,8 +24,8 @@ export default function InfoEditForm(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            props.setEditModalOpen(false)
             props.setFetchAgainFlag(true)
+            props.setModalOpen(false)
         })
         .catch(errors => {
             console.error(errors)

@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 
-import Projects from '../../Projects/Projects';
-import Project from '../../Projects/Project/Project'
-import NewProject from '../../Projects/NewProject'
+import ProjectsContainer from '../../Components/Projects/Containers/ProjectsContainer';
+import Project from '../../Components/Projects/Components/Project/Project'
+import NewProject from '../../Components/Projects/Containers/NewProject'
 
 export default function MainContainer(props) {
 
@@ -16,7 +16,7 @@ export default function MainContainer(props) {
     }
 
     const views = [
-        <Projects 
+        <ProjectsContainer 
             setViewToShow={props.setViewToShow}
             handleProjectShow={handleProjectShow} 
             userId={props.userId}

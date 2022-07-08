@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
-import MainContainerHeader from '../../Containers/MainContainer/MainContainerHeader'
+import MainContainerHeader from '../../../Containers/MainContainer/MainContainerHeader'
 import { 
     Divider
 } from '@mantine/core';
 
 import FeatureInfoContainer from './FeatureInfoContainer';
-import ListsContainer from '../../Lists/Containers/ListsContainer';
-import NotesContainer from '../../Notes/Containers/NotesContainer';
+import ListsContainer from '../../../Components/Lists/Containers/ListContainer';
+import NotesContainer from '../../../Components/Notes/Containers/NotesContainer';
 
 export default function ShowFeatureContainer(props) {
 

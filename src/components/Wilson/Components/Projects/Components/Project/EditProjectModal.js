@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal } from '@mantine/core';
-import InfoEditForm from './InfoEditForm';
+import InfoEditForm from './Components/InfoEditForm';
 
 export default function EditProjectModal(props) {
 

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Modal, Group, Button} from '@mantine/core';
+import { Box, Group, Button} from '@mantine/core';
 
-export default function DeleteProjectModal(props) {
+export default function ConfirmDeleteProject(props) {
 
     const deleteProject = () => {
         fetch(`http://localhost:3001/api/v2/projects/${props.id}`, {
@@ -23,10 +23,7 @@ export default function DeleteProjectModal(props) {
     }
 
     return (
-        <Modal
-            opened={props.opened}
-            onClose={() => props.setDeleteConfirmationModalOpen(false)}
-            title="Are you sure you want to delete this project?"
+        <Box
         >   
             <Group position="apart" grow>
                 <Button 
@@ -43,6 +40,6 @@ export default function DeleteProjectModal(props) {
                     no
                 </Button>
             </Group>        
-        </Modal>
+        </Box>
 )
 }

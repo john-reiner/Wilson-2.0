@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import { Title, Text, Table, Group, Button } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
-import ProjectLink from './ProjectLink';
+import ProjectLink from '../Components/ProjectLink';
 
-export default function Projects(props) {
+export default function ProjectsContainer(props) {
 
     const [projects, setProjects] = useState([]);
 

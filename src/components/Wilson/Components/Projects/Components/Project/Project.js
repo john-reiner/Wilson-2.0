@@ -1,36 +1,25 @@
 import React, {useState, useEffect} from 'react'
-import { 
-        ActionIcon, 
-        Menu, 
-        Grid, 
-        Title, 
-        Divider, 
-        Center,
-        Anchor,
-        Box,
-        Group,
-} from '@mantine/core';
+import { Divider } from '@mantine/core';
 
-import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
-import ProjectTab from '../../Containers/MainContainer/Tab';
-import ProjectInfo from '../Project/Components/Info/ProjectInfo';
-import Features from '../../Features/Features';
-import NotesContainer from '../../Notes/Containers/NotesContainer';
-import DeleteProjectModal from './DeleteProjectModal';
+import ProjectInfoContainer from './Containers/ProjectInfoContainer';
+import Features from '../../../Features/Features';
+import NotesContainer from '../../../Notes/Containers/NotesContainer';
+import DeleteProjectModal from './Components/ConfirmDeleteProject';
 import Feature from './Feature/Feature';
-import ListsContainer from '../../Lists/Containers/ListsContainer';
+import ListsContainer from '../../../Lists/Containers/ListsContainer';
 import EditProjectModal from './EditProjectModal';
-import MainContainerHeader from '../../Containers/MainContainer/MainContainerHeader';
+import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
+import ProjectModal from './Containers/ProjectModal';
 
 export default function ProjectShow(props) {
 
     const [projectContent, setProjectContent] = useState("Info");
     const [project, setProject] = useState({});
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
-    const [editModalOpen, setEditModalOpen] = useState(false);
-    const [deleteConfirmationModalOpen, setDeleteConfirmationModalOpen] = useState(false);
+    const [modalOpen, setModalOpen] = useState(false);
+    const [modalOptions, setModalOptions] = useState("");
     const [featureTitle, setFeatureTitle] = useState("");
     const [featureId, setFeatureId] = useState(null);
     
@@ -53,24 +42,28 @@ export default function ProjectShow(props) {
     }, [fetchAgainFlag]);
 
     const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
-    const changeProjectContent = contentName => setProjectContent(contentName)
-    // const handleFeatureClick = id => {
-    //     setFeatureId(id)
-    //     setProjectContent("Feature")
-    // }
 
     const handleTabClick = (tabName) => {
         setProjectContent(tabName)
     }
 
+    const handleEditProjectClick = () => {
+        setModalOpen(true)
+        setModalOptions("edit")
+    }
+    const handleDeleteClick = () => {
+        setModalOpen(true)
+        setModalOptions("destroy")
+    }
+
     let projectComponents = [
-        [<ProjectInfo 
+        [<ProjectInfoContainer 
             setFetchAgainFlag={setFetchAgainFlag} 
             userId={props.user_id} 
             projectId={project.id} 
             editType="info" 
-            editModalOpen={editModalOpen} 
-            setEditModalOpen={setEditModalOpen} 
+            // editModalOpen={editModalOpen} 
+            // setEditModalOpen={setEditModalOpen}
             title={project.title} 
             github_url={project.github_url} 
             public={project.public} 
@@ -112,7 +105,15 @@ export default function ProjectShow(props) {
 
     return (
         <div>
-            <EditProjectModal 
+            <ProjectModal 
+                setModalOpen={setModalOpen}
+                modalOpen={modalOpen}
+                modalOptions={modalOptions}
+                id={project.id}
+                project={project}
+                setFetchAgainFlag={setFetchAgainFlag}
+            />
+            {/* <EditProjectModal 
                 setFetchAgainFlag={setFetchAgainFlag} 
                 userId={props.userId} 
                 projectId={props.projectId} 
@@ -131,12 +132,12 @@ export default function ProjectShow(props) {
                 id={project.id}
                 setViewToShow={props.setViewToShow}
                 userId={props.userId}
-            />
+            /> */}
             <MainContainerHeader 
                 title={project.title}
                 handleTabClick={handleTabClick}
-                setEditModalOpen={setEditModalOpen}
-                setDeleteConfirmationModalOpen={setDeleteConfirmationModalOpen}
+                handleEditClick={handleEditProjectClick}
+                handleDeleteClick={handleDeleteClick}
                 tabs={projectShowTabs}
             />
             <Divider my="xs" />

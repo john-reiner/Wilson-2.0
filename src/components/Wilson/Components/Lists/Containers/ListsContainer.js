@@ -3,7 +3,7 @@ import { Stack, Grid, Button } from '@mantine/core';
 import NewList from './NewList';
 import ListContainer from './ListContainer';
 
-export default function ProjectLists(props) {
+export default function ListsContainer(props) {
 
     const [newList, setNewList] = useState(false);
     const [lists, setLists] = useState([]);
@@ -28,7 +28,6 @@ export default function ProjectLists(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             setLists(payload.lists)
         })
         .catch(errors => {
@@ -36,13 +35,12 @@ export default function ProjectLists(props) {
         })
     }
 
-    console.log(lists)
-
     const renderLists = () => {
         if (lists) { 
             return lists.map(list => {
                 return <ListContainer 
                             list={{...list}}
+                            key={list.id}
                             projectId={props.projectId}
                             listable={props.listable}
                             listableId={props.id}
@@ -57,10 +55,10 @@ export default function ProjectLists(props) {
             return (
                 <Grid.Col md={6}>
                     {newList && 
-                        <NewList 
+                        <NewList
+                            listable={props.listable}
                             setNewList={setNewList}
-                            userId={props.userId} 
-                            projectId={props.projectId} 
+                            id={props.id} 
                             setReloadLists={setReloadLists}
                         />
                     }

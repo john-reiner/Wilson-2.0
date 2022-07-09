@@ -12,7 +12,7 @@ export default function NewList(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.id}/lists`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -5,13 +5,13 @@ import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
 
-export default function ProjectList(props) {
+export default function ListContainer(props) {
 
     const [tasks, setTasks] = useState([]);
     const [edit, setEdit] = useState(false);
     const [list, setList] = useState(props.list);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    console.log(deleteModalOpen)
+
     const [listTask, setListTask] = useState({
         content: "",
         completed: false,
@@ -54,10 +54,8 @@ export default function ProjectList(props) {
         if (list.tasks) {
             return list.tasks.map(task => {
                 return <Task
-                            taskId={task.id}
+                            task={{...task}}
                             key={task.id}
-                            content={task.content}
-                            completed={task.completed}
                         />
             })
         }
@@ -128,6 +126,7 @@ export default function ProjectList(props) {
                         <ActionIcon 
                             variant="outline"
                             onClick={() => setEdit(!edit)}
+                            style={{marginLeft: ".5em"}}
                         >
                             <Edit size={16} />
                         </ActionIcon>

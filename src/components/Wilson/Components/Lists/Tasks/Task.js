@@ -1,17 +1,14 @@
 import React, {useState, useEffect} from 'react'
 import { Box, ActionIcon, Text, List} from '@mantine/core';
 import { CircleCheck, Circle } from 'tabler-icons-react';
-import TaskShow from './TaskShow';
+import TaskShow from './Containers/TaskShow';
 
 export default function Task(props) {
 
     const [taskShowOpened, setTaskShowOpened] = useState(false)
     const [completeChange, setCompleteChange] = useState(false);
     const [editShow, setEditShow] = useState(false);
-    const [task, setTask] = useState({
-        content: props.content,
-        completed: props.completed
-    });
+    const [task, setTask] = useState(props.task);
 
     useEffect(() => {
         if (completeChange) {
@@ -35,13 +32,13 @@ export default function Task(props) {
     }
 
     const updateTask = e => {
-        fetch(`http://localhost:3001/api/v2/tasks/${props.taskId}`, {
+        fetch(`http://localhost:3001/api/v2/tasks/${task.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({task: task})
+                body: JSON.stringify({task: {completed: task.completed}})
                 })
         .then(response => response.json())
         .then(payload => {
@@ -80,18 +77,19 @@ export default function Task(props) {
         <List.Item
             icon={renderIcon(task.completed)}
         >
-            <TaskShow 
-                taskShowOpened={taskShowOpened}
-                setTaskShowOpened={setTaskShowOpened}
-                content={task.content}
-                completed={task.completed}
-                handleChange={handleChange}
-                handleChecked={handleChecked}
-                submitTask={submitTask}
-                setEditShow={setEditShow}
-                editShow={editShow}
-                id={props.taskId}
-            />
+            { taskShowOpened && 
+                <TaskShow 
+                    taskShowOpened={taskShowOpened}
+                    setTaskShowOpened={setTaskShowOpened}
+                    handleChange={handleChange}
+                    handleChecked={handleChecked}
+                    submitTask={submitTask}
+                    setEditShow={setEditShow}
+                    editShow={editShow}
+                    id={task.id}
+                    completed={task.completed}
+                />
+            }
             <Box 
                 style={
                     {

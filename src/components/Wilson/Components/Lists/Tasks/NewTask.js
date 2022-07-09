@@ -17,6 +17,7 @@ export default function NewTask(props) {
                         <ArrowBarDown />
                     </ActionIcon>
                 }
+                style={{ marginBottom: 10 }}
             />
         </form>
     )

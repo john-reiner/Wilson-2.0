@@ -42,11 +42,11 @@ export default function ProjectLists(props) {
         if (lists) { 
             return lists.map(list => {
                 return <ListContainer 
-                            key={list.id}
-                            listId={list.id}
-                            title={list.title}
+                            list={{...list}}
                             projectId={props.projectId}
-                            tasks={list.tasks}
+                            listable={props.listable}
+                            listableId={props.id}
+                            setReloadLists={setReloadLists}
                         />
             })
         }

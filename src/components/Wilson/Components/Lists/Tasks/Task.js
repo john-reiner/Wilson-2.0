@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Box, ActionIcon, Paper,} from '@mantine/core';
-import { CircleCheck, CircleDashed } from 'tabler-icons-react';
+import { Box, ActionIcon, Text, List} from '@mantine/core';
+import { CircleCheck, Circle } from 'tabler-icons-react';
 import TaskShow from './TaskShow';
 
 export default function Task(props) {
@@ -53,12 +53,32 @@ export default function Task(props) {
         })
     }
 
+    const renderIcon = (boolean) => {
+        if (boolean) {
+            return (
+                <ActionIcon 
+                    color="green"
+                    size={24}
+                    onClick={handleChecked}
+                >
+                    <CircleCheck size={20} />
+                </ActionIcon> 
+            )
+        }
+        return (
+            <ActionIcon 
+                color="blue" 
+                size={24} 
+                onClick={handleChecked}
+            >
+                <Circle size={20} />
+            </ActionIcon>
+        )
+    }
+
     return (
-        <Paper 
-            shadow="md" 
-            radius="xs" 
-            p="xs" 
-            withBorder
+        <List.Item
+            icon={renderIcon(task.completed)}
         >
             <TaskShow 
                 taskShowOpened={taskShowOpened}
@@ -72,50 +92,29 @@ export default function Task(props) {
                 editShow={editShow}
                 id={props.taskId}
             />
-                <Box 
-                    style={
-                        {
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center"
-                        }
+            <Box 
+                style={
+                    {
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center"
                     }
+                }
+            >
+                <Text 
+                    color="gray"
+                    component="a"
+                    sx={(theme) => ({
+                        '&:hover': {
+                        color: theme.colors.blue[5],
+                        cursor: 'pointer'
+                        },
+                    })}
+                    onClick={() => setTaskShowOpened(true)}
                 >
-                    <ActionIcon 
-                        onClick={handleChecked} 
-                        color={task.completed ? "green" : "blue"}
-                        size={24} 
-                        radius="xl"
-                    >
-                        { 
-                            task.completed ? 
-                                <CircleCheck /> 
-
-                            : 
-
-                                <CircleDashed/>
-                        }
-                    </ActionIcon>
-                    <Box 
-                        onClick={() => setTaskShowOpened(true)}
-                        sx={(theme) => ({
-                            backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-                            // textAlign: 'center',
-                            padding: theme.spacing.sm,
-                            borderRadius: theme.radius.xs,
-                            cursor: 'pointer',
-                            width: "100%",
-                            marginLeft: theme.spacing.sm,
-
-                            '&:hover': {
-                            backgroundColor:
-                                theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
-                            },
-                        })}
-                    >
-                        {task.content}
-                    </Box>
-                </Box>
-        </Paper>
+                    {task.content}
+                </Text>
+            </Box>
+        </List.Item>
     )
 }

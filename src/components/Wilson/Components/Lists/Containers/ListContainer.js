@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Accordion, Divider } from '@mantine/core';
+import { Grid, Divider, Paper, List, ThemeIcon, ActionIcon } from '@mantine/core';
+import { Circle } from 'tabler-icons-react';
 import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 
@@ -60,22 +61,22 @@ export default function ProjectList(props) {
     
     return (
         <Grid.Col>
-            <Accordion 
-                iconSize={14} 
-                multiple
-                initialItem={0}
-            >
-                <Accordion.Item label={props.title}>
-                    <NewTask 
-                        handleChange={handleChange}
-                        handleSubmit={handleSubmit}
-                        listTask={listTask}
+            <Paper shadow="md" p="xs" withBorder>
+                <NewTask 
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    listTask={listTask}
 
-                    />
-                    <Divider my="sm" />
+                />
+                <Divider my="sm" />
+                <List
+                    spacing="xs"
+                    size="sm"
+                    center
+                >
                     {renderTasks()}
-                </Accordion.Item>
-            </Accordion>
+                </List>
+            </Paper>
         </Grid.Col>
     )
 }

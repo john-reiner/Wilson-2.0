@@ -9,7 +9,6 @@ export default function ProjectLists(props) {
     const [lists, setLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
 
-    console.log("Here")
     useEffect(() => {
         if (reloadLists) {
             fetchLists()
@@ -17,7 +16,6 @@ export default function ProjectLists(props) {
         }
     }, [reloadLists]);
 
-    console.log(props)
     const fetchLists = () => {
 
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.id}/lists`, {

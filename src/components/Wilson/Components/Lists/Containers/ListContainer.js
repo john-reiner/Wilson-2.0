@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Grid, Divider, Paper, List, ThemeIcon, ActionIcon } from '@mantine/core';
-import { Circle } from 'tabler-icons-react';
+import { Grid, Divider, Paper, List, Title, Text } from '@mantine/core';
 import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 
@@ -49,7 +48,7 @@ export default function ProjectList(props) {
     const renderTasks = () => {
         if (tasks) {
             return tasks.map(task => {
-                return <Task 
+                return <Task
                             taskId={task.id}
                             key={task.id}
                             content={task.content}
@@ -62,11 +61,15 @@ export default function ProjectList(props) {
     return (
         <Grid.Col>
             <Paper shadow="md" p="xs" withBorder>
+                <Title order={4}>
+                    <Text lineClamp={1}>
+                        {props.title}
+                    </Text>
+                </Title>
                 <NewTask 
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
                     listTask={listTask}
-
                 />
                 <Divider my="sm" />
                 <List

@@ -7,20 +7,12 @@ import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
 
 export default function ListContainer(props) {
 
-    const [tasks, setTasks] = useState([]);
     const [edit, setEdit] = useState(false);
     const [list, setList] = useState(props.list);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [tasks, setTasks] = useState(list.tasks);
 
-    const [listTask, setListTask] = useState({
-        content: "",
-        completed: false,
-        list_id: props.listId
-    });
-
-    useEffect(() => {
-        setTasks(props.tasks)
-    }, [props.tasks]);
+    console.log(tasks)
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
@@ -51,11 +43,14 @@ export default function ListContainer(props) {
     }
 
     const renderTasks = () => {
-        if (list.tasks) {
-            return list.tasks.map(task => {
+        if (tasks) {
+            return tasks.map(task => {
                 return <Task
                             task={{...task}}
                             key={task.id}
+                            setReloadLists={props.setReloadLists}
+                            setTasks={setTasks}
+                            tasks={tasks}
                         />
             })
         }
@@ -142,9 +137,12 @@ export default function ListContainer(props) {
                 </Box>
                 <Divider my="xs" />
                 <NewTask 
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                    listTask={listTask}
+                    id={list.id}
+                    setTasks={setTasks}
+                    tasks={tasks}
+                    // handleTaskChange={handleTaskChange}
+                    // handleSubmit={handleSubmit}
+                    // task={task}
                 />
                 <List
                     spacing="xs"

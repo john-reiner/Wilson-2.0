@@ -10,6 +10,8 @@ export default function Task(props) {
     const [editShow, setEditShow] = useState(false);
     const [task, setTask] = useState(props.task);
 
+    console.log(task)
+
     useEffect(() => {
         if (completeChange) {
             updateTask()
@@ -42,7 +44,7 @@ export default function Task(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            setTask(payload)
+            setTask(payload.task)
             setEditShow(false)
         })
         .catch(errors => {
@@ -88,6 +90,9 @@ export default function Task(props) {
                     editShow={editShow}
                     id={task.id}
                     completed={task.completed}
+                    setReloadLists={props.setReloadLists}
+                    setTasks={props.setTasks}
+                    tasks={props.tasks}
                 />
             }
             <Box 

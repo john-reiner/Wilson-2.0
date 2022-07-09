@@ -71,7 +71,7 @@ export default function MainContainerHeader(props) {
                             icon={<Trash size={14} />}
                             onClick={props.handleDeleteClick}
                         >
-                            Delete Project
+                            Delete {props.type}
                         </Menu.Item>
                     </Menu>
                 </Grid.Col>

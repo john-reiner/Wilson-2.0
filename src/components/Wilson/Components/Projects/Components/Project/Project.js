@@ -115,6 +115,7 @@ export default function ProjectShow(props) {
                 handleEditClick={handleEditProjectClick}
                 handleDeleteClick={handleDeleteClick}
                 tabs={projectShowTabs}
+                type="Project"
             />
             <Divider my="xs" />
             {renderContent(projectComponents, projectContent)}

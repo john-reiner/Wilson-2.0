@@ -50,6 +50,7 @@ export default function ShowFeatureContainer(props) {
                 setEdit={setEdit}
                 setConfirmDelete={setConfirmDelete}
                 tabs={featureShowTabs}
+                type="Feature"
             />
             <Divider my="xs" />
             {renderContent(featureComponent, featureContent)}

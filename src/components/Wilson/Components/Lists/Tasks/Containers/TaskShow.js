@@ -3,20 +3,25 @@ import { Button, Drawer, Group, Switch, Stack, Title, TextInput, Box, ActionIcon
 import { ArrowBackUp, Edit, Trash } from 'tabler-icons-react';
 import TaskInfo from './TaskInfo';
 import EditTask from './EditTask';
+import DeleteModalConfirmation from '../../../../Containers/DeleteModalConfirmation';
 
 export default function TaskShow(props) {
 
     const [task, setTask] = useState({});
     const [edit, setEdit] = useState(false);
-    const [DeleteConfirmationShow, setDeleteConfirmationShow] = useState(false);
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     useEffect(() => {
         fetchTask()
     }, []);
 
-    console.log(task)
-
     const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+    const handleDelete = () => {
+        setDeleteModalOpen(false)
+        props.setTaskShowOpened(false)
+        let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
+        props.setTasks(newTaskList)
+    }
     
     const fetchTask = () => {
         fetch(`http://localhost:3001/api/v2/tasks/${props.id}`, {
@@ -65,6 +70,13 @@ export default function TaskShow(props) {
             size="md"
             position="right" 
         >
+            <DeleteModalConfirmation
+                route={`tasks/${props.id}`}
+                item="task"
+                opened={deleteModalOpen}
+                setOpened={setDeleteModalOpen}
+                successFunction={handleDelete}
+            />
             <Box
                 style={
                     {
@@ -103,7 +115,7 @@ export default function TaskShow(props) {
                         variant="outline" 
                         color="red"
                         style={{marginLeft: ".5em"}}
-                        // onClick={() => setDeleteModalOpen(true)}
+                        onClick={() => setDeleteModalOpen(true)}
                     >
                         <Trash size={16} />
                     </ActionIcon>                    
@@ -113,63 +125,6 @@ export default function TaskShow(props) {
 
                 {renderContent(edit)}
 
-            {/* <Stack>
-                    {
-                        props.editShow ? 
-                            <form
-                                onSubmit={props.submitTask}
-                                style={
-                                    {
-                                        display: "flex",
-                                        justifyContent: "space-between",
-                                        alignItems: "center"
-                                    }
-                                }
-                            
-                            >
-                                <TextInput
-                                    // placeholder={props.content}
-                                    name="content"
-                                    value={props.content}
-                                    onChange={props.handleChange}
-                                    required
-                                />
-                                <ActionIcon
-                                    variant="outline"
-                                    color="green"
-                                    type="submit"
-                                    
-                                >
-                                    <ArrowRight />
-                                </ActionIcon>
-                            </form>
-                        :
-                            <Title
-                                order={3}
-                            >
-                                {props.content}
-                            </Title>
-                    }
-
-                    <Group
-                        position="apart"
-                    >
-                        <Button
-                            variant='outline'
-                            color='gray'
-                            onClick={() => props.setEditShow(!props.editShow)}
-                            >
-                            Edit
-                        </Button>
-                        <Button 
-                            variant="outline" 
-                            color="red"
-                            onClick={() => setDeleteConfirmationShow(true)}
-                        >
-                            Delete
-                        </Button>
-                    </Group>
-            </Stack> */}
         </Drawer>
 
     )

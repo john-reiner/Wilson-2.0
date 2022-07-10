@@ -9,8 +9,8 @@ export default function NoteForm(props) {
         <form onSubmit={props.handleSubmit}>
             <Stack spacing="xs">
                 <Textarea
-                    placeholder="Note..."
-                    minRows={2}
+                    autosize
+                    minRows={1}
                     name="content"
                     value={props.content}
                     onChange={props.handleChange}

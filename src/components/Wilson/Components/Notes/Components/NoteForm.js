@@ -3,8 +3,6 @@ import { Stack, Textarea, Button } from '@mantine/core';
 
 export default function NoteForm(props) {
 
-    console.log(props)
-
     return (
         <form onSubmit={props.handleSubmit}>
             <Stack spacing="xs">

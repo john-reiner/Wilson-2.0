@@ -12,7 +12,6 @@ export default function ListsContainer(props) {
     useEffect(() => {
         if (reloadLists) {
             fetchLists()
-            console.log("works?")
             setReloadLists(false)
         }
     }, [reloadLists]);

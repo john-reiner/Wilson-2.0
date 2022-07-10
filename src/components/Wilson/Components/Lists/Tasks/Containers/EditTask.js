@@ -17,7 +17,6 @@ export default function EditTask(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "ok") {
                 props.setTask(payload.task)
                 props.setEdit(false)

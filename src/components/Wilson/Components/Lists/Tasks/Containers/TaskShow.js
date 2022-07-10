@@ -17,7 +17,6 @@ export default function TaskShow(props) {
 
     const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
     const handleDelete = () => {
-        setDeleteModalOpen(false)
         props.setTaskShowOpened(false)
         let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
         props.setTasks(newTaskList)

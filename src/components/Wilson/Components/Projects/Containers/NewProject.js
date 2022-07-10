@@ -28,7 +28,6 @@ export default function NewProject(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "ok") {
-                console.log(payload)
                 setNewProject(
                     {
                         title: "",

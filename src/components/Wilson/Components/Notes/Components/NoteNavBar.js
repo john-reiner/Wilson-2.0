@@ -42,7 +42,7 @@ export default function NoteNavBar(props) {
                 <ActionIcon 
                     color='red'
                     size="xs"
-                    onClick={props.deleteNote}
+                    onClick={() => props.setDeleteModal(true)}
                 >
                     <Trash />
                 </ActionIcon>

@@ -12,8 +12,6 @@ export default function ListContainer(props) {
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [tasks, setTasks] = useState(list.tasks);
 
-    console.log(tasks)
-
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
     const handleDeleteSuccess = () => {
@@ -32,7 +30,6 @@ export default function ListContainer(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "updated") {
                 setEdit(false)
             }

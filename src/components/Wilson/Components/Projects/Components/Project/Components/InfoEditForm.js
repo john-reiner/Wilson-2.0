@@ -7,7 +7,7 @@ export default function InfoEditForm(props) {
 
     const [project, setProject] = useState(props.project);
 
-    console.log(props)
+
 
     const handleChange = e => setProject({...project, [e.target.name]:e.target.value})
     const togglePublic = e => setProject({...project, [e.target.name]:e.target.checked})

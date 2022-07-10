@@ -1,7 +1,7 @@
 import React from 'react'
 import { Modal, Button, Group, Text, Stack, Divider } from '@mantine/core'
 
-export default function DeleteConfirmation(props) {
+export default function DeleteModalConfirmation(props) {
 
     const deleteItem = (route) => {
         fetch(`http://localhost:3001/api/v2/${route}`, {
@@ -13,7 +13,6 @@ export default function DeleteConfirmation(props) {
             })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "ok") {
                 props.successFunction()
                 props.setOpened(false)

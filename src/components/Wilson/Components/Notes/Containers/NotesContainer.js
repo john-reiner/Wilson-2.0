@@ -8,10 +8,14 @@ import NoteContainer from './NoteContainer'
 export default function ProjectNotes(props) {
 
     const [notes, setNotes] = useState([]);
+    const [fetchFlag, setFetchFlag] = useState(true);
 
     useEffect(() => {
-        fetchNotes()
-    }, []);
+        if (fetchFlag) {
+            fetchNotes()
+            setFetchFlag(false)      
+        }
+    }, [fetchFlag]);
 
     const fetchNotes = () => {
         fetch(`http://localhost:3001/api/v2/${props.notable}/${props.id}/notes`, {
@@ -39,6 +43,7 @@ export default function ProjectNotes(props) {
                             id={note.id}
                             notableId={props.id}
                             notable={props.notable}
+                            setFetchFlag={setFetchFlag}
                         />
             })
         } else {

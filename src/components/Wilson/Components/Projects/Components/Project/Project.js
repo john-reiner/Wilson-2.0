@@ -8,16 +8,16 @@ import ShowFeaturesContainer from '../../../Features/Containers/ShowFeaturesCont
 import NotesContainer from '../../../Notes/Containers/NotesContainer';
 import ListsContainer from '../../../Lists/Containers/ListsContainer';
 import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
-import ProjectModal from './Containers/ProjectModal';
+import EditProjectModal from './Containers/EditProjectModal';
+import DeleteModalConfirmation from '../../../../Containers/DeleteModalConfirmation';
 
 export default function ProjectShow(props) {
 
     const [projectContent, setProjectContent] = useState("Info");
     const [project, setProject] = useState({});
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
-    const [modalOpen, setModalOpen] = useState(false);
-    const [modalOptions, setModalOptions] = useState("");
-    const [featureTitle, setFeatureTitle] = useState("");
+    const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+    const [editModalOpen, setEditModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
     
     const [opened, handlers] = useDisclosure(false);
@@ -45,12 +45,12 @@ export default function ProjectShow(props) {
     }
 
     const handleEditProjectClick = () => {
-        setModalOpen(true)
-        setModalOptions("Edit")
+        setEditModalOpen(true)
     }
-    const handleDeleteClick = () => {
-        setModalOpen(true)
-        setModalOptions("Delete")
+    const handleDeleteClick = () => setDeleteModalOpen(true)
+
+    const handleDeleteProject = () => {
+        props.setViewToShow(0)
     }
 
     let projectComponents = [
@@ -89,14 +89,20 @@ export default function ProjectShow(props) {
 
     return (
         <div>
-            <ProjectModal 
-                setModalOpen={setModalOpen}
-                modalOpen={modalOpen}
-                modalOptions={modalOptions}
+            <EditProjectModal 
+                setModalOpen={setEditModalOpen}
+                modalOpen={editModalOpen}
                 id={project.id}
                 project={project}
                 setFetchAgainFlag={setFetchAgainFlag}
                 setViewToShow={props.setViewToShow}
+            />
+            <DeleteModalConfirmation 
+                route={`projects/${props.id}`}
+                successFunction={handleDeleteProject}
+                opened={deleteModalOpen}
+                setOpened={setDeleteModalOpen}
+                item="Project"
             />
             <MainContainerHeader 
                 title={project.title}

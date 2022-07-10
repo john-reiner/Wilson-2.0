@@ -7,7 +7,6 @@ import ProjectInfoContainer from './Containers/ProjectInfoContainer';
 import Features from '../../../Features/Features';
 import NotesContainer from '../../../Notes/Containers/NotesContainer';
 import DeleteProjectModal from './Components/ConfirmDeleteProject';
-// import Feature from './Feature/Feature';
 import ListsContainer from '../../../Lists/Containers/ListsContainer';
 import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
 import ProjectModal from './Containers/ProjectModal';
@@ -83,8 +82,6 @@ export default function ProjectShow(props) {
 
         />, "Features"],      
         [<NotesContainer
-            setFetchAgainFlag={setFetchAgainFlag} 
-            userId={props.userId} 
             id={props.id}
             notable="projects"
         />, "Notes"],

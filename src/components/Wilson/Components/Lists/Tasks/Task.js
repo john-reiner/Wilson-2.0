@@ -10,8 +10,6 @@ export default function Task(props) {
     const [editShow, setEditShow] = useState(false);
     const [task, setTask] = useState(props.task);
 
-    console.log(task)
-
     useEffect(() => {
         if (completeChange) {
             updateTask()

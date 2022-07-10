@@ -9,11 +9,12 @@ export default function NewFeature(props) {
         description: "",
         due_date: "",
         public: 'false',
+        project_id: props.projectId
     });
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features`, {
+        fetch(`http://localhost:3001/api/v2/features`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

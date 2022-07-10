@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
-import { Card, Group, Badge, Stack, Text, ActionIcon, Grid, Textarea, Button } from '@mantine/core';
+import { Paper, Group, Badge, Stack, Text, ActionIcon, Grid, Textarea, Button, Divider } from '@mantine/core';
 import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
+import NoteNavBar from './NoteNavBar';
 
 export default function Note(props) {
 
@@ -43,7 +44,7 @@ export default function Note(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/notes/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,7 +75,7 @@ export default function Note(props) {
                             placeholder="Note..."
                             minRows={2}
                             name="content"
-                            value={note.content}
+                            value={props.note.content}
                             onChange={handleChange}
                             required
                         />
@@ -88,13 +89,13 @@ export default function Note(props) {
         return (
             <div>
                 <Group position="apart">
-                    <Text weight={500} align="left">{props.title}</Text>
-                    <Badge color="blue" variant="light">
+                    <Text weight={500} align="left">{props.note.title}</Text>
+                    {/* <Badge color="blue" variant="light">
                     {convertDate()}
-                    </Badge>
+                    </Badge> */}
                 </Group>
-                <hr></hr>
-                <Text>{props.content}</Text>
+                <Divider my="xs" />
+                <Text>{props.note.content}</Text>
             </div>
         )
     }
@@ -107,37 +108,18 @@ export default function Note(props) {
             lg={3}
             xl={2}
         >
-            <Card shadow="sm" p="sm">
-                <Stack>
-                    <Group position="apart">
-                    <ActionIcon 
-                        color='red'
-                        size="xs"
-                        onClick={deleteNote}
-                    >
-                        <Trash />
-                    </ActionIcon>
-                    {   !editProjectFlag ?
-                            <ActionIcon 
-                                size="xs"
-                            >
-                                <Edit 
-                                    onClick={() => setEditProjectFlag(true)}
-                                />
-                            </ActionIcon>
-                        :
-                            <ActionIcon 
-                                size="xs"
-                            >
-                                <ArrowBackUp 
-                                    onClick={() => setEditProjectFlag(false)}
-                                />
-                            </ActionIcon>
-                    }
-                    </Group>
-                    {renderEditForm(editProjectFlag)}
-                </Stack>
-            </Card>
+            <Paper
+                withBorder
+                shadow="md" 
+                p="sm"
+            >
+                <NoteNavBar 
+                    deleteNote={deleteNote}
+                    editProjectFlag={editProjectFlag}
+                    setEditProjectFlag={setEditProjectFlag}
+                />
+                {renderEditForm(editProjectFlag)}
+            </Paper>
         </Grid.Col>
     )
 }

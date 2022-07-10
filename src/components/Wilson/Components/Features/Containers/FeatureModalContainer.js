@@ -29,7 +29,7 @@ export default function FeatureModalContainer(props) {
         <Modal
             opened={props.featureModalOpen}
             onClose={() => props.setFeatureModalOpen(false)}
-            // title={feature.title}
+            closeOnClickOutside={false}
             size="full" 
         >
             <ShowFeatureContainer 

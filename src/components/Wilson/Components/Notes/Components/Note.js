@@ -5,7 +5,7 @@ import NoteNavBar from './NoteNavBar';
 
 export default function Note(props) {
 
-    const [editProjectFlag, setEditProjectFlag] = useState(false);
+    const [edit, setEdit] = useState(false);
     const [note, setNote] = useState({
         content: props.content
     });
@@ -56,7 +56,7 @@ export default function Note(props) {
         .then(payload => {
             if (payload.status === "ok") {
                 props.setFetchAgainFlag(true)
-                setEditProjectFlag(false)
+                setEdit(false)
             }
         })
         .catch(errors => {
@@ -94,7 +94,7 @@ export default function Note(props) {
                     {convertDate()}
                     </Badge> */}
                 </Group>
-                <Divider my="xs" />
+                
                 <Text>{props.note.content}</Text>
             </div>
         )
@@ -111,14 +111,14 @@ export default function Note(props) {
             <Paper
                 withBorder
                 shadow="md" 
-                p="sm"
+                // p="sm"
             >
                 <NoteNavBar 
                     deleteNote={deleteNote}
-                    editProjectFlag={editProjectFlag}
-                    setEditProjectFlag={setEditProjectFlag}
+                    edit={edit}
+                    setEdit={setEdit}
                 />
-                {renderEditForm(editProjectFlag)}
+                {renderEditForm(edit)}
             </Paper>
         </Grid.Col>
     )

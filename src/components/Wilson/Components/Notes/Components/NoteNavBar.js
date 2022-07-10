@@ -1,34 +1,54 @@
 import React from 'react'
-import { Group, ActionIcon } from '@mantine/core';
+import { Group, ActionIcon, Divider, Box } from '@mantine/core';
 import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
 
 export default function NoteNavBar(props) {
-    return (
-        <Group position="apart">
+
+    const renderEditIcon = (edit) => {
+        if (edit) {
+            return (
+                <ActionIcon 
+                    size="xs"
+                >
+                    <ArrowBackUp 
+                        onClick={() => props.setEdit(false)}
+                    />
+                </ActionIcon>
+            )
+        }
+        return (
             <ActionIcon 
-                color='red'
                 size="xs"
-                onClick={props.deleteNote}
             >
-                <Trash />
+                <Edit 
+                    onClick={() => props.setEdit(true)}
+                />
             </ActionIcon>
-            {   !props.editProjectFlag ?
-                    <ActionIcon 
-                        size="xs"
-                    >
-                        <Edit 
-                            onClick={() => props.setEditProjectFlag(true)}
-                        />
-                    </ActionIcon>
-                :
-                    <ActionIcon 
-                        size="xs"
-                    >
-                        <ArrowBackUp 
-                            onClick={() => props.setEditProjectFlag(false)}
-                        />
-                    </ActionIcon>
-            }
-        </Group>
+        )
+    }
+
+    return (
+        <Box>
+            <Box
+                sx={(theme) => ({
+                    padding: theme.spacing.xs,
+                    paddingBottom: 0,
+                    borderRadius: theme.radius.xs,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center"
+                })}
+            >
+                <ActionIcon 
+                    color='red'
+                    size="xs"
+                    onClick={props.deleteNote}
+                >
+                    <Trash />
+                </ActionIcon>
+                { renderEditIcon(props.edit)}
+            </Box>
+            <Divider my="xs" />
+        </Box>
     )
 }

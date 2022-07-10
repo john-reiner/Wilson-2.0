@@ -3,11 +3,11 @@ import { Button, Stack, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 import FeatureLink from '../Components/FeatureLink'
 import NewFeature from '../Components/NewFeature';
-import FeatureModalContainer from './ShowFeatureContainer';
+import ShowFeatureContainer from './ShowFeatureContainer';
 
 export default function Features(props) {
 
-    const [newFeatureDrawerOpen, setNewFeatureDrawerOpen] = useState(false);
+    const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
 
@@ -42,15 +42,16 @@ export default function Features(props) {
 
     return (
         <Stack>
-            <FeatureModalContainer 
+            <ShowFeatureContainer 
                 setFeatureModalOpen={setFeatureModalOpen}
                 featureModalOpen={featureModalOpen}
                 featureId={featureId}
                 projectId={props.projectId} 
+                setFetchAgainFlag={props.setFetchAgainFlag}
             />
             <Button 
                 leftIcon={<Plus size={14} />}
-                onClick={() => setNewFeatureDrawerOpen(true)}
+                onClick={() => setNewFeatureModalOpen(true)}
             >
                 New Feature
             </Button>
@@ -59,8 +60,8 @@ export default function Features(props) {
                 setFetchAgainFlag={props.setFetchAgainFlag} 
                 projectId={props.projectId} 
                 userId={props.userId} 
-                setNewFeatureDrawerOpen={setNewFeatureDrawerOpen} 
-                newFeatureDrawerOpen={newFeatureDrawerOpen}
+                setFeatureModalOpen={setNewFeatureModalOpen} 
+                newFeatureModalOpen={newFeatureModalOpen}
             />
             <Grid>
                 {renderFeatures()}

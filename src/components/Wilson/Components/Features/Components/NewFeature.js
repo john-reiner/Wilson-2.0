@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Drawer } from '@mantine/core';
+import { Modal } from '@mantine/core';
 
 import FeatureForm from './FeatureForm';
 
@@ -12,6 +12,8 @@ export default function NewFeature(props) {
         public: 'false',
         project_id: props.projectId
     });
+
+    console.log(feature)
 
     const handleSubmit = e => {
         e.preventDefault()
@@ -30,10 +32,10 @@ export default function NewFeature(props) {
                     title: "",
                     description: "",
                     due_date: "",
-                    public: 'false',
+                    public: false,
                 })
                 props.setFetchAgainFlag(true)
-                props.setFeatureDrawerOpen(false)
+                props.setFeatureModalOpen(false)
             }
         })
         .catch(errors => {
@@ -47,23 +49,22 @@ export default function NewFeature(props) {
     const changeDate = e => setFeature({...feature, 'due_date':e.toString()})
 
     return (
-        <Drawer
-            opened={props.newFeatureDrawerOpen}
-            onClose={() => props.setFeatureDrawerOpen(false)}
+        <Modal
+            opened={props.newFeatureModalOpen}
+            onClose={() => props.setFeatureModalOpen(false)}
             title="Create a new Feature"
             padding="xl"
             size="xl"
-            transition="rotate-left"
-            transitionDuration={250}
-            transitionTimingFunction="ease"
-            position="right"
+            transition="fade"
+            transitionDuration={600}
         >
             <FeatureForm
                 handleSubmit={handleSubmit}
                 feature={{...feature}}
                 changeDate={changeDate}
                 togglePublic={togglePublic}
+                handleChange={handleChange}
             />
-        </Drawer>
+        </Modal>
         )
     }

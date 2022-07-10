@@ -35,7 +35,8 @@ export default function FeatureModalContainer(props) {
 
     const handleDeleteClick = () => setDeleteConfirmOpen(true)
     const handleDelete = () => {
-        console.log("delete success")
+        props.setFeatureModalOpen(false)
+        props.setFetchAgainFlag(true)
     }
 
     const handleSubmit = e => {

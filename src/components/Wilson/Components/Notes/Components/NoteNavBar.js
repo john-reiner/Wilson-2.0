@@ -1,5 +1,5 @@
 import React from 'react'
-import { Group, ActionIcon, Divider, Box } from '@mantine/core';
+import { ActionIcon, Divider, Box } from '@mantine/core';
 import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
 
 export default function NoteNavBar(props) {

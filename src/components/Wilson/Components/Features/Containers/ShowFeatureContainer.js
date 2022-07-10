@@ -10,8 +10,8 @@ import NotesContainer from '../../../Components/Notes/Containers/NotesContainer'
 
 export default function ShowFeatureContainer(props) {
 
-    const [edit, setEdit] = useState(false);
-    const [confirmDelete, setConfirmDelete] = useState(false);
+    // const [edit, setEdit] = useState(false);
+    // const [confirmDelete, setConfirmDelete] = useState(false);
     const [featureContent, setFeatureContent] = useState("Info");
 
 
@@ -47,8 +47,8 @@ export default function ShowFeatureContainer(props) {
             <MainContainerHeader 
                 title={props.title}
                 handleTabClick={handleTabClick}
-                setEdit={setEdit}
-                setConfirmDelete={setConfirmDelete}
+                // setEdit={setEdit}
+                // setConfirmDelete={setConfirmDelete}
                 tabs={featureShowTabs}
                 type="Feature"
             />

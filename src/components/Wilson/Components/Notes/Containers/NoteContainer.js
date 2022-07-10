@@ -1,14 +1,13 @@
 import React, {useState} from 'react'
-import { Paper, Group, Badge, Stack, Text, ActionIcon, Grid, Textarea, Button, Divider } from '@mantine/core';
-import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
-import NoteNavBar from './NoteNavBar';
+import { Paper, Grid } from '@mantine/core';
+import NoteNavBar from '../Components/NoteNavBar';
+import NoteBody from './NoteBody';
 
-export default function Note(props) {
+export default function NoteContainer(props) {
 
     const [edit, setEdit] = useState(false);
-    const [note, setNote] = useState({
-        content: props.content
-    });
+
+    const [note, setNote] = useState(props.note);
 
     const handleChange = e => setNote({...note, [e.target.name]:e.target.value})
 
@@ -55,7 +54,7 @@ export default function Note(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "ok") {
-                props.setFetchAgainFlag(true)
+                setNote(payload.note)
                 setEdit(false)
             }
         })
@@ -66,39 +65,33 @@ export default function Note(props) {
 
 
 
-    const renderEditForm = editFlag => {
-        if (editFlag) {
-            return (
-                <form onSubmit={handleSubmit}>
-                    <Stack>
-                        <Textarea
-                            placeholder="Note..."
-                            minRows={2}
-                            name="content"
-                            value={props.note.content}
-                            onChange={handleChange}
-                            required
-                        />
-                        <Button type='submit' variant="outline" color="blue" fullWidth>
-                            Submit
-                        </Button>
-                    </Stack>
-                </form>
-            )
-        }
-        return (
-            <div>
-                <Group position="apart">
-                    <Text weight={500} align="left">{props.note.title}</Text>
-                    {/* <Badge color="blue" variant="light">
-                    {convertDate()}
-                    </Badge> */}
-                </Group>
-                
-                <Text>{props.note.content}</Text>
-            </div>
-        )
-    }
+    // const renderEditForm = editFlag => {
+    //     if (editFlag) {
+    //         return (
+    //             <form onSubmit={handleSubmit}>
+    //                 <Stack>
+    //                     <Textarea
+    //                         placeholder="Note..."
+    //                         minRows={2}
+    //                         name="content"
+    //                         value={props.note.content}
+    //                         onChange={handleChange}
+    //                         required
+    //                     />
+    //                     <Button type='submit' variant="outline" color="blue" fullWidth>
+    //                         Submit
+    //                     </Button>
+    //                 </Stack>
+    //             </form>
+    //         )
+    //     }
+    //     return (
+    //         <NoteBody 
+    //             content={props.note.content}
+    //             edit={edit}
+    //         />
+    //     )
+    // }
 
     return (
         <Grid.Col 
@@ -118,7 +111,12 @@ export default function Note(props) {
                     edit={edit}
                     setEdit={setEdit}
                 />
-                {renderEditForm(edit)}
+                <NoteBody 
+                    content={note.content}
+                    edit={edit}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                />
             </Paper>
         </Grid.Col>
     )

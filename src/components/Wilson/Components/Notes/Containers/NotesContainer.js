@@ -3,7 +3,7 @@ import { Grid } from '@mantine/core';
 
 import NewNote from '../Components/NewNote';
 
-import Note from '../Components/Note'
+import NoteContainer from './NoteContainer'
 
 export default function ProjectNotes(props) {
 
@@ -34,10 +34,11 @@ export default function ProjectNotes(props) {
     const renderNotes = () => {
         if (notes.length > 0) {
             return notes.map(note => {
-                return <Note
+                return <NoteContainer
                             note={{...note}}
                             id={note.id}
                             notableId={props.id}
+                            notable={props.notable}
                         />
             })
         } else {

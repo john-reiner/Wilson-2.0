@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import { Grid, Divider, Paper, List, Title, Text, Box, Group, ActionIcon, TextInput } from '@mantine/core';
 import { Trash, Edit, ArrowBarRight } from 'tabler-icons-react';
 import Task from '../Tasks/Task';

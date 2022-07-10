@@ -2,11 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {
     AppShell,
     Navbar,
-    Header,
-    MediaQuery,
-    Burger,
     useMantineTheme,
-    ActionIcon,
+
 } from '@mantine/core';
 
 

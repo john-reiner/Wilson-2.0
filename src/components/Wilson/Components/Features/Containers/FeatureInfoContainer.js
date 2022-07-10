@@ -1,7 +1,7 @@
 import React from 'react'
 
-export default function FeatureInfoContainer() {
+export default function FeatureInfoContainer(props) {
     return (
-        <div>FeatureInfoContainer</div>
+        <div>{props.feature.description}</div>
     )
 }

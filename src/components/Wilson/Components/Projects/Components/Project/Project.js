@@ -4,7 +4,7 @@ import { Divider } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 import ProjectInfoContainer from './Containers/ProjectInfoContainer';
-import Features from '../../../Features/Features';
+import ShowFeaturesContainer from '../../../Features/Containers/ShowFeaturesContainer';
 import NotesContainer from '../../../Notes/Containers/NotesContainer';
 import ListsContainer from '../../../Lists/Containers/ListsContainer';
 import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
@@ -72,24 +72,17 @@ export default function ProjectShow(props) {
             id={project.id}
 
         />, "Lists"],
-        [<Features 
+        [<ShowFeaturesContainer 
             setFetchAgainFlag={setFetchAgainFlag} 
             projectId={props.id} 
             userId={props.userId} 
             features={project.features} 
             setFeatureId={setFeatureId}
-
         />, "Features"],      
         [<NotesContainer
             id={props.id}
             notable="projects"
         />, "Notes"],
-        // [<Feature
-        //     projectId={project.id}
-        //     userId={props.userId}
-        //     featureId={featureId}
-        //     setFeatureTitle={setFeatureTitle}
-        // />, "Feature"]
     ]
 
     const projectShowTabs = ["Info", "Lists", "Features", "Notes"]

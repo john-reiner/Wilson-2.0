@@ -1,18 +1,74 @@
-import React, {useState} from 'react'
-import MainContainerHeader from '../../../Containers/MainContainer/MainContainerHeader'
+import React, {useState, useEffect} from 'react'
 import { 
-    Divider
+    Divider,
+    Modal
 } from '@mantine/core';
 
+import MainContainerHeader from '../../../Containers/MainContainer/MainContainerHeader'
 import FeatureInfoContainer from './FeatureInfoContainer';
-import ListsContainer from '../../../Components/Lists/Containers/ListsContainer';
-import NotesContainer from '../../../Components/Notes/Containers/NotesContainer';
+import ListsContainer from '../../Lists/Containers/ListsContainer';
+import NotesContainer from '../../Notes/Containers/NotesContainer';
+import FeatureForm from '../Components/FeatureForm';
+import DeleteModalConfirmation from '../../../Containers/DeleteModalConfirmation';
 
-export default function ShowFeatureContainer(props) {
+export default function FeatureModalContainer(props) {
 
-    // const [edit, setEdit] = useState(false);
-    // const [confirmDelete, setConfirmDelete] = useState(false);
     const [featureContent, setFeatureContent] = useState("Info");
+    const [feature, setFeature] = useState({});
+    const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+    
+    console.log(feature)
+
+    useEffect(() => {
+        if (typeof props.featureId === "number") {
+            fetchFeature()
+        }
+    }, [props.featureId]);
+
+    const handleEditFeature = () => {
+        setFeatureContent("Form")
+    }
+
+    const handleChange = e => setFeature({...feature, [e.target.name]: e.target.value})
+    const togglePublic = e => setFeature({...feature, [e.target.name]:e.target.checked})
+    const changeDate = e => setFeature({...feature, 'due_date':e.toString()})
+
+    const handleDeleteClick = () => setDeleteConfirmOpen(true)
+    const handleDelete = () => {
+        console.log("delete success")
+    }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        fetch(`http://localhost:3001/api/v2/features/${feature.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({feature: feature})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            if (payload.status === "ok") {
+                setFeatureContent("Info")
+            }
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
+
+    const fetchFeature = () => {
+        fetch(`http://localhost:3001/api/v2/features/${props.featureId}`)
+        .then(response => response.json())
+        .then(payload => {
+            setFeature(payload)
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
 
 
     const handleTabClick= (tabName) => {
@@ -20,40 +76,59 @@ export default function ShowFeatureContainer(props) {
     }
 
     const featureShowTabs = ["Info", "Lists", "Notes"]
+
     const featureComponent = [
         [<FeatureInfoContainer
+            feature={{...feature}}
 
         />, "Info"],
         [<ListsContainer
             listable="features"
-            id={props.id}
+            id={feature.id}
 
         />, "Lists"],
         [<NotesContainer
-            id={props.id}
+            id={feature.id}
             notable="features"
 
 
-        />, "Notes"
-        
-        ]
+        />, "Notes"],
+        [<FeatureForm 
+            feature={{...feature}}
+            handleChange={handleChange}
+            togglePublic={togglePublic}
+            changeDate={changeDate}
+            handleSubmit={handleSubmit}
+        />, "Form"]
 
     ]
     
     const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
 
     return (
-        <div>
+        <Modal
+            opened={props.featureModalOpen}
+            onClose={() => props.setFeatureModalOpen(false)}
+            closeOnClickOutside={false}
+            size="full" 
+        >
+            <DeleteModalConfirmation 
+                route={`features/${props.featureId}`}
+                successFunction={handleDelete}
+                opened={deleteConfirmOpen}
+                setOpened={setDeleteConfirmOpen}
+                item="Feature"
+            />
             <MainContainerHeader 
-                title={props.title}
+                title={feature.title}
                 handleTabClick={handleTabClick}
-                // setEdit={setEdit}
-                // setConfirmDelete={setConfirmDelete}
+                handleEditClick={handleEditFeature}
                 tabs={featureShowTabs}
                 type="Feature"
+                handleDeleteClick={handleDeleteClick}
             />
             <Divider my="xs" />
             {renderContent(featureComponent, featureContent)}
-        </div>
+        </Modal>
     )
 }

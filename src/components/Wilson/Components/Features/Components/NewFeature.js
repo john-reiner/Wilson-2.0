@@ -1,10 +1,11 @@
 import React, {useState} from 'react'
-import { Drawer, Button, Stack, TextInput, Textarea, Switch } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
+import { Drawer } from '@mantine/core';
+
+import FeatureForm from './FeatureForm';
 
 export default function NewFeature(props) {
 
-    const [newFeature, setNewFeature] = useState({
+    const [feature, setFeature] = useState({
         title: "",
         description: "",
         due_date: "",
@@ -20,19 +21,19 @@ export default function NewFeature(props) {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({feature: newFeature})
+                body: JSON.stringify({feature: feature})
                 })
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "created") {
-                setNewFeature({
+                setFeature({
                     title: "",
                     description: "",
                     due_date: "",
                     public: 'false',
                 })
                 props.setFetchAgainFlag(true)
-                props.setNewFeatureDrawerOpen(false)
+                props.setFeatureDrawerOpen(false)
             }
         })
         .catch(errors => {
@@ -40,15 +41,15 @@ export default function NewFeature(props) {
         })
     }
 
-    const handleChange = e => setNewFeature({...newFeature, [e.target.name]:e.target.value})
-    const togglePublic = e => setNewFeature({...newFeature, [e.target.name]:e.target.checked})
+    const handleChange = e => setFeature({...feature, [e.target.name]:e.target.value})
+    const togglePublic = e => setFeature({...feature, [e.target.name]:e.target.checked})
 
-    const changeDate = e => setNewFeature({...newFeature, 'due_date':e.toString()})
+    const changeDate = e => setFeature({...feature, 'due_date':e.toString()})
 
     return (
         <Drawer
             opened={props.newFeatureDrawerOpen}
-            onClose={() => props.setNewFeatureDrawerOpen(false)}
+            onClose={() => props.setFeatureDrawerOpen(false)}
             title="Create a new Feature"
             padding="xl"
             size="xl"
@@ -57,46 +58,12 @@ export default function NewFeature(props) {
             transitionTimingFunction="ease"
             position="right"
         >
-                <form onSubmit={handleSubmit}>
-                    <Stack>
-                        <TextInput
-                            placeholder="Example Feature..."
-                            label="Project Name"
-                            required
-                            name="title" 
-                            value={newFeature.title} 
-                            onChange={handleChange}
-                        />
-                        <Textarea
-                            placeholder="Description..."
-                            label="Feature Description"
-                            name="description" 
-                            value={newFeature.description} 
-                            onChange={handleChange}
-                        />
-                        <DatePicker 
-                            placeholder="Due date" 
-                            label="Due date" 
-                            name="due_date"
-                            value={newFeature.due_date} 
-                            onChange={changeDate}
-                        />
-                        <Switch
-                            label="Public"
-                            name="public" 
-                            value={newFeature.public}
-                            onChange={togglePublic}
-                            // checked={newFeature.public}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth 
-                            variant="outline"
-                        >
-                            Submit
-                        </Button>
-                    </Stack>
-                </form>
+            <FeatureForm
+                handleSubmit={handleSubmit}
+                feature={{...feature}}
+                changeDate={changeDate}
+                togglePublic={togglePublic}
+            />
         </Drawer>
         )
     }

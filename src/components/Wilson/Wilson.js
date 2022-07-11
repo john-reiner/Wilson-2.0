@@ -3,10 +3,7 @@ import {
     AppShell,
     Navbar,
     useMantineTheme,
-
 } from '@mantine/core';
-
-
 
 import LeftNavbar from './Containers/LeftNavbar';
 import TopHeader from './Containers/TopHeader';
@@ -18,17 +15,11 @@ export default function Wilson(props) {
 
     const [opened, setOpened] = useState(false);
     const [viewToShow, setViewToShow] = useState(0);
-    const [projectShowId, setProjectShowId] = useState(null);
     const [user, setUser] = useState({});
 
     useEffect(() => {
         fetchUser()
     }, []);
-
-    const handleProjectShow = id => {
-        setProjectShowId(id)
-        setViewToShow(1)
-    }
 
     const fetchUser = () => {
         fetch('http://localhost:3001/api/v2/user', {
@@ -75,12 +66,13 @@ export default function Wilson(props) {
             header={
                 <TopHeader 
                     darkMode={props.darkMode}
+                    setOpened={setOpened}
                 />
             }
         >
             <MainContainer 
                 user={user}
-                handleProjectShow={handleProjectShow}
+                // handleProjectShow={handleProjectShow}
                 setViewToShow={setViewToShow}
                 viewToShow={viewToShow}
             />

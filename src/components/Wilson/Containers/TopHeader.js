@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {
     Header,
     MediaQuery,
@@ -10,9 +10,7 @@ import { Sun, MoonStars } from 'tabler-icons-react';
 
 export default function TopHeader(props) {
 
-    const [opened, setOpened] = useState(false);
     const theme = useMantineTheme();
-
 
     return (
         <Header 
@@ -32,7 +30,7 @@ export default function TopHeader(props) {
                 >
                     <Burger
                         opened={props.opened}
-                        onClick={() => setOpened((o) => !o)}
+                        onClick={() => props.setOpened((o) => !o)}
                         size="sm"
                         color={theme.colors.gray[6]}
                         mr="xl"

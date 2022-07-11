@@ -3,7 +3,7 @@ import { TextInput, Textarea, Button, Stack, Switch } from '@mantine/core';
 import { BrandGithub } from 'tabler-icons-react';
 
 
-export default function InfoEditForm(props) {
+export default function EditProject(props) {
 
     const [project, setProject] = useState(props.project);
 

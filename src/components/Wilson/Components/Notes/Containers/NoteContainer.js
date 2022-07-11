@@ -19,7 +19,7 @@ export default function NoteContainer(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.note.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

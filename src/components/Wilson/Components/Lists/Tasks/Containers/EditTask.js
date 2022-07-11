@@ -1,5 +1,5 @@
 import React from 'react'
-import { Stack, Title, Paper, Text, Textarea, TextInput, Button } from '@mantine/core';
+import { Stack, Textarea, TextInput, Button } from '@mantine/core';
 
 
 export default function EditTask(props) {
@@ -19,6 +19,7 @@ export default function EditTask(props) {
         .then(payload => {
             if (payload.status === "ok") {
                 props.setTask(payload.task)
+                props.setTaskChange(true)
                 props.setEdit(false)
             }
         })

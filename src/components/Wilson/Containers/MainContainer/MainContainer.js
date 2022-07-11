@@ -1,12 +1,12 @@
 import React, {useState} from 'react'
 
 import ProjectsContainer from '../../Components/Projects/Containers/ProjectsContainer';
-import Project from '../../Components/Projects/Components/Project/Project'
+import ProjectContainer from '../../Components/Projects/Containers/ProjectContainer'
 import NewProject from '../../Components/Projects/Containers/NewProject'
 
 export default function MainContainer(props) {
 
-    const [projectShowId, setProjectShowId] = useState(null);
+    const [projectShowId, setProjectShowId] = useState(0);
 
     const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
 
@@ -23,14 +23,14 @@ export default function MainContainer(props) {
             viewTitle="Projects" 
             projectsTotal={props.user.projectsTotal}
         />,
-        <Project 
-            id={projectShowId} 
-            userId={props.userId}  
+        <ProjectContainer
+            id={projectShowId}
+            userId={props.userId}
             viewTitle="Project"
             setViewToShow={props.setViewToShow}
         />,
         <NewProject 
-            handleProjectShow={handleProjectShow} 
+            handleProjectShow={handleProjectShow}
             viewTitle="New Project" 
             setViewToShow={props.setViewToShow} 
             userId={props.userId} 

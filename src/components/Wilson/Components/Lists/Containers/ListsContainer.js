@@ -77,7 +77,6 @@ export default function ListsContainer(props) {
             <Grid>
                 {renderNewList(newList)}
                 {renderLists()}
-
             </Grid>
         </Stack>
 

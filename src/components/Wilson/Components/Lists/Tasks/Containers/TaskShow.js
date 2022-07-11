@@ -1,5 +1,11 @@
 import React, {useState, useEffect} from 'react'
-import { Button, Drawer, Group, Switch, Stack, Title, TextInput, Box, ActionIcon, Divider, Paper, Text } from '@mantine/core';
+import { 
+        Drawer,
+        Switch, 
+        Box, 
+        ActionIcon, 
+        Divider 
+        } from '@mantine/core';
 import { ArrowBackUp, Edit, Trash } from 'tabler-icons-react';
 import TaskInfo from './TaskInfo';
 import EditTask from './EditTask';
@@ -35,6 +41,7 @@ export default function TaskShow(props) {
         .then(payload => {
             if (payload.status === "ok") {
                 setTask(payload.task)
+                
             }
         })
         .catch(errors => {
@@ -50,6 +57,7 @@ export default function TaskShow(props) {
                     handleChange={handleChange}
                     setEdit={setEdit}
                     setTask={setTask}
+                    setTaskChange={props.setTaskChange}
                 />
             )
         }

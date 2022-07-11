@@ -9,11 +9,9 @@ export default function NewFeature(props) {
         title: "",
         description: "",
         due_date: "",
-        public: 'false',
+        public: false,
         project_id: props.projectId
     });
-
-    console.log(feature)
 
     const handleSubmit = e => {
         e.preventDefault()

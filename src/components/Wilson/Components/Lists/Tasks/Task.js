@@ -6,16 +6,16 @@ import TaskShow from './Containers/TaskShow';
 export default function Task(props) {
 
     const [taskShowOpened, setTaskShowOpened] = useState(false)
-    const [completeChange, setCompleteChange] = useState(false);
+    const [taskChange, setTaskChange] = useState(false);
     const [editShow, setEditShow] = useState(false);
     const [task, setTask] = useState(props.task);
 
     useEffect(() => {
-        if (completeChange) {
+        if (taskChange) {
             updateTask()
-            setCompleteChange(false)
+            setTaskChange(false)
         }
-    }, [completeChange]);
+    }, [taskChange]);
 
     const handleChange = e => {
         setTask({...task, [e.target.name]:e.target.value})
@@ -23,7 +23,7 @@ export default function Task(props) {
 
     const handleChecked = () => {
         setTask({...task, 'completed': !task.completed})
-        setCompleteChange(true)
+        setTaskChange(true)
     }
 
     const submitTask = e => {
@@ -31,7 +31,7 @@ export default function Task(props) {
         updateTask()
     }
 
-    const updateTask = e => {
+    const updateTask = () => {
         fetch(`http://localhost:3001/api/v2/tasks/${task.id}`, {
                 method: 'PUT',
                 headers: {
@@ -91,6 +91,7 @@ export default function Task(props) {
                     setReloadLists={props.setReloadLists}
                     setTasks={props.setTasks}
                     tasks={props.tasks}
+                    setTaskChange={setTaskChange}
                 />
             }
             <Box 

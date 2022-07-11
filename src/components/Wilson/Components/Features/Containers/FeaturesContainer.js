@@ -1,12 +1,13 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import { Button, Stack, Grid } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 import FeatureLink from '../Components/FeatureLink'
 import NewFeature from '../Components/NewFeature';
 import ShowFeatureContainer from './ShowFeatureContainer';
 
-export default function Features(props) {
+export default function FeaturesContainer(props) {
 
+    // const [features, setFeatures] = useState([]);
     const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
@@ -17,7 +18,7 @@ export default function Features(props) {
     }
 
     const renderFeatures = () => {
-        if (props.features.length > 0) {
+        if (props.features) {
             return props.features.map(feature => {
                 return (
                     <FeatureLink 

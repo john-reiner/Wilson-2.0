@@ -1,26 +1,28 @@
 import React, {useState, useEffect} from 'react'
 import { Divider } from '@mantine/core';
 
-import { useDisclosure } from '@mantine/hooks';
+// import { useDisclosure } from '@mantine/hooks';
 
-import ProjectInfoContainer from './Containers/ProjectInfoContainer';
-import ShowFeaturesContainer from '../../../Features/Containers/ShowFeaturesContainer';
-import NotesContainer from '../../../Notes/Containers/NotesContainer';
-import ListsContainer from '../../../Lists/Containers/ListsContainer';
-import MainContainerHeader from '../../../../Containers/MainContainer/MainContainerHeader';
-import EditProjectModal from './Containers/EditProjectModal';
-import DeleteModalConfirmation from '../../../../Containers/DeleteModalConfirmation';
+import ProjectInfoContainer from './ProjectInfoContainer';
+import FeaturesContainer from '../../Features/Containers/FeaturesContainer';
+import NotesContainer from '../../Notes/Containers/NotesContainer';
+import ListsContainer from '../../Lists/Containers/ListsContainer';
+import MainContainerHeader from '../../../Containers/MainContainer/MainContainerHeader';
+import EditProjectModal from './EditProjectModal';
+import DeleteModalConfirmation from '../../../Containers/DeleteModalConfirmation';
 
-export default function ProjectShow(props) {
+export default function ProjectContainer(props) {
 
     const [projectContent, setProjectContent] = useState("Info");
     const [project, setProject] = useState({});
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    const [featureId, setFeatureId] = useState(null);
+    // const [featureId, setFeatureId] = useState(null);
     
-    const [opened, handlers] = useDisclosure(false);
+    // const [opened, handlers] = useDisclosure(false);
+
+    console.log(project)
 
     const fetchProject = () => {
         fetch(`http://localhost:3001/api/v2/projects/${props.id}`)
@@ -56,13 +58,7 @@ export default function ProjectShow(props) {
     let projectComponents = [
         [<ProjectInfoContainer 
             setFetchAgainFlag={setFetchAgainFlag} 
-            userId={props.user_id} 
-            projectId={project.id} 
-            editType="info" 
-            title={project.title} 
-            github_url={project.github_url} 
-            public={project.public} 
-            description={project.description} 
+            project={{...project}}
         />, "Info"],
         [<ListsContainer
             title={project.title}
@@ -72,12 +68,13 @@ export default function ProjectShow(props) {
             id={project.id}
 
         />, "Lists"],
-        [<ShowFeaturesContainer 
+        [<FeaturesContainer 
             setFetchAgainFlag={setFetchAgainFlag} 
             projectId={props.id} 
             userId={props.userId} 
-            features={project.features} 
-            setFeatureId={setFeatureId}
+            features={project.features}
+            // setFeatureId={setFeatureId}
+
         />, "Features"],      
         [<NotesContainer
             id={props.id}

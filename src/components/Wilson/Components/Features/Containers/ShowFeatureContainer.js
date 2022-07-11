@@ -16,8 +16,7 @@ export default function FeatureModalContainer(props) {
     const [featureContent, setFeatureContent] = useState("Info");
     const [feature, setFeature] = useState({});
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-    
-    console.log(feature)
+
 
     useEffect(() => {
         if (typeof props.featureId === "number") {

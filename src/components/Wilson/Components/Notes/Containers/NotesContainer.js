@@ -40,7 +40,7 @@ export default function ProjectNotes(props) {
             return notes.map(note => {
                 return <NoteContainer
                             note={{...note}}
-                            id={note.id}
+                            key={note.id}
                             notableId={props.id}
                             notable={props.notable}
                             setFetchFlag={setFetchFlag}

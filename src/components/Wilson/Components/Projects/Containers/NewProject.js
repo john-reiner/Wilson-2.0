@@ -10,6 +10,7 @@ export default function NewProject(props) {
         description: "",
         github_url: "",
         public: false,
+        image: ""
     });
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
@@ -73,6 +74,12 @@ export default function NewProject(props) {
                             label="Project Description"
                             name="description" 
                             value={newProject.description} 
+                            onChange={handleChange}
+                        />
+                        <Textarea
+                            placeholder="Image URL"
+                            name="image" 
+                            value={newProject.image} 
                             onChange={handleChange}
                         />
                         <TextInput 

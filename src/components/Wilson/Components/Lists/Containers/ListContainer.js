@@ -33,6 +33,7 @@ export default function ListContainer(props) {
         .then(payload => {
             if (payload.status === "updated") {
                 setEdit(false)
+                props.setReloadLists(true)
             }
         })
         .catch(errors => {

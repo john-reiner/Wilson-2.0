@@ -7,12 +7,13 @@ import ListStatusNav from '../Components/ListStatusNav';
 export default function ListsContainer(props) {
 
     const [newList, setNewList] = useState(false);
-    const [lists, setLists] = useState([]);
-    const [pendingLists, setPendingLists] = useState([]);
+    // const [lists, setLists] = useState([]);
+    const [incompleteLists, setIncompleteLists] = useState([]);
+    const [completedLists, setCompletedLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
-    const [status, setStatus] = useState('all');
+    const [status, setStatus] = useState('incomplete');
 
-    console.log(pendingLists)
+    console.log(status)
 
     useEffect(() => {
         if (reloadLists) {
@@ -33,8 +34,9 @@ export default function ListsContainer(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            setPendingLists(payload.pending)
-            setLists(payload.lists)
+            setIncompleteLists(payload.incomplete)
+            setCompletedLists(payload.completed)
+
         })
         .catch(errors => {
             console.error(errors)
@@ -42,28 +44,29 @@ export default function ListsContainer(props) {
     }
 
     const renderLists = () => {
-        if (status === 'all') { 
-            return lists.map(list => {
+
+        if (status === 'incomplete') { 
+            return incompleteLists.map(list => {
                 return <ListContainer 
-                            list={{...list}}
-                            key={list.id}
-                            projectId={props.projectId}
-                            listable={props.listable}
-                            listableId={props.id}
-                            setReloadLists={setReloadLists}
-                        />
+                list={{...list}}
+                key={list.id}
+                projectId={props.projectId}
+                listable={props.listable}
+                listableId={props.id}
+                setReloadLists={setReloadLists}
+            />
             })
         }
-        if (status === 'pending') {
-            return pendingLists.map(list => {
+        if (status === 'completed') {
+            return completedLists.map(list => {
                 return <ListContainer 
-                            list={{...list}}
-                            key={list.id}
-                            projectId={props.projectId}
-                            listable={props.listable}
-                            listableId={props.id}
-                            setReloadLists={setReloadLists}
-                        />
+                list={{...list}}
+                key={list.id}
+                projectId={props.projectId}
+                listable={props.listable}
+                listableId={props.id}
+                setReloadLists={setReloadLists}
+            />
             })
         }
     }

@@ -4,8 +4,7 @@ import {
     Menu, 
     Grid, 
     Title, 
-    Divider, 
-    Center,
+    Divider,
     Anchor,
     Box,
     Group,
@@ -86,16 +85,26 @@ export default function MainContainerHeader(props) {
                     span={3}
                     align="right"
                 >
+                    {props.github_url &&
                     <Anchor href={props.github_url} target="_blank">
-                        <Center inline>
+                        <Box
+                            style={
+                                {
+                                    display: "flex",
+                                    justifyContent: "flex-end",
+                                    alignItems: "center"
+                                }
+                            }
+                        >
                             <ActionIcon 
                                 variant="hover" 
                                 >
                                 <BrandGithub size={16} />
                             </ActionIcon>
-                            <Box ml={5}>{props.public ? "Public" : "Private"}</Box>
-                        </Center>
+                            <Box ml={5} mr={2}>GitHub</Box>
+                        </Box>
                     </Anchor>
+                    }
                 </Grid.Col>
             </Grid>
     )

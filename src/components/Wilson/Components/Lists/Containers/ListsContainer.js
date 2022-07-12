@@ -9,6 +9,8 @@ export default function ListsContainer(props) {
     const [lists, setLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
 
+    console.log(lists)
+
     useEffect(() => {
         if (reloadLists) {
             fetchLists()

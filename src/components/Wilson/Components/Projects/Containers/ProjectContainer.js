@@ -18,11 +18,6 @@ export default function ProjectContainer(props) {
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-    // const [featureId, setFeatureId] = useState(null);
-    
-    // const [opened, handlers] = useDisclosure(false);
-
-    console.log(project)
 
     const fetchProject = () => {
         fetch(`http://localhost:3001/api/v2/projects/${props.id}`)
@@ -103,6 +98,7 @@ export default function ProjectContainer(props) {
             />
             <MainContainerHeader 
                 title={project.title}
+                github_url={project.github_url}
                 handleTabClick={handleTabClick}
                 handleEditClick={handleEditProjectClick}
                 handleDeleteClick={handleDeleteClick}

@@ -31,6 +31,7 @@ export default function NewFeature(props) {
                     description: "",
                     due_date: "",
                     public: false,
+                    project_id: props.projectId
                 })
                 props.setFetchAgainFlag(true)
                 props.setFeatureModalOpen(false)

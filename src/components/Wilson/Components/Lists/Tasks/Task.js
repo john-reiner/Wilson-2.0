@@ -42,6 +42,8 @@ export default function Task(props) {
                 })
         .then(response => response.json())
         .then(payload => {
+            // console.log(payload)
+            props.setStatus(payload.list_status)
             setTask(payload.task)
             setEditShow(false)
         })

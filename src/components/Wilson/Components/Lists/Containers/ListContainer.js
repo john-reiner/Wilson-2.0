@@ -1,9 +1,10 @@
-import React, {useState} from 'react'
-import { Grid, Divider, Paper, List, Title, Text, Box, ActionIcon, TextInput } from '@mantine/core';
+import React, {useState, useEffect} from 'react'
+import { Grid, Divider, Paper, List, Title, Text, Box, ActionIcon, TextInput, Switch, Badge } from '@mantine/core';
 import { Trash, Edit, ArrowBarRight } from 'tabler-icons-react';
 import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
+import ListBadge from '../Components/ListBadge';
 
 export default function ListContainer(props) {
 
@@ -11,6 +12,7 @@ export default function ListContainer(props) {
     const [list, setList] = useState(props.list);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [tasks, setTasks] = useState(list.tasks);
+    const [status, setStatus] = useState(props.list.status);
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
@@ -18,18 +20,18 @@ export default function ListContainer(props) {
         props.setReloadLists(true)
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
+    const updateList = (attribute) => {
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${list.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({list: {title: list.title }})
+                body: JSON.stringify({list: attribute})
                 })
         .then(response => response.json())
         .then(payload => {
+            console.log(payload)
             if (payload.status === "updated") {
                 setEdit(false)
             }
@@ -38,6 +40,20 @@ export default function ListContainer(props) {
             console.error(errors)
         })
     }
+
+    const handleSubmit = e => {
+        e.preventDefault()
+        updateList({title: list.title })
+    }
+
+    const handleChecked = () => {
+        if (list.status === "ready") {
+            setStatus("completed")
+            setList({...list, "status": "completed"})
+            updateList({status: "completed" })
+        }
+    }
+    console.log(list)
 
     const renderTasks = () => {
         if (tasks) {
@@ -48,6 +64,7 @@ export default function ListContainer(props) {
                             setReloadLists={props.setReloadLists}
                             setTasks={setTasks}
                             tasks={tasks}
+                            setStatus={setStatus}
                         />
             })
         }
@@ -84,7 +101,28 @@ export default function ListContainer(props) {
             </Title>
         )
     }
-    
+
+    const renderStatus = (status) => {
+        if (status === "ready") {
+            return (
+                <Switch 
+                    label="Complete"
+                    // checked={list.complete}
+                    onChange={handleChecked}
+                    name="complete"
+                    // value={list.complete}
+                />                
+            )
+        }
+        return (
+            <ListBadge
+                status={status}
+            />
+        )
+    }
+
+    console.log(status)
+
     return (
         <Grid.Col>
             <DeleteConfirmation
@@ -104,6 +142,7 @@ export default function ListContainer(props) {
                         }
                     }
                 >
+                    {renderStatus(status)}
                     {renderTitle(edit)}
                     <Box 
                         style={
@@ -137,9 +176,6 @@ export default function ListContainer(props) {
                     id={list.id}
                     setTasks={setTasks}
                     tasks={tasks}
-                    // handleTaskChange={handleTaskChange}
-                    // handleSubmit={handleSubmit}
-                    // task={task}
                 />
                 <List
                     spacing="xs"

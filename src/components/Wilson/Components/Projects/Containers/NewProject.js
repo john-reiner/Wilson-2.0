@@ -12,6 +12,8 @@ export default function NewProject(props) {
         public: false,
         image: ""
     });
+
+    console.log(newProject)
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
     const togglePublic = e => setNewProject({...newProject, [e.target.name]:e.target.checked})

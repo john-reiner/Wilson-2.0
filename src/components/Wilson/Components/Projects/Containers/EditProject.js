@@ -7,8 +7,6 @@ export default function EditProject(props) {
 
     const [project, setProject] = useState(props.project);
 
-
-
     const handleChange = e => setProject({...project, [e.target.name]:e.target.value})
     const togglePublic = e => setProject({...project, [e.target.name]:e.target.checked})
 
@@ -54,11 +52,17 @@ export default function EditProject(props) {
                     label="GitHub URL" 
                     placeholder="github" 
                     icon={<BrandGithub size={14} />} 
-                    name="github_url" 
+                    name="github_url"
                     value={project.github_url} 
                     onChange={handleChange}
 
                     />
+                <Textarea
+                    placeholder="Image URL"
+                    name="image" 
+                    value={project.image} 
+                    onChange={handleChange}
+                />
                 <Switch
                     label="Public"
                     name="public" 

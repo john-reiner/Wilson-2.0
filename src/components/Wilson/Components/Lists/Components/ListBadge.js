@@ -4,13 +4,10 @@ import { Badge} from '@mantine/core';
 export default function ListBadge(props) {
 
     const renderBadgeColor = status => {
-        switch (status) {
-            case "ready":
-                return "orange"
-            case "working":
-                return "blue"
-            default:
-                return "red"
+        if (status === "pending") {
+            return "gray"
+        } else {
+            return "blue"
         }
     }
 

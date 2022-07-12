@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import { Grid, Divider, Paper, List, Title, Text, Box, ActionIcon, TextInput, Switch, Badge } from '@mantine/core';
-import { Trash, Edit, ArrowBarRight } from 'tabler-icons-react';
+import React, {useState} from 'react'
+import { Grid, Divider, Paper, List, Title, Text, Box, ActionIcon, TextInput, Button } from '@mantine/core';
+import { Trash, Edit, ArrowBarRight, ListCheck, Activity } from 'tabler-icons-react';
 import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
@@ -31,7 +31,6 @@ export default function ListContainer(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             if (payload.status === "updated") {
                 setEdit(false)
             }
@@ -46,14 +45,18 @@ export default function ListContainer(props) {
         updateList({title: list.title })
     }
 
-    const handleChecked = () => {
+    const handleListComplete = () => {
         if (list.status === "ready") {
             setStatus("completed")
             setList({...list, "status": "completed"})
             updateList({status: "completed" })
+        } else {
+            console.log("clicked")
+            setStatus("ready")
+            setList({...list, "status": "ready"})
+            updateList({status: "ready"})
         }
     }
-    console.log(list)
 
     const renderTasks = () => {
         if (tasks) {
@@ -103,15 +106,18 @@ export default function ListContainer(props) {
     }
 
     const renderStatus = (status) => {
-        if (status === "ready") {
+        if (status === "ready" || status === "completed") {
             return (
-                <Switch 
-                    label="Complete"
-                    // checked={list.complete}
-                    onChange={handleChecked}
-                    name="complete"
-                    // value={list.complete}
-                />                
+                <Button 
+                    leftIcon={
+                        status === "ready" ? <ListCheck size={14} /> : <Activity size={14} />
+                    }
+                    variant="outline" 
+                    color={status === "ready" && "green"}
+                    onClick={handleListComplete}
+                >
+                    {status === "ready" ? "Complete" : "Open"}
+                </Button>
             )
         }
         return (
@@ -120,8 +126,6 @@ export default function ListContainer(props) {
             />
         )
     }
-
-    console.log(status)
 
     return (
         <Grid.Col>

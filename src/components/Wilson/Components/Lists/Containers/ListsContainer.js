@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
-import { Stack, Grid, Button } from '@mantine/core';
+import { Stack, Grid, Button, Group } from '@mantine/core';
 import NewList from './NewList';
 import ListContainer from './ListContainer';
+import ListStatusNav from '../Components/ListStatusNav';
 
 export default function ListsContainer(props) {
 
     const [newList, setNewList] = useState(false);
     const [lists, setLists] = useState([]);
+    const [pendingLists, setPendingLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
+    const [status, setStatus] = useState('all');
 
-    console.log(lists)
+    console.log(pendingLists)
 
     useEffect(() => {
         if (reloadLists) {
@@ -30,6 +33,7 @@ export default function ListsContainer(props) {
         )
         .then(response => response.json())
         .then(payload => {
+            setPendingLists(payload.pending)
             setLists(payload.lists)
         })
         .catch(errors => {
@@ -38,8 +42,20 @@ export default function ListsContainer(props) {
     }
 
     const renderLists = () => {
-        if (lists) { 
+        if (status === 'all') { 
             return lists.map(list => {
+                return <ListContainer 
+                            list={{...list}}
+                            key={list.id}
+                            projectId={props.projectId}
+                            listable={props.listable}
+                            listableId={props.id}
+                            setReloadLists={setReloadLists}
+                        />
+            })
+        }
+        if (status === 'pending') {
+            return pendingLists.map(list => {
                 return <ListContainer 
                             list={{...list}}
                             key={list.id}
@@ -71,10 +87,22 @@ export default function ListsContainer(props) {
 
     return (
         <Stack>
-            
-            <Button onClick={() => setNewList(true)}>
-                New List
-            </Button>
+            <Group
+                position='apart'
+            >
+
+                    <ListStatusNav 
+                        setStatus={setStatus}
+                        status={status}
+                    />                    
+
+
+                    <Button onClick={() => setNewList(true)}>
+                        New List
+                    </Button>                    
+
+
+            </Group>
 
             <Grid>
                 {renderNewList(newList)}

@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import { Grid, Divider, Paper, List } from '@mantine/core';
-import Task from '../Tasks/Task';
+// import Task from '../Tasks/Task';
 import NewTask from '../Tasks/NewTask';
 import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
 
-import ListTitleContainer from './ListTitleContainer';
+import ListTitleContainer from './ListTitle/ListTitleContainer';
 
 export default function ListContainer(props) {
 
@@ -15,8 +15,6 @@ export default function ListContainer(props) {
     const [status, setStatus] = useState(props.list.status);
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
-
-    console.log(list)
 
     const updateList = (attribute) => {
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${list.id}`, {
@@ -71,7 +69,7 @@ export default function ListContainer(props) {
     //         })
     //     }
     // }
-
+    console.log(status)
     return (
         <Grid.Col>
             <DeleteConfirmation

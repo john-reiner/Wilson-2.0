@@ -1,19 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import { Stack, Grid, Button, Group } from '@mantine/core';
-import NewList from './NewList';
+import NewList from '../Components/NewList';
 import ListContainer from './ListContainer';
 import ListStatusNav from '../Components/ListStatusNav';
+
 
 export default function ListsContainer(props) {
 
     const [newList, setNewList] = useState(false);
-    // const [lists, setLists] = useState([]);
     const [incompleteLists, setIncompleteLists] = useState([]);
     const [completedLists, setCompletedLists] = useState([]);
     const [reloadLists, setReloadLists] = useState(true);
     const [status, setStatus] = useState('incomplete');
-
-    console.log(status)
 
     useEffect(() => {
         if (reloadLists) {
@@ -75,14 +73,12 @@ export default function ListsContainer(props) {
         if (showFlag) {
             return (
                 <Grid.Col md={6}>
-                    {newList && 
-                        <NewList
-                            listable={props.listable}
-                            setNewList={setNewList}
-                            id={props.id} 
-                            setReloadLists={setReloadLists}
-                        />
-                    }
+                    <NewList
+                        listable={props.listable}
+                        setNewList={setNewList}
+                        id={props.id} 
+                        setReloadLists={setReloadLists}
+                    />
                 </Grid.Col>                
             )
         }
@@ -93,20 +89,14 @@ export default function ListsContainer(props) {
             <Group
                 position='apart'
             >
-
-                    <ListStatusNav 
-                        setStatus={setStatus}
-                        status={status}
-                    />                    
-
-
-                    <Button onClick={() => setNewList(true)}>
-                        New List
-                    </Button>                    
-
-
+                <ListStatusNav 
+                    setStatus={setStatus}
+                    status={status}
+                />                    
+                <Button onClick={() => setNewList(true)}>
+                    New List
+                </Button>                    
             </Group>
-
             <Grid>
                 {renderNewList(newList)}
                 {renderLists()}

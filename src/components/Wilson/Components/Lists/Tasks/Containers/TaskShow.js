@@ -22,10 +22,12 @@ export default function TaskShow(props) {
     }, []);
 
     const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+
     const handleDelete = () => {
         props.setTaskShowOpened(false)
-        let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
-        props.setTasks(newTaskList)
+        // let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
+        // props.setTasks(newTaskList)
+        props.setResetList(true)
     }
     
     const fetchTask = () => {
@@ -81,7 +83,7 @@ export default function TaskShow(props) {
             position="right" 
         >
             <DeleteModalConfirmation
-                route={`tasks/${props.id}`}
+                route={`${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.id}`}
                 item="task"
                 opened={deleteModalOpen}
                 setOpened={setDeleteModalOpen}

@@ -10,7 +10,7 @@ export default function TasksContainer(props) {
                 return <Task
                             task={{...task}}
                             key={task.id}
-                            setReloadLists={props.setReloadLists}
+                            setResetList={props.setResetList}
                             setTasks={props.setTasks}
                             tasks={props.tasks}
                             listable={props.listable}

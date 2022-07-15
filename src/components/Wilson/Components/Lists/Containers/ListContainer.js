@@ -13,10 +13,14 @@ export default function ListContainer(props) {
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [listStatus, setListStatus] = useState("");
+    const [resetList, setResetList] = useState(false);
 
     useEffect(() => {
         fetchList()
-    }, [props.id]);
+        if (resetList) {
+            fetchList()
+        }
+    }, [props.id, resetList]);
 
     const fetchList = () => {
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.id}`, {
@@ -114,6 +118,7 @@ export default function ListContainer(props) {
                     listable={props.listable}
                     listableId={props.listableId}
                     tasks={tasks}
+                    setResetList={setResetList}
                     // disabled={list.status !== "completed"}
                     setListStatus={setListStatus}
                 />

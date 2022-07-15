@@ -89,7 +89,7 @@ export default function Task(props) {
                     editShow={editShow}
                     id={task.id}
                     completed={task.completed}
-                    setReloadLists={props.setReloadLists}
+                    setResetList={props.setResetList}
                     setTasks={props.setTasks}
                     tasks={props.tasks}
                     setTaskChange={setTaskChange}

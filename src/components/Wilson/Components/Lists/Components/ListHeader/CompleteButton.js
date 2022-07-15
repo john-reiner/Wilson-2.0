@@ -19,6 +19,7 @@ export default function CompleteButton(props) {
             variant="outline" 
             color={props.status === "ready" && "green"}
             onClick={props.handleListComplete}
+            compact
         >
             {props.status === "ready" ? "Complete" : "Open"}
         </Button>

@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Box, ActionIcon, Text, List} from '@mantine/core';
 import { CircleCheck, Circle } from 'tabler-icons-react';
-import TaskShow from './Containers/TaskShow';
+import TaskShow from '../Containers/TaskShow';
 
 export default function Task(props) {
 
@@ -32,7 +32,7 @@ export default function Task(props) {
     }
 
     const updateTask = () => {
-        fetch(`http://localhost:3001/api/v2/tasks/${task.id}`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,8 +42,7 @@ export default function Task(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            // console.log(payload)
-            props.setStatus(payload.list_status)
+            props.setListStatus(payload.list_status)
             setTask(payload.task)
             setEditShow(false)
         })
@@ -94,6 +93,9 @@ export default function Task(props) {
                     setTasks={props.setTasks}
                     tasks={props.tasks}
                     setTaskChange={setTaskChange}
+                    listable={props.listable}
+                    listableId={props.listableId}
+                    listId={props.listId}
                 />
             }
             <Box 

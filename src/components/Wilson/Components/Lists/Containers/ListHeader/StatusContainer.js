@@ -2,8 +2,8 @@ import React from 'react'
 
 
 
-import ListBadge from '../../Components/ListBadge';
-import CompleteButton from '../../Components/CompleteButton';
+import ListBadge from '../../Components/ListHeader/ListBadge';
+import CompleteButton from '../../Components/ListHeader/CompleteButton';
 
 export default function StatusContainer(props) {
 
@@ -12,7 +12,7 @@ export default function StatusContainer(props) {
             return (
                 <CompleteButton
                     handleListComplete={props.handleListComplete}
-                    status={props.status}
+                    status={status}
                 />
             )
         }

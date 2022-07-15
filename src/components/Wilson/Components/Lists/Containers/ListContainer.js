@@ -1,18 +1,42 @@
-import React, {useState} from 'react'
-import { Grid, Divider, Paper, List } from '@mantine/core';
-// import Task from '../Tasks/Task';
-import NewTask from '../Tasks/NewTask';
-import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
+import React, {useState, useEffect} from 'react'
+import { Divider, Paper } from '@mantine/core';
 
-import ListTitleContainer from './ListTitle/ListTitleContainer';
+import NewTask from '../Tasks/Components/NewTask/NewTask'
+import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
+import ListHeaderContainer from './ListHeader/ListHeaderContainer';
+import TasksContainer from '../Tasks/Containers/TasksContainer';
 
 export default function ListContainer(props) {
 
-    const [list, setList] = useState(props.list);
+    const [list, setList] = useState({});
+    const [tasks, setTasks] = useState([]);
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    // const [tasks, setTasks] = useState(list.tasks);
-    const [status, setStatus] = useState(props.list.status);
+    const [listStatus, setListStatus] = useState("");
+
+    useEffect(() => {
+        fetchList()
+    }, [props.id]);
+
+    const fetchList = () => {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.id}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+            }
+        )
+        .then(response => response.json())
+        .then(payload => {
+            setTasks(payload.tasks)
+            setList(payload.list)
+            setListStatus(payload.list.status)
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
@@ -38,51 +62,37 @@ export default function ListContainer(props) {
     }
 
     const handleDeleteSuccess = () => {
-        props.setReloadLists(true)
+        props.setContentTitle('listSelectionContainer')
     }
 
     const handleListComplete = () => {
-        if (list.status === "ready") {
-            setStatus("completed")
-            setList({...list, "status": "completed"})
+        if (listStatus === "ready") {
+            setListStatus("completed")
+            // setList({...list, "status": "completed"})
             updateList({status: "completed" })
         } else {
-            console.log("clicked")
-            setStatus("ready")
+            setListStatus("ready")
             setList({...list, "status": "ready"})
             updateList({status: "ready"})
         }
     }
 
-    // const renderTasks = () => {
-    //     if (tasks) {
-    //         return tasks.map(task => {
-    //             return <Task
-    //                         task={{...task}}
-    //                         key={task.id}
-    //                         setReloadLists={props.setReloadLists}
-    //                         setTasks={setTasks}
-    //                         tasks={tasks}
-    //                         setStatus={setStatus}
-    //                         listStatus={status}
-    //                     />
-    //         })
-    //     }
-    // }
-    console.log(status)
     return (
-        <Grid.Col>
-            <DeleteConfirmation
-                route={`${props.listable}/${props.listableId}/lists/${props.list.id}`}
-                successFunction={handleDeleteSuccess}
-                opened={deleteModalOpen}
-                setOpened={setDeleteModalOpen}
-                item="list"
-            />
+        <div>
+            {deleteModalOpen && 
+                <DeleteConfirmation
+                    route={`${props.listable}/${props.listableId}/lists/${list.id}`}
+                    successFunction={handleDeleteSuccess}
+                    opened={deleteModalOpen}
+                    setOpened={setDeleteModalOpen}
+                    item="list"
+                />
+            
+            }
             <Paper shadow="md" p="xs" withBorder>
-                <ListTitleContainer 
+                <ListHeaderContainer 
                     list={{...list}}
-                    listStatus={status}
+                    listStatus={listStatus}
                     handleListComplete={handleListComplete}
                     updateList={updateList}
                     handleChange={handleChange}
@@ -91,22 +101,24 @@ export default function ListContainer(props) {
                     setDeleteModalOpen={setDeleteModalOpen}
                 />
                 <Divider my="xs" />
-                {status !== "completed" && 
-                    <NewTask
-                        id={props.list.id}
-                        // setTasks={setTasks}
-                        // tasks={tasks}
-                    /> 
-                }
-                <List
-                    spacing="xs"
-                    size="sm"
-                    center
-                    withPadding
-                >
-                    {/* {renderTasks()} */}
-                </List>
+                <NewTask
+                    listId={list.id}
+                    disabled={props.disabled}
+                    setTasks={setTasks}
+                    tasks={tasks}
+                    listable={props.listable}
+                    listableId={props.listableId}
+                />
+                <TasksContainer
+                    listId={props.id}
+                    listable={props.listable}
+                    listableId={props.listableId}
+                    tasks={tasks}
+                    // disabled={list.status !== "completed"}
+                    setListStatus={setListStatus}
+                />
+
             </Paper>
-        </Grid.Col>
+        </div>
     )
 }

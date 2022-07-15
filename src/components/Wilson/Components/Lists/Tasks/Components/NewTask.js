@@ -14,7 +14,7 @@ export default function NewTask(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/tasks`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

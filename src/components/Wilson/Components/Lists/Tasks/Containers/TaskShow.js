@@ -29,7 +29,7 @@ export default function TaskShow(props) {
     }
     
     const fetchTask = () => {
-        fetch(`http://localhost:3001/api/v2/tasks/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

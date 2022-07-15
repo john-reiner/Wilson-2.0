@@ -26,8 +26,8 @@ export default function NewList(props) {
                 setList({
                     title: "",
                 })
-                props.setSelectedListId(payload.list.id)
-                props.setContentTitle("listContainer")
+                props.setReloadLists(true)
+                props.setNewList(false)
             }
         })
         .catch(errors => {
@@ -41,6 +41,16 @@ export default function NewList(props) {
             shadow="xs" 
             p="md"
         >
+            <Group position="apart">
+                <Title order={3}>New List</Title>
+                <ActionIcon 
+                    onClick={() => props.setNewList(false)}
+                    size="sm"
+                >
+                    <X />
+                </ActionIcon>
+            </Group>
+            <Divider my="sm" />
             <form onSubmit={handleSubmit}>
                 <Stack> 
                     <TextInput
@@ -56,3 +66,4 @@ export default function NewList(props) {
         </Paper>
     )
 }
+

@@ -3,11 +3,11 @@ import { Box }  from '@mantine/core';
 
 
 
-import ListTitle from '../../Components/ListTitle';
+import ListTitle from '../../Components/ListHeader/ListTitle';
 import StatusContainer from './StatusContainer';
 import IconsContainer from './IconsContainer';
 
-export default function ListTitleContainer(props) {
+export default function ListHeaderContainer(props) {
 
     return (
         <Box

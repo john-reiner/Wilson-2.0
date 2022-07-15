@@ -1,6 +1,6 @@
 import React, {useState, useEffect}  from 'react'
 import { List } from '@mantine/core';
-import Task from '../Components/Task/Task'
+import Task from '../Components/Task'
 
 export default function TasksContainer(props) {
 

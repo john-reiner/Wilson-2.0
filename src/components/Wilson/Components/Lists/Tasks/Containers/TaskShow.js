@@ -58,6 +58,9 @@ export default function TaskShow(props) {
                     setEdit={setEdit}
                     setTask={setTask}
                     setTaskChange={props.setTaskChange}
+                    listable={props.listable}
+                    listId={props.listId}
+                    listableId={props.listableId}
                 />
             )
         }

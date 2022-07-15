@@ -6,7 +6,7 @@ export default function EditTask(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/tasks/${props.task.id}`, {
+        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.task.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ export default function EditTask(props) {
                 </Paper> */}
                 <Textarea
                     autosize
-                    value={props.task.description}
+                    value={!props.task.description ? "" : props.task.description}
                     onChange={props.handleChange}
                     name="description"
                 />

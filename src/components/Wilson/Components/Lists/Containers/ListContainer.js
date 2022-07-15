@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { Divider, Paper } from '@mantine/core';
 
-import NewTask from '../Tasks/Components/NewTask/NewTask'
+import NewTask from '../Tasks/Components/NewTask'
 import DeleteConfirmation from '../../../Containers/DeleteModalConfirmation';
 import ListHeaderContainer from './ListHeader/ListHeaderContainer';
 import TasksContainer from '../Tasks/Containers/TasksContainer';

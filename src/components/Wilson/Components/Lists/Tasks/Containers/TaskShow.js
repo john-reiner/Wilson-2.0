@@ -24,6 +24,7 @@ export default function TaskShow(props) {
     const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
 
     const handleDelete = () => {
+        console.log("HERE")
         props.setTaskShowOpened(false)
         // let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
         // props.setTasks(newTaskList)
@@ -72,8 +73,6 @@ export default function TaskShow(props) {
             />            
         )
     }
-
-    console.log(props.listStatus === "completed", props.listStatus)
 
     return (
         <Drawer

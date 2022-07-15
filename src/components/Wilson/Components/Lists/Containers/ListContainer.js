@@ -19,8 +19,11 @@ export default function ListContainer(props) {
         fetchList()
         if (resetList) {
             fetchList()
+            setResetList(false)
         }
     }, [props.id, resetList]);
+
+
 
     const fetchList = () => {
         fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.id}`, {
@@ -83,7 +86,6 @@ export default function ListContainer(props) {
     }
 
     const renderNewTask = (status) => {
-        console.log(status)
         if (!(status === 'completed')) {
             return (
                 <NewTask

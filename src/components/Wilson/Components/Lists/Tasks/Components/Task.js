@@ -53,7 +53,6 @@ export default function Task(props) {
 
     const renderIcon = (boolean, status) => {
         if (!(status === 'completed')) {
-            console.log(!(status === 'completed'))
             if (boolean) {
                 return (
                     <ActionIcon 

@@ -73,6 +73,8 @@ export default function TaskShow(props) {
         )
     }
 
+    console.log(props.listStatus === "completed", props.listStatus)
+
     return (
         <Drawer
             onClose={() => props.setTaskShowOpened(false)}
@@ -104,6 +106,7 @@ export default function TaskShow(props) {
                     onChange={props.handleChecked}
                     name="completed"
                     value={props.completed}
+                    disabled={props.listStatus === "completed"}
                 >
                 </Switch>
                 <Box 

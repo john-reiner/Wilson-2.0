@@ -18,6 +18,7 @@ export default function TasksContainer(props) {
                             listId={props.listId}
                             id={task.id}
                             setListStatus={props.setListStatus}
+                            listStatus={props.listStatus}
                         />
             })
         }

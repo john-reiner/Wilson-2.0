@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import { Box, ActionIcon, Text, List} from '@mantine/core';
-import { CircleCheck, Circle } from 'tabler-icons-react';
+import { CircleCheck, Circle, Lock } from 'tabler-icons-react';
 import TaskShow from '../Containers/TaskShow';
 
 export default function Task(props) {
@@ -51,32 +51,41 @@ export default function Task(props) {
         })
     }
 
-    const renderIcon = (boolean) => {
-        if (boolean) {
+    const renderIcon = (boolean, status) => {
+        if (!(status === 'completed')) {
+            console.log(!(status === 'completed'))
+            if (boolean) {
+                return (
+                    <ActionIcon 
+                        color="green"
+                        size={24}
+                        onClick={handleChecked}
+                    >
+                        <CircleCheck size={20} />
+                    </ActionIcon> 
+                )
+            }
             return (
                 <ActionIcon 
-                    color="green"
-                    size={24}
+                    color="blue" 
+                    size={24} 
                     onClick={handleChecked}
                 >
-                    <CircleCheck size={20} />
-                </ActionIcon> 
-            )
+                    <Circle size={20} />
+                </ActionIcon>
+            )            
         }
+
         return (
-            <ActionIcon 
-                color="blue" 
-                size={24} 
-                onClick={handleChecked}
-            >
-                <Circle size={20} />
+            <ActionIcon disabled>
+                <Lock />
             </ActionIcon>
         )
     }
 
     return (
         <List.Item
-            icon={renderIcon(task.completed)}
+            icon={renderIcon(task.completed, props.listStatus)}
         >
             { taskShowOpened && 
                 <TaskShow 
@@ -96,6 +105,7 @@ export default function Task(props) {
                     listable={props.listable}
                     listableId={props.listableId}
                     listId={props.listId}
+                    listStatus={props.listStatus}
                 />
             }
             <Box 

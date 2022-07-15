@@ -57,7 +57,9 @@ export default function ListContainer(props) {
         .then(payload => {
             if (payload.status === "updated") {
                 setEdit(false)
-                props.setReloadLists(true)
+                setTasks(payload.tasks)
+                setList(payload.list)
+                setListStatus(payload.list.status)
             }
         })
         .catch(errors => {
@@ -72,12 +74,27 @@ export default function ListContainer(props) {
     const handleListComplete = () => {
         if (listStatus === "ready") {
             setListStatus("completed")
-            // setList({...list, "status": "completed"})
             updateList({status: "completed" })
         } else {
             setListStatus("ready")
             setList({...list, "status": "ready"})
             updateList({status: "ready"})
+        }
+    }
+
+    const renderNewTask = (status) => {
+        console.log(status)
+        if (!(status === 'completed')) {
+            return (
+                <NewTask
+                    listId={list.id}
+                    disabled={props.disabled}
+                    setTasks={setTasks}
+                    tasks={tasks}
+                    listable={props.listable}
+                    listableId={props.listableId}
+                />                
+            )
         }
     }
 
@@ -105,21 +122,14 @@ export default function ListContainer(props) {
                     setDeleteModalOpen={setDeleteModalOpen}
                 />
                 <Divider my="xs" />
-                <NewTask
-                    listId={list.id}
-                    disabled={props.disabled}
-                    setTasks={setTasks}
-                    tasks={tasks}
-                    listable={props.listable}
-                    listableId={props.listableId}
-                />
+                {renderNewTask(list.status)}
                 <TasksContainer
                     listId={props.id}
                     listable={props.listable}
                     listableId={props.listableId}
                     tasks={tasks}
                     setResetList={setResetList}
-                    // disabled={list.status !== "completed"}
+                    listStatus={listStatus}
                     setListStatus={setListStatus}
                 />
 

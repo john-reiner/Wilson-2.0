@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Divider, Modal, SegmentedControl } from '@mantine/core';
+import { Divider, ColorSwatch, SegmentedControl, Box, Text } from '@mantine/core';
 import ListTitlesContainer from './ListTitlesContainer';
 
 export default function ListSelectionContainer(props) {
@@ -33,28 +33,43 @@ export default function ListSelectionContainer(props) {
         })
     }
 
+    const renderSegmentedLabel = (string, amount) => {
+        return (
+            <Box
+            style={
+                    {
+                        display: "flex",
+                        justifyContent: "space-around",
+                        alignItems: "center"
+                    }
+                }
+            >
+                <Text >{string} </Text>
+                <Text>{amount}</Text>
+            </Box>
+        )
+    }
+
     return (
-        <div
-            // opened={props.opened}
-            // onClose={() => props.setOpened(false)}
-            // title="Select a list"
-            // size="xl"
-            // overflow="inside"
-        >
-            <SegmentedControl
-                data={[
-                    { label: 'All', value: 'all' },
-                    { label: 'Pending', value: 'pending' },
-                    { label: 'In Progress', value: 'working' },
-                    { label: 'Ready to Complete', value: 'ready' },
-                    { label: 'Completed', value: 'completed' },
-                ]}
-                value={listType}
-                onChange={setListType}
-                fullWidth
-                color="green"
-            />
+        <div>
+            {lists.counts && 
+                <SegmentedControl
+                    data={[
+                        { label: (renderSegmentedLabel("All", lists.counts.all)), value: 'all' },
+                        { label: (renderSegmentedLabel("Pending", lists.counts.pending)), value: 'pending' },
+                        { label: (renderSegmentedLabel("Working", lists.counts.working)), value: 'working' },
+                        { label: (renderSegmentedLabel("Ready to Complete", lists.counts.ready)), value: 'ready' },
+                        { label: (renderSegmentedLabel("Completed", lists.counts.completed)), value: 'completed' },
+                    ]}
+                    value={listType}
+                    onChange={setListType}
+                    fullWidth
+                    color="green"
+                />
+            }
             <Divider my="xs"/>
+            
+
             <ListTitlesContainer
                 listType={listType}
                 selectedLists={selectedLists}

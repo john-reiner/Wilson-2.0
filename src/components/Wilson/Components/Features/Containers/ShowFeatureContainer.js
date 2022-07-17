@@ -16,13 +16,18 @@ export default function FeatureModalContainer(props) {
     const [featureContent, setFeatureContent] = useState("Info");
     const [feature, setFeature] = useState({});
     const [deleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
-
+    const [updateFeatureFlag, setUpdateFeatureFlag] = useState(false);
 
     useEffect(() => {
         if (typeof props.featureId === "number") {
             fetchFeature()
         }
-    }, [props.featureId]);
+        if (updateFeatureFlag && typeof feature.id === "number") {
+            console.log("HERE")
+            updateFeature()
+            setUpdateFeatureFlag(false)
+        }
+    }, [props.featureId, updateFeatureFlag]);
 
     const handleEditFeature = () => {
         setFeatureContent("Form")
@@ -38,8 +43,7 @@ export default function FeatureModalContainer(props) {
         props.setFetchAgainFlag(true)
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
+    const updateFeature = () => {
         fetch(`http://localhost:3001/api/v2/features/${feature.id}`, {
                 method: 'PUT',
                 headers: {
@@ -59,6 +63,11 @@ export default function FeatureModalContainer(props) {
         })
     }
 
+    const handleSubmit = e => {
+        e.preventDefault()
+        updateFeature()
+    }
+
     const fetchFeature = () => {
         fetch(`http://localhost:3001/api/v2/features/${props.featureId}`)
         .then(response => response.json())
@@ -70,7 +79,6 @@ export default function FeatureModalContainer(props) {
         })
     }
 
-
     const handleTabClick= (tabName) => {
         setFeatureContent(tabName)
     }
@@ -80,7 +88,8 @@ export default function FeatureModalContainer(props) {
     const featureComponent = [
         [<FeatureInfoContainer
             feature={{...feature}}
-
+            setFeature={setFeature}
+            setUpdateFeatureFlag={setUpdateFeatureFlag}
         />, "Info"],
         [<ListsContainer
             listable="features"
@@ -126,6 +135,7 @@ export default function FeatureModalContainer(props) {
                 tabs={featureShowTabs}
                 type="Feature"
                 handleDeleteClick={handleDeleteClick}
+                status={feature.status}
             />
             <Divider my="xs" />
             {renderContent(featureComponent, featureContent)}

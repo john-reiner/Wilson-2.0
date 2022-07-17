@@ -1,45 +1,26 @@
 import React, { useState } from 'react'
-import { Button, Stack, Grid } from '@mantine/core';
-import { Plus } from 'tabler-icons-react';
+import { Button, Stack, Accordion } from '@mantine/core';
+
 import FeatureLink from '../Components/FeatureLink'
 import NewFeature from '../Components/NewFeature';
 import ShowFeatureContainer from './ShowFeatureContainer';
+import FeaturesNav from './FeaturesNav/FeaturesNav';
+import FeaturesShowContainer from './FeaturesShowContainer';
 
 export default function FeaturesContainer(props) {
 
-    // const [features, setFeatures] = useState([]);
+    const [features, setFeatures] = useState([]);
     const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
+    const [showFeaturesSelect, setShowFeaturesSelect] = useState(false);
 
     const handleLinkClick = (id) => {
         setFeatureId(id)
         setFeatureModalOpen(true)
     }
 
-    const renderFeatures = () => {
-        if (props.features) {
-            return props.features.map(feature => {
-                return (
-                    <FeatureLink 
-                        title={feature.title}
-                        description={feature.description}
-                        dueDate={feature.due_date}
-                        public={feature.public}
-                        handleLinkClick={handleLinkClick}
-                        setFeatureId={props.setFeatureId}
-                        id={feature.id}
-                        key={feature.id}
-                        
-                    />
-                )
-            })
-        } else {
-            return (
-                <p>No Features</p>
-            )
-        }
-    }
+
 
     return (
         <Stack>
@@ -50,13 +31,11 @@ export default function FeaturesContainer(props) {
                 projectId={props.projectId} 
                 setFetchAgainFlag={props.setFetchAgainFlag}
             />
-            <Button 
-                leftIcon={<Plus size={14} />}
-                onClick={() => setNewFeatureModalOpen(true)}
-            >
-                New Feature
-            </Button>
-
+            <FeaturesNav
+                setNewFeatureModalOpen={setNewFeatureModalOpen}
+                setShowFeaturesSelect={setShowFeaturesSelect}
+                showFeaturesSelect={showFeaturesSelect}
+            />
             <NewFeature 
                 setFetchAgainFlag={props.setFetchAgainFlag} 
                 projectId={props.projectId} 
@@ -64,9 +43,22 @@ export default function FeaturesContainer(props) {
                 setFeatureModalOpen={setNewFeatureModalOpen} 
                 newFeatureModalOpen={newFeatureModalOpen}
             />
-            <Grid>
-                {renderFeatures()}
-            </Grid>
+            <FeaturesShowContainer
+                features={props.features}
+                handleLinkClick={handleLinkClick}
+                setFeatureId={setFeatureId}
+            />
+            {/* <Accordion multiple>
+                <Accordion.Item label="Priority: High">
+
+                </Accordion.Item>
+                <Accordion.Item label="Priority: Medium">
+
+                </Accordion.Item>
+                <Accordion.Item label="Priority: Low">
+                    {renderFeatures("low")}
+                </Accordion.Item>
+            </Accordion> */}
         </Stack>
     )
 }

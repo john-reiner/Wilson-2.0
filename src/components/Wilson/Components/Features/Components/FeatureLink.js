@@ -1,31 +1,31 @@
 import React from 'react'
-import { Grid, Paper, Text, Badge, Group } from '@mantine/core';
+import { Grid, Paper, Text, Group } from '@mantine/core';
+import StatusBadge from './StatusBadge';
 
 export default function FeatureLink(props) {
 
-    const convertDate = (date) => {
-        var dateMill = Date.parse(date)
-        var dateObject = new Date(dateMill)
-        var year = dateObject.getFullYear();
-        var month = (1 + dateObject.getMonth()).toString();
-        month = month.length > 1 ? month : '0' + month;
-        var day = dateObject.getDate().toString();
-        day = day.length > 1 ? day : '0' + day;
-        return month + '/' + day + '/' + year;
-    }
+    // const convertDate = (date) => {
+    //     var dateMill = Date.parse(date)
+    //     var dateObject = new Date(dateMill)
+    //     var year = dateObject.getFullYear();
+    //     var month = (1 + dateObject.getMonth()).toString();
+    //     month = month.length > 1 ? month : '0' + month;
+    //     var day = dateObject.getDate().toString();
+    //     day = day.length > 1 ? day : '0' + day;
+    //     return month + '/' + day + '/' + year;
+    // }
 
-    const calcOverdue = (date) => {
-        var dateMill = Date.parse(date)
-        var dateObject = new Date(dateMill)
-        var today = new Date()
-        if (dateObject - today < 0) {
-            return true
-        }
-        return false
-    }
+    // const calcOverdue = (date) => {
+    //     var dateMill = Date.parse(date)
+    //     var dateObject = new Date(dateMill)
+    //     var today = new Date()
+    //     if (dateObject - today < 0) {
+    //         return true
+    //     }
+    //     return false
+    // }
 
     return (
-        <Grid.Col md={6}>
             <Paper 
                 p="md" 
                 withBorder
@@ -44,20 +44,14 @@ export default function FeatureLink(props) {
                     </Grid.Col>
                     <Grid.Col span={5}>
                         <Group position="right" spacing="xs">
-                            <Badge
-                                color={calcOverdue(props.dueDate) && "red"}
-                            >
-                                {convertDate(props.dueDate)}
-                            </Badge>
-                            <Badge
-                                color={props.public && "green"}
-                            >
-                                {props.public ? "Public" : "Private"}
-                            </Badge>
+                            <StatusBadge 
+                                status={props.status}
+                            />
+
                         </Group>
                     </Grid.Col>
                 </Grid>
             </Paper>
-        </Grid.Col>
+
     )
 }

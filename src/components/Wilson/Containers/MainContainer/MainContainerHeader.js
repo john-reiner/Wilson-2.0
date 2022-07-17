@@ -35,6 +35,12 @@ export default function MainContainerHeader(props) {
         })
     }
 
+    const renderStatus = (status) => {
+        if (status) {
+            return <Text color="blue" inherit component="span"> - {props.status}</Text>
+        } 
+    }
+
     return (
             <Grid align="center">
                 <Grid.Col span={11}>
@@ -43,7 +49,7 @@ export default function MainContainerHeader(props) {
                         className="wilson-logo-small"
                         // color="green"
                     >
-                        <Text color="green" inherit component="span">{props.title}</Text>
+                        <Text color="green" inherit component="span">{props.title} {renderStatus(props.status)} </Text>
                         
                     </Title>
                 </Grid.Col>

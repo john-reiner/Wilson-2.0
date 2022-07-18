@@ -3,13 +3,14 @@ import { Grid } from '@mantine/core'
 import { CircleDashed, Activity, DotsCircleHorizontal, CircleCheck, PlayerPause, PlayerPlay } from 'tabler-icons-react';
 import FeatureStatusContainer from './FeatureStatusContainer';
 import FeaturePriorityContainer from './FeaturePriorityContainer';
+import FeatureDescriptionContainer from './FeatureDescriptionContainer';
 
 
 export default function FeatureInfoContainer(props) {
 
     return (
         <Grid grow>
-            <Grid.Col span={4}>
+            <Grid.Col sm={6} md={6} lg={3}>
                 <FeatureStatusContainer 
                     status={props.feature.status }
                     setFeature={props.setFeature}
@@ -17,13 +18,16 @@ export default function FeatureInfoContainer(props) {
                     updateFeature={props.updateFeature}
                 />
             </Grid.Col>
-            <Grid.Col span={4}>
+            <Grid.Col sm={6} md={6} lg={3}>
                 <FeaturePriorityContainer
                     priority={props.feature.priority}
                     setFeature={props.setFeature}
                     feature={props.feature}
                     updateFeature={props.updateFeature}
                     setFetchAgainFlag={props.setFetchAgainFlag}
+                />
+                <FeatureDescriptionContainer
+                    description={props.feature.description}
                 />
             </Grid.Col>
 

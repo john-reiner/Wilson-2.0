@@ -15,28 +15,17 @@ export default function FeaturePriorityContainer(props) {
             p="md"
             withBorder
         >
-            <Box
-                style={
-                    {
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "Center"
-                    }
-                }
+            <RadioGroup
+            label="Priority Level"
+            value={props.priority}
+            onChange={handlePriorityChange}
+            description="Set the priority level for this feature"
+            // required
             >
-                <Title order={3}>Priority</Title>
-                <RadioGroup
-                label="Set the priority level for this feature"
-                value={props.priority}
-                onChange={handlePriorityChange}
-                // description="This is anonymous"
-                // required
-                >
-                    <Radio value="low" label="Low" />
-                    <Radio value="medium" label="Medium" />
-                    <Radio value="high" label="High" />
-                </RadioGroup>
-            </Box>
+                <Radio value="low" label="Low" />
+                <Radio value="medium" label="Medium" />
+                <Radio value="high" label="High" />
+            </RadioGroup>
         </Paper>
     )
 }

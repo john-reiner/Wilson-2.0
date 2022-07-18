@@ -9,7 +9,7 @@ export default function FeatureStatusContainer(props) {
         { value: 'created', label: 'Created' },
         { value: 'working', label: 'Working' },
         { value: 'review', label: 'Ready for Review' },
-        { value: 'Completed', label: 'Completed' },
+        { value: 'completed', label: 'Completed' },
     ];
 
     const handleStatusChange = (e) => {
@@ -18,8 +18,13 @@ export default function FeatureStatusContainer(props) {
     }
 
     const handlePause = () => {
-        props.setFeature({...props.feature, 'status': 'paused'})
-        props.updateFeature({status: 'paused'})
+        if (props.status !== 'paused') {
+            props.setFeature({...props.feature, 'status': 'paused'})
+            props.updateFeature({status: 'paused'})
+        } else {
+            props.setFeature({...props.feature, 'status': 'working'})
+            props.updateFeature({status: 'working'})
+        }
     }
 
     const setActive= () => {

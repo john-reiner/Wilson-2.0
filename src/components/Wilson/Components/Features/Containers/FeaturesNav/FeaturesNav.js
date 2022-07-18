@@ -15,7 +15,7 @@ export default function FeaturesNav(props) {
             >
                 New Feature
             </Button>
-            <Title>Features</Title>
+            {/* <Title>Features</Title>
             <Button 
                 leftIcon={<ListSearch size={14} />}
                 onClick={() => props.setShowFeaturesSelect(true)}
@@ -23,7 +23,7 @@ export default function FeaturesNav(props) {
                 variant={props.showFeaturesSelect ? "outline" : "filled"}
             >
                 Select a Feature
-            </Button>
+            </Button> */}
         </Group>
     )
 }

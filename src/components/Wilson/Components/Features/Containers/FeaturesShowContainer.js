@@ -1,11 +1,12 @@
 import React, {useState} from 'react'
-import { Paper, SegmentedControl, Divider } from '@mantine/core'
+import { Paper, Tabs, Divider } from '@mantine/core'
 
 import FeatureLink from '../Components/FeatureLink';
 
 export default function FeaturesShowContainer(props) {
 
     const [priority, setPriority] = useState('all');
+    const [activeTab, setActiveTab] = useState(0);
 
     const renderFeatures = (priority) => {
         if (props.features) {
@@ -28,27 +29,32 @@ export default function FeaturesShowContainer(props) {
         }
     }
 
-    return (
-        <Paper
-            shadow="xs" 
-            p="sm"
-        >
-            <SegmentedControl
-                fullWidth
-                value={priority}
-                onChange={setPriority}
-                data={[
-                    { label: 'All Features', value: 'all' },
-                    { label: 'Priority: High', value: 'high' },
-                    { label: 'Priority: Medium', value: 'medium' },
-                    { label: 'Priority: Low', value: 'low' },
-                ]}
+    console.log(props)
 
-            />
-            <Divider 
-                my="xs"
-            />
-            {renderFeatures(priority)}
-        </Paper>
+    const tabs = ['all', 'high', 'medium', 'low']
+
+    const handleTabChange = (e) => {
+        setActiveTab(e)
+        setPriority(tabs[e])
+    }
+
+    // const renderContainer = () => {
+
+    // }
+
+    return (
+        <div
+        >
+            <Tabs 
+                active={activeTab} 
+                onTabChange={handleTabChange}
+                variant="pills"
+            >
+                <Tabs.Tab label={`All (${props.features.all.length})`}>{renderFeatures(priority)}</Tabs.Tab>
+                <Tabs.Tab label={`High (${props.features.high.length})`}>{renderFeatures(priority)}</Tabs.Tab>
+                <Tabs.Tab label={`Medium (${props.features.medium.length})`}>{renderFeatures(priority)}</Tabs.Tab>
+                <Tabs.Tab label={`Low (${props.features.low.length})`}>{renderFeatures(priority)}</Tabs.Tab>
+            </Tabs>
+        </div>
     )
 }

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Grid, Paper, Text, Badge, Group } from '@mantine/core';
+import { Badge } from '@mantine/core';
 
 export default function StatusBadge(props) {
     return (

@@ -5,7 +5,7 @@ import {
 } from '@mantine/core';
 
 import MainContainerHeader from '../../../Containers/MainContainer/MainContainerHeader'
-import FeatureInfoContainer from './FeatureInfoContainer';
+import FeatureInfoContainer from './Info/FeatureInfoContainer';
 import ListsContainer from '../../Lists/Containers/ListsContainer';
 import NotesContainer from '../../Notes/Containers/NotesContainer';
 import FeatureForm from '../Components/FeatureForm';
@@ -43,14 +43,14 @@ export default function FeatureModalContainer(props) {
         props.setFetchAgainFlag(true)
     }
 
-    const updateFeature = () => {
+    const updateFeature = (payloadToUpdate) => {
         fetch(`http://localhost:3001/api/v2/features/${feature.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({feature: feature})
+                body: JSON.stringify({feature: payloadToUpdate})
                 })
         .then(response => response.json())
         .then(payload => {
@@ -65,7 +65,7 @@ export default function FeatureModalContainer(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        updateFeature()
+        updateFeature(feature)
     }
 
     const fetchFeature = () => {
@@ -89,7 +89,7 @@ export default function FeatureModalContainer(props) {
         [<FeatureInfoContainer
             feature={{...feature}}
             setFeature={setFeature}
-            setUpdateFeatureFlag={setUpdateFeatureFlag}
+            updateFeature={updateFeature}
         />, "Info"],
         [<ListsContainer
             listable="features"
@@ -135,7 +135,6 @@ export default function FeatureModalContainer(props) {
                 tabs={featureShowTabs}
                 type="Feature"
                 handleDeleteClick={handleDeleteClick}
-                status={feature.status}
             />
             <Divider my="xs" />
             {renderContent(featureComponent, featureContent)}

@@ -90,6 +90,7 @@ export default function FeatureModalContainer(props) {
             feature={{...feature}}
             setFeature={setFeature}
             updateFeature={updateFeature}
+            setFetchAgainFlag={props.setFetchAgainFlag} 
         />, "Info"],
         [<ListsContainer
             listable="features"

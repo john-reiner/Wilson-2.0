@@ -5,7 +5,7 @@ import FeatureLink from '../Components/FeatureLink';
 
 export default function FeaturesShowContainer(props) {
 
-    const [priority, setPriority] = useState('high');
+    const [priority, setPriority] = useState('all');
 
     const renderFeatures = (priority) => {
         if (props.features) {
@@ -38,6 +38,7 @@ export default function FeaturesShowContainer(props) {
                 value={priority}
                 onChange={setPriority}
                 data={[
+                    { label: 'All Features', value: 'all' },
                     { label: 'Priority: High', value: 'high' },
                     { label: 'Priority: Medium', value: 'medium' },
                     { label: 'Priority: Low', value: 'low' },

@@ -68,7 +68,6 @@ export default function ProjectContainer(props) {
             projectId={props.id} 
             userId={props.userId} 
             features={project.features}
-            // setFeatureId={setFeatureId}
 
         />, "Features"],      
         [<NotesContainer

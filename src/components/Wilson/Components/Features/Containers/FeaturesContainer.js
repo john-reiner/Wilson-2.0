@@ -9,7 +9,6 @@ import FeaturesShowContainer from './FeaturesShowContainer';
 
 export default function FeaturesContainer(props) {
 
-    const [features, setFeatures] = useState([]);
     const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
@@ -19,8 +18,6 @@ export default function FeaturesContainer(props) {
         setFeatureId(id)
         setFeatureModalOpen(true)
     }
-
-
 
     return (
         <Stack>
@@ -48,17 +45,6 @@ export default function FeaturesContainer(props) {
                 handleLinkClick={handleLinkClick}
                 setFeatureId={setFeatureId}
             />
-            {/* <Accordion multiple>
-                <Accordion.Item label="Priority: High">
-
-                </Accordion.Item>
-                <Accordion.Item label="Priority: Medium">
-
-                </Accordion.Item>
-                <Accordion.Item label="Priority: Low">
-                    {renderFeatures("low")}
-                </Accordion.Item>
-            </Accordion> */}
         </Stack>
     )
 }

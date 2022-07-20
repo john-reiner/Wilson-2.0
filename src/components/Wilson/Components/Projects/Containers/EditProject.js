@@ -1,6 +1,7 @@
 import React, {useState} from 'react'
 import { TextInput, Textarea, Button, Stack, Switch } from '@mantine/core';
 import { BrandGithub } from 'tabler-icons-react';
+import PictureSelectionContainer from './PictureSelectionContainer';
 
 
 export default function EditProject(props) {
@@ -57,18 +58,11 @@ export default function EditProject(props) {
                     onChange={handleChange}
 
                     />
-                <Textarea
-                    placeholder="Image URL"
-                    name="image" 
-                    value={project.image} 
-                    onChange={handleChange}
-                />
-                <Switch
-                    label="Public"
-                    name="public" 
-                    value={project.public}
-                    onChange={togglePublic}
-                    checked={project.public}
+                <PictureSelectionContainer
+                    image={project.image}
+                    handleChange={handleChange}
+                    setProject={setProject}
+                    project={project}
                 />
                 <Button
                     type="submit"

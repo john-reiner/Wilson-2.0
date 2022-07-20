@@ -66,6 +66,7 @@ export default function Wilson(props) {
             header={
                 <TopHeader 
                     darkMode={props.darkMode}
+                    setDarkMode={props.setDarkMode}
                     setOpened={setOpened}
                 />
             }

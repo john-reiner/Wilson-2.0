@@ -18,9 +18,6 @@ export default function ProjectLink(props) {
                 </Card.Section>
                 <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
                 <Text weight={500}>{props.project.title}</Text>
-                <Badge color={props.project.public ? "green" : "pink"} variant="light">
-                    {props.project.public ? "Public" : "Private"}
-                </Badge>
                 </Group>
                 <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
                     {props.project.description}

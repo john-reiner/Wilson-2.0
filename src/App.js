@@ -3,7 +3,7 @@ import './App.css';
 import { MantineProvider, Paper} from '@mantine/core';
 
 import Wilson from './components/Wilson/Wilson'
-import PreAuth from './components/PreAuth/PreAuth';
+import PreAuth from './components/PreAuth/containers/PreAuth';
 
 export default function App() {
 
@@ -39,6 +39,9 @@ export default function App() {
     return (
       <PreAuth 
         setLoggedIn={setLoggedIn}
+        darkMode={darkMode}
+        setDarkMode={setDarkMode}
+        toggleDarkmode={toggleDarkmode}
       />
     )
 

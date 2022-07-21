@@ -6,7 +6,8 @@ import {
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 
-import Main from './components/containers/Main';
+import Wilson from './packages/Wilson/Wilson';
+import PreAuth from './packages/PreAuth';
 
 export default function App() {
   
@@ -39,14 +40,26 @@ export default function App() {
     setLoggedIn(false)
   }
 
+  const renderContent = loggedIn => {
+    if (loggedIn) {
+        return (
+            <Wilson
+                logout={logout}
+            />
+        )
+    } else {
+        return (
+            <PreAuth 
+                setLoggedIn={setLoggedIn}
+            />
+        )
+    }
+}
+
   return (
     <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
       <MantineProvider theme={{ colorScheme }} withGlobalStyles withNormalizeCSS>
-        <Main 
-          loggedIn={loggedIn}
-          logout={logout}
-          setLoggedIn={setLoggedIn}
-        />
+        {renderContent(loggedIn)}
       </MantineProvider>
     </ColorSchemeProvider>
   );

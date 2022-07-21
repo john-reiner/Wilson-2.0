@@ -12,6 +12,13 @@ export default function SignUp(props) {
         password: "",
         password_confirmation: ""
     });
+    const [errors, setErrors] = useState({});
+
+    const renderError = (errorObject, attribute) => {
+        if (errorObject[attribute] && errorObject[attribute].length > 0) {
+            return errorObject[attribute][0]
+        }
+    }
 
     const handleChange = (e) => setNewUser({...newUser, [e.target.name]: e.target.value})
     
@@ -30,8 +37,8 @@ export default function SignUp(props) {
                 localStorage.setItem('wilsonUserToken', data.message)
                 props.setLoggedIn(true)
             }
-            if (data.status === 'unauthorized') {
-                alert(data.errors)
+            if (data.errors) {
+                setErrors(data.errors)
             }
 
         });        
@@ -51,6 +58,7 @@ export default function SignUp(props) {
                         value={newUser.first_name} 
                         onChange={handleChange}
                         required
+                        error={renderError(errors, 'first_name')}
                     />
                 </Grid.Col>
                 <Grid.Col 
@@ -64,6 +72,7 @@ export default function SignUp(props) {
                         value={newUser.last_name} 
                         onChange={handleChange}
                         required
+                        error={renderError(errors, 'last_name')}
                     />
                 </Grid.Col>
             </Grid>
@@ -77,6 +86,7 @@ export default function SignUp(props) {
                     value={newUser.email} 
                     onChange={handleChange}
                     name={'email'}
+                    error={renderError(errors, 'email')}
                 />
                 <PasswordInput
                     label="Password"
@@ -86,6 +96,7 @@ export default function SignUp(props) {
                     name={'password'} 
                     value={newUser.password} 
                     onChange={handleChange}
+                    error={renderError(errors, 'password')}
                 />       
                 <PasswordInput
                     label="Password Confirmation"
@@ -95,6 +106,7 @@ export default function SignUp(props) {
                     name={'password_confirmation'} 
                     value={newUser.password_confirmation} 
                     onChange={handleChange}
+                    error={renderError(errors, 'password_confirmation')}
                 />
                 <Group position="apart" mt="md">
                     <Anchor 

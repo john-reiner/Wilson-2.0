@@ -45,6 +45,7 @@ export default function App() {
         <Main 
           loggedIn={loggedIn}
           logout={logout}
+          setLoggedIn={setLoggedIn}
         />
       </MantineProvider>
     </ColorSchemeProvider>

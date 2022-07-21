@@ -4,12 +4,15 @@ import { At, Lock } from 'tabler-icons-react';
 
 export default function Login(props) {
 
+    // sets the user in state.
     const [user, setUser] = useState({
         email: "",
         password: ""
     });
+    // sets errors if handleSubmit returns errors
     const [errors, setErrors] = useState('');
 
+    // any errors are cleared as soon as the user starts typing.
     const handleChange = (e) => {
         setUser({...user, [e.target.name]: e.target.value})
         setErrors('')

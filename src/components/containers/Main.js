@@ -11,9 +11,13 @@ import PreAuth from '../PreAuth/containers/PreAuth';
 
 export default function Main(props) {
 
+    // sets the them for the app.
     const theme = useMantineTheme();
+
+    // checks the width of the main containers to see if the left-navbar should be opened
     const [opened, setOpened] = useState(false);
 
+    // renders content based on the login flag provided by App.
     const renderContent = loggedIn => {
         if (loggedIn) {
             return (
@@ -51,7 +55,7 @@ export default function Main(props) {
                 />
             }
         >
-        {renderContent(props.loggedIn)}
+            {renderContent(props.loggedIn)}
         </AppShell>
     );
 }

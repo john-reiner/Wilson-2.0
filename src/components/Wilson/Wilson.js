@@ -1,11 +1,8 @@
 import React, {useState, useEffect} from 'react'
 import {
-    AppShell,
-    Navbar,
     useMantineTheme,
 } from '@mantine/core';
 
-import LeftNavbar from './Containers/LeftNavbar';
 import TopHeader from './Containers/TopHeader';
 import MainContainer from './Containers/MainContainer/MainContainer';
 
@@ -44,39 +41,40 @@ export default function Wilson(props) {
 
 
     return (
-        <AppShell
-            styles={{
-                main: {
-                    background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
-                },
-            }}
-            navbarOffsetBreakpoint="sm"
-            asideOffsetBreakpoint="sm"
-            fixed
-            navbar={
-                <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
+        <div>main</div>
+        // <AppShell
+        //     styles={{
+        //         main: {
+        //             background: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
+        //         },
+        //     }}
+        //     navbarOffsetBreakpoint="sm"
+        //     asideOffsetBreakpoint="sm"
+        //     fixed
+        //     navbar={
+        //         <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
 
-                    <LeftNavbar 
-                        setViewToShow={setViewToShow} 
-                        logout={props.logout}
-                    />
+        //             <LeftNavbar 
+        //                 setViewToShow={setViewToShow} 
+        //                 logout={props.logout}
+        //             />
 
-                </Navbar>
-            }
-            header={
-                <TopHeader 
-                    darkMode={props.darkMode}
-                    setDarkMode={props.setDarkMode}
-                    setOpened={setOpened}
-                />
-            }
-        >
-            <MainContainer 
-                user={user}
-                // handleProjectShow={handleProjectShow}
-                setViewToShow={setViewToShow}
-                viewToShow={viewToShow}
-            />
-        </AppShell>
+        //         </Navbar>
+        //     }
+        //     header={
+        //         <TopHeader 
+        //             darkMode={props.darkMode}
+        //             setDarkMode={props.setDarkMode}
+        //             setOpened={setOpened}
+        //         />
+        //     }
+        // >
+        //     <MainContainer 
+        //         user={user}
+        //         // handleProjectShow={handleProjectShow}
+        //         setViewToShow={setViewToShow}
+        //         viewToShow={viewToShow}
+        //     />
+        // </AppShell>
     )
 }

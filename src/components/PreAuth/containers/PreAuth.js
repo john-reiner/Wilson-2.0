@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { Box, Text, Title, Stack, Center, Paper, Container } from '@mantine/core';
+import { Text, Title, Stack, Paper, Container } from '@mantine/core';
 
 import Login from '../Login'
 import SignUp from '../SignUp';
@@ -69,25 +69,6 @@ export default function PreAuth(props) {
 
                 </Stack>
             </Paper>
-            {/* <Stack justify="space-around">
-
-                <Box
-                    sx={(theme) => ({
-                        backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
-                        textAlign: 'center',
-                        padding: theme.spacing.xl,
-                        borderRadius: theme.radius.md,
-                    })}
-                >
-                <Stack justify="space-between" >
-
-
-
-                    {renderView(componentViewName, componentViews)}
-
-                </Stack>
-                </Box>
-            </Stack> */}
         </Container>
     )
 }

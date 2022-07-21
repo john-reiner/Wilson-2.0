@@ -8,8 +8,12 @@ export default function Login(props) {
         email: "",
         password: ""
     });
+    const [errors, setErrors] = useState('');
 
-    const handleChange = (e) => setUser({...user, [e.target.name]: e.target.value})
+    const handleChange = (e) => {
+        setUser({...user, [e.target.name]: e.target.value})
+        setErrors('')
+    }
     
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -27,7 +31,8 @@ export default function Login(props) {
                 props.setLoggedIn(true)
             }
             if (data.status === 'unauthorized') {
-                console.error(data.errors)
+                setErrors(data.errors)
+                setUser({...user, "password": ""})
             }
         });        
     }
@@ -45,6 +50,8 @@ export default function Login(props) {
                     value={user.email} 
                     onChange={handleChange}
                     name={'email'}
+                    error={errors && errors}
+                    type="email"
                 />
                 <PasswordInput
                     placeholder="Password"

@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import { Box, Text, Title, Stack, Center, AppShell, Header } from '@mantine/core';
-
+import { Box, Text, Title, Stack, Center, Paper, Container } from '@mantine/core';
 
 import Login from '../Login'
 import SignUp from '../SignUp';
@@ -34,16 +33,44 @@ export default function PreAuth(props) {
     }
 
     return (
-        <Center style={{ width: '100vw', height: '80vh' }}>
-            <Stack justify="space-around">
-                <Title 
-                    order={1}
-                    className="wilson-logo-full"
-                    size="xl"
-                    align="center"
-                >
-                    Wilson
-                </Title>
+        <Container
+            size="xs" 
+            px="xs"
+            style={
+                { 
+                    marginTop: "10%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center"
+                }
+            }
+        >
+            <Paper
+                shadow="md" 
+                p="md"
+            >
+                <Stack>
+                    <Title 
+                        order={1}
+                        className="wilson-logo-full"
+                        size="xl"
+                        align="center"
+                        color="green"
+                    >
+                        Wilson
+                    </Title>
+                    <Text 
+                        size="sm"
+                        align="center"
+                    >
+                        {componentViewName === 'login' ? "Please login to your account." : "Sign up for Wilson!"}
+                    </Text>
+                    {renderView(componentViewName, componentViews)}
+
+                </Stack>
+            </Paper>
+            {/* <Stack justify="space-around">
+
                 <Box
                     sx={(theme) => ({
                         backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
@@ -54,19 +81,13 @@ export default function PreAuth(props) {
                 >
                 <Stack justify="space-between" >
 
-                    <Text 
-                        component="h4"
-                        size="xl"
-                        align="center"
-                    >
-                        {componentViewName === 'login' ? "Please login to your account." : "Sign up for Wilson!"}
-                    </Text>
+
 
                     {renderView(componentViewName, componentViews)}
 
                 </Stack>
                 </Box>
-            </Stack>
-        </Center>
+            </Stack> */}
+        </Container>
     )
 }

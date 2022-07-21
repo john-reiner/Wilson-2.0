@@ -28,11 +28,12 @@ export default function Main(props) {
         } else {
             return (
                 <PreAuth 
-
+                    setLoggedIn={props.setLoggedIn}
                 />
             )
         }
     }
+
     return (
         <AppShell
             styles={{

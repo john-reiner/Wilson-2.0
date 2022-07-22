@@ -12,32 +12,6 @@ export default function PreAuth(props) {
 
     const theme = useMantineTheme();
 
-    // const [componentViewName, setComponentViewName] = useState('login');
-
-    // let componentViews = [
-    //     [
-    //         <SignUp 
-    //             setComponentViewName={setComponentViewName} 
-    //             setLoggedIn={props.setLoggedIn}
-
-    //         />, "signup"
-    //     ],
-    //     [
-    //         <Login 
-    //             setComponentViewName={setComponentViewName} 
-    //             setLoggedIn={props.setLoggedIn}
-
-    //         />, "login"
-    //     ],
-    // ]
-
-    // const renderView = (componentViewName, componentViews) => {
-    //     if (componentViewName) {
-    //         let combo = componentViews.find(combo => combo[1] === componentViewName)
-    //         return combo[0]
-    //     }
-    // }
-
     return (
         <AppShell
             styles={{

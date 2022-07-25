@@ -1,9 +1,10 @@
 import React from 'react'
+
 import { Modal } from '@mantine/core';
+
 import EditProjectForm from '../components/EditProjectForm';
 
 export default function ProjectModal(props) {
-
 
     return (
         <Modal

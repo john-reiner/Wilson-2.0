@@ -4,7 +4,6 @@ import { Paper } from '@mantine/core';
 import NoteContent from '../components/NoteContent'
 import NoteForm from '../../Notes/components/NoteForm'
 
-
 export default function NoteBody(props) {
 
     const renderContent = editFlag => {

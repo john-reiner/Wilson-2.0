@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
+
 import { TextInput, Container, Group, Title, Textarea, Button, Stack, Switch } from '@mantine/core';
 import { ArrowBackUp, BrandGithub } from 'tabler-icons-react';
-
 
 export default function NewProject(props) {
 

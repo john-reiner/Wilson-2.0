@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import { Text, Title, Stack, Paper, Container, Divider } from '@mantine/core';
+
+import { Text, Title, Stack, Paper, Container } from '@mantine/core';
 
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'

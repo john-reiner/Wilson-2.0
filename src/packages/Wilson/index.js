@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+
 import {
     useMantineTheme,
     AppShell,
@@ -70,7 +71,6 @@ export default function Wilson(props) {
         >
             <Main 
                 user={user}
-                // handleProjectShow={handleProjectShow}
                 setViewToShow={setViewToShow}
                 viewToShow={viewToShow}
             />

@@ -1,5 +1,7 @@
 import React, {useState} from 'react'
+
 import { Paper, Grid } from '@mantine/core';
+
 import NoteNavBar from './components/NoteNavBar';
 import NoteBody from './containers/NoteBody';
 

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Grid } from '@mantine/core';
 
 import DescriptionCard from '../components/DescriptionCard';

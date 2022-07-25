@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+
 import { 
     Divider,
     Modal
@@ -23,7 +24,6 @@ export default function FeatureModalContainer(props) {
             fetchFeature()
         }
         if (updateFeatureFlag && typeof feature.id === "number") {
-            console.log("HERE")
             updateFeature()
             setUpdateFeatureFlag(false)
         }

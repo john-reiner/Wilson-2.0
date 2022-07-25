@@ -1,5 +1,7 @@
 import React from 'react'
+
 import { Box, Text } from '@mantine/core'
+
 import ListLink from './ListLink'
 
 export default function ListTitlesContainer(props) {

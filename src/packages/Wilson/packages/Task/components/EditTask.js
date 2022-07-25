@@ -1,6 +1,6 @@
 import React from 'react'
-import { Stack, Textarea, TextInput, Button } from '@mantine/core';
 
+import { Stack, Textarea, TextInput, Button } from '@mantine/core';
 
 export default function EditTask(props) {
 

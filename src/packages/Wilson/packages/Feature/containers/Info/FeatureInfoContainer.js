@@ -1,6 +1,7 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
+
 import { Grid } from '@mantine/core'
-import { CircleDashed, Activity, DotsCircleHorizontal, CircleCheck, PlayerPause, PlayerPlay } from 'tabler-icons-react';
+
 import FeatureStatusContainer from './FeatureStatusContainer';
 import FeaturePriorityContainer from './FeaturePriorityContainer';
 import FeatureDescriptionContainer from './FeatureDescriptionContainer';

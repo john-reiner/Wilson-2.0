@@ -1,5 +1,5 @@
-import { Paper, Box, Title, RadioGroup, Radio } from '@mantine/core'
 import React from 'react'
+import { Paper, RadioGroup, Radio } from '@mantine/core'
 
 export default function FeaturePriorityContainer(props) {
 

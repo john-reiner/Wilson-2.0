@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { ActionIcon, TextInput}  from '@mantine/core';
 import { ArrowBarRight } from 'tabler-icons-react';
 
@@ -8,8 +9,6 @@ export default function EditTitleForm(props) {
         e.preventDefault()
         props.updateList({title: props.title })
     }
-
-    
 
     return (
         <form

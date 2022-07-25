@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Modal, Button, Group, Text, Stack, Divider } from '@mantine/core'
 
 export default function DeleteModalConfirmation(props) {

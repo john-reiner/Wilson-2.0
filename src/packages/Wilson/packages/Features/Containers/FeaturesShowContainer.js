@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
-import { Paper, Tabs, Divider } from '@mantine/core'
+
+import { Tabs } from '@mantine/core'
 
 import FeatureLink from '../Components/FeatureLink';
 
@@ -29,18 +30,12 @@ export default function FeaturesShowContainer(props) {
         }
     }
 
-    console.log(props)
-
     const tabs = ['all', 'high', 'medium', 'low']
 
     const handleTabChange = (e) => {
         setActiveTab(e)
         setPriority(tabs[e])
     }
-
-    // const renderContainer = () => {
-
-    // }
 
     return (
         <div

@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
-import { Button, Stack, Accordion } from '@mantine/core';
+import { Stack } from '@mantine/core';
 
-import FeatureLink from './Components/FeatureLink'
 import NewFeature from './Components/NewFeature';
 import Feature from '../Feature';
 import FeaturesNav from './Containers/FeaturesNav/FeaturesNav';

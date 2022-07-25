@@ -1,4 +1,5 @@
 import React from 'react'
+
 import { Badge, ThemeIcon } from '@mantine/core';
 import { ThumbUp, PlayerPause, CircleCheck, Power, DotsCircleHorizontal } from 'tabler-icons-react';
 

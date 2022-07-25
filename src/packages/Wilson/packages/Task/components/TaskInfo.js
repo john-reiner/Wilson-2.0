@@ -1,6 +1,6 @@
 import React from 'react'
-import { Stack, Title, Paper, Text } from '@mantine/core';
 
+import { Stack, Title, Paper, Text } from '@mantine/core';
 
 export default function TaskInfo(props) {
 

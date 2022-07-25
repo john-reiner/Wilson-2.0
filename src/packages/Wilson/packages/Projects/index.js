@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
+
 import { Title, Text, Group, Button, Divider, Grid } from '@mantine/core';
+
 import { Plus } from 'tabler-icons-react';
 
 import ProjectLink from './components/ProjectLink';
@@ -70,7 +72,9 @@ export default function ProjectsContainer(props) {
                 </div>
             </Group>
             <Divider my="xs"/>
-            <Grid>
+            <Grid 
+                justify="space-around" 
+            >
                 {renderProjectLinks()}
             </Grid>
         </div>

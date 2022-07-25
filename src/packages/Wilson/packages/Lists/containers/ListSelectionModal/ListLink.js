@@ -1,9 +1,11 @@
 import React from 'react'
+
 import { Paper, Text } from '@mantine/core'
+
 import ListBadge from '../../../global/ListBadge'
 
-
 export default function ListLink(props) {
+    
     return (
         <Paper
             p="xs"

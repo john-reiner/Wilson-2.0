@@ -1,6 +1,26 @@
 import React from 'react'
-import { Paper, Title, Box, Divider, Timeline, Text, Select, ActionIcon, Group } from '@mantine/core'
-import { GitBranch, GitPullRequest, GitCommit, MessageDots, PlayerPlay, PlayerPause } from 'tabler-icons-react';
+
+import { 
+    Paper, 
+    Title, 
+    Box, 
+    Divider, 
+    Timeline, 
+    Text, 
+    Select, 
+    ActionIcon, 
+    Group 
+    } from '@mantine/core'
+
+import { 
+    GitBranch, 
+    GitPullRequest, 
+    GitCommit, 
+    MessageDots, 
+    PlayerPlay, 
+    PlayerPause 
+    } from 'tabler-icons-react';
+    
 import StatusBadge from '../../../global/StatusBadge'
 
 export default function FeatureStatusContainer(props) {

@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+
 import { Card, Stack, Textarea, Text, Button, Grid } from '@mantine/core';
 
 export default function NewNote(props) {

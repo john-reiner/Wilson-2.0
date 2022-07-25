@@ -1,7 +1,9 @@
-import { Paper, Text, Title, Divider } from '@mantine/core'
 import React from 'react'
 
+import { Paper, Text, Title, Divider } from '@mantine/core'
+
 export default function FeatureDescriptionContainer(props) {
+
     return (
         <Paper
             shadow="xs" 

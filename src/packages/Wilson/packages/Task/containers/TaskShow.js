@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react'
+
 import { 
         Drawer,
         Switch, 
         Box, 
         ActionIcon, 
         Divider 
-        } from '@mantine/core';
+    } from '@mantine/core';
 import { ArrowBackUp, Edit, Trash } from 'tabler-icons-react';
 
 import TaskInfo from '../components/TaskInfo';
@@ -25,10 +26,7 @@ export default function TaskShow(props) {
     const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
 
     const handleDelete = () => {
-        console.log("HERE")
         props.setTaskShowOpened(false)
-        // let newTaskList = props.tasks.filter(deletedTask => deletedTask.id !== task.id)
-        // props.setTasks(newTaskList)
         props.setResetList(true)
     }
     

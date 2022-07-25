@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react'
-import { Select, Button, Group, Divider} from '@mantine/core';
+import React from 'react'
+
+import { Button, Group, Divider} from '@mantine/core';
 
 export default function ListsNav(props) {
 

@@ -2,8 +2,6 @@ import React from 'react'
 import { Title, Text }  from '@mantine/core';
 import EditTitleForm from './EditTitleForm'
 
-
-
 export default function ListTitle(props) {
 
     const renderTitle = edit => {

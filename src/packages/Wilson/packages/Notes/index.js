@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+
 import { Grid } from '@mantine/core';
 
 import NewNote from './components/NewNote';
@@ -62,8 +63,6 @@ export default function Notes(props) {
             notes={notes}
         />
         {renderNotes()}
-        {/* {newNoteFormShow ? <NewNote setFetchAgainFlag={props.setFetchAgainFlag} setNewNoteFormShow={setNewNoteFormShow} userId={props.userId} projectId={props.projectId}/> : <div id="new-note-button" onClick={() => setNewNoteFormShow(true)}>New Note</div>}
-        {!newNoteFormShow && renderNotes()} */}
         </Grid>
     )
 }

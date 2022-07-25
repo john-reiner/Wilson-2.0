@@ -1,6 +1,6 @@
 import React from 'react'
-import { Card, Image, Text, Badge, Button, Group, useMantineTheme, Grid } from '@mantine/core';
 
+import { Card, Image, Text, Button, Group, useMantineTheme, Grid } from '@mantine/core';
 
 export default function ProjectLink(props) {
 
@@ -12,14 +12,14 @@ export default function ProjectLink(props) {
 
     return (
         <Grid.Col sm={6} md={6} lg={3}>
-            <Card shadow="sm" p="lg">
+            <Card shadow="sm" p="sm">
                 <Card.Section>
                     <Image src={props.project.image ? props.project.image : "https://redzonekickboxing.com/wp-content/uploads/2017/04/default-image.jpg"} height={160} alt="Norway" />
                 </Card.Section>
                 <Group position="apart" style={{ marginBottom: 5, marginTop: theme.spacing.sm }}>
                 <Text weight={500}>{props.project.title}</Text>
                 </Group>
-                <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }}>
+                <Text size="sm" style={{ color: secondaryColor, lineHeight: 1.5 }} lineClamp={3}>
                     {props.project.description}
                 </Text>
                 <Button 

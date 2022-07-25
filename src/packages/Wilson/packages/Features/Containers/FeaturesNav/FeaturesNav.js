@@ -1,6 +1,6 @@
 import React from 'react'
-import { Button, Group, Title } from '@mantine/core';
-import { Plus, ListSearch } from 'tabler-icons-react';
+import { Button, Group } from '@mantine/core';
+import { Plus } from 'tabler-icons-react';
 
 export default function FeaturesNav(props) {
 
@@ -15,15 +15,6 @@ export default function FeaturesNav(props) {
             >
                 New Feature
             </Button>
-            {/* <Title>Features</Title>
-            <Button 
-                leftIcon={<ListSearch size={14} />}
-                onClick={() => props.setShowFeaturesSelect(true)}
-                color='green'
-                variant={props.showFeaturesSelect ? "outline" : "filled"}
-            >
-                Select a Feature
-            </Button> */}
         </Group>
     )
 }

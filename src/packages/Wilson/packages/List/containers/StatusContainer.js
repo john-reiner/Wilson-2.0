@@ -1,7 +1,5 @@
 import React from 'react'
 
-
-
 import ListBadge from '../../global/ListBadge';
 import CompleteButton from '../../global/CompleteButton';
 

@@ -1,7 +1,6 @@
 import React, {useState, useEffect} from 'react'
-import { Divider } from '@mantine/core';
 
-// import { useDisclosure } from '@mantine/hooks';
+import { Divider } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features';

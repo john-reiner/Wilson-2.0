@@ -1,8 +1,10 @@
 import React from 'react'
+
 import { Box, ActionIcon }  from '@mantine/core';
 import { Trash, Edit } from 'tabler-icons-react';
 
 export default function IconsContainer(props) {
+    
     return (
         <Box
             style={

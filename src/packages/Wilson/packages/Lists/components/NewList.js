@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
-import { TextInput, Paper, ActionIcon, Button, Group, Title, Stack, Divider } from '@mantine/core';
-import { X } from 'tabler-icons-react';
+import { TextInput, Paper, Button, Stack } from '@mantine/core';
 
 export default function NewList(props) {
 

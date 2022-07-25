@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
-import { Divider, Tabs, SegmentedControl, Box, Text } from '@mantine/core';
+
+import { Tabs } from '@mantine/core';
+
 import ListTitlesContainer from './ListTitlesContainer';
 
 export default function ListSelectionContainer(props) {
@@ -8,8 +10,6 @@ export default function ListSelectionContainer(props) {
     const [listType, setListType] = useState('all');
     const [selectedLists, setSelectedLists] = useState([]);
     const [activeTab, setActiveTab] = useState(0);
-
-    console.log(listType)
 
     useEffect(() => {
         fetchLists()

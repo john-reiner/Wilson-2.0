@@ -58,6 +58,7 @@ export default function Wilson(props) {
                     <MainLeftNavBar 
                         setViewToShow={setViewToShow} 
                         logout={props.logout}
+                        opened={opened}
                     />
 
                 </Navbar>

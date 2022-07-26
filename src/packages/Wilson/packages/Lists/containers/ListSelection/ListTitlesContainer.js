@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { Box, Text } from '@mantine/core'
+import { Grid, Text } from '@mantine/core'
 
 import ListLink from './ListLink'
 
@@ -23,16 +23,19 @@ export default function ListTitlesContainer(props) {
     }
 
     return (
-        <Box
-            style={
-                {
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                }
-            }
-        >
+        <Grid>
             {renderListTitles(props.selectedLists)}
-        </Box>
+        </Grid>
+        // <Box
+        //     style={
+        //         {
+        //             display: "flex",
+        //             flexDirection: "column",
+        //             alignItems: "center",
+        //         }
+        //     }
+        // >
+        //     
+        // </Box>
     )
 }

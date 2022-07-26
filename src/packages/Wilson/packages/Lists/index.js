@@ -5,13 +5,12 @@ import { Stack } from '@mantine/core';
 import NewList from './components/NewList';
 import ListContainer from '../List';
 import ListsNav from './containers/ListsNav/ListsNav';
-import ListSelectionContainer from './containers/ListSelectionModal/ListSelectionContainer';
+import ListSelectionContainer from './containers/ListSelection/ListSelectionContainer';
 
 export default function Lists(props) {
 
     const [contentTitle, setContentTitle] = useState("listSelectionContainer");
     const [selectedListId, setSelectedListId] = useState(null);
-    // const [listTitleData, setListTitleData] = useState([]);
     const [selectListsOpen, setSelectListsOpen] = useState(true);
 
     const handleListSelection = (id) => {

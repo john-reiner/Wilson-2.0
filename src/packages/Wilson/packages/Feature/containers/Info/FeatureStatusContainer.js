@@ -28,7 +28,7 @@ export default function FeatureStatusContainer(props) {
     const statusData = [
         { value: 'created', label: 'Created' },
         { value: 'working', label: 'Working' },
-        { value: 'review', label: 'Ready for Review' },
+        { value: 'ready', label: 'Ready for Review' },
         { value: 'completed', label: 'Completed' },
     ];
 

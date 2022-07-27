@@ -1,15 +1,16 @@
 import React from 'react'
 
 import { Badge, ThemeIcon } from '@mantine/core';
-import { ThumbUp, PlayerPause, CircleCheck, Power, DotsCircleHorizontal } from 'tabler-icons-react';
+import { Dots, ThumbUp, PlayerPause, CircleCheck, Power, DotsCircleHorizontal } from 'tabler-icons-react';
 
 export default function StatusBadge(props) {
 
     const icons = [
         [<Power size={10}/>, 'created', "yellow"],
-        [<DotsCircleHorizontal size={10}/>, 'working', "blue"],
-        [<ThumbUp size={10}/>, 'review', "orange"],
-        [<CircleCheck size={10}/>, 'completed', "green"],
+        [<Dots size={10}/>, 'pending', "gray"],
+        [<DotsCircleHorizontal size={10}/>, 'working', "orange"],
+        [<ThumbUp size={10}/>, 'ready', "green"],
+        [<CircleCheck size={10}/>, 'completed', "blue"],
         [<PlayerPause size={10}/>, 'paused', "gray"]
     ]
 
@@ -27,7 +28,7 @@ export default function StatusBadge(props) {
                 <ThemeIcon
                     size="xs" 
                     color={color} 
-                    radius="xl" 
+                    radius="sm" 
                     variant="outline"
                 >
                     {icon}
@@ -40,7 +41,7 @@ export default function StatusBadge(props) {
         <Badge
             sx={{ paddingLeft: 3 }}
             size="lg" 
-            radius="lg"
+            radius="sm"
             leftSection={renderIcon(props.status, icons)}
             color={returnColor(props.status, icons)}
         >

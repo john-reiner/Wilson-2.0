@@ -2,7 +2,8 @@ import React from 'react'
 
 import { Grid, Paper, Text } from '@mantine/core'
 
-import ListBadge from '../../../global/ListBadge'
+// import ListBadge from '../../../global/ListBadge'
+import StatusBadge from '../../../global/StatusBadge'
 
 export default function ListLink(props) {
     
@@ -27,7 +28,7 @@ export default function ListLink(props) {
                 >
                     {props.title}
                 </Text>
-                <ListBadge
+                <StatusBadge
                     status={props.status}
                 />
             </Paper>

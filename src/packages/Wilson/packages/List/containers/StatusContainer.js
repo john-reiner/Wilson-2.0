@@ -1,7 +1,7 @@
 import React from 'react'
 
-import ListBadge from '../../global/ListBadge';
 import CompleteButton from '../../global/CompleteButton';
+import StatusBadge from '../../global/StatusBadge';
 
 export default function StatusContainer(props) {
 
@@ -15,7 +15,7 @@ export default function StatusContainer(props) {
             )
         }
         return (
-            <ListBadge
+            <StatusBadge
                 status={status}
             />
         )

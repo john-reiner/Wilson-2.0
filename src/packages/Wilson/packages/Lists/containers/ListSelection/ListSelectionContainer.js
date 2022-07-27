@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import { Tabs } from '@mantine/core';
+import { Tabs, Divider } from '@mantine/core';
 
 import ListTitlesContainer from './ListTitlesContainer';
 

@@ -7,7 +7,7 @@ import StatusBadge from '../../../global/StatusBadge'
 export default function ListLink(props) {
     
     return (
-        <Grid.Col sm={6} lg={4} xl={3}>
+        <Grid.Col lg={6} xl={4}>
             <Paper
                 p="xs"
                 withBorder

@@ -1,13 +1,11 @@
 import React from 'react'
 
-import { Grid, Text, Container, Divider, Box } from '@mantine/core'
+import { Grid, Text, Divider, Box, Paper } from '@mantine/core'
 import { CircleCheck } from 'tabler-icons-react';
 
 import ListLink from './ListLink'
 
 export default function ListTitlesContainer(props) {
-
-    console.log(props.completed)
 
     const renderListTitles = (list) => {
         if (list) {
@@ -27,16 +25,18 @@ export default function ListTitlesContainer(props) {
     }
 
     return (
-        <Container
-            fluid
+        <div
         >
-            <Grid>
+
+            <Grid
+                gutter="xs"
+            >
                 {renderListTitles(props.selectedLists)}
             </Grid>
             { props.listType === "all" && 
                 <div>
                     <Divider
-                        my="xs"
+                        my="lg"
                         variant="dashed"
                         labelPosition="center"
                         label={
@@ -46,13 +46,15 @@ export default function ListTitlesContainer(props) {
                         </>
                         }
                     />
-                    <Grid>
+                    <Grid
+                        gutter="xs"
+                    >
                         {renderListTitles(props.completed)}
                     </Grid>
 
                 </div>
             }
 
-        </Container>
+        </div>
     )
 }

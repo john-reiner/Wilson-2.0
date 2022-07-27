@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import { Divider } from '@mantine/core';
+import { Divider, Paper } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features';
@@ -104,7 +104,11 @@ export default function ProjectContainer(props) {
                 type="Project"
             />
             <Divider my="xs" />
-            {renderContent(projectComponents, projectContent)}
+            <Paper
+                shadow="md" radius="xs" p="md" 
+            >
+                {renderContent(projectComponents, projectContent)}
+            </Paper>
         </div>
     )
 }

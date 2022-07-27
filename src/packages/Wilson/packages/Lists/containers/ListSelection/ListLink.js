@@ -2,13 +2,12 @@ import React from 'react'
 
 import { Grid, Paper, Text } from '@mantine/core'
 
-// import ListBadge from '../../../global/ListBadge'
 import StatusBadge from '../../../global/StatusBadge'
 
 export default function ListLink(props) {
     
     return (
-        <Grid.Col sm={4} lg={4}>
+        <Grid.Col sm={6} lg={4} xl={3}>
             <Paper
                 p="xs"
                 withBorder

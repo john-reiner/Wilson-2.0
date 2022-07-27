@@ -43,12 +43,13 @@ export default function ListSelectionContainer(props) {
         setListType(tabs[e])
     } 
 
-    const renderContainer = () => {
+    const renderContainer = (completed) => {
         return (
             <ListTitlesContainer
                 listType={listType}
                 selectedLists={selectedLists}
                 handleListSelection={props.handleListSelection}
+                completed={completed}
             />            
         )            
     }
@@ -61,7 +62,7 @@ export default function ListSelectionContainer(props) {
                     onTabChange={handleTabChange}
                     variant="pills"
                 >
-                    <Tabs.Tab onClick={() => setListType('all')} label={`All (${lists.counts.all})`}>{renderContainer()}</Tabs.Tab>
+                    <Tabs.Tab onClick={() => setListType('all')} label={`All (${lists.counts.all})`}>{renderContainer(lists.completed)}</Tabs.Tab>
                     <Tabs.Tab onClick={() => setListType('pending')} label={`Pending (${lists.counts.pending})`}>{renderContainer()}</Tabs.Tab>
                     <Tabs.Tab onClick={() => setListType('working')} label={`Working (${lists.counts.working})`}>{renderContainer()}</Tabs.Tab>
                     <Tabs.Tab onClick={() => setListType('ready')} label={`Ready to Complete (${lists.counts.ready})`}>{renderContainer()}</Tabs.Tab>

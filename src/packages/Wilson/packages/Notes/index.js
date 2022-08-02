@@ -1,15 +1,18 @@
 import React, {useState, useEffect} from 'react'
 
-import { Grid } from '@mantine/core';
+import { Button, Grid, TypographyStylesProvider } from '@mantine/core';
 
-import NewNote from './components/NewNote';
+import NewNoteModal from './containers/NewNoteModal';
 
 import Note from '../Note'
 
 export default function Notes(props) {
 
     const [notes, setNotes] = useState([]);
+    const [newNoteOpen, setNewNoteOpen] = useState(false);
     const [fetchFlag, setFetchFlag] = useState(true);
+
+    console.log(notes)
 
     useEffect(() => {
         if (fetchFlag) {
@@ -17,6 +20,8 @@ export default function Notes(props) {
             setFetchFlag(false)      
         }
     }, [fetchFlag]);
+
+    const handleNewNoteOpen = () => setNewNoteOpen(true)
 
     const fetchNotes = () => {
         fetch(`http://localhost:3001/api/v2/${props.notable}/${props.id}/notes`, {
@@ -29,7 +34,8 @@ export default function Notes(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            setNotes(payload.notes)
+
+            setNotes(payload)
         })
         .catch(errors => {
             console.error(errors)
@@ -39,13 +45,15 @@ export default function Notes(props) {
     const renderNotes = () => {
         if (notes.length > 0) {
             return notes.map(note => {
-                return <Note
-                            note={{...note}}
-                            key={note.id}
-                            notableId={props.id}
-                            notable={props.notable}
-                            setFetchFlag={setFetchFlag}
-                        />
+                return (
+                    <Note
+                                note={{...note}}
+                                key={note.id}
+                                notableId={props.id}
+                                notable={props.notable}
+                                setFetchFlag={setFetchFlag}
+                            />
+                    )
             })
         } else {
             return (
@@ -56,12 +64,29 @@ export default function Notes(props) {
 
     return (
         <Grid>
-        <NewNote 
+            <Grid.Col>        
+                <NewNoteModal
+                    opened={newNoteOpen}
+                    setOpened={setNewNoteOpen}
+                    notable={props.notable}
+                    notableId={props.id}
+                    setNotes={setNotes}
+                    notes={notes}
+                />
+            </Grid.Col>
+
+        <Button
+            onClick={handleNewNoteOpen}
+        >
+            New Note
+        </Button>
+
+        {/* <NewNote 
             notable={props.notable}
             projectId={props.id}
             setNotes={setNotes}
             notes={notes}
-        />
+        /> */}
         {renderNotes()}
         </Grid>
     )

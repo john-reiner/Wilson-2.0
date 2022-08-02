@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-import { Paper, Grid } from '@mantine/core';
+import { Paper, Grid, TypographyStylesProvider } from '@mantine/core';
 
 import NoteNavBar from './components/NoteNavBar';
 import NoteBody from './containers/NoteBody';
@@ -59,9 +59,12 @@ export default function Note(props) {
             <Paper
                 withBorder
                 shadow="md" 
-                // p="sm"
+                p="sm"
             >
-                <NoteNavBar 
+                <TypographyStylesProvider>
+                    <div dangerouslySetInnerHTML={{ __html: note.content }} />
+                </TypographyStylesProvider>
+                {/* <NoteNavBar 
                     edit={edit}
                     setEdit={setEdit}
                     setDeleteModal={setDeleteModal}
@@ -71,7 +74,7 @@ export default function Note(props) {
                     edit={edit}
                     handleChange={handleChange}
                     handleSubmit={handleSubmit}
-                />
+                /> */}
             </Paper>
         </Grid.Col>
     )

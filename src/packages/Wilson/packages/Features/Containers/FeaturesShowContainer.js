@@ -1,17 +1,22 @@
-import React, {useState} from 'react'
+import React from 'react'
 
-import { Tabs } from '@mantine/core'
+import { Paper } from '@mantine/core'
 
 import FeatureLink from '../Components/FeatureLink';
 
 export default function FeaturesShowContainer(props) {
 
-    const [priority, setPriority] = useState('all');
-    const [activeTab, setActiveTab] = useState(0);
 
-    const renderFeatures = (priority) => {
-        if (props.features) {
-            return props.features[priority].map(feature => {
+
+    const renderFeatures = () => {
+        let returnedFeatures = []
+        props.features.forEach(feature => {
+            if (props.status.includes(feature.status) || props.priority.includes(feature.priority)) {
+                returnedFeatures.push(feature)
+            }
+        })
+        if (returnedFeatures.length > 0) {
+            return returnedFeatures.map(feature => {
                 return (
                     <FeatureLink
                         title={feature.title}
@@ -23,33 +28,27 @@ export default function FeaturesShowContainer(props) {
                     />
                 )
             })
-        } else {
+        } else  {
+
+            if (props.status.length === 0 && props.priority.length === 0) {
+                return (
+                    <p>No Features Selected</p>
+                )
+            }
             return (
-                <p>No Features</p>
+                <p>No Features Found</p>
             )
         }
     }
 
-    const tabs = ['all', 'high', 'medium', 'low']
-
-    const handleTabChange = (e) => {
-        setActiveTab(e)
-        setPriority(tabs[e])
-    }
-
     return (
-        <div
+        <Paper
+            shadow="lg" 
+            radius="sm" 
+            p="sm" 
+            withBorder
         >
-            <Tabs 
-                active={activeTab} 
-                onTabChange={handleTabChange}
-                variant="pills"
-            >
-                <Tabs.Tab label={`All (${props.features.all.length})`}>{renderFeatures(priority)}</Tabs.Tab>
-                <Tabs.Tab label={`High (${props.features.high.length})`}>{renderFeatures(priority)}</Tabs.Tab>
-                <Tabs.Tab label={`Medium (${props.features.medium.length})`}>{renderFeatures(priority)}</Tabs.Tab>
-                <Tabs.Tab label={`Low (${props.features.low.length})`}>{renderFeatures(priority)}</Tabs.Tab>
-            </Tabs>
-        </div>
+            {renderFeatures()}
+        </Paper>
     )
 }

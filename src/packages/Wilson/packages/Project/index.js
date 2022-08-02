@@ -79,14 +79,17 @@ export default function ProjectContainer(props) {
 
     return (
         <div>
-            <EditProjectModal 
-                setModalOpen={setEditModalOpen}
-                modalOpen={editModalOpen}
-                id={project.id}
-                project={project}
-                setFetchAgainFlag={setFetchAgainFlag}
-                setViewToShow={props.setViewToShow}
-            />
+            {editModalOpen && 
+                <EditProjectModal 
+                    setModalOpen={setEditModalOpen}
+                    modalOpen={editModalOpen}
+                    id={project.id}
+                    project={project}
+                    setProject={setProject}
+                    setFetchAgainFlag={setFetchAgainFlag}
+                    setViewToShow={props.setViewToShow}
+                />
+            }
             <DeleteModalConfirmation 
                 route={`projects/${props.id}`}
                 successFunction={handleDeleteProject}
@@ -104,11 +107,9 @@ export default function ProjectContainer(props) {
                 type="Project"
             />
             <Divider my="xs" />
-            <Paper
-                shadow="md" radius="xs" p="md" 
-            >
+
                 {renderContent(projectComponents, projectContent)}
-            </Paper>
+
         </div>
     )
 }

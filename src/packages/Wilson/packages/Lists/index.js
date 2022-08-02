@@ -3,7 +3,7 @@ import React, {useState} from 'react'
 import { Stack } from '@mantine/core';
 
 import NewList from './components/NewList';
-import ListContainer from '../List';
+import List from '../List';
 import ListsNav from './containers/ListsNav/ListsNav';
 import ListSelectionContainer from './containers/ListSelection/ListSelectionContainer';
 
@@ -32,7 +32,7 @@ export default function Lists(props) {
             listable={props.listable}
             id={props.id}
         />,"listSelectionContainer"],
-        [ <ListContainer
+        [ <List
             listable={props.listable}
             listableId={props.id}
             id={selectedListId}

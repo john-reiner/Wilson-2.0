@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 
-import { TextInput, Container, Group, Title, Textarea, Button, Stack, Switch } from '@mantine/core';
+import { TextInput, Container, Group, Title, Textarea, Button, Stack, Switch, Divider } from '@mantine/core';
 import { ArrowBackUp, BrandGithub } from 'tabler-icons-react';
+import ProjectForm from '../../global/ProjectForm';
 
 export default function NewProject(props) {
 
@@ -57,9 +58,12 @@ export default function NewProject(props) {
                     </Button>
                 </div>
             </Group>
-            <hr></hr>
+            <Divider my="xs"/>
+            <ProjectForm
+                handleSubmit={handleSubmit}
+            />
 
-                <form onSubmit={handleSubmit}>
+                {/* <form onSubmit={handleSubmit}>
                     <Stack>
                         <TextInput
                             placeholder="Example Project..."
@@ -106,7 +110,7 @@ export default function NewProject(props) {
                             Submit
                         </Button>
                     </Stack>
-                </form>
+                </form> */}
 
         </Container>
     )

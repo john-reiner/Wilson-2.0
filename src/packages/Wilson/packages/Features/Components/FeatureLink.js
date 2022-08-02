@@ -10,13 +10,11 @@ export default function FeatureLink(props) {
             <Paper 
                 p="md" 
                 withBorder
-                sx={(theme) => ({
-                    backgroundColor: theme.colors.dark,
-                    '&:hover': {
-                    backgroundColor: theme.colors.dark[7],
-                    cursor: "pointer"
-                    },
-                })}
+                style={
+                    {
+                        cursor: "pointer"
+                    }
+                }
                 onClick={() => props.handleLinkClick(props.id)}
             >
                 <Grid align="center">

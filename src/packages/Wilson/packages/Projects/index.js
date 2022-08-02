@@ -24,7 +24,7 @@ export default function ProjectsContainer(props) {
             }
         )
         .then(response => response.json())
-        .then(payload => setProjects(payload.projects))
+        .then(payload => setProjects(payload))
         .catch(errors => {
             console.error(errors)
         })

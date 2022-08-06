@@ -7,10 +7,20 @@ import {
     Button
 } from '@mantine/core';
 
-export default function LeftNavBar(props) {
+interface LeftNavBarProps {
+    setViewToShow: React.Dispatch<React.SetStateAction<number>>,
+    logout: () => void,
+    opened: boolean
+}
+
+export default function LeftNavBar({
+    setViewToShow,
+    logout,
+    opened
+}:LeftNavBarProps) {
 
     return (
-        <Navbar p="md" hiddenBreakpoint="sm" hidden={!props.opened} width={{ sm: 200, lg: 300 }}>
+        <Navbar p="md" hiddenBreakpoint="sm" hidden={!opened} width={{ sm: 200, lg: 300 }}>
             <Box
                 style={
                     {
@@ -22,13 +32,13 @@ export default function LeftNavBar(props) {
                 }
             >
                 <Stack spacing="sm" style={{height: "100%"}}>
-                    <Button variant="outline" onClick={() => props.setViewToShow(0)}>Projects</Button>
+                    <Button variant="outline" onClick={() => setViewToShow(0)}>Projects</Button>
                 </Stack>
                 <Stack>
                     <Button 
                         variant="outline" 
                         color="red"
-                        onClick={props.logout}
+                        onClick={logout}
                     >
                         Sign Out
                     </Button>

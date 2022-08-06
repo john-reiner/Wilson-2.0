@@ -10,7 +10,13 @@ import MainHeader from './containers/MainHeader';
 import MainLeftNavBar from './containers/MainLeftNavBar'
 import Main from './containers/Main';
 
-export default function Wilson(props) {
+interface WilsonProps {
+    logout: () => void
+}
+
+export default function Wilson({
+    logout
+}: WilsonProps) {
 
     const theme = useMantineTheme();
 
@@ -57,7 +63,7 @@ export default function Wilson(props) {
 
                     <MainLeftNavBar 
                         setViewToShow={setViewToShow} 
-                        logout={props.logout}
+                        logout={logout}
                         opened={opened}
                     />
 

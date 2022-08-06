@@ -1,7 +1,6 @@
 import React, {useState } from 'react'
 
-import { Divider, ActionIcon, Textarea, Title, Grid, Image, TextInput, Group, Button, Stack, Modal } from '@mantine/core'
-import { Search } from 'tabler-icons-react';
+import { Divider, Textarea, Grid, Image, TextInput, Button, Stack, Modal, Text } from '@mantine/core'
 import ImagesSearch from './ImagesSearch';
 
 export default function PictureSelectionModal(props) {
@@ -24,24 +23,25 @@ export default function PictureSelectionModal(props) {
     }
 
     const uploadPic = e => {
-        e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.project.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-                body: JSON.stringify({image: imageURL})
-                })
-        .then(response => response.json())
-        .then(payload => {
-            props.setFetchAgainFlag(true)
-            props.setPhotoSelectOpen(false)
-            props.setProject({...props.project, "image": payload.image})
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
+
+        // e.preventDefault()
+        // fetch(`http://localhost:3001/api/v2/projects/${props.project.id}`, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+        //         },
+        //         body: JSON.stringify({image: imageURL})
+        //         })
+        // .then(response => response.json())
+        // .then(payload => {
+        //     props.setFetchAgainFlag(true)
+        //     props.setPhotoSelectOpen(false)
+        //     props.setProject({...props.project, "image": payload.image})
+        // })
+        // .catch(errors => {
+        //     console.error(errors)
+        // })
     }
 
     const handleSearch = () => {
@@ -54,15 +54,15 @@ export default function PictureSelectionModal(props) {
         <Modal
             opened={props.opened}
             onClose={() => props.setOpened(false)}
-            title="Update Project Photo"
+            title="Project Photo"
             size={'full'}
         >
-            <form onSubmit={uploadPic}>
-                <Stack>
-                    <Grid
+            <Stack>
+                <Grid
 
-                    >
-                        <Grid.Col xs={6}>
+                >
+                    <Grid.Col xs={6}>
+                        {props.image ? 
                             <Image
                                 radius="md"
                                 src={props.image}
@@ -72,28 +72,25 @@ export default function PictureSelectionModal(props) {
                                         }}
                                 height={200}
                             />
-                        </Grid.Col>
-                        <Grid.Col xs={6}>
-                            <Textarea
-                                label="Project Image URL"
-                                placeholder="Image URL"
-                                name="image"
-                                autosize
-                                minRows={7}
-                                maxRows={7}
-                                value={imageURL} 
-                                onChange={handleImageURLChange}
-                            />
-                        </Grid.Col>
-                    </Grid>
-                    <Button type="submit">Submit</Button>
-                </Stack>
-            </form>
+                            : 
+                            <Text>Select or search for a photo to add a photo to your project.</Text>
+                        }
+                    </Grid.Col>
+                    <Grid.Col xs={6}>
+                        <Textarea
+                            label="Project Image URL"
+                            placeholder="Image URL"
+                            name="image"
+                            autosize
+                            minRows={7}
+                            maxRows={7}
+                            value={imageURL} 
+                            onChange={handleImageURLChange}
+                        />
+                    </Grid.Col>
+                </Grid>
+            </Stack>
             <Divider my="xs"/>
-            {/* <Center 
-                // position="apart" 
-                inline
-            > */}
             <Grid grow>
                 <Grid.Col span={10}>
                     <TextInput
@@ -124,6 +121,10 @@ export default function PictureSelectionModal(props) {
                     selectImage={selectImage}
                 />
             }
+            <Divider my="xs"/>
+            <Stack>
+                <Button disabled={!props.image} onClick={() => props.setOpened(false)}>Set Photo</Button>
+            </Stack>
         </Modal>
     )
 }

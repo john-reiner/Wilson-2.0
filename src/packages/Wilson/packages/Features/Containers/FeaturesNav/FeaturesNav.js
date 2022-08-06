@@ -1,5 +1,5 @@
-import React, {useState} from 'react'
-import { Button, Space, Checkbox, Title, Paper } from '@mantine/core';
+import React from 'react'
+import { Button, Space, Checkbox, Paper } from '@mantine/core';
 import { Plus } from 'tabler-icons-react';
 
 import { CheckboxGroup } from '@mantine/core';
@@ -28,29 +28,29 @@ export default function FeaturesNav(props) {
             </Button>
             <Space h="md" />
             <CheckboxGroup 
-                value={props.priority} 
-                onChange={props.setPriority}
+                value={props.priorities} 
+                onChange={props.setPriorities}
                 orientation="vertical"
                 label="Priority"
                 spacing="sm"
             >
-                <Checkbox value="high" label={`High (${controlCounts(props.counts.priority, 'high')})`}/>
-                <Checkbox value="medium" label={`Medium (${controlCounts(props.counts.priority, 'medium')})`}/>
-                <Checkbox value="low" label={`Low (${controlCounts(props.counts.priority, 'low')})`}/>
+                <Checkbox value="high" label={`High (${controlCounts(props.counts.priorities, 'high')})`}/>
+                <Checkbox value="medium" label={`Medium (${controlCounts(props.counts.priorities, 'medium')})`}/>
+                <Checkbox value="low" label={`Low (${controlCounts(props.counts.priorities, 'low')})`}/>
             </CheckboxGroup>
             <Space h="md" />
             <CheckboxGroup 
-                value={props.status} 
-                onChange={props.setStatus}
+                value={props.statuses} 
+                onChange={props.setStatuses}
                 orientation="vertical"
                 label="Status"
                 spacing="sm"
             >
-                <Checkbox value="created" label={`Created (${controlCounts(props.counts.status, 'created')})`}/>
-                <Checkbox value="paused" label={`Paused (${controlCounts(props.counts.status, 'paused')})`}/>
-                <Checkbox value="working" label={`Working (${controlCounts(props.counts.status, 'working')})`}/>
-                <Checkbox value="ready" label={`Ready to Complete (${controlCounts(props.counts.status, 'ready')})`}/>
-                <Checkbox value="completed" label={`Completed (${controlCounts(props.counts.status, 'completed')})`}/>
+                <Checkbox value="created" label={`Created (${controlCounts(props.counts.statuses, 'created')})`}/>
+                <Checkbox value="paused" label={`Paused (${controlCounts(props.counts.statuses, 'paused')})`}/>
+                <Checkbox value="working" label={`Working (${controlCounts(props.counts.statuses, 'working')})`}/>
+                <Checkbox value="ready" label={`Ready to Complete (${controlCounts(props.counts.statuses, 'ready')})`}/>
+                <Checkbox value="completed" label={`Completed (${controlCounts(props.counts.statuses, 'completed')})`}/>
             </CheckboxGroup>
         </Paper>
     )

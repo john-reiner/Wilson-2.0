@@ -16,7 +16,7 @@ export default function NewFeature(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/features`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -26,17 +26,16 @@ export default function NewFeature(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "created") {
-                setFeature({
-                    title: "",
-                    description: "",
-                    due_date: "",
-                    public: false,
-                    project_id: props.projectId
-                })
-                props.setFetchAgainFlag(true)
-                props.setFeatureModalOpen(false)
-            }
+            setFeature({
+                title: "",
+                description: "",
+                due_date: "",
+                public: false,
+                project_id: props.projectId
+            })
+            props.setFetchAgainFlag(true)
+            props.setFeatureModalOpen(false)
+
         })
         .catch(errors => {
             console.error(errors)

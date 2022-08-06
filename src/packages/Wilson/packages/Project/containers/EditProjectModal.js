@@ -14,8 +14,6 @@ export default function ProjectModal(props) {
         setEditedProject(props.project)
     }, [props.project]);
 
-    console.log(editedProject, props.project)
-
     const handleSubmit = e => {
         e.preventDefault()
         fetch(`http://localhost:3001/api/v2/projects/${props.project.id}`, {
@@ -28,7 +26,7 @@ export default function ProjectModal(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            props.setProject(payload.project)
+            props.setProject(payload)
             props.setModalOpen(false)
         })
         .catch(errors => {

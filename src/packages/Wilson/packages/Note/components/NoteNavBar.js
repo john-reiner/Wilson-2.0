@@ -21,7 +21,7 @@ export default function NoteNavBar(props) {
                 size="xs"
             >
                 <Edit 
-                    onClick={() => props.setEdit(true)}
+                    onClick={() => props.setOptionsToShow('edit')}
                 />
             </ActionIcon>
         )

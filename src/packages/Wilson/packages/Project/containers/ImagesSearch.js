@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Box, ActionIcon, Image } from '@mantine/core';
+import { Box, ActionIcon, Image, Text } from '@mantine/core';
 import { ArrowRight, ArrowLeft } from 'tabler-icons-react';
 
 export default function ImagesSearch(props) {
@@ -8,7 +8,6 @@ export default function ImagesSearch(props) {
 
     const [images, setImages] = useState([]);
     const [start, setStart] = useState(0);
-    // const [end, setEnd] = useState(1);
     const [allowedImages, setAllowedImages] = useState(0);
 
     useEffect(() => {
@@ -24,8 +23,7 @@ export default function ImagesSearch(props) {
     });
 
     const handleResize = () => {
-        if (images.length > 0) {
-            console.log("here")
+        if (images && images.length > 0) {
             let imagesAllowed = Math.floor((window.innerWidth) / imageStepWidth)
             if (imagesAllowed >= 0) {
                 setAllowedImages(imagesAllowed)
@@ -61,7 +59,6 @@ export default function ImagesSearch(props) {
         .then(response => response.json())
         .then(images => {
             setImages(images.pics)
-            console.log("here")
         });
     }
 
@@ -84,29 +81,32 @@ export default function ImagesSearch(props) {
     
     const renderImages = () => {
         if (images) {
-            let test = createArray(start, allowedImages, images)
-            return test.map(pic => {
-                return (
-                    <Image
-                        key={images.indexOf(pic)}
-                        id={images.indexOf(pic)}
-                        radius="md"
-                        src={pic.thumb_path}
-                        alt="Random unsplash image"
-                        fit="contain"
-                        // width={200}
-                        style={
-                            {
-                                maxWidth: "200px",
-                                // maxHeight: "200px"
+            if (images.length > 0) {
+                let test = createArray(start, allowedImages, images)
+                return test.map(pic => {
+                    return (
+                        <Image
+                            key={images.indexOf(pic)}
+                            id={images.indexOf(pic)}
+                            radius="md"
+                            src={pic.thumb_path}
+                            alt="Random unsplash image"
+                            fit="contain"
+                            style={
+                                {
+                                    maxWidth: "200px",
+                                }
                             }
-                        }
-                        // height={200}
-                        onClick={(e) => props.selectImage(e)}
-                        withPlaceholder
-                    />
+                            onClick={(e) => props.selectImage(e)}
+                            withPlaceholder
+                        />
+                    )
+                })
+            } else {
+                return (
+                    <Text>No Images Found</Text>
                 )
-            })
+            }
         }
     }
 
@@ -120,25 +120,17 @@ export default function ImagesSearch(props) {
                     }
                 }
         >
-            {/* <Grid.Col span={1} > */}
                 <ActionIcon 
                     onClick={previousImage} 
                 >
                     <ArrowLeft />
                 </ActionIcon>
-            {/* </Grid.Col>
-            <Grid.Col
-                span={10}
-            > */}
-                {renderImages()}
-            {/* </Grid.Col>
-            <Grid.Col span={1} > */}
+                    {renderImages()}
                 <ActionIcon
                     onClick={nextImage} 
                 >
                     <ArrowRight />
                 </ActionIcon>                    
-            {/* </Grid.Col> */}
         </Box>
     )
 }

@@ -1,53 +1,100 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
-import { Paper, Grid, TypographyStylesProvider } from '@mantine/core';
+import { Paper, Box } from '@mantine/core';
 
 import NoteNavBar from './components/NoteNavBar';
-import NoteBody from './containers/NoteBody';
+import NoteContent from './components/NoteContent';
+import NoteForm from './components/NoteForm';
 
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
 
 export default function Note(props) {
 
-    const [edit, setEdit] = useState(false);
     const [deleteModal, setDeleteModal] = useState(false);
-    const [note, setNote] = useState(props.note);
+    const [note, setNote] = useState({
+        title: "",
+        content: ""
+    });
+    const [optionsToShow, setOptionsToShow] = useState('content');
 
-    const handleChange = e => setNote({...note, [e.target.name]:e.target.value})
+    console.log(note)
+
+    useEffect(() => {
+        fetchNote()
+    }, []);
+
+    // const handleTitleChange = e => setNote({...note, title: e.target.})
+
+    // const handleChange = e => {
+    //     console.log(e)
+    //     setNote({...note, [e.target.name]:e.target.value})
+    // }
 
     const deleteSuccess = () => {
+        console.log("here")
         props.setFetchFlag(true)
+        props.setOptionsToShow("notes")
     }
 
-    const handleSubmit = e => {
-        e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.note.id}`, {
-                method: 'PUT',
+    const fetchNote = () => {
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
+                method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({note: note})
                 })
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "ok") {
-                setNote(payload.note)
-                setEdit(false)
-            }
+            setNote(payload)
+            
         })
         .catch(errors => {
             console.error(errors)
         })
     }
 
+    const updateNote = (e, payload) => {
+        e.preventDefault()
+        console.log(payload)
+        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({note: payload})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            setNote(payload)
+            setOptionsToShow("content")
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
+    }
+
+    const options = {
+        content: <NoteContent 
+                    note={note}
+                />,
+        edit: <NoteForm 
+                    note={note}
+                    setNote={setNote}
+                    handleSubmit={updateNote}
+                />
+    }
+
+    const render = (options) => options[optionsToShow]
+
     return (
-        <Grid.Col 
-            xs={12}
-            sm={6}
-            md={4}
-            lg={3}
-            xl={2}
+        <Box
+            // xs={12}
+            // sm={6}
+            // md={4}
+            // lg={3}
+            // xl={2}
         >
             <DeleteModalConfirmation 
                 opened={deleteModal}
@@ -61,21 +108,12 @@ export default function Note(props) {
                 shadow="md" 
                 p="sm"
             >
-                <TypographyStylesProvider>
-                    <div dangerouslySetInnerHTML={{ __html: note.content }} />
-                </TypographyStylesProvider>
-                {/* <NoteNavBar 
-                    edit={edit}
-                    setEdit={setEdit}
+                <NoteNavBar
+                    setOptionsToShow={setOptionsToShow}
                     setDeleteModal={setDeleteModal}
                 />
-                <NoteBody 
-                    content={note.content}
-                    edit={edit}
-                    handleChange={handleChange}
-                    handleSubmit={handleSubmit}
-                /> */}
+                {render(options)}
             </Paper>
-        </Grid.Col>
+        </Box>
     )
 }

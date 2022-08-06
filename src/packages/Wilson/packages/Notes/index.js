@@ -5,14 +5,17 @@ import { Button, Grid, TypographyStylesProvider } from '@mantine/core';
 import NewNoteModal from './containers/NewNoteModal';
 
 import Note from '../Note'
+// import AllNotes from './containers/AllNotes';
+import DisplayAllLinks from '../global/containers/DisplayAllLinks';
+import NoteLink from './components/NoteLink';
 
 export default function Notes(props) {
 
     const [notes, setNotes] = useState([]);
     const [newNoteOpen, setNewNoteOpen] = useState(false);
     const [fetchFlag, setFetchFlag] = useState(true);
-
-    console.log(notes)
+    const [noteShowId, setNoteShowId] = useState(null);
+    const [optionsToShow, setOptionsToShow] = useState('notes');
 
     useEffect(() => {
         if (fetchFlag) {
@@ -42,52 +45,54 @@ export default function Notes(props) {
         })
     }
 
-    const renderNotes = () => {
-        if (notes.length > 0) {
-            return notes.map(note => {
-                return (
-                    <Note
-                                note={{...note}}
-                                key={note.id}
-                                notableId={props.id}
-                                notable={props.notable}
-                                setFetchFlag={setFetchFlag}
-                            />
-                    )
-            })
-        } else {
-            return (
-            <p>No Notes</p>
-            )
-        }
+    const handleLinkClick = (id) => {
+        setNoteShowId(id)
+        setOptionsToShow("note")
     }
 
-    return (
-        <Grid>
-            <Grid.Col>        
-                <NewNoteModal
-                    opened={newNoteOpen}
-                    setOpened={setNewNoteOpen}
-                    notable={props.notable}
+    const renderOptions = {
+        notes: <DisplayAllLinks
+                    displayItem={"Notes"}
+                    count={notes.length}
+                    data={notes}
+                    linkClick={handleLinkClick}
+                    status={false}
+                />,
+        note: <Note 
+                    id={noteShowId}
+                    notable={'projects'}
                     notableId={props.id}
-                    setNotes={setNotes}
-                    notes={notes}
+                    setFetchFlag={setFetchFlag}
+                    setOptionsToShow={setOptionsToShow}
                 />
-            </Grid.Col>
+    }
 
-        <Button
-            onClick={handleNewNoteOpen}
-        >
-            New Note
-        </Button>
+    const render = (options) => options[optionsToShow]
 
-        {/* <NewNote 
-            notable={props.notable}
-            projectId={props.id}
-            setNotes={setNotes}
-            notes={notes}
-        /> */}
-        {renderNotes()}
-        </Grid>
+
+
+    return (
+        <div>
+            <NewNoteModal
+                opened={newNoteOpen}
+                setOpened={setNewNoteOpen}
+                notable={props.notable}
+                notableId={props.id}
+                setNotes={setNotes}
+                notes={notes}
+            />
+            <Grid>
+                <Grid.Col>        
+                    <Button
+                        onClick={handleNewNoteOpen}
+                    >
+                        New Note
+                    </Button>
+                </Grid.Col>
+                <Grid.Col>
+                    {render(renderOptions)}
+                </Grid.Col>
+            </Grid>
+        </div>
     )
 }

@@ -16,6 +16,7 @@ export default function NewNoteModal(props) {
                 notableId={props.notableId}
                 setNotes={props.setNotes}
                 notes={props.notes}
+                setOpened={props.setOpened}
             />
         </Modal>
     )

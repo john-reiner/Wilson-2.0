@@ -47,21 +47,35 @@ export default function ProjectForm(props) {
                         value={props.project.github_url} 
                         onChange={props.handleChange}
                     />
-                    <Button 
-                        variant="subtle" 
-                        size="xs"
-                        onClick={() => setPhotoSelectOpen(true)}
-                    >
-                        Change Photo
-                    </Button>
-                    <Image
-                        style={{
-                            cursor: "pointer"
-                        }}
-                        height={200}
-                        src={props.project.image}
-                        radius="sm"
-                    />
+                    { props.project.image ?  
+                        <Stack>
+                            <Button 
+                                variant="subtle" 
+                                size="xs"
+                                onClick={() => setPhotoSelectOpen(true)}
+                            >
+                                Change Photo
+                            </Button>
+                            <Image
+                                style={{
+                                    cursor: "pointer"
+                                }}
+                                height={200}
+                                src={props.project.image}
+                                radius="sm"
+                            />
+                        </Stack>
+                        :
+                        <Stack>
+                            <Button 
+                                    variant="subtle" 
+                                    size="xs"
+                                    onClick={() => setPhotoSelectOpen(true)}
+                                >
+                                    Add a Photo
+                            </Button>        
+                        </Stack>
+                    }
                     <Divider/>
                     <Button
                         type="submit"

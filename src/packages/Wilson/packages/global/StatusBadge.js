@@ -26,10 +26,8 @@ export default function StatusBadge(props) {
             let color = icons.find(icon => status === icon[1])[2]
             return (
                 <ThemeIcon
-                    size="xs" 
+                    size="sm" 
                     color={color} 
-                    radius="sm" 
-                    variant="outline"
                 >
                     {icon}
                 </ThemeIcon>
@@ -40,9 +38,9 @@ export default function StatusBadge(props) {
     return (
         <Badge
             sx={{ paddingLeft: 3 }}
-            size="lg" 
+            size={props.size} 
             radius="sm"
-            leftSection={renderIcon(props.status, icons)}
+            leftSection={props.size === "xl" && renderIcon(props.status, icons)}
             color={returnColor(props.status, icons)}
         >
             {props.status}

@@ -26,7 +26,6 @@ export default function FeatureLink(props) {
                             <StatusBadge 
                                 status={props.status}
                             />
-
                         </Group>
                     </Grid.Col>
                 </Grid>

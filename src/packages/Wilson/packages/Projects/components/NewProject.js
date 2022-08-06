@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
-import { TextInput, Container, Group, Title, Textarea, Button, Stack, Switch, Divider } from '@mantine/core';
-import { ArrowBackUp, BrandGithub } from 'tabler-icons-react';
+import { Container, Group, Title, Button, Divider } from '@mantine/core';
+import { ArrowBackUp } from 'tabler-icons-react';
 import ProjectForm from '../../global/ProjectForm';
 
 export default function NewProject(props) {
@@ -15,7 +15,6 @@ export default function NewProject(props) {
     });
     
     const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
-    const togglePublic = e => setNewProject({...newProject, [e.target.name]:e.target.checked})
     
     const handleSubmit = e => {
         e.preventDefault()
@@ -29,17 +28,15 @@ export default function NewProject(props) {
                 })
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "ok") {
-                setNewProject(
-                    {
-                        title: "",
-                        description: "",
-                        github_url: "",
-                        public: 'false',
-                    }
-                )
-                props.handleProjectShow(payload.project.id)
-            }
+            setNewProject(
+                {
+                    title: "",
+                    description: "",
+                    github_url: "",
+                    public: 'false',
+                }
+            )
+            props.handleProjectShow(payload.id)
         })
         .catch(errors => {
             console.error(errors)
@@ -60,58 +57,11 @@ export default function NewProject(props) {
             </Group>
             <Divider my="xs"/>
             <ProjectForm
+                project={newProject}
                 handleSubmit={handleSubmit}
+                setProject={setNewProject}
+                handleChange={handleChange}
             />
-
-                {/* <form onSubmit={handleSubmit}>
-                    <Stack>
-                        <TextInput
-                            placeholder="Example Project..."
-                            label="Project Name"
-                            required
-                            name="title" 
-                            value={newProject.title} 
-                            onChange={handleChange}
-                        />
-                        <Textarea
-                            placeholder="Description..."
-                            label="Project Description"
-                            name="description" 
-                            value={newProject.description} 
-                            onChange={handleChange}
-                        />
-                        <Textarea
-                            placeholder="Image URL"
-                            name="image" 
-                            value={newProject.image} 
-                            onChange={handleChange}
-                        />
-                        <TextInput 
-                            label="GitHub URL" 
-                            placeholder="github" 
-                            icon={<BrandGithub size={14} />} 
-                            name="github_url" 
-                            value={newProject.github_url} 
-                            onChange={handleChange}
-
-                            />
-                        <Switch
-                            label="Public"
-                            name="public" 
-                            value={newProject.public}
-                            onChange={togglePublic}
-                            // checked={newProject.public}
-                        />
-                        <Button
-                            type="submit"
-                            fullWidth 
-                            variant="outline"
-                        >
-                            Submit
-                        </Button>
-                    </Stack>
-                </form> */}
-
         </Container>
     )
 }

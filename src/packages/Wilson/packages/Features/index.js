@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Grid, Stack } from '@mantine/core';
+import { Grid, Paper, Stack } from '@mantine/core';
 
 import NewFeature from './Components/NewFeature';
 import Feature from '../Feature';
 import FeaturesNav from './Containers/FeaturesNav/FeaturesNav';
-import FeaturesShowContainer from './Containers/FeaturesShowContainer';
+import FeatureLink from './Components/FeatureLink'
+// import FeaturesShowContainer from './Containers/FeaturesShowContainer';
+import DisplayAllLinks from '../global/containers/DisplayAllLinks';
 
 export default function Features(props) {
 
@@ -12,8 +14,8 @@ export default function Features(props) {
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState(null);
     const [showFeaturesSelect, setShowFeaturesSelect] = useState(false);
-    const [priority, setPriority] = useState([]);
-    const [status, setStatus] = useState([]);
+    const [priorities, setPriorities] = useState([]);
+    const [statuses, setStatuses] = useState([]);
     const [features, setFeatures] = useState([]);
     const [counts, setCounts] = useState({});
 
@@ -21,7 +23,6 @@ export default function Features(props) {
         setFeatureId(id)
         setFeatureModalOpen(true)
     }
-
 
     useEffect(() => {
         fetchFeatures()
@@ -45,6 +46,39 @@ export default function Features(props) {
         .catch(errors => {
             console.error(errors)
         })
+    }
+
+    const renderFeatures = () => {
+        let returnedFeatures = []
+        features.forEach(feature => {
+            if (statuses.includes(feature.status) || priorities.includes(feature.priority)) {
+                returnedFeatures.push(feature)
+            }
+        })
+        if (returnedFeatures.length > 0) {
+            return returnedFeatures.map(feature => {
+                return (
+                    <FeatureLink
+                        title={feature.title}
+                        handleLinkClick={props.handleLinkClick}
+                        setFeatureId={props.setFeatureId}
+                        id={feature.id}
+                        key={feature.id}
+                        status={feature.status}
+                    />
+                )
+            })
+        } else  {
+
+            if (statuses.length === 0 && priorities.length === 0) {
+                return (
+                    <Paper p="md">No Features Selected</Paper>
+                )
+            }
+            return (
+                <Paper p="md">No Features Found</Paper>
+            )
+        }
     }
 
     return (
@@ -73,8 +107,8 @@ export default function Features(props) {
                         setNewFeatureModalOpen={setNewFeatureModalOpen}
                         setShowFeaturesSelect={setShowFeaturesSelect}
                         showFeaturesSelect={showFeaturesSelect}
-                        setPriority={setPriority}
-                        setStatus={setStatus}
+                        setPriorities={setPriorities}
+                        setStatuses={setStatuses}
                         counts={counts}
 
                     />
@@ -82,13 +116,13 @@ export default function Features(props) {
                 <Grid.Col
                     sm={9}
                 >
-                    <FeaturesShowContainer
-                        projectId={props.projectId}
-                        handleLinkClick={handleLinkClick}
-                        setFeatureId={setFeatureId}
-                        priority={priority}
-                        status={status}
-                        features={features}
+                    <DisplayAllLinks
+                        displayItem={"Feature"}
+                        render={renderFeatures}
+                        count={features.length}
+                        data={features}
+                        linkClick={handleLinkClick}
+                        status={true}
                     />
                 </Grid.Col>
             </Grid>

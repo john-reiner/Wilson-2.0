@@ -44,7 +44,7 @@ export default function FeatureModalContainer(props) {
     }
 
     const updateFeature = (payloadToUpdate) => {
-        fetch(`http://localhost:3001/api/v2/features/${feature.id}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features/${props.featureId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -69,7 +69,7 @@ export default function FeatureModalContainer(props) {
     }
 
     const fetchFeature = () => {
-        fetch(`http://localhost:3001/api/v2/features/${props.featureId}`)
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features/${props.featureId}`)
         .then(response => response.json())
         .then(payload => {
             setFeature(payload)
@@ -95,13 +95,10 @@ export default function FeatureModalContainer(props) {
         [<Lists
             listable="features"
             id={feature.id}
-
         />, "Lists"],
         [<NotesContainer
             id={feature.id}
             notable="features"
-
-
         />, "Notes"],
         [<FeatureForm 
             feature={{...feature}}

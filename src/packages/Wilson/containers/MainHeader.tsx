@@ -8,7 +8,15 @@ import {
 
 import LightDarkSwitch from '../../global/LightDarkSwitch';
 
-export default function TopHeader(props) {
+interface TopHeaderProps {
+    opened: boolean,
+    setOpened: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function TopHeader({
+    opened,
+    setOpened
+}: TopHeaderProps) {
 
     const theme = useMantineTheme();
 
@@ -29,8 +37,8 @@ export default function TopHeader(props) {
                     styles={{ display: 'none' }}
                 >
                     <Burger
-                        opened={props.opened}
-                        onClick={() => props.setOpened((o) => !o)}
+                        opened={opened}
+                        onClick={() => setOpened((o) => !o)}
                         size="sm"
                         color={theme.colors.gray[6]}
                         mr="xl"

@@ -4,42 +4,52 @@ import Projects from '../packages/Projects';
 import Project from '../packages/Project'
 import NewProject from '../packages/Projects/components/NewProject'
 
-export default function Main(props) {
+interface MainProps {
+    user: {},
+    setViewToShow: React.Dispatch<React.SetStateAction<number>>,
+    viewToShow: number
+}
+
+export default function Main({
+    user,
+    setViewToShow,
+    viewToShow
+}: MainProps) {
 
     const [projectShowId, setProjectShowId] = useState(0);
 
-    const renderView = (viewToShow, viewsArray) => viewsArray[viewToShow]
+    const renderView = (
+        viewToShow: number, viewsArray: JSX.Element[]
+        ) => viewsArray[viewToShow]
 
-    const handleProjectShow = id => {
+    const handleProjectShow = (
+        id: number
+        ) => {
         setProjectShowId(id)
-        props.setViewToShow(1)
+        setViewToShow(1)
     }
 
     const viewsList = [
         <Projects 
-            setViewToShow={props.setViewToShow}
+            setViewToShow={setViewToShow}
             handleProjectShow={handleProjectShow} 
-            userId={props.userId}
             viewTitle="Projects" 
-            projectsTotal={props.user.projectsTotal}
         />,
         <Project
             id={projectShowId}
-            userId={props.userId}
             viewTitle="Project"
-            setViewToShow={props.setViewToShow}
+            setViewToShow={setViewToShow}
         />,
         <NewProject 
             handleProjectShow={handleProjectShow}
             viewTitle="New Project" 
-            setViewToShow={props.setViewToShow} 
-            userId={props.userId} 
+            setViewToShow={setViewToShow} 
         />
     ]
 
     return (
         <div>
-            {renderView(props.viewToShow, viewsList)}
+            {renderView(viewToShow, viewsList)}
         </div>
     )
 }

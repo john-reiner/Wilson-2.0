@@ -1,15 +1,11 @@
 import React, { useState } from 'react'
+import { ComponentViews } from '../preAuthInterfaces';
 import { Space, Grid, TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
 import { At, Lock } from 'tabler-icons-react';
 
 interface SignUpProps {
     setComponentViewName: React.Dispatch<React.SetStateAction<keyof ComponentViews>>,
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-interface ComponentViews {
-    signup: JSX.Element;
-    login: JSX.Element;
 }
 
 export default function SignUp({

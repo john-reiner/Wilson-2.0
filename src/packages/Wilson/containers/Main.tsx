@@ -33,7 +33,7 @@ export default function Main({
         <Projects 
             setViewToShow={setViewToShow}
             handleProjectShow={handleProjectShow} 
-            viewTitle="Projects" 
+            // viewTitle="Projects"
         />,
         <Project
             id={projectShowId}
@@ -42,7 +42,7 @@ export default function Main({
         />,
         <NewProject 
             handleProjectShow={handleProjectShow}
-            viewTitle="New Project" 
+            // viewTitle="New Project" 
             setViewToShow={setViewToShow} 
         />
     ]

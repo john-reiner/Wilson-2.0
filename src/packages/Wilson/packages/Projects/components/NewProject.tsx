@@ -1,22 +1,32 @@
 import React, {useState} from 'react'
-
 import { Container, Group, Title, Button, Divider } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
 import ProjectForm from '../../global/ProjectForm';
 
-export default function NewProject(props) {
+interface NewProjectProps {
+    handleProjectShow: (id: number) => void
+    setViewToShow: React.Dispatch<React.SetStateAction<number>>
+}
+
+export default function NewProject({
+    handleProjectShow,
+    setViewToShow
+}: NewProjectProps) {
 
     const [newProject, setNewProject] = useState({
         title: "",
         description: "",
         github_url: "",
-        public: false,
         image: ""
     });
     
-    const handleChange = e => setNewProject({...newProject, [e.target.name]:e.target.value})
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+        ) => setNewProject({...newProject, [e.target.name]:e.target.value})
     
-    const handleSubmit = e => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>
+        ) => {
         e.preventDefault()
         fetch(`http://localhost:3001/api/v2/projects`, {
                 method: 'POST',
@@ -33,10 +43,10 @@ export default function NewProject(props) {
                     title: "",
                     description: "",
                     github_url: "",
-                    public: 'false',
+                    image: ""
                 }
             )
-            props.handleProjectShow(payload.id)
+            handleProjectShow(payload.id)
         })
         .catch(errors => {
             console.error(errors)
@@ -50,7 +60,7 @@ export default function NewProject(props) {
                     <Title order={2} className="wilson-logo-small">Create a Project</Title>
                 </div>
                 <div>
-                    <Button onClick={() => props.setViewToShow(0)} leftIcon={<ArrowBackUp size={14} />}>
+                    <Button onClick={() => setViewToShow(0)} leftIcon={<ArrowBackUp size={14} />}>
                         Back
                     </Button>
                 </div>

@@ -2,8 +2,20 @@ import React, { useState } from 'react'
 import { Space, Grid, TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
 import { At, Lock } from 'tabler-icons-react';
 
+interface SignUpProps {
+    setComponentViewName: React.Dispatch<React.SetStateAction<keyof ComponentViews>>,
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-export default function SignUp(props) {
+interface ComponentViews {
+    signup: JSX.Element;
+    login: JSX.Element;
+}
+
+export default function SignUp({
+    setComponentViewName,
+    setLoggedIn
+}: SignUpProps) {
 
     const [newUser, setNewUser] = useState({
         email: "",
@@ -12,17 +24,21 @@ export default function SignUp(props) {
         password: "",
         password_confirmation: ""
     });
-    const [errors, setErrors] = useState({});
+    // const [errors, setErrors] = useState({});
 
-    const renderError = (errorObject, attribute) => {
-        if (errorObject[attribute] && errorObject[attribute].length > 0) {
-            return errorObject[attribute][0]
-        }
-    }
+    // const renderError = (errorObject: {}, attribute: keyof errorObject) => {
+    //     if (errorObject[attribute] && errorObject[attribute].length > 0) {
+    //         return errorObject[attribute][0]
+    //     }
+    // }
 
-    const handleChange = (e) => setNewUser({...newUser, [e.target.name]: e.target.value})
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+        ) => setNewUser({...newUser, [e.target.name]: e.target.value})
     
-    const handleSubmit = e => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>
+        ) => {
         e.preventDefault()
         fetch('http://localhost:3001/api/v2/users', {
             method: 'POST',
@@ -35,17 +51,17 @@ export default function SignUp(props) {
         .then(data => {
             if (data.status === 'ok') {
                 localStorage.setItem('wilsonUserToken', data.message)
-                props.setLoggedIn(true)
+                setLoggedIn(true)
             }
             if (data.errors) {
-                setErrors(data.errors)
+                console.error(data.errors)
             }
 
         });        
     }
 
     return (
-        <form onSubmit={handleSubmit} style={{textAlign: "left"}}>
+        <form onSubmit={(e) => handleSubmit(e)} style={{textAlign: "left"}}>
             <Grid grow>
                 <Grid.Col 
                     md={6} 
@@ -58,7 +74,7 @@ export default function SignUp(props) {
                         value={newUser.first_name} 
                         onChange={handleChange}
                         required
-                        error={renderError(errors, 'first_name')}
+                        // error={renderError(errors, 'first_name')}
                     />
                 </Grid.Col>
                 <Grid.Col 
@@ -72,7 +88,7 @@ export default function SignUp(props) {
                         value={newUser.last_name} 
                         onChange={handleChange}
                         required
-                        error={renderError(errors, 'last_name')}
+                        // error={renderError(errors, 'last_name')}
                     />
                 </Grid.Col>
             </Grid>
@@ -86,7 +102,7 @@ export default function SignUp(props) {
                     value={newUser.email} 
                     onChange={handleChange}
                     name={'email'}
-                    error={renderError(errors, 'email')}
+                    // error={renderError(errors, 'email')}
                 />
                 <PasswordInput
                     label="Password"
@@ -96,7 +112,7 @@ export default function SignUp(props) {
                     name={'password'} 
                     value={newUser.password} 
                     onChange={handleChange}
-                    error={renderError(errors, 'password')}
+                    // error={renderError(errors, 'password')}
                 />       
                 <PasswordInput
                     label="Password Confirmation"
@@ -106,11 +122,11 @@ export default function SignUp(props) {
                     name={'password_confirmation'} 
                     value={newUser.password_confirmation} 
                     onChange={handleChange}
-                    error={renderError(errors, 'password_confirmation')}
+                    // error={renderError(errors, 'password_confirmation')}
                 />
                 <Group position="apart" mt="md">
                     <Anchor 
-                        onClick={() => props.setComponentViewName("login")}
+                        onClick={() => setComponentViewName("login")}
                     >
                         Login
                     </Anchor>

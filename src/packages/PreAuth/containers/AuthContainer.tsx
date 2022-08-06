@@ -5,32 +5,37 @@ import { Text, Title, Stack, Paper, Container } from '@mantine/core';
 import SignUp from '../components/SignUp'
 import Login from '../components/Login'
 
-export default function AuthContainer(props) {
+interface AuthContainerProps {
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
 
-    const [componentViewName, setComponentViewName] = useState('login');
+interface ComponentViews {
+    signup: JSX.Element;
+    login: JSX.Element;
+}
 
-    let componentViews = [
-        [
-            <SignUp 
-                setComponentViewName={setComponentViewName} 
-                setLoggedIn={props.setLoggedIn}
+export default function AuthContainer({
+    setLoggedIn
+}: AuthContainerProps) {
 
-            />, "signup"
-        ],
-        [
-            <Login 
-                setComponentViewName={setComponentViewName} 
-                setLoggedIn={props.setLoggedIn}
+    const [componentViewName, setComponentViewName] = useState<keyof ComponentViews>('login');
 
-            />, "login"
-        ],
-    ]
+    const componentViews: ComponentViews = {
+        "signup": <SignUp 
+                    setComponentViewName={setComponentViewName} 
+                    setLoggedIn={setLoggedIn}
+                />,
+        "login": <Login 
+                    setComponentViewName={setComponentViewName} 
+                    setLoggedIn={setLoggedIn}
+                />
+    }
 
-    const renderView = (componentViewName, componentViews) => {
-        if (componentViewName) {
-            let combo = componentViews.find(combo => combo[1] === componentViewName)
-            return combo[0]
-        }
+    const renderView = (
+        componentViewName: keyof ComponentViews, 
+        componentViews: ComponentViews
+        ) => {
+        return componentViews[componentViewName]
     }
 
     return (
@@ -54,7 +59,7 @@ export default function AuthContainer(props) {
                         <Title 
                             order={1}
                             className="wilson-logo-full"
-                            size="xl"
+                            // size="xl"
                             align="center"
                             color="green"
                         >

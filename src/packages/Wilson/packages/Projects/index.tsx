@@ -1,12 +1,23 @@
 import React, {useState, useEffect} from 'react'
+import { Project } from './projectInterfaces';
+
 
 import { Title, Text, Group, Button, Divider, Grid } from '@mantine/core';
-
 import { Plus } from 'tabler-icons-react';
 
 import ProjectLink from './components/ProjectLink';
 
-export default function ProjectsContainer(props) {
+interface ProjectsProps {
+    setViewToShow: React.Dispatch<React.SetStateAction<number>>,
+    handleProjectShow: (id: number) => void,
+}
+
+
+
+export default function Projects({
+    setViewToShow,
+    handleProjectShow,
+}: ProjectsProps) {
 
     const [projects, setProjects] = useState([]);
 
@@ -32,13 +43,11 @@ export default function ProjectsContainer(props) {
 
     const renderProjectLinks = () => {
         if (projects) {
-            return projects.map(project => {
+            return projects.map((project: Project) => {
                 return (
                     <ProjectLink 
                         project={{...project}}
-                        setViewToShow={props.setViewToShow}
-                        handleProjectShow={props.handleProjectShow}
-                        author={project.author_first + " " + project.author_last}
+                        handleProjectShow={handleProjectShow}
                         key={project.id}
                     />                    
                 )
@@ -59,12 +68,12 @@ export default function ProjectsContainer(props) {
                     <Text 
                         weight={700}
                     >
-                        {props.projectsTotal + " Total"}
+                        {projects.length + " Total"}
                     </Text>
                 </div>
                 <div>
                     <Button 
-                        onClick={() => props.setViewToShow(2)} 
+                        onClick={() => setViewToShow(2)} 
                         leftIcon={<Plus size={14} />}
                     >
                         New Project

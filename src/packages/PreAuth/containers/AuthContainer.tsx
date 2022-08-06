@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import {ComponentViews} from '../preAuthInterfaces'
 
 import { Text, Title, Stack, Paper, Container } from '@mantine/core';
 
@@ -7,11 +8,6 @@ import Login from '../components/Login'
 
 interface AuthContainerProps {
     setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
-}
-
-interface ComponentViews {
-    signup: JSX.Element;
-    login: JSX.Element;
 }
 
 export default function AuthContainer({

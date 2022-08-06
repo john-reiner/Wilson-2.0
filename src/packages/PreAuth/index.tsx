@@ -5,10 +5,16 @@ import {
     useMantineTheme,
 } from '@mantine/core';
 
-import HeaderContainer from './containers/HeaderContainer';
+import HeaderContainer from './containers/HeaderContainer'
 import AuthContainer from './containers/AuthContainer';
 
-export default function PreAuth(props) {
+interface PreAuthProps {
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function PreAuth({
+    setLoggedIn
+}: PreAuthProps) {
 
     const theme = useMantineTheme();
 
@@ -28,7 +34,7 @@ export default function PreAuth(props) {
             }
         >
             <AuthContainer
-                setLoggedIn={props.setLoggedIn}
+                setLoggedIn={setLoggedIn}
             />
         </AppShell>
     )

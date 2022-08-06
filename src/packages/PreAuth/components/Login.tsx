@@ -2,7 +2,20 @@ import React, {useState} from 'react'
 import { TextInput, PasswordInput, Group, Button, Stack, Anchor } from '@mantine/core';
 import { At, Lock } from 'tabler-icons-react';
 
-export default function Login(props) {
+interface LoginProps {
+    setComponentViewName: React.Dispatch<React.SetStateAction<keyof ComponentViews>>,
+    setLoggedIn: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+interface ComponentViews {
+    signup: JSX.Element;
+    login: JSX.Element;
+}
+
+export default function Login({
+    setComponentViewName,
+    setLoggedIn
+}: LoginProps ) {
 
     // sets the user in state.
     const [user, setUser] = useState({
@@ -13,12 +26,14 @@ export default function Login(props) {
     const [errors, setErrors] = useState('');
 
     // any errors are cleared as soon as the user starts typing.
-    const handleChange = (e) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+        ) => {
         setUser({...user, [e.target.name]: e.target.value})
         setErrors('')
     }
     
-    const handleSubmit = (e) => {
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault()
         fetch('http://localhost:3001/login', {
             method: 'POST',
@@ -31,7 +46,7 @@ export default function Login(props) {
         .then(data => {
             if (data.status === 'ok') {
                 localStorage.setItem('wilsonUserToken', data.message)
-                props.setLoggedIn(true)
+                setLoggedIn(true)
             }
             if (data.status === 'unauthorized') {
                 setErrors(data.errors)
@@ -66,7 +81,7 @@ export default function Login(props) {
                 />
                 <Group position="apart" mt="md">
                     <Anchor
-                        onClick={() => props.setComponentViewName("signup")}
+                        onClick={() => setComponentViewName("signup")}
                     >
                         Sign Up
                     </Anchor>

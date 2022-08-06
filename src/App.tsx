@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import {
   MantineProvider,
-  ColorSchemeProvider
+  ColorSchemeProvider,
+  ColorScheme
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 
 import Wilson from './packages/Wilson';
-import PreAuth from './packages/PreAuth';
+import PreAuth from './packages/PreAuth/';
 
 export default function App() {
   
@@ -15,18 +16,18 @@ export default function App() {
   // sets the preferred color scheme set in a visitors media query.
   const preferredColorScheme = useColorScheme();
   // sets the color scheme in state.
-  const [colorScheme, setColorScheme] = useState(preferredColorScheme);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(preferredColorScheme);
+
   // confirms when the app is mounted that the proper color scheme is set.
   useEffect(() => {
     setColorScheme(preferredColorScheme)
   }, [preferredColorScheme]);
-  const toggleColorScheme = (value) => {
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
-  };
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
 
   // AUTHENTICATION
   // handles the login flag, checking if a user is fully authenticated.
-  const [loggedIn, setLoggedIn] = useState(null);
+  const [loggedIn, setLoggedIn] = useState(false);
   // checks localStorage for a user token every time app is rendered
   useEffect(() => {
     let token = localStorage.getItem('wilsonUserToken')
@@ -40,7 +41,7 @@ export default function App() {
     setLoggedIn(false)
   }
 
-  const renderContent = loggedIn => {
+  const renderContent = (loggedIn: boolean) => {
     if (loggedIn) {
         return (
             <Wilson

@@ -2,7 +2,27 @@ import React, {useState, useEffect} from 'react'
 import { Box, ActionIcon, Image, Text } from '@mantine/core';
 import { ArrowRight, ArrowLeft } from 'tabler-icons-react';
 
-export default function ImagesSearch(props) {
+interface PicInterface {
+    alt: string
+    small_path: string
+    thumb_path: string
+    photographer_username: string
+    photographer_user_path: string
+}
+
+interface ImagesSearchProps {
+    search: string
+    reloadImages: boolean
+    setReloadImages: React.Dispatch<React.SetStateAction<boolean>>
+    selectImage: (e: React.MouseEvent<HTMLDivElement | MouseEvent, MouseEvent>) => void
+}
+
+export default function ImagesSearch({
+    search,
+    reloadImages,
+    setReloadImages,
+    selectImage
+}: ImagesSearchProps) {
 
     let imageStepWidth = 210
 
@@ -11,12 +31,12 @@ export default function ImagesSearch(props) {
     const [allowedImages, setAllowedImages] = useState(0);
 
     useEffect(() => {
-        if (props.reloadImages) {
+        if (reloadImages) {
             fetchImages()
-            props.setReloadImages(false)
+            setReloadImages(false)
         }
         handleResize()
-    }, [props.reloadImages, images]);
+    }, [reloadImages, images]);
 
     useEffect(() => {
         window.addEventListener('resize', handleResize)
@@ -54,7 +74,7 @@ export default function ImagesSearch(props) {
             'Content-Type': 'application/json',
             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
             },
-            body: JSON.stringify({search: props.search})
+            body: JSON.stringify({search: search})
         })
         .then(response => response.json())
         .then(images => {
@@ -62,8 +82,8 @@ export default function ImagesSearch(props) {
         });
     }
 
-    const createArray = (startingIndex, allowedImages, images) => {
-        let returnedArray = []
+    const createArray = (startingIndex: number, allowedImages: number, images: never[]) => {
+        let returnedArray: PicInterface[] = []
         let imageIndex = startingIndex
         let count = 0
         while (count < allowedImages) {
@@ -82,12 +102,13 @@ export default function ImagesSearch(props) {
     const renderImages = () => {
         if (images) {
             if (images.length > 0) {
-                let test = createArray(start, allowedImages, images)
-                return test.map(pic => {
+                let key = 0
+                let imagesAllowed = createArray(start, allowedImages, images)
+                return imagesAllowed.map((pic) => {
+                    key ++
                     return (
                         <Image
-                            key={images.indexOf(pic)}
-                            id={images.indexOf(pic)}
+                            key={key}
                             radius="md"
                             src={pic.thumb_path}
                             alt="Random unsplash image"
@@ -97,7 +118,7 @@ export default function ImagesSearch(props) {
                                     maxWidth: "200px",
                                 }
                             }
-                            onClick={(e) => props.selectImage(e)}
+                            onClick={(e) => selectImage(e)}
                             withPlaceholder
                         />
                     )

@@ -18,7 +18,7 @@ export default function AuthContainer({
 
     const componentViews: ComponentViews = {
         "signup": <SignUp 
-                    setComponentViewName={setComponentViewName} 
+                    setComponentViewName={setComponentViewName}
                     setLoggedIn={setLoggedIn}
                 />,
         "login": <Login 

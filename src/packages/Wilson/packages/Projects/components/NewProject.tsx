@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
+import { NewProjectInterface } from '../../global/interfaces/projectInterfaces';
 import { Container, Group, Title, Button, Divider } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
-import ProjectForm from '../../global/ProjectForm';
+import ProjectForm from '../../global/containers/ProjectForm/ProjectForm';
 
 interface NewProjectProps {
     handleProjectShow: (id: number) => void
@@ -13,7 +14,7 @@ export default function NewProject({
     setViewToShow
 }: NewProjectProps) {
 
-    const [newProject, setNewProject] = useState({
+    const [newProject, setNewProject] = useState<NewProjectInterface>({
         title: "",
         description: "",
         github_url: "",
@@ -21,7 +22,7 @@ export default function NewProject({
     });
     
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement>
+        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
         ) => setNewProject({...newProject, [e.target.name]:e.target.value})
     
     const handleSubmit = (

@@ -1,10 +1,10 @@
 import React from 'react'
-import { Project } from '../projectInterfaces';
+import { ProjectInterface } from '../../global/interfaces/projectInterfaces';
 
 import { Image, Text, Title, Button, Grid, Paper, Stack } from '@mantine/core'
 
 interface ProjectLinkProps {
-    project: Project
+    project: ProjectInterface
     handleProjectShow: (id: number) => void
 }
 

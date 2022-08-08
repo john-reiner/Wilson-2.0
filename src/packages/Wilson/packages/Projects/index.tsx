@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import { Project } from './projectInterfaces';
+import { ProjectInterface } from '../global/interfaces/projectInterfaces';
 
 
 import { Title, Text, Group, Button, Divider, Grid } from '@mantine/core';
@@ -43,7 +43,7 @@ export default function Projects({
 
     const renderProjectLinks = () => {
         if (projects) {
-            return projects.map((project: Project) => {
+            return projects.map((project: ProjectInterface) => {
                 return (
                     <ProjectLink 
                         project={{...project}}

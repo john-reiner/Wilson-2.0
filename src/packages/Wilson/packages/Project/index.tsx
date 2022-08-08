@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import { ProjectInterface, ProjectComponents } from '../global/interfaces/projectInterfaces';
 
-import { Divider, Paper } from '@mantine/core';
+import { Divider } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features';
@@ -10,16 +11,31 @@ import MainContainerHeader from '../global/MainContainerHeader';
 import EditProjectModal from './containers/EditProjectModal';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
 
-export default function ProjectContainer(props) {
+interface ProjectProps {
+    id: number
+    setViewToShow: React.Dispatch<React.SetStateAction<number>>
+}
 
-    const [projectContent, setProjectContent] = useState("Info");
-    const [project, setProject] = useState({});
+export default function Project({
+    id,
+    setViewToShow
+}: ProjectProps) {
+
+    const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
+    const [project, setProject] = useState<ProjectInterface>({
+        id: 0,
+        title: "",
+        description: "",
+        github_url: "",
+        image: ""
+
+    });
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
 
     const fetchProject = () => {
-        fetch(`http://localhost:3001/api/v2/projects/${props.id}`)
+        fetch(`http://localhost:3001/api/v2/projects/${id}`)
         .then(response => response.json())
         .then(payload => {
             setProject(payload)
@@ -34,9 +50,12 @@ export default function ProjectContainer(props) {
         setFetchAgainFlag(false)
     }, [fetchAgainFlag]);
 
-    const renderContent = (tabsArray, name) => tabsArray.find(tabTuple => tabTuple[1] === name)[0]
+    const renderContent = (
+        componentsObject: ProjectComponents,
+        name: keyof ProjectComponents
+        ) => componentsObject[name]
 
-    const handleTabClick = (tabName) => {
+    const handleTabClick = (tabName: keyof ProjectComponents) => {
         setProjectContent(tabName)
     }
 
@@ -46,34 +65,28 @@ export default function ProjectContainer(props) {
     const handleDeleteClick = () => setDeleteModalOpen(true)
 
     const handleDeleteProject = () => {
-        props.setViewToShow(0)
+        setViewToShow(0)
     }
 
-    let projectComponents = [
-        [<ProjectInfoContainer 
-            setFetchAgainFlag={setFetchAgainFlag} 
-            project={{...project}}
-        />, "Info"],
-        [<Lists
-            title={project.title}
-            projectId={props.id}
-            userId={props.userId}
-            listable="projects"
-            id={project.id}
-
-        />, "Lists"],
-        [<Features 
-            setFetchAgainFlag={setFetchAgainFlag} 
-            projectId={props.id} 
-            userId={props.userId} 
-            features={project.features}
-
-        />, "Features"],      
-        [<Notes
-            id={props.id}
-            notable="projects"
-        />, "Notes"],
-    ]
+    let projectComponents = {
+        "info": <ProjectInfoContainer 
+                project={{...project}}
+            />,
+        "lists": <Lists
+                title={project.title}
+                projectId={id}
+                listable="projects"
+                id={project.id}
+            />,
+        "features": <Features 
+                setFetchAgainFlag={setFetchAgainFlag} 
+                projectId={id} 
+            />,
+        "notes": <Notes
+                id={id}
+                notable="projects"
+            />
+    }
 
     const projectShowTabs = ["Info", "Lists", "Features", "Notes"]
 
@@ -83,15 +96,13 @@ export default function ProjectContainer(props) {
                 <EditProjectModal 
                     setModalOpen={setEditModalOpen}
                     modalOpen={editModalOpen}
-                    id={project.id}
                     project={project}
                     setProject={setProject}
                     setFetchAgainFlag={setFetchAgainFlag}
-                    setViewToShow={props.setViewToShow}
                 />
             }
             <DeleteModalConfirmation 
-                route={`projects/${props.id}`}
+                route={`projects/${id}`}
                 successFunction={handleDeleteProject}
                 opened={deleteModalOpen}
                 setOpened={setDeleteModalOpen}

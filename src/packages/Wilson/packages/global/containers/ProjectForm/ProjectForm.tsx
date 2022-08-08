@@ -1,12 +1,24 @@
 import React, {useState} from 'react'
+import { ProjectInterface, NewProjectInterface } from '../../interfaces/projectInterfaces';
 
-import { TextInput, Textarea, Button, Stack, Image, Divider, Group } from '@mantine/core';
+import { TextInput, Textarea, Button, Stack, Image, Divider } from '@mantine/core';
 import { BrandGithub } from 'tabler-icons-react';
 
-import PictureSelectionModal from '../Project/containers/PictureSelectionModal';
+import PictureSelectionModal from './PictureSelectionModal';
 
-export default function ProjectForm(props) {
+interface ProjectFormProps {
+    project: ProjectInterface | NewProjectInterface
+    setProject: React.Dispatch<React.SetStateAction<ProjectInterface>> | React.Dispatch<React.SetStateAction<NewProjectInterface>>
+    handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+}
 
+export default function ProjectForm({
+    project,
+    setProject,
+    handleChange,
+    handleSubmit
+}: ProjectFormProps) {
 
     const [photoSelectOpen, setPhotoSelectOpen] = useState(false);
 
@@ -15,39 +27,35 @@ export default function ProjectForm(props) {
             <PictureSelectionModal
                 opened={photoSelectOpen}
                 setOpened={setPhotoSelectOpen}
-                image={props.project.image}
-                handleChange={props.handleChange}
-                setProject={props.setProject}
-                project={props.project}
-                setPhotoSelectOpen={setPhotoSelectOpen}
-                setFetchAgainFlag={props.setFetchAgainFlag}
+                setProject={setProject}
+                project={project}
             />
-            <form onSubmit={props.handleSubmit}>
+            <form onSubmit={handleSubmit}>
                 <Stack>
                     <TextInput
                         placeholder="Example Project..."
                         label="Project Name"
                         required
                         name="title" 
-                        value={props.project.title} 
-                        onChange={props.handleChange}
+                        value={project.title} 
+                        onChange={handleChange}
                     />
                     <Textarea
                         placeholder="Description..."
                         label="Project Description"
                         name="description" 
-                        value={props.project.description} 
-                        onChange={props.handleChange}
+                        value={project.description} 
+                        onChange={handleChange}
                     />
                     <TextInput 
                         label="GitHub URL" 
                         placeholder="github" 
                         icon={<BrandGithub size={14} />} 
                         name="github_url"
-                        value={props.project.github_url} 
-                        onChange={props.handleChange}
+                        value={project.github_url} 
+                        onChange={handleChange}
                     />
-                    { props.project.image ?  
+                    { project.image ?  
                         <Stack>
                             <Button 
                                 variant="subtle" 
@@ -61,7 +69,7 @@ export default function ProjectForm(props) {
                                     cursor: "pointer"
                                 }}
                                 height={200}
-                                src={props.project.image}
+                                src={project.image}
                                 radius="sm"
                             />
                         </Stack>
@@ -88,6 +96,5 @@ export default function ProjectForm(props) {
                 </Stack>
             </form>            
         </div>
-
     )
 }

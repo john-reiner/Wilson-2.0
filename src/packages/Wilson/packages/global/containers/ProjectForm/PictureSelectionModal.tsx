@@ -1,47 +1,45 @@
 import React, {useState } from 'react'
+import { NewProjectInterface, ProjectInterface } from '../../interfaces/projectInterfaces';
 
 import { Divider, Textarea, Grid, Image, TextInput, Button, Stack, Modal, Text } from '@mantine/core'
 import ImagesSearch from './ImagesSearch';
 
-export default function PictureSelectionModal(props) {
+interface PictureSelectionModalProps {
+    opened: boolean
+    setOpened: React.Dispatch<React.SetStateAction<boolean>>
+    setProject: React.Dispatch<React.SetStateAction<ProjectInterface>> | React.Dispatch<React.SetStateAction<NewProjectInterface>>
+    project: ProjectInterface | NewProjectInterface
+}
+
+export default function PictureSelectionModal({
+    opened,
+    setOpened,
+    setProject,
+    project,
+}: PictureSelectionModalProps) {
 
 
     const [search, setSearch] = useState('');
     const [reloadImages, setReloadImages] = useState(false);
-    const [imageURL, setImageURL] = useState(props.image);
+    const [imageURL, setImageURL] = useState(project.image);
     const [showImagesContainer, setShowImagesContainer] = useState(false);
 
-    const handleSearchChange = e => setSearch(e.target.value)
+    const handleSearchChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+        ) => setSearch(e.target.value)
 
-    const handleImageURLChange = (e) => {
+    const handleImageURLChange = (
+        e: React.ChangeEvent<HTMLTextAreaElement>
+        ) => {
         setImageURL(e.target.value)
     }
 
-    const selectImage = (e) => {
-        setImageURL(e.target.currentSrc)
-        props.setProject({...props.project, image: e.target.currentSrc})
-    }
-
-    const uploadPic = e => {
-
-        // e.preventDefault()
-        // fetch(`http://localhost:3001/api/v2/projects/${props.project.id}`, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-        //         },
-        //         body: JSON.stringify({image: imageURL})
-        //         })
-        // .then(response => response.json())
-        // .then(payload => {
-        //     props.setFetchAgainFlag(true)
-        //     props.setPhotoSelectOpen(false)
-        //     props.setProject({...props.project, "image": payload.image})
-        // })
-        // .catch(errors => {
-        //     console.error(errors)
-        // })
+    const selectImage = (
+        e: React.MouseEvent<HTMLDivElement | MouseEvent>
+    ) => {
+        console.log(e)
+        // setImageURL(e.target.currentSrc)
+        // setProject({...project, image: e.target.currentSrc})
     }
 
     const handleSearch = () => {
@@ -52,8 +50,8 @@ export default function PictureSelectionModal(props) {
 
     return (
         <Modal
-            opened={props.opened}
-            onClose={() => props.setOpened(false)}
+            opened={opened}
+            onClose={() => setOpened(false)}
             title="Project Photo"
             size={'full'}
         >
@@ -62,10 +60,10 @@ export default function PictureSelectionModal(props) {
 
                 >
                     <Grid.Col xs={6}>
-                        {props.image ? 
+                        {project.image ? 
                             <Image
                                 radius="md"
-                                src={props.image}
+                                src={project.image}
                                 alt="Random unsplash image"
                                 style={{
                                             cursor: "pointer"
@@ -123,7 +121,7 @@ export default function PictureSelectionModal(props) {
             }
             <Divider my="xs"/>
             <Stack>
-                <Button disabled={!props.image} onClick={() => props.setOpened(false)}>Set Photo</Button>
+                <Button disabled={!project.image} onClick={() => setOpened(false)}>Set Photo</Button>
             </Stack>
         </Modal>
     )

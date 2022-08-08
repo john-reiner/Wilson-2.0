@@ -37,7 +37,7 @@ export default function Main({
         />,
         <Project
             id={projectShowId}
-            viewTitle="Project"
+            // viewTitle="Project"
             setViewToShow={setViewToShow}
         />,
         <NewProject 

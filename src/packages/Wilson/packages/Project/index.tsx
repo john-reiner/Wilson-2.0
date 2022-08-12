@@ -11,6 +11,8 @@ import MainContainerHeader from '../global/MainContainerHeader';
 import EditProjectModal from './containers/EditProjectModal';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
 
+
+
 interface ProjectProps {
     id: number
     setViewToShow: React.Dispatch<React.SetStateAction<number>>
@@ -73,10 +75,8 @@ export default function Project({
                 project={{...project}}
             />,
         "lists": <Lists
-                title={project.title}
                 projectId={id}
                 listable="projects"
-                id={project.id}
             />,
         "features": <Features 
                 setFetchAgainFlag={setFetchAgainFlag} 

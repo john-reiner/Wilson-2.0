@@ -15,6 +15,8 @@ export default function ListContainer(props) {
     const [listStatus, setListStatus] = useState("");
     const [resetList, setResetList] = useState(false);
 
+    console.log(list)
+
     useEffect(() => {
         fetchList()
         if (resetList) {
@@ -26,7 +28,7 @@ export default function ListContainer(props) {
 
 
     const fetchList = () => {
-        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.id}`, {
+        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/lists/${props.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -36,9 +38,7 @@ export default function ListContainer(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            setTasks(payload.tasks)
-            setList(payload.list)
-            setListStatus(payload.list.status)
+            setList(payload)
         })
         .catch(errors => {
             console.error(errors)
@@ -47,43 +47,43 @@ export default function ListContainer(props) {
 
     const handleChange = e => setList({...list, [e.target.name]: e.target.value})
 
-    const updateList = (attribute) => {
-        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${list.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-                body: JSON.stringify({list: attribute})
-                })
-        .then(response => response.json())
-        .then(payload => {
-            if (payload.status === "updated") {
-                setEdit(false)
-                setTasks(payload.tasks)
-                setList(payload.list)
-                setListStatus(payload.list.status)
-            }
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
-    }
+    // const updateList = (attribute) => {
+    //     fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${list.id}`, {
+    //             method: 'PUT',
+    //             headers: {
+    //                 'Content-Type': 'application/json',
+    //                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+    //             },
+    //             body: JSON.stringify({list: attribute})
+    //             })
+    //     .then(response => response.json())
+    //     .then(payload => {
+    //         if (payload.status === "updated") {
+    //             setEdit(false)
+    //             setTasks(payload.tasks)
+    //             setList(payload.list)
+    //             setListStatus(payload.list.status)
+    //         }
+    //     })
+    //     .catch(errors => {
+    //         console.error(errors)
+    //     })
+    // }
 
     const handleDeleteSuccess = () => {
         props.setContentTitle('listSelectionContainer')
     }
 
-    const handleListComplete = () => {
-        if (listStatus === "ready") {
-            setListStatus("completed")
-            updateList({status: "completed" })
-        } else {
-            setListStatus("ready")
-            setList({...list, "status": "ready"})
-            updateList({status: "ready"})
-        }
-    }
+    // const handleListComplete = () => {
+    //     if (listStatus === "ready") {
+    //         setListStatus("completed")
+    //         updateList({status: "completed" })
+    //     } else {
+    //         setListStatus("ready")
+    //         setList({...list, "status": "ready"})
+    //         updateList({status: "ready"})
+    //     }
+    // }
 
     const renderNewTask = (status) => {
         if (!(status === 'completed')) {
@@ -115,9 +115,9 @@ export default function ListContainer(props) {
             <Paper shadow="md" p="xs" withBorder>
                 <ListHeaderContainer 
                     list={{...list}}
-                    listStatus={listStatus}
-                    handleListComplete={handleListComplete}
-                    updateList={updateList}
+                    listStatus={list.status}
+                    // handleListComplete={handleListComplete}
+                    // updateList={updateList}
                     handleChange={handleChange}
                     edit={edit}
                     setEdit={setEdit}
@@ -129,12 +129,11 @@ export default function ListContainer(props) {
                     listId={props.id}
                     listable={props.listable}
                     listableId={props.listableId}
-                    tasks={tasks}
+                    tasks={list.tasks}
                     setResetList={setResetList}
                     listStatus={listStatus}
                     setListStatus={setListStatus}
                 />
-
             </Paper>
         </div>
     )

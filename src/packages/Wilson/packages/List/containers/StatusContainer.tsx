@@ -3,13 +3,19 @@ import React from 'react'
 import CompleteButton from '../../global/CompleteButton';
 import StatusBadge from '../../global/StatusBadge';
 
-export default function StatusContainer(props) {
+interface StatusContainerProps {
+    status: string
+}
 
-    const renderContent = (status) => {
+export default function StatusContainer({
+    status
+}: StatusContainerProps) {
+
+    const renderContent = (status: string) => {
         if (status === "ready" || status === "completed") {
             return (
                 <CompleteButton
-                    handleListComplete={props.handleListComplete}
+                    // handleListComplete={props.handleListComplete}
                     status={status}
                 />
             )
@@ -22,6 +28,6 @@ export default function StatusContainer(props) {
     }
 
     return (
-        <div>{renderContent(props.status)}</div>
+        <div>{renderContent(status)}</div>
     )
 }

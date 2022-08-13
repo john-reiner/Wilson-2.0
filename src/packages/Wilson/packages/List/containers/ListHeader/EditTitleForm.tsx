@@ -2,26 +2,40 @@ import React from 'react'
 
 import { ActionIcon, TextInput}  from '@mantine/core';
 import { ArrowBarRight } from 'tabler-icons-react';
+import { ListType } from '../../listTypes';
 
-export default function EditTitleForm(props) {
+interface EditTitleFormProps {
+    title: string
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
+    updateList: (list: ListType) => void
 
-    const handleSubmit = e => {
+}
+
+export default function EditTitleForm({
+    title,
+    handleChange,
+    updateList
+}: EditTitleFormProps) {
+
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
         e.preventDefault()
-        props.updateList({title: props.title })
+        // updateList({title: title })
     }
 
     return (
         <form
             style={{ width: "90%" }}
-            onSubmit={handleSubmit}
+            onSubmit={(e) => handleSubmit(e)}
         >
             <TextInput
-                // placeholder={props.title}
+                // placeholder={title}
                 radius="xs"
                 required
                 name="title"
-                value={props.title}
-                onChange={props.handleChange}
+                value={title}
+                onChange={handleChange}
                 rightSection={
                     <ActionIcon type="submit" color={"green"}>
                         <ArrowBarRight />

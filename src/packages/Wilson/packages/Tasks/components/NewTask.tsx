@@ -2,19 +2,33 @@ import React, {useState} from 'react'
 import { ActionIcon, TextInput} from '@mantine/core';
 import { ArrowBarDown } from 'tabler-icons-react';
 
-export default function NewTask(props) {
+interface NewTaskProps {
+    listId: number | string
+    route: string
+    setFetchList: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+export default function NewTask({
+    listId,
+    route,
+    setFetchList
+}: NewTaskProps) {
 
     const [task, setTask] = useState({
         content: "",
         completed: false,
-        list_id: props.id
+        list_id: listId
     });
 
-    const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => setTask({...task, [e.target.name]: e.target.value})
 
-    const handleSubmit = e => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>
+        ) => {
         e.preventDefault()
-        fetch(props.route, {
+        fetch(route, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,12 +39,12 @@ export default function NewTask(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "created") {
-                props.setFetchList(true)
+                setFetchList(true)
             }
             setTask({
                 content: "",
                 completed: false,
-                list_id: props.id
+                list_id: listId
             })
 
         })

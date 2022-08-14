@@ -17,8 +17,6 @@ export default function Note(props) {
     });
     const [optionsToShow, setOptionsToShow] = useState('content');
 
-    console.log(note)
-
     useEffect(() => {
         fetchNote()
     }, []);
@@ -26,12 +24,10 @@ export default function Note(props) {
     // const handleTitleChange = e => setNote({...note, title: e.target.})
 
     // const handleChange = e => {
-    //     console.log(e)
     //     setNote({...note, [e.target.name]:e.target.value})
     // }
 
     const deleteSuccess = () => {
-        console.log("here")
         props.setFetchFlag(true)
         props.setOptionsToShow("notes")
     }
@@ -56,7 +52,6 @@ export default function Note(props) {
 
     const updateNote = (e, payload) => {
         e.preventDefault()
-        console.log(payload)
         fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
                 method: 'PUT',
                 headers: {

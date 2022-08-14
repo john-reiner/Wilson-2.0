@@ -37,7 +37,6 @@ export default function PictureSelectionModal({
     const selectImage = (
         e: React.MouseEvent<HTMLDivElement | MouseEvent>
     ) => {
-        console.log(e)
         // setImageURL(e.target.currentSrc)
         // setProject({...project, image: e.target.currentSrc})
     }

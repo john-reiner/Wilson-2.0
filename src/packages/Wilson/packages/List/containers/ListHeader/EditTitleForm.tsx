@@ -42,7 +42,6 @@ export default function EditTitleForm({
         .then(response => response.json())
         .then(payload => {
             setFetchList(true)
-            console.log(payload);
             setEdit(false)
             // if (payload.status === "updated") {
             //     setEdit(false)
@@ -61,8 +60,6 @@ export default function EditTitleForm({
         e.preventDefault()
         updateList(listTitle, id, route)
     }
-
-    console.log(listTitle)
 
     return (
         <form

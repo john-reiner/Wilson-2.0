@@ -67,7 +67,6 @@ export default function List({
         route: string, 
         id: number | undefined
         ) => {
-        console.log("fetching")
         fetch(`${route}${id}`, {
                 method: 'GET',
                 headers: {
@@ -105,7 +104,6 @@ export default function List({
     //         updateList({status: "ready"})
     //     }
     // }
-    console.log(`${route}${list.id}/tasks`)
 
     const renderNewTask = (status: string) => {
         if (!(status === 'completed')) {

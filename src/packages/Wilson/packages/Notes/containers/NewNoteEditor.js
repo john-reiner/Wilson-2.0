@@ -7,8 +7,6 @@ export default function NewNoteEditor(props) {
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    console.log({title, content})
-
     // const handleNewNoteChange = e => setNewNote({...newNote, [e.target.name]: e.target.value })
 
     const handleSubmit = e => {
@@ -26,7 +24,6 @@ export default function NewNoteEditor(props) {
             })
     .then(response => response.json())
     .then(payload => {
-        console.log(payload)
         props.setOpened(false)
         props.setNotes([...props.notes, payload])
     })

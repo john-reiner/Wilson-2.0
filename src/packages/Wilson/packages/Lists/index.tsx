@@ -3,7 +3,7 @@ import React, { useState} from 'react'
 import { Button, Stack } from '@mantine/core';
 
 import NewList from './components/NewList';
-import List from '../List';
+import List from '../List/List';
 import ListSelectionContainer from './containers/ListSelectionContainer';
 
 export interface ListsComponentsInterface {
@@ -14,14 +14,16 @@ export interface ListsComponentsInterface {
 
 interface ListsProps {
     projectId: number
-    featureId?: number
     listable: "projects" | "features"
+    route: string
+    featureId?: number
 }
 
 export default function Lists({
     projectId,
     featureId,
-    listable
+    listable,
+    route
 }: ListsProps) {
 
     const [contentTitle, setContentTitle] = useState<keyof ListsComponentsInterface>("all");
@@ -57,6 +59,7 @@ export default function Lists({
                     featureId={featureId}
                     id={selectedListId}
                     setContentTitle={setContentTitle}
+                    route={route}
                 />
     }
 
@@ -67,6 +70,13 @@ export default function Lists({
 
     return (
         <Stack>
+            <Button
+
+                color="blue"
+                onClick={() => setContentTitle("new")}
+            >
+                New List
+            </Button>
             {contentTitle !== "all" &&
                 <Button
                     variant="outline" 

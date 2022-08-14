@@ -5,7 +5,7 @@ import { Button } from '@mantine/core';
 export default function Tab(props) {
 
     const handleClick = () => {
-        props.handleTabClick(props.name)
+        props.handleTabClick(props.name.toLowerCase())
         props.setActiveTabIndex(props.tabIndex)
     }
 

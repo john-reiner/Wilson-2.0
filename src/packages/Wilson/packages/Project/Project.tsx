@@ -5,13 +5,11 @@ import { Divider } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features';
-import Notes from '../Notes';
+import Notes from '../Notes/Notes';
 import Lists from '../Lists';
 import MainContainerHeader from '../global/MainContainerHeader';
 import EditProjectModal from './containers/EditProjectModal';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
-
-
 
 interface ProjectProps {
     id: number
@@ -22,6 +20,8 @@ export default function Project({
     id,
     setViewToShow
 }: ProjectProps) {
+
+    const listRoute = `http://localhost:3001/api/v2/projects/${id}/lists/`
 
     const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
     const [project, setProject] = useState<ProjectInterface>({
@@ -46,10 +46,11 @@ export default function Project({
             console.error(errors)
         })
     }
-
+    
     useEffect(() => {
         fetchProject()
         setFetchAgainFlag(false)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchAgainFlag]);
 
     const renderContent = (
@@ -58,6 +59,7 @@ export default function Project({
         ) => componentsObject[name]
 
     const handleTabClick = (tabName: keyof ProjectComponents) => {
+
         setProjectContent(tabName)
     }
 
@@ -70,6 +72,7 @@ export default function Project({
         setViewToShow(0)
     }
 
+
     let projectComponents = {
         "info": <ProjectInfoContainer 
                 project={{...project}}
@@ -77,6 +80,7 @@ export default function Project({
         "lists": <Lists
                 projectId={id}
                 listable="projects"
+                route={listRoute}
             />,
         "features": <Features 
                 setFetchAgainFlag={setFetchAgainFlag} 
@@ -101,13 +105,15 @@ export default function Project({
                     setFetchAgainFlag={setFetchAgainFlag}
                 />
             }
-            <DeleteModalConfirmation 
-                route={`projects/${id}`}
-                successFunction={handleDeleteProject}
-                opened={deleteModalOpen}
-                setOpened={setDeleteModalOpen}
-                item="Project"
-            />
+            { deleteModalOpen && 
+                <DeleteModalConfirmation 
+                    route={`projects/${id}`}
+                    successFunction={handleDeleteProject}
+                    opened={deleteModalOpen}
+                    setOpened={setDeleteModalOpen}
+                    item="Project"
+                />
+            }
             <MainContainerHeader 
                 title={project.title}
                 github_url={project.github_url}
@@ -118,7 +124,6 @@ export default function Project({
                 type="Project"
             />
             <Divider my="xs" />
-
                 {renderContent(projectComponents, projectContent)}
 
         </div>

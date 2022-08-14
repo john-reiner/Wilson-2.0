@@ -2,7 +2,7 @@ import React  from 'react'
 
 import { List } from '@mantine/core';
 
-import Task from '../Task'
+import Task from '../Task/Task'
 
 export default function Tasks(props) {
 

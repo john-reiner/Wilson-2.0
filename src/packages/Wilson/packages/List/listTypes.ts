@@ -1,9 +1,11 @@
+import { TaskType } from "../Task/taskTypes"
+
 export interface ListType {
     id: number | string
     title: string
     status: string
     author: string
-    tasks: object[]
+    tasks: TaskType[]
 }
 
 export interface ListsComponentsInterface {

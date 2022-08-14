@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
-import Projects from '../packages/Projects';
-import Project from '../packages/Project'
+import Projects from '../packages/Projects/Projects';
+import Project from '../packages/Project/Project'
 import NewProject from '../packages/Projects/components/NewProject'
 
 interface MainProps {

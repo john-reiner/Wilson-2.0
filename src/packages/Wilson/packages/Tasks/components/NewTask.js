@@ -14,7 +14,7 @@ export default function NewTask(props) {
 
     const handleSubmit = e => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks`, {
+        fetch(props.route, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -25,13 +25,14 @@ export default function NewTask(props) {
         .then(response => response.json())
         .then(payload => {
             if (payload.status === "created") {
-                props.setTasks([...props.tasks, payload.task])
-                setTask({
-                    content: "",
-                    completed: false,
-                    list_id: props.id
-                })
+                props.setFetchList(true)
             }
+            setTask({
+                content: "",
+                completed: false,
+                list_id: props.id
+            })
+
         })
         .catch(errors => {
             console.error(errors)

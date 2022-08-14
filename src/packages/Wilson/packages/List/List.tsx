@@ -10,7 +10,8 @@ import { Divider, Paper } from '@mantine/core';
 import NewTask from '../Tasks/components/NewTask'
 import DeleteConfirmation from '../global/DeleteModalConfirmation';
 import ListHeader from './containers/ListHeader';
-import Tasks from '../Tasks';
+import Tasks from '../Tasks/Tasks';
+import useGETList from './api/useGETList';
 
 
 
@@ -20,6 +21,7 @@ interface ListProps {
     featureId?: number
     id: number | undefined
     setContentTitle: React.Dispatch<React.SetStateAction<keyof ListsComponentsInterface>>
+    route: string
 }
 
 export default function List({
@@ -27,8 +29,10 @@ export default function List({
     projectId,
     featureId,
     id,
-    setContentTitle
+    setContentTitle,
+    route 
 }: ListProps) {
+
 
     const [list, setList] = useState<ListType>({
         id: "",
@@ -41,21 +45,30 @@ export default function List({
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [listStatus, setListStatus] = useState("");
-    const [resetList, setResetList] = useState(false);
+    const [fetchList, setFetchList] = useState(true);
 
     const handleEditChange = () => setEdit(!edit)
 
     useEffect(() => {
-        fetchList()
-        if (resetList) {
-            fetchList()
-            setResetList(false)
+        if (fetchList) {
+            fetchListPayload(route, id)
+            setFetchList(false)
         }
+        // if (resetList) {
+        //     fetchList(route, id)
+        //     setResetList(false)
+        // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id, resetList]);
+    }, [fetchList]);
 
-    const fetchList = () => {
-        fetch(`http://localhost:3001/api/v2/projects/${projectId}/lists/${id}`, {
+    // const {data: list, loading, errors} =  useGETList(`${route}${id}`)
+
+    const fetchListPayload = (
+        route: string, 
+        id: number | undefined
+        ) => {
+        console.log("fetching")
+        fetch(`${route}${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -76,31 +89,7 @@ export default function List({
         e: React.ChangeEvent<HTMLInputElement>
     ) => setList({...list, [e.target.name]: e.target.value})
 
-    const updateList = (list: ListType) => {
-        let route = `http://localhost:3001/api/v2/projects/${projectId}/lists/`
-        if (listable === "features") {
-            route = `http://localhost:3001/api/v2/projects/${projectId}/features/${featureId}/lists/${list.id}`
-        }
-        fetch(route, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-                body: JSON.stringify({list: list})
-                })
-        .then(response => response.json())
-        .then(payload => {
-            if (payload.status === "updated") {
-                setEdit(false)
-                setList(payload.list)
-                setListStatus(payload.list.status)
-            }
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
-    }
+
 
     const handleDeleteSuccess = () => {
         setContentTitle('all')
@@ -116,12 +105,15 @@ export default function List({
     //         updateList({status: "ready"})
     //     }
     // }
+    console.log(`${route}${list.id}/tasks`)
 
     const renderNewTask = (status: string) => {
         if (!(status === 'completed')) {
             return (
                 <NewTask
                     listId={list.id}
+                    route={`${route}${list.id}/tasks`}
+                    setFetchList={setFetchList}
                     // disabled={disabled}
                     // setLists={setTasks}
                     // list={tasks}
@@ -136,7 +128,7 @@ export default function List({
         <div>
             {deleteModalOpen && 
                 <DeleteConfirmation
-                    // route={`${listable}/${listableId}/lists/${list.id}`}
+                    route={`${route}${id}`}
                     successFunction={handleDeleteSuccess}
                     opened={deleteModalOpen}
                     setOpened={setDeleteModalOpen}
@@ -149,11 +141,14 @@ export default function List({
                     list={{...list}}
                     listStatus={list.status}
                     // handleListComplete={handleListComplete}
-                    updateList={updateList}
                     handleChange={handleChange}
                     edit={edit}
                     handleEditChange={handleEditChange}
                     setDeleteModalOpen={setDeleteModalOpen}
+                    id={list.id}
+                    route={route}
+                    setFetchList={setFetchList}
+                    setEdit={setEdit}
                 />
                 <Divider my="xs" />
                 {renderNewTask(list.status)}
@@ -162,9 +157,9 @@ export default function List({
                     listable={listable}
                     // listableId={listableId}
                     tasks={list.tasks}
-                    setResetList={setResetList}
                     listStatus={listStatus}
                     setListStatus={setListStatus}
+
                 />
             </Paper>
         </div>

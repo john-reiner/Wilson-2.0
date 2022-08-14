@@ -26,6 +26,8 @@ export default function ListSelectionContainer({
     const [counts, setCounts] = useState({})
     const [searchValues, setSearchValues] = useState([]);
 
+    console.log(lists)
+
     useEffect(() => {
         searchLists(searchValues)
     }, [searchValues])

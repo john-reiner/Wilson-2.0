@@ -7,14 +7,20 @@ interface ListTitleProps {
     edit: boolean
     title: string
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
-    updateList: (list: ListType) => void
+    id: string | number
+    route: string
+    setFetchList: React.Dispatch<React.SetStateAction<boolean>>
+    setEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ListTitle({
     edit,
     title,
     handleChange,
-    updateList
+    id,
+    route,
+    setFetchList,
+    setEdit
 }: ListTitleProps) {
 
     const renderTitle = (edit: boolean) => {
@@ -22,8 +28,10 @@ export default function ListTitle({
             return (
                 <EditTitleForm
                     title={title}
-                    handleChange={handleChange}
-                    updateList={updateList}
+                    id={id}
+                    route={route}
+                    setFetchList={setFetchList}
+                    setEdit={setEdit}
                 />
             )
         }

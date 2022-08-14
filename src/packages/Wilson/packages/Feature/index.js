@@ -8,7 +8,7 @@ import {
 import MainContainerHeader from '../global/MainContainerHeader'
 import FeatureInfoContainer from './containers/Info/FeatureInfoContainer';
 import Lists from '../Lists';
-import NotesContainer from '../Notes';
+import NotesContainer from '../Notes/Notes';
 import FeatureForm from '../Features/Components/FeatureForm';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
 

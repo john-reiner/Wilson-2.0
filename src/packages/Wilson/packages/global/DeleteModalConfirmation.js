@@ -5,7 +5,7 @@ import { Modal, Button, Group, Text, Stack, Divider } from '@mantine/core'
 export default function aDeleteModalConfirmation(props) {
 
     const deleteItem = (route) => {
-        fetch(`http://localhost:3001/api/v2/${route}`, {
+        fetch(route, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

@@ -7,8 +7,8 @@ import {
 } from '@mantine/core';
 import { useColorScheme } from '@mantine/hooks';
 
-import Wilson from './packages/Wilson';
-import PreAuth from './packages/PreAuth/';
+import Wilson from './packages/Wilson/Wilson';
+import PreAuth from './packages/PreAuth/PreAuth';
 
 export default function App() {
   

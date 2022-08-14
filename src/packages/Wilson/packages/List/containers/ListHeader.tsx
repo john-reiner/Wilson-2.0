@@ -17,7 +17,10 @@ interface ListHeaderProps {
     edit: boolean
     handleEditChange: () => void
     setDeleteModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-    updateList: (list: ListType) => void
+    id: string | number
+    route: string
+    setFetchList: React.Dispatch<React.SetStateAction<boolean>>
+    setEdit: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function ListHeader({
@@ -27,12 +30,15 @@ export default function ListHeader({
     edit,
     handleEditChange,
     setDeleteModalOpen,
-    updateList
+    id,
+    route,
+    setFetchList,
+    setEdit
 }: ListHeaderProps) {
 
     return (
         <Box
-                style={
+            style={
                     {
                         display: "flex",
                         justifyContent: "space-between",
@@ -48,7 +54,10 @@ export default function ListHeader({
                 edit={edit}
                 title={list.title}
                 handleChange={handleChange}
-                updateList={updateList}
+                id={id}
+                route={route}
+                setFetchList={setFetchList}
+                setEdit={setEdit}
             />
             <IconsContainer
                 handleEditChange={handleEditChange}

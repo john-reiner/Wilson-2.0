@@ -26,17 +26,18 @@ export default function Task({
 }: TaskProps) {
 
     const [taskShowOpened, setTaskShowOpened] = useState(false)
-    const [taskChange, setTaskChange] = useState(false);
+    const [taskChanged, setTaskChanged] = useState(false);
     const [editShow, setEditShow] = useState(false);
-    // const [task, setTask] = useState(props.task);
+    
     const [completed, setCompleted] = useState(task.completed)
 
-    // useEffect(() => {
-    //     if (taskChange) {
-    //         updateTask()
-    //         setTaskChange(false)
-    //     }
-    // }, [taskChange]);
+    // 
+    useEffect(() => {
+        if (taskChanged) {
+            // updateTask()
+            setTaskChanged(false)
+        }
+    }, [taskChanged]);
 
     // const handleChange = e => {
     //     setTask({...task, [e.target.name]:e.target.value})
@@ -45,12 +46,12 @@ export default function Task({
     const handleChecked = () => {
         const taskCompletedState = !completed
         setCompleted(taskCompletedState)
-        updateTaskCompleted(`${route}${listId}/tasks/${task.id}`, taskCompletedState)
+        updateTask(`${route}${listId}/tasks/${task.id}`, taskCompletedState)
     }
 
-    const updateTaskCompleted = (
+    const updateTask = (
         route: string,
-        taskCompletedState: boolean
+        task: TaskType
     ) => {
             fetch(route, {
                     method: 'PUT',
@@ -58,7 +59,7 @@ export default function Task({
                         'Content-Type': 'application/json',
                         'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                     },
-                    body: JSON.stringify({task: {completed: taskCompletedState}})
+                    body: JSON.stringify({task: task})
                     })
             .then(response => response.json())
             .then(payload => {

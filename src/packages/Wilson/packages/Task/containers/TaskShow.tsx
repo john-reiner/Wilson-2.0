@@ -12,26 +12,57 @@ import { ArrowBackUp, Edit, Trash } from 'tabler-icons-react';
 import TaskInfo from '../components/TaskInfo';
 import EditTask from '../components/EditTask';
 import DeleteModalConfirmation from '../../global/DeleteModalConfirmation';
+import { TaskType } from '../taskTypes';
 
-export default function TaskShow(props) {
+interface TaskShowProps {
+    taskShowOpened: boolean
+    setTaskShowOpened: React.Dispatch<React.SetStateAction<boolean>>
+    route: string
+    handleChecked: () => void
+    listStatus: string
+    completed: boolean
+    listId: number | undefined
+    id: number | undefined
+}
 
-    const [task, setTask] = useState({});
+export default function TaskShow({
+    taskShowOpened,
+    setTaskShowOpened,
+    route,
+    handleChecked,
+    listStatus,
+    completed,
+    listId,
+    id
+}: TaskShowProps) {
+
+    const [task, setTask] = useState<TaskType>({
+        content: "",
+        completed: false,
+        description: ""
+    });
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
     useEffect(() => {
-        fetchTask()
+        fetchTask(route)
     }, []);
 
-    const handleChange = e => setTask({...task, [e.target.name]: e.target.value})
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+    ) => setTask({...task, [e.target.name]: e.target.value})
 
-    const handleDelete = () => {
-        props.setTaskShowOpened(false)
-        props.setResetList(true)
-    }
-    
-    const fetchTask = () => {
-        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.id}`, {
+    const handleListStatusToggled = () => setTask
+
+    // const handleDelete = () => {
+    //     setTaskShowOpened(false)
+    //     setResetList(true)
+    // }
+
+    const fetchTask = (
+        route: string
+    ) => {
+        fetch(`${route}${listId}/tasks/${id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -41,17 +72,16 @@ export default function TaskShow(props) {
         )
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "ok") {
-                setTask(payload.task)
-                
-            }
+            setTask(payload)
         })
         .catch(errors => {
             console.error(errors)
         })
     }
 
-    const renderContent = edit => {
+    const renderContent = (
+        edit: boolean
+    ) => {
         if (edit) {
             return (
                 <EditTask 
@@ -59,10 +89,11 @@ export default function TaskShow(props) {
                     handleChange={handleChange}
                     setEdit={setEdit}
                     setTask={setTask}
-                    setTaskChange={props.setTaskChange}
-                    listable={props.listable}
-                    listId={props.listId}
-                    listableId={props.listableId}
+                    route={`${route}${listId}/tasks/${id}`}
+                    // setTaskChange={setTaskChange}
+                    // listable={listable}
+                    // listId={listId}
+                    // listableId={listableId}
                 />
             )
         }
@@ -75,19 +106,19 @@ export default function TaskShow(props) {
 
     return (
         <Drawer
-            onClose={() => props.setTaskShowOpened(false)}
-            opened={props.taskShowOpened}
+            onClose={() => setTaskShowOpened(false)}
+            opened={taskShowOpened}
             title={task.content}
             padding="md"
-            size="md"
+            size="xl"
             position="right" 
         >
             <DeleteModalConfirmation
-                route={`${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.id}`}
+                route={route}
                 item="task"
                 opened={deleteModalOpen}
                 setOpened={setDeleteModalOpen}
-                successFunction={handleDelete}
+                // successFunction={handleDelete}
             />
             <Box
                 style={
@@ -100,11 +131,11 @@ export default function TaskShow(props) {
             >
                 <Switch
                     label="Completed"
-                    checked={props.completed}
-                    onChange={props.handleChecked}
+                    checked={completed}
+                    onChange={handleChecked}
                     name="completed"
-                    value={props.completed}
-                    disabled={props.listStatus === "completed"}
+                    // value={`${completed}`}
+                    disabled={listStatus === "completed"}
                 >
                 </Switch>
                 <Box 

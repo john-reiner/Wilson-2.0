@@ -21,6 +21,7 @@ interface ListHeaderProps {
     route: string
     setFetchList: React.Dispatch<React.SetStateAction<boolean>>
     setEdit: React.Dispatch<React.SetStateAction<boolean>>
+    handleListStatusToggled: () => void
 }
 
 export default function ListHeader({
@@ -33,7 +34,8 @@ export default function ListHeader({
     id,
     route,
     setFetchList,
-    setEdit
+    setEdit,
+    handleListStatusToggled
 }: ListHeaderProps) {
 
     return (
@@ -48,7 +50,8 @@ export default function ListHeader({
             >
             <StatusContainer 
                 status={listStatus}
-                // handleListComplete={handleListComplete}
+                route={`${route}${list.id}`}
+                handleSuccess={handleListStatusToggled}
             />
             <ListTitle
                 edit={edit}

@@ -1,27 +1,43 @@
 import React from 'react'
 
 import { Stack, Textarea, TextInput, Button } from '@mantine/core';
+import { TaskType } from '../taskTypes';
 
-export default function EditTask(props) {
+interface EditTaskProps {
+    route: string
+    task: TaskType
+    handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    setEdit: React.Dispatch<React.SetStateAction<boolean>>
+    setTask: React.Dispatch<React.SetStateAction<TaskType>>
+}
 
-    const handleSubmit = e => {
+export default function EditTask({
+    route,
+    task,
+    handleChange,
+    setEdit,
+    setTask
+}: EditTaskProps) {
+
+    console.log(route)
+
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.listable}/${props.listableId}/lists/${props.listId}/tasks/${props.task.id}`, {
+        fetch(route, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
                 },
-                body: JSON.stringify({task: props.task})
+                body: JSON.stringify({task: task})
             }
         )
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "ok") {
-                props.setTask(payload.task)
-                props.setTaskChange(true)
-                props.setEdit(false)
-            }
+            setTask(payload)
+            setEdit(false)
         })
         .catch(errors => {
             console.error(errors)
@@ -32,20 +48,20 @@ export default function EditTask(props) {
         <form onSubmit={handleSubmit}>
             <Stack>
                 <TextInput
-                    value={props.task.content}
+                    value={task.content}
                     size="xl"
-                    onChange={props.handleChange}
+                    onChange={handleChange}
                     name='content'
                 >
                 </TextInput>
                 {/* <Paper shadow="xs" p="md" withBorder>
-                    <Text>Created: {props.task.created_at}</Text>
-                    <Text>Due: {props.task.due_date}</Text>
+                    <Text>Created: {task.created_at}</Text>
+                    <Text>Due: {task.due_date}</Text>
                 </Paper> */}
                 <Textarea
                     autosize
-                    value={!props.task.description ? "" : props.task.description}
-                    onChange={props.handleChange}
+                    value={!task.description ? "" : task.description}
+                    onChange={handleChange}
                     name="description"
                 />
                 <Button type="submit" variant='outline'>Submit</Button>

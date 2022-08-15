@@ -11,7 +11,6 @@ import NewTask from '../Tasks/components/NewTask'
 import DeleteConfirmation from '../global/DeleteModalConfirmation';
 import ListHeader from './containers/ListHeader';
 import Tasks from '../Tasks/Tasks';
-import useGETList from './api/useGETList';
 
 
 
@@ -44,7 +43,7 @@ export default function List({
     // const [tasks, setTasks] = useState([]);
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
-    const [listStatus, setListStatus] = useState("");
+    // const [listStatus, setListStatus] = useState("");
     const [fetchList, setFetchList] = useState(true);
 
     const handleEditChange = () => setEdit(!edit)
@@ -60,6 +59,8 @@ export default function List({
         // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchList]);
+
+    const handleListStatusToggled = () => setFetchList(true)
 
     // const {data: list, loading, errors} =  useGETList(`${route}${id}`)
 
@@ -94,16 +95,7 @@ export default function List({
         setContentTitle('all')
     }
 
-    // const handleListComplete = () => {
-    //     if (listStatus === "ready") {
-    //         setListStatus("completed")
-    //         updateList({status: "completed" })
-    //     } else {
-    //         setListStatus("ready")
-    //         setList({...list, "status": "ready"})
-    //         updateList({status: "ready"})
-    //     }
-    // }
+
 
     const renderNewTask = (status: string) => {
         if (!(status === 'completed')) {
@@ -138,7 +130,7 @@ export default function List({
                 <ListHeader 
                     list={{...list}}
                     listStatus={list.status}
-                    // handleListComplete={handleListComplete}
+                    handleListStatusToggled={handleListStatusToggled}
                     handleChange={handleChange}
                     edit={edit}
                     handleEditChange={handleEditChange}
@@ -153,11 +145,14 @@ export default function List({
                 <Tasks
                     listId={id}
                     listable={listable}
+                    handleListStatusToggled={handleListStatusToggled}
                     // listableId={listableId}
                     tasks={list.tasks}
-                    listStatus={listStatus}
-                    setListStatus={setListStatus}
-
+                    // listStatus={listStatus}
+                    // setListStatus={setListStatus}
+                    setList={setList}
+                    list={list}
+                    route={route}
                 />
             </Paper>
         </div>

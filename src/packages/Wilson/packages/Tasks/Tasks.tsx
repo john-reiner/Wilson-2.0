@@ -2,23 +2,28 @@ import React  from 'react'
 
 import { List } from '@mantine/core';
 
-import Task from '../Task/Task'
+import Task from '../Task/Task';
 import { TaskType } from '../Task/taskTypes';
+import { ListType } from '../List/listTypes';
 
 interface TaskProps {
     listId: number | undefined
     listable: string
     tasks: TaskType[]
-    listStatus: string
-    setListStatus: React.Dispatch<React.SetStateAction<string>>
+    route: string
+    setList: React.Dispatch<React.SetStateAction<ListType>>
+    list: ListType
+    handleListStatusToggled: () => void
 }
 
 export default function Tasks({
     listId,
     listable,
     tasks,
-    listStatus,
-    setListStatus,
+    route,
+    setList,
+    list,
+    handleListStatusToggled
 }: TaskProps) {
 
     const renderTasks = (
@@ -29,14 +34,16 @@ export default function Tasks({
                 return <Task
                             task={{...task}}
                             key={task.id}
+                            setList={setList}
+                            list={list}
                             // setResetList={setResetList}
                             // setTasks={setTasks}
                             // tasks={tasks}
                             listable={listable}
                             // listableId={listableId}
                             listId={listId}
-                            setListStatus={setListStatus}
-                            listStatus={listStatus}
+                            route={route}
+                            handleListStatusToggled={handleListStatusToggled}
                         />
             })
         }

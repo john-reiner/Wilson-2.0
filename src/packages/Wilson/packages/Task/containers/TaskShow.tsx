@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 
 import { 
         Drawer,
@@ -15,6 +15,8 @@ import DeleteModalConfirmation from '../../global/DeleteModalConfirmation';
 import { TaskType } from '../taskTypes';
 
 interface TaskShowProps {
+    task: TaskType
+    setTask: React.Dispatch<React.SetStateAction<TaskType>>
     taskShowOpened: boolean
     setTaskShowOpened: React.Dispatch<React.SetStateAction<boolean>>
     route: string
@@ -22,10 +24,15 @@ interface TaskShowProps {
     listStatus: string
     completed: boolean
     listId: number | undefined
-    id: number | undefined
+    id: number | undefined,
+    handleTaskChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    setReloadTasks: React.Dispatch<React.SetStateAction<boolean>>
+    
 }
 
 export default function TaskShow({
+    task,
+    setTask,
     taskShowOpened,
     setTaskShowOpened,
     route,
@@ -33,50 +40,17 @@ export default function TaskShow({
     listStatus,
     completed,
     listId,
-    id
+    id,
+    handleTaskChange,
+    setReloadTasks
 }: TaskShowProps) {
 
-    const [task, setTask] = useState<TaskType>({
-        content: "",
-        completed: false,
-        description: ""
-    });
     const [edit, setEdit] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
-    useEffect(() => {
-        fetchTask(route)
-    }, []);
-
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
-    ) => setTask({...task, [e.target.name]: e.target.value})
-
-    const handleListStatusToggled = () => setTask
-
-    // const handleDelete = () => {
-    //     setTaskShowOpened(false)
-    //     setResetList(true)
-    // }
-
-    const fetchTask = (
-        route: string
-    ) => {
-        fetch(`${route}${listId}/tasks/${id}`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-            }
-        )
-        .then(response => response.json())
-        .then(payload => {
-            setTask(payload)
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
+    const handleDelete = () => {
+        setTaskShowOpened(false)
+        setReloadTasks(true)
     }
 
     const renderContent = (
@@ -86,14 +60,10 @@ export default function TaskShow({
             return (
                 <EditTask 
                     task={{...task}}
-                    handleChange={handleChange}
+                    handleTaskChange={handleTaskChange}
                     setEdit={setEdit}
                     setTask={setTask}
                     route={`${route}${listId}/tasks/${id}`}
-                    // setTaskChange={setTaskChange}
-                    // listable={listable}
-                    // listId={listId}
-                    // listableId={listableId}
                 />
             )
         }
@@ -114,11 +84,11 @@ export default function TaskShow({
             position="right" 
         >
             <DeleteModalConfirmation
-                route={route}
+                route={`${route}${listId}/tasks/${id}`}
                 item="task"
                 opened={deleteModalOpen}
                 setOpened={setDeleteModalOpen}
-                // successFunction={handleDelete}
+                successFunction={handleDelete}
             />
             <Box
                 style={
@@ -134,7 +104,6 @@ export default function TaskShow({
                     checked={completed}
                     onChange={handleChecked}
                     name="completed"
-                    // value={`${completed}`}
                     disabled={listStatus === "completed"}
                 >
                 </Switch>
@@ -162,14 +131,11 @@ export default function TaskShow({
                         onClick={() => setDeleteModalOpen(true)}
                     >
                         <Trash size={16} />
-                    </ActionIcon>                    
+                    </ActionIcon>
                 </Box>
             </Box>
             <Divider my="xl" />
-
                 {renderContent(edit)}
-
         </Drawer>
-
     )
 }

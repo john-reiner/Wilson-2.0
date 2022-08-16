@@ -1,7 +1,6 @@
 import React from 'react'
 import { Title, Text }  from '@mantine/core';
 import EditTitleForm from './EditTitleForm'
-import { ListType } from '../../listTypes';
 
 interface ListTitleProps {
     edit: boolean

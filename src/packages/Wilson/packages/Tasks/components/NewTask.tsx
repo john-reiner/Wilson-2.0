@@ -1,17 +1,18 @@
 import React, {useState} from 'react'
 import { ActionIcon, TextInput} from '@mantine/core';
 import { ArrowBarDown } from 'tabler-icons-react';
+import { TaskType } from '../../Task/taskTypes';
 
 interface NewTaskProps {
     listId: number | string
     route: string
-    setFetchList: React.Dispatch<React.SetStateAction<boolean>>
+    handleNewTask: (newTask: TaskType) => void
 }
 
 export default function NewTask({
     listId,
     route,
-    setFetchList
+    handleNewTask
 }: NewTaskProps) {
 
     const [task, setTask] = useState({
@@ -38,9 +39,7 @@ export default function NewTask({
                 })
         .then(response => response.json())
         .then(payload => {
-            if (payload.status === "created") {
-                setFetchList(true)
-            }
+            handleNewTask(payload)
             setTask({
                 content: "",
                 completed: false,

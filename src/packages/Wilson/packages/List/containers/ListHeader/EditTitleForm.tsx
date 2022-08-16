@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 
 import { ActionIcon, TextInput}  from '@mantine/core';
 import { ArrowBarRight } from 'tabler-icons-react';
-import { ListType } from '../../listTypes';
 
 interface EditTitleFormProps {
     title: string
@@ -43,11 +42,6 @@ export default function EditTitleForm({
         .then(payload => {
             setFetchList(true)
             setEdit(false)
-            // if (payload.status === "updated") {
-            //     setEdit(false)
-            //     setList(payload.list)
-            //     setListStatus(payload.list.status)
-            // }
         })
         .catch(errors => {
             console.error(errors)
@@ -67,7 +61,6 @@ export default function EditTitleForm({
             onSubmit={(e) => handleSubmit(e)}
         >
             <TextInput
-                // placeholder={title}
                 radius="xs"
                 required
                 name="title"

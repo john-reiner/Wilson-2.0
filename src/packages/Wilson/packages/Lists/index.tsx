@@ -54,9 +54,6 @@ export default function Lists({
                     newButtonClick={newButtonClick}
                 />,
         "list": <List
-                    listable={listable}
-                    projectId={projectId}
-                    featureId={featureId}
                     id={selectedListId}
                     setContentTitle={setContentTitle}
                     route={route}

@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import { Box, ActionIcon, Text, List} from '@mantine/core';
 import { CircleCheck, Circle, Lock } from 'tabler-icons-react';
 import TaskShow from './containers/TaskShow';
@@ -6,94 +6,56 @@ import { TaskType } from './taskTypes';
 import { ListType } from '../List/listTypes';
 
 interface TaskProps {
-    task: TaskType
-    listable: string
+    taskProps: TaskType
     listId: number | undefined
     route: string
     setList: React.Dispatch<React.SetStateAction<ListType>>
     list: ListType
-    handleListStatusToggled: () => void
+    setReloadTasks: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 export default function Task({
-    task,
-    listable,
+    taskProps,
     listId,
     route,
     setList,
     list,
-    handleListStatusToggled
+    setReloadTasks
 }: TaskProps) {
 
+    const [task, setTask] = useState<TaskType>(taskProps)
     const [taskShowOpened, setTaskShowOpened] = useState(false)
-    const [taskChanged, setTaskChanged] = useState(false);
-    const [editShow, setEditShow] = useState(false);
-    
-    const [completed, setCompleted] = useState(task.completed)
 
-    // 
-    useEffect(() => {
-        if (taskChanged) {
-            // updateTask()
-            setTaskChanged(false)
-        }
-    }, [taskChanged]);
-
-    // const handleChange = e => {
-    //     setTask({...task, [e.target.name]:e.target.value})
-    // }
+    const handleTaskChange = (
+        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+    ) => setTask({...task, [e.target.name]: e.target.value})
 
     const handleChecked = () => {
-        const taskCompletedState = !completed
-        setCompleted(taskCompletedState)
-        updateTask(`${route}${listId}/tasks/${task.id}`, taskCompletedState)
+        const taskCompletedState = !task.completed
+        setTask({...task, completed: taskCompletedState})
+        updateTask(`${route}${listId}/tasks/${task.id}`, {...task, completed: taskCompletedState})
     }
 
     const updateTask = (
         route: string,
-        task: TaskType
+        task: object
     ) => {
-            fetch(route, {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                    },
-                    body: JSON.stringify({task: task})
-                    })
-            .then(response => response.json())
-            .then(payload => {
-                setList({...list, "status": payload.list_status})
-            })
-            .catch(errors => {
-                console.error(errors)
-            })
+        fetch(route, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({task: task})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            setList({...list, "status": payload.list_status})
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
     }
-
-    // const submitTask = e => {
-    //     e.preventDefault()
-    //     updateTask()
-    // }
-
-    // const updateTask = () => {
-    //     fetch(`http://localhost:3001/api/v2/${listable}/${listableId}/lists/${listId}/tasks/${id}`, {
-    //             method: 'PUT',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //             },
-    //             body: JSON.stringify({task: {completed: task.completed}})
-    //             })
-    //     .then(response => response.json())
-    //     .then(payload => {
-    //         setListStatus(payload.list_status)
-    //         setTask(payload.task)
-    //         setEditShow(false)
-    //     })
-    //     .catch(errors => {
-    //         console.error(errors)
-    //     })
-    // }
 
     const renderIcon = (
         completed : boolean, 
@@ -133,18 +95,22 @@ export default function Task({
 
     return (
         <List.Item
-            icon={renderIcon(completed, list.status)}
+            icon={renderIcon(task.completed, list.status)}
         >
             { taskShowOpened && 
                 <TaskShow
+                    task={{...task}}
+                    setTask={setTask}
                     taskShowOpened={taskShowOpened}
                     setTaskShowOpened={setTaskShowOpened}
                     route={route}
                     listId={listId}
                     id={task.id}
                     handleChecked={handleChecked}
-                    completed={completed}
+                    completed={task.completed}
                     listStatus={list.status}
+                    handleTaskChange={handleTaskChange}
+                    setReloadTasks={setReloadTasks}
                 />
             }
             <Box 

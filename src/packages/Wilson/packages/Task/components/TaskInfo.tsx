@@ -2,7 +2,6 @@ import React from 'react'
 
 import { Stack, Title, Paper, Text, Group } from '@mantine/core';
 import { TaskType } from '../taskTypes';
-import StatusContainer from '../../List/containers/StatusContainer';
 
 interface TaskInfoProps {
     task: TaskType

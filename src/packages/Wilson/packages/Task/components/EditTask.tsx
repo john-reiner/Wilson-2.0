@@ -6,20 +6,19 @@ import { TaskType } from '../taskTypes';
 interface EditTaskProps {
     route: string
     task: TaskType
-    handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     setEdit: React.Dispatch<React.SetStateAction<boolean>>
     setTask: React.Dispatch<React.SetStateAction<TaskType>>
+    handleTaskChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+
 }
 
 export default function EditTask({
     route,
     task,
-    handleChange,
     setEdit,
-    setTask
+    setTask,
+    handleTaskChange
 }: EditTaskProps) {
-
-    console.log(route)
 
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>
@@ -50,18 +49,14 @@ export default function EditTask({
                 <TextInput
                     value={task.content}
                     size="xl"
-                    onChange={handleChange}
+                    onChange={handleTaskChange}
                     name='content'
                 >
                 </TextInput>
-                {/* <Paper shadow="xs" p="md" withBorder>
-                    <Text>Created: {task.created_at}</Text>
-                    <Text>Due: {task.due_date}</Text>
-                </Paper> */}
                 <Textarea
                     autosize
                     value={!task.description ? "" : task.description}
-                    onChange={handleChange}
+                    onChange={handleTaskChange}
                     name="description"
                 />
                 <Button type="submit" variant='outline'>Submit</Button>

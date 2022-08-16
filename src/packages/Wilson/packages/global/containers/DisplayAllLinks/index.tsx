@@ -25,8 +25,6 @@ interface DisplayAllLinksProps {
     data: DataObjectInterface[]
     linkClick: (id: number) => void
     status?: boolean
-    handleChange: (value: []) => void
-    newButtonClick: () => void
 }
 
 

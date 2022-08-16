@@ -22,6 +22,7 @@ export default function Project({
 }: ProjectProps) {
 
     const listRoute = `http://localhost:3001/api/v2/projects/${id}/lists/`
+    const notesRoute = `http://localhost:3001/api/v2/projects/${id}/notes/`
 
     const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
     const [project, setProject] = useState<ProjectInterface>({
@@ -87,8 +88,7 @@ export default function Project({
                 projectId={id} 
             />,
         "notes": <Notes
-                id={id}
-                notable="projects"
+                route={notesRoute}
             />
     }
 

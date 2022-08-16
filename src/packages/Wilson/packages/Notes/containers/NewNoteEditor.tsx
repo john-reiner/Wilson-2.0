@@ -1,17 +1,32 @@
 import React, {useState} from 'react'
 import { RichTextEditor } from '@mantine/rte';
 import { Button, Stack, TextInput } from '@mantine/core';
+import { NoteType } from '../noteTypes';
 
-export default function NewNoteEditor(props) {
+interface NewNoteEditorProps {
+    setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>
+    notes: NoteType[]
+    setOpened: React.Dispatch<React.SetStateAction<boolean>>
+    route: string
+}
+
+export default function NewNoteEditor({
+    setNotes,
+    notes,
+    setOpened,
+    route
+}: NewNoteEditorProps) {
 
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
     // const handleNewNoteChange = e => setNewNote({...newNote, [e.target.name]: e.target.value })
 
-    const handleSubmit = e => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>,
+    ) => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes`, {
+        fetch(route, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -22,14 +37,14 @@ export default function NewNoteEditor(props) {
                 content
             }})
             })
-    .then(response => response.json())
-    .then(payload => {
-        props.setOpened(false)
-        props.setNotes([...props.notes, payload])
-    })
-    .catch(errors => {
-        console.error(errors)
-    })
+        .then(response => response.json())
+        .then(payload => {
+            setOpened(false)
+            setNotes([...notes, payload])
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
     }
 
     return (

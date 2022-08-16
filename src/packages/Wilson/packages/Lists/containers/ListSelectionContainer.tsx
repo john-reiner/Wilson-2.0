@@ -7,11 +7,9 @@ interface ListSelectionContainerProps {
     listable: "projects" | "features"
     projectId: number
     featureId: number | undefined
-    newButtonClick: () => void
 }
 
 export default function ListSelectionContainer({
-    newButtonClick,
     handleListSelection,
     listable,
     projectId,
@@ -96,8 +94,6 @@ export default function ListSelectionContainer({
                 data={lists}
                 linkClick={handleListSelection}
                 status={true}
-                handleChange={handleChangedSearchValues}
-                newButtonClick={newButtonClick}
             />
         </div>
     )

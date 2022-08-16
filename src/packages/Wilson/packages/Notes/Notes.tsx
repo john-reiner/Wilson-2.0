@@ -1,33 +1,39 @@
 import React, {useState, useEffect} from 'react'
 
-import { Button, Grid, TypographyStylesProvider } from '@mantine/core';
+import { Button, Grid } from '@mantine/core';
 
 import NewNoteModal from './containers/NewNoteModal';
 
 import Note from '../Note'
-// import AllNotes from './containers/AllNotes';
-import DisplayAllLinks from '../global/containers/DisplayAllLinks';
-import NoteLink from './components/NoteLink';
+import NotesSelection from './containers/NotesSelection';
+import { NotesComponentsInterface, NoteType } from './noteTypes';
 
-export default function Notes(props) {
+interface NotesProps {
+    route: string
+}
 
-    const [notes, setNotes] = useState([]);
+export default function Notes({
+    route
+}: NotesProps) {
+
+    const [notes, setNotes] = useState<NoteType[]>([]);
     const [newNoteOpen, setNewNoteOpen] = useState(false);
     const [fetchFlag, setFetchFlag] = useState(true);
-    const [noteShowId, setNoteShowId] = useState(null);
-    const [optionsToShow, setOptionsToShow] = useState('notes');
+    const [noteShowId, setNoteShowId] = useState<number | null>(null);
+    const [optionsToShow, setOptionsToShow] = useState<keyof NotesComponentsInterface>('notes');
 
     useEffect(() => {
         if (fetchFlag) {
             fetchNotes()
             setFetchFlag(false)      
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchFlag]);
 
     const handleNewNoteOpen = () => setNewNoteOpen(true)
 
     const fetchNotes = () => {
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.id}/notes`, {
+        fetch(route, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -37,7 +43,6 @@ export default function Notes(props) {
         )
         .then(response => response.json())
         .then(payload => {
-
             setNotes(payload)
         })
         .catch(errors => {
@@ -45,41 +50,38 @@ export default function Notes(props) {
         })
     }
 
-    const handleLinkClick = (id) => {
+    const handleLinkClick = (
+        id: number
+    ) => {
         setNoteShowId(id)
         setOptionsToShow("note")
     }
 
-    const renderOptions = {
-        notes: <DisplayAllLinks
-                    displayItem={"Notes"}
-                    count={notes.length}
-                    data={notes}
+    const notesComponents = {
+        notes: <NotesSelection
+                    notes={notes}
                     linkClick={handleLinkClick}
-                    status={false}
                 />,
         note: <Note 
                     id={noteShowId}
                     notable={'projects'}
-                    notableId={props.id}
                     setFetchFlag={setFetchFlag}
                     setOptionsToShow={setOptionsToShow}
                 />
     }
 
-    const render = (options) => options[optionsToShow]
-
-
+    const render = (
+        key: keyof NotesComponentsInterface
+    ) => notesComponents[key]
 
     return (
         <div>
             <NewNoteModal
                 opened={newNoteOpen}
                 setOpened={setNewNoteOpen}
-                notable={props.notable}
-                notableId={props.id}
                 setNotes={setNotes}
                 notes={notes}
+                route={route}
             />
             <Grid>
                 <Grid.Col>        
@@ -90,7 +92,7 @@ export default function Notes(props) {
                     </Button>
                 </Grid.Col>
                 <Grid.Col>
-                    {render(renderOptions)}
+                    {render(optionsToShow)}
                 </Grid.Col>
             </Grid>
         </div>

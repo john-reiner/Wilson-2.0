@@ -7,33 +7,48 @@ import NoteContent from './components/NoteContent';
 import NoteForm from './components/NoteForm';
 
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
+import { NotesComponentsInterface, NoteType, NoteComponentsInterface } from '../Notes/noteTypes';
 
-export default function Note(props) {
+interface NoteProps {
+    route: string
+    setFetchFlag: React.Dispatch<React.SetStateAction<boolean>>
+    setOptionsToShow: React.Dispatch<React.SetStateAction<keyof NotesComponentsInterface>>
+}
+
+export default function Note({
+    route,
+    setFetchFlag,
+    setOptionsToShow
+}: NoteProps) {
 
     const [deleteModal, setDeleteModal] = useState(false);
-    const [note, setNote] = useState({
+    const [note, setNote] = useState<NoteType>({
+        id: 0,
         title: "",
-        content: ""
+        content: "",
+        created: "",
+        modified: "",
+        author: ""
     });
-    const [optionsToShow, setOptionsToShow] = useState('content');
+    const [noteComponentKey, setNoteComponentKey] = useState<keyof NoteComponentsInterface>('content');
 
     useEffect(() => {
         fetchNote()
     }, []);
 
-    // const handleTitleChange = e => setNote({...note, title: e.target.})
-
-    // const handleChange = e => {
-    //     setNote({...note, [e.target.name]:e.target.value})
-    // }
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+    ) => {
+        setNote({...note, [e.target.name]:e.target.value})
+    }
 
     const deleteSuccess = () => {
-        props.setFetchFlag(true)
-        props.setOptionsToShow("notes")
+        setFetchFlag(true)
+        setOptionsToShow("notes")
     }
 
     const fetchNote = () => {
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
+        fetch(route, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -50,38 +65,25 @@ export default function Note(props) {
         })
     }
 
-    const updateNote = (e, payload) => {
-        e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/${props.notable}/${props.notableId}/notes/${props.id}`, {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-                },
-                body: JSON.stringify({note: payload})
-                })
-        .then(response => response.json())
-        .then(payload => {
-            setNote(payload)
-            setOptionsToShow("content")
-        })
-        .catch(errors => {
-            console.error(errors)
-        })
-    }
 
-    const options = {
+
+    const NoteComponents = {
         content: <NoteContent 
                     note={note}
                 />,
-        edit: <NoteForm 
+        edit: <NoteForm
                     note={note}
                     setNote={setNote}
-                    handleSubmit={updateNote}
+                    route={route}
+                    setNoteComponentKey={setNoteComponentKey}
+                    handleChange={handleChange}
                 />
     }
 
-    const render = (options) => options[optionsToShow]
+    const renderNoteComponents = (
+        noteComponents: NoteComponentsInterface,
+        noteComponentKey: keyof NoteComponentsInterface
+    ) => noteComponents[noteComponentKey]
 
     return (
         <Box
@@ -95,7 +97,7 @@ export default function Note(props) {
                 opened={deleteModal}
                 setOpened={setDeleteModal}
                 item="Note"
-                route={`${props.notable}/${props.notableId}/notes/${note.id}`}
+                route={`${route}${note.id}`}
                 successFunction={deleteSuccess}
             />
             <Paper
@@ -104,10 +106,11 @@ export default function Note(props) {
                 p="sm"
             >
                 <NoteNavBar
-                    setOptionsToShow={setOptionsToShow}
+                    setNoteComponentKey={setNoteComponentKey}
                     setDeleteModal={setDeleteModal}
+                    noteComponentKey={noteComponentKey}
                 />
-                {render(options)}
+                {renderNoteComponents(NoteComponents, noteComponentKey)}
             </Paper>
         </Box>
     )

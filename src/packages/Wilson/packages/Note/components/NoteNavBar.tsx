@@ -1,17 +1,30 @@
 import React from 'react'
 import { ActionIcon, Divider, Box } from '@mantine/core';
 import { Trash, Edit, ArrowBackUp } from 'tabler-icons-react';
+import { NoteComponentsInterface } from '../../Notes/noteTypes';
 
-export default function NoteNavBar(props) {
+interface NoteNavBarProps {
+    setNoteComponentKey: React.Dispatch<React.SetStateAction<keyof NoteComponentsInterface>>
+    setDeleteModal: React.Dispatch<React.SetStateAction<boolean>>
+    noteComponentKey: keyof NoteComponentsInterface
+}
 
-    const renderEditIcon = (edit) => {
-        if (edit) {
+export default function NoteNavBar({
+    setNoteComponentKey,
+    setDeleteModal,
+    noteComponentKey
+}: NoteNavBarProps) {
+
+    const renderEditIcon = (
+        noteComponentKey: keyof NoteComponentsInterface
+    ) => {
+        if (noteComponentKey === "edit") {
             return (
                 <ActionIcon 
                     size="xs"
                 >
                     <ArrowBackUp 
-                        onClick={() => props.setEdit(false)}
+                        onClick={() => setNoteComponentKey('content')}
                     />
                 </ActionIcon>
             )
@@ -21,7 +34,7 @@ export default function NoteNavBar(props) {
                 size="xs"
             >
                 <Edit 
-                    onClick={() => props.setOptionsToShow('edit')}
+                    onClick={() => setNoteComponentKey('edit')}
                 />
             </ActionIcon>
         )
@@ -42,11 +55,11 @@ export default function NoteNavBar(props) {
                 <ActionIcon 
                     color='red'
                     size="xs"
-                    onClick={() => props.setDeleteModal(true)}
+                    onClick={() => setDeleteModal(true)}
                 >
                     <Trash />
                 </ActionIcon>
-                { renderEditIcon(props.edit)}
+                { renderEditIcon(noteComponentKey)}
             </Box>
             <Divider my="xs" />
         </Box>

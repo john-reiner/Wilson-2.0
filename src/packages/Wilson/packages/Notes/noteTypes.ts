@@ -11,3 +11,8 @@ export interface NotesComponentsInterface {
     notes: JSX.Element;
     note: JSX.Element
 }
+
+export interface NoteComponentsInterface {
+    content: JSX.Element;
+    edit: JSX.Element;
+}

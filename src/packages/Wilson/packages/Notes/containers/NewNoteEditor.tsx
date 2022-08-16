@@ -20,8 +20,6 @@ export default function NewNoteEditor({
     const [title, setTitle] = useState("");
     const [content, setContent] = useState("");
 
-    // const handleNewNoteChange = e => setNewNote({...newNote, [e.target.name]: e.target.value })
-
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>,
     ) => {

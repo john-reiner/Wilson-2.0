@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import DisplayAllLinks from '../../global/containers/DisplayAllLinks'
+import DisplayAllLinks, { DataObjectInterface } from '../../global/containers/DisplayAllLinks'
 import { NoteType } from '../noteTypes'
 
 interface ListSelectionContainerProps {
@@ -20,7 +20,7 @@ export default function NotesSelection({
     const groups = {
         status: ["pending", "working", "ready", "completed"]
     }
-    const [data, setData] = useState([])
+    const [data, setData] = useState<DataObjectInterface[]>([])
 
     useEffect(() => {
         convertDataToDataTypeObject()
@@ -29,40 +29,16 @@ export default function NotesSelection({
     const convertDataToDataTypeObject = () => {
         if (notes.length > 0) {
             let returnedData = notes.map(note => {
-                console.log(note)
+                return {
+                    id: note.id,
+                    title: note.title,
+                    author: note.author,
+                    modified: note.modified
+                }
             })
+            setData(returnedData)
         }
     }
-
-    // const handleChangedSearchValues = (value: []) => {
-    //     setSearchValues(value)
-    // }
-
-
-    // const searchLists = (values: never[]) => {
-    //     if (values) {
-    //         let valuesString = values.join()
-    //         let route = `http://localhost:3001/api/v2/projects/${projectId}/lists-search?status=${valuesString}`
-    //         if (listable === "features") {
-    //             route = `http://localhost:3001/api/v2/projects/${projectId}/features/${featureId}/lists-search?status=${valuesString}`
-    //         }
-    //         fetch(route, {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/json',
-    //                 'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
-    //             },
-    //         }
-    //         )
-    //         .then(response => response.json())
-    //         .then(payload => {
-    //             setLists(payload)
-    //         })
-    //         .catch(errors => {
-    //             console.error(errors)
-    //         })
-    //     }
-    // }
 
     return (
         <div>

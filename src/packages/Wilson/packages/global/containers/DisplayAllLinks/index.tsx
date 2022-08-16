@@ -10,12 +10,13 @@ interface PriorityColors {
     low: "grey"
 }
 
-interface DataObjectInterface {
+export interface DataObjectInterface {
     id: number
     title: string
     author: string
     status?: string
     priority?: keyof PriorityColors
+    modified?: string
 }
 
 interface DisplayAllLinksProps {

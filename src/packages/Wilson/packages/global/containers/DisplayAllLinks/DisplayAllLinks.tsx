@@ -24,14 +24,15 @@ interface DisplayAllLinksProps {
     data: any[]
     linkClick: (id: number) => void
     status?: boolean
+    priority?: boolean
 }
-
 
 export default function DisplayAllLinks({
     displayItem,
     data,
     linkClick,
     status,
+    priority
 }: DisplayAllLinksProps) {
 
     const [convertedData, setConvertedData] = useState<DataObjectInterface[]>([])
@@ -47,7 +48,9 @@ export default function DisplayAllLinks({
                     id: dataObject.id,
                     title: dataObject.title,
                     author: dataObject.author,
-                    modified: dataObject.modified
+                    modified: dataObject.modified,
+                    status: dataObject.status,
+                    priority: dataObject.priority
                 }
             })
             setConvertedData(returnedData)
@@ -58,7 +61,7 @@ export default function DisplayAllLinks({
         displayItem: string, 
         count: number
         ) => {
-        if (count && (count > 1 || count === 0)) {
+        if (count > 1 || count === 0) {
             return displayItem + 's'
         }
         return displayItem
@@ -100,7 +103,12 @@ export default function DisplayAllLinks({
                 >
                     All {displayItem + "s"}
                 </Title>
-                <Text>{data.length + " " + pluralizeDisplayItem(displayItem, data.length)}</Text>
+                <Text>{
+                        data.length > 0 ?
+                            data.length + " " + pluralizeDisplayItem(displayItem, data.length)
+                        :
+                            "No " + pluralizeDisplayItem(displayItem, data.length) + " created yet"
+                    }</Text>
             </Paper>
             <Divider/>
             <Table
@@ -110,8 +118,13 @@ export default function DisplayAllLinks({
                 <thead>
                     <tr>
                         <th>Title</th>
-                        {status && <th>Status</th>}
-                        <th>Creator</th>
+                        {priority && 
+                            <th>Priority</th>       
+                        }
+                        {status && 
+                            <th>Status</th>
+                        }
+                        <th>Author</th>
                         <th>Modified</th>
                     </tr>
                 </thead>

@@ -82,7 +82,8 @@ export default function Features({
                 displayItem={"Feature"}
                 data={features}
                 linkClick={handleLinkClick}
-                // status={true}
+                status={true}
+                priority={true}
             />
 
         </Stack>

@@ -6,7 +6,7 @@ import { Divider } from '@mantine/core';
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features/Features';
 import Notes from '../Notes/Notes';
-import Lists from '../Lists';
+import Lists from '../Lists/Lists';
 import MainContainerHeader from '../global/MainContainerHeader';
 import EditProjectModal from './containers/EditProjectModal';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';

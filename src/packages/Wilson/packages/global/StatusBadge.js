@@ -37,7 +37,6 @@ export default function StatusBadge(props) {
 
     return (
         <Badge
-            sx={{ paddingLeft: 3 }}
             size={props.size} 
             radius="sm"
             leftSection={props.size === "xl" && renderIcon(props.status, icons)}

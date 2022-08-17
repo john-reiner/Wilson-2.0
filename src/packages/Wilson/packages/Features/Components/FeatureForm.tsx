@@ -21,7 +21,7 @@ export default function FeatureForm({
             <Stack>
                 <TextInput
                     placeholder="Example Feature..."
-                    label="Project Name"
+                    label="Feature Name"
                     required
                     name="title" 
                     value={feature.title} 

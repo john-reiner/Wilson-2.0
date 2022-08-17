@@ -4,7 +4,7 @@ import { ProjectInterface, ProjectComponents } from '../global/interfaces/projec
 import { Divider } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
-import Features from '../Features';
+import Features from '../Features/Features';
 import Notes from '../Notes/Notes';
 import Lists from '../Lists';
 import MainContainerHeader from '../global/MainContainerHeader';

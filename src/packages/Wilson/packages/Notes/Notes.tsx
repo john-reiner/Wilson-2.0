@@ -5,8 +5,8 @@ import { Button, Grid } from '@mantine/core';
 import NewNoteModal from './containers/NewNoteModal';
 
 import Note from '../Note/Note'
-import NotesSelection from './containers/NotesSelection';
 import { NotesComponentsInterface, NoteType } from './noteTypes';
+import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
 
 interface NotesProps {
     route: string
@@ -53,16 +53,17 @@ export default function Notes({
     const handleLinkClick = (
         id: number
     ) => {
-        console.log(id)
         setNoteShowId(id)
         setOptionsToShow("note")
     }
 
     const notesComponents = {
-        notes: <NotesSelection
-                    notes={notes}
-                    linkClick={handleLinkClick}
-                />,
+        notes:<DisplayAllLinks
+                displayItem={"note"}
+                data={notes}
+                linkClick={handleLinkClick}
+                status={false}
+            />,
         note: <Note 
                     route={`${route}${noteShowId}`}
                     setFetchFlag={setFetchFlag}

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Paper, Title, Text, Divider, Table } from '@mantine/core'
 
@@ -21,9 +21,7 @@ export interface DataObjectInterface {
 
 interface DisplayAllLinksProps {
     displayItem: string
-    groups: {}
-    counts: {}
-    data: DataObjectInterface[]
+    data: any[]
     linkClick: (id: number) => void
     status?: boolean
 }
@@ -36,6 +34,26 @@ export default function DisplayAllLinks({
     status,
 }: DisplayAllLinksProps) {
 
+    const [convertedData, setConvertedData] = useState<DataObjectInterface[]>([])
+
+    useEffect(() => {
+        convertDataToDataTypeObject()
+    }, [data])
+
+    const convertDataToDataTypeObject = () => {
+        if (data.length > 0) {
+            let returnedData = data.map(dataObject => {
+                return {
+                    id: dataObject.id,
+                    title: dataObject.title,
+                    author: dataObject.author,
+                    modified: dataObject.modified
+                }
+            })
+            setConvertedData(returnedData)
+        }
+    }
+
     const pluralizeDisplayItem = (
         displayItem: string, 
         count: number
@@ -47,10 +65,10 @@ export default function DisplayAllLinks({
     }
 
     const renderLinks = (
-        data: DataObjectInterface[]
+        convertedData: DataObjectInterface[]
         ) => {
-        if (data && data.length > 0) {
-            return data.map((dataObject: DataObjectInterface) => {
+        if (convertedData && convertedData.length > 0) {
+            return convertedData.map((dataObject: DataObjectInterface) => {
                 return (
                     <Link
                         key={displayItem+"_"+ dataObject.id}
@@ -98,7 +116,7 @@ export default function DisplayAllLinks({
                     </tr>
                 </thead>
                 <tbody>
-                    {renderLinks(data)}
+                    {renderLinks(convertedData)}
                 </tbody>
             </Table>
         </Paper>

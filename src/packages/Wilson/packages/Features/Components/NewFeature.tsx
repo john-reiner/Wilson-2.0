@@ -3,20 +3,38 @@ import React, {useState} from 'react'
 import { Modal } from '@mantine/core';
 
 import FeatureForm from './FeatureForm';
+import { FeatureType } from '../featureTypes';
 
-export default function NewFeature(props) {
+interface NewFeatureProps {
+    setFetchAgainFlag: React.Dispatch<React.SetStateAction<boolean>>
+    route:string
+    setFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setNewFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
+    setFeatureId: React.Dispatch<React.SetStateAction<number>>
+    newFeatureModalOpen: true
+}
 
-    const [feature, setFeature] = useState({
+export default function NewFeature({
+    setFetchAgainFlag,
+    route,
+    setFeatureModalOpen,
+    setNewFeatureModalOpen,
+    setFeatureId,
+    newFeatureModalOpen
+}: NewFeatureProps) {
+
+    const [feature, setFeature] = useState<FeatureType>({
         title: "",
         description: "",
         due_date: "",
-        public: false,
-        project_id: props.projectId
+        author: ""
     });
 
-    const handleSubmit = e => {
+    const handleSubmit = (
+        e: React.FormEvent<HTMLFormElement>,
+    ) => {
         e.preventDefault()
-        fetch(`http://localhost:3001/api/v2/projects/${props.projectId}/features`, {
+        fetch(route, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -30,27 +48,25 @@ export default function NewFeature(props) {
                 title: "",
                 description: "",
                 due_date: "",
-                public: false,
-                project_id: props.projectId
+                author: ""
             })
-            props.setFetchAgainFlag(true)
-            props.setFeatureModalOpen(false)
-
+            setFeatureId(payload.id)
+            setFeatureModalOpen(true)
+            setNewFeatureModalOpen(false)
         })
         .catch(errors => {
             console.error(errors)
         })
     }
 
-    const handleChange = e => setFeature({...feature, [e.target.name]:e.target.value})
-    const togglePublic = e => setFeature({...feature, [e.target.name]:e.target.checked})
-
-    const changeDate = e => setFeature({...feature, 'due_date':e.toString()})
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
+    ) => setFeature({...feature, [e.target.name]:e.target.value})
 
     return (
         <Modal
-            opened={props.newFeatureModalOpen}
-            onClose={() => props.setFeatureModalOpen(false)}
+            opened={newFeatureModalOpen}
+            onClose={() => setNewFeatureModalOpen(false)}
             title="Create a new Feature"
             padding="xl"
             size="xl"
@@ -60,8 +76,6 @@ export default function NewFeature(props) {
             <FeatureForm
                 handleSubmit={handleSubmit}
                 feature={{...feature}}
-                changeDate={changeDate}
-                togglePublic={togglePublic}
                 handleChange={handleChange}
             />
         </Modal>

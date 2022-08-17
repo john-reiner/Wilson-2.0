@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 
-import DisplayAllLinks from '../../global/containers/DisplayAllLinks'
+import DisplayAllLinks from '../../global/containers/DisplayAllLinks/DisplayAllLinks'
 
 interface ListSelectionContainerProps {
     handleListSelection: (id: number) => void
@@ -89,8 +89,6 @@ export default function ListSelectionContainer({
         <div>
             <DisplayAllLinks
                 displayItem="list"
-                groups={groups}
-                counts={counts}
                 data={lists}
                 linkClick={handleListSelection}
                 status={true}

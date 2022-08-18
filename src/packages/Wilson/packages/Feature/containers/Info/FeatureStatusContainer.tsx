@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { 
     Paper, 
@@ -22,33 +22,74 @@ import {
     } from 'tabler-icons-react';
     
 import StatusBadge from '../../../global/StatusBadge'
+import { FeatureType } from '../../../Features/featureTypes';
 
-export default function FeatureStatusContainer(props) {
+interface FeatureStatusContainerProps {
+    status: string
+    setFeature: React.Dispatch<React.SetStateAction<FeatureType>>
+    feature: FeatureType
+    route: string
+    // updateFeature: (feature: FeatureType) => void
+}
 
-    const statusData = [
+export default function FeatureStatusContainer({
+    status,
+    setFeature,
+    feature,
+    route
+    // updateFeature
+}: FeatureStatusContainerProps) {
+
+    const [value, setValue] = useState<string | null>(null)
+
+    const statusData = [        
         { value: 'created', label: 'Created' },
         { value: 'working', label: 'Working' },
         { value: 'ready', label: 'Ready for Review' },
         { value: 'completed', label: 'Completed' },
-    ];
+    ]
 
-    const handleStatusChange = (e) => {
-        props.setFeature({...props.feature, 'status': e})
-        props.updateFeature({status: e})
+    const handleStatusChange = (
+        e: string
+    ) => {
+        setFeature({...feature, 'status': e})
+        updateFeature({"status": e})
+    }
+
+    const updateFeature = (
+        feature: object
+    ) => {
+        fetch(route, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': "bearer " + localStorage.getItem('wilsonUserToken')
+                },
+                body: JSON.stringify({feature: feature})
+                })
+        .then(response => response.json())
+        .then(payload => {
+            // if (payload.status === "ok") {
+            //     setFeatureContent("info")
+            // }
+        })
+        .catch(errors => {
+            console.error(errors)
+        })
     }
 
     const handlePause = () => {
-        if (props.status !== 'paused') {
-            props.setFeature({...props.feature, 'status': 'paused'})
-            props.updateFeature({status: 'paused'})
+        if (status !== 'paused') {
+            setFeature({...feature, 'status': 'paused'})
+            updateFeature({status: 'paused'})
         } else {
-            props.setFeature({...props.feature, 'status': 'working'})
-            props.updateFeature({status: 'working'})
+            setFeature({...feature, 'status': 'working'})
+            updateFeature({status: 'working'})
         }
     }
 
     const setActive= () => {
-        return statusData.map(object => object.value).indexOf(props.feature.status)
+        return statusData.map(object => object.value).indexOf(feature.status)
         
     }
 
@@ -69,24 +110,24 @@ export default function FeatureStatusContainer(props) {
             >
                 <Title order={3}>Status</Title>
                 <StatusBadge
-                    status={props.status}
+                    status={status}
                 />
             </Box>
             <Divider my="xs"/>
             <Group position="apart">
                 <Select
-                    value={props.status}
+                    value={status}
                     onChange={handleStatusChange}
                     placeholder="Change Status"
                     data={statusData}
                 />
                 <ActionIcon 
                     size="xl" 
-                    variant={!(props.feature.status === 'paused') ? "outline" : "filled"}
-                    color={props.feature.status === 'paused' && "green"}
+                    variant={!(feature.status === 'paused') ? "outline" : "filled"}
+                    color={feature.status === 'paused' ? "green" : "blue"}
                     onClick={handlePause}
                 >
-                    {props.feature.status === 'paused' ? <PlayerPlay /> : <PlayerPause />}
+                    {feature.status === 'paused' ? <PlayerPlay /> : <PlayerPause />}
                 </ActionIcon>
             </Group>
             <Divider my="xs"/>

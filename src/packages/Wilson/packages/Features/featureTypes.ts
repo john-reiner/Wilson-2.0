@@ -3,5 +3,7 @@ export interface FeatureType {
     author: string
     title: string
     description: string
-    due_date: string
+    due_date: string,
+    status: string
+    priority: string
 }

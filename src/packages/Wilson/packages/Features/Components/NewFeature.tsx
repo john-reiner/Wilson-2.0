@@ -6,7 +6,7 @@ import FeatureForm from './FeatureForm';
 import { FeatureType } from '../featureTypes';
 
 interface NewFeatureProps {
-    setFetchAgainFlag: React.Dispatch<React.SetStateAction<boolean>>
+    // setFetchAgainFlag: React.Dispatch<React.SetStateAction<boolean>>
     route:string
     setFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
     setNewFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
@@ -15,7 +15,7 @@ interface NewFeatureProps {
 }
 
 export default function NewFeature({
-    setFetchAgainFlag,
+    // setFetchAgainFlag,
     route,
     setFeatureModalOpen,
     setNewFeatureModalOpen,
@@ -27,7 +27,9 @@ export default function NewFeature({
         title: "",
         description: "",
         due_date: "",
-        author: ""
+        author: "",
+        priority: "low",
+        status: "created"
     });
 
     const handleSubmit = (
@@ -44,11 +46,14 @@ export default function NewFeature({
                 })
         .then(response => response.json())
         .then(payload => {
+            console.log(payload)
             setFeature({
                 title: "",
                 description: "",
                 due_date: "",
-                author: ""
+                author: "",
+                priority: "low",
+                status: "created"
             })
             setFeatureId(payload.id)
             setFeatureModalOpen(true)

@@ -23,6 +23,7 @@ export default function Project({
 
     const listRoute = `http://localhost:3001/api/v2/projects/${id}/lists/`
     const notesRoute = `http://localhost:3001/api/v2/projects/${id}/notes/`
+    const featuresRoute = `http://localhost:3001/api/v2/projects/${id}/features/`
 
     const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
     const [project, setProject] = useState<ProjectInterface>({
@@ -59,8 +60,9 @@ export default function Project({
         name: keyof ProjectComponents
         ) => componentsObject[name]
 
-    const handleTabClick = (tabName: keyof ProjectComponents) => {
-
+    const handleTabClick = (
+        tabName: keyof ProjectComponents
+        ) => {
         setProjectContent(tabName)
     }
 
@@ -79,14 +81,11 @@ export default function Project({
                 project={{...project}}
             />,
         "lists": <Lists
-                projectId={id}
-                listable="projects"
-                route={listRoute}
-            />,
+                    route={listRoute}
+                />,
         "features": <Features 
-                setFetchAgainFlag={setFetchAgainFlag} 
-                projectId={id} 
-            />,
+                    route={featuresRoute}
+                />,
         "notes": <Notes
                 route={notesRoute}
             />

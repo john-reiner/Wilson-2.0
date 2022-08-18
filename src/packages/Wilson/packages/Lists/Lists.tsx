@@ -13,16 +13,10 @@ export interface ListsComponentsInterface {
 }
 
 interface ListsProps {
-    projectId: number
-    listable: "projects" | "features"
     route: string
-    featureId?: number
 }
 
 export default function Lists({
-    projectId,
-    featureId,
-    listable,
     route
 }: ListsProps) {
 
@@ -36,21 +30,17 @@ export default function Lists({
         setContentTitle('list')
     }
 
-    const newButtonClick = () => setContentTitle("new")
+    console.log(route)
 
     const components = {
         "new" : <NewList
-                    listable={listable}
+                    route={route}
                     setContentTitle={setContentTitle}
-                    projectId={projectId}
-                    featureId={featureId}
                     setSelectedListId={setSelectedListId}
                 />,
         "all": <ListSelectionContainer
                     handleListSelection={handleListSelection}
-                    listable={listable}
-                    projectId={projectId}
-                    featureId={featureId}
+                    route={route}
                 />,
         "list": <List
                     id={selectedListId}

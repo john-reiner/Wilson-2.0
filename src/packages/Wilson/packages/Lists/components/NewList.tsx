@@ -8,18 +8,14 @@ export interface ListsComponentsInterface {
 }
 
 interface NewListProps {
-    listable: "projects" | "features"
     setContentTitle: React.Dispatch<React.SetStateAction<keyof ListsComponentsInterface>>
-    projectId: number
-    featureId?: number
     setSelectedListId: React.Dispatch<React.SetStateAction<number | undefined>>
+    route: string
 }
 
 export default function NewList({
-    listable,
+    route,
     setContentTitle,
-    projectId,
-    featureId,
     setSelectedListId
 }: NewListProps) {
 
@@ -33,14 +29,8 @@ export default function NewList({
 
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>,
-        projectId: number,
-        featureId: number | undefined
     ) => {
         e.preventDefault()
-        let route = `http://localhost:3001/api/v2/projects/${projectId}/lists/`
-        if (listable === "features") {
-            route = `http://localhost:3001/api/v2/projects/${projectId}/features/${featureId}/lists`
-        }
         fetch(route, {
                 method: 'POST',
                 headers: {
@@ -68,7 +58,7 @@ export default function NewList({
             shadow="xs" 
             p="md"
         >
-            <form onSubmit={(e) => handleSubmit(e, projectId, featureId)}>
+            <form onSubmit={handleSubmit}>
                 <Stack> 
                     <TextInput
                         placeholder="List Title"

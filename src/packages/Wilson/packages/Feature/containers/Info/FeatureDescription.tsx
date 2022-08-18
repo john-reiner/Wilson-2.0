@@ -2,7 +2,13 @@ import React from 'react'
 
 import { Paper, Text, Title, Divider } from '@mantine/core'
 
-export default function FeatureDescriptionContainer(props) {
+interface FeatureDescriptionProps {
+    description: string
+}
+
+export default function FeatureDescriptionContainer({
+    description
+}: FeatureDescriptionProps) {
 
     return (
         <Paper
@@ -17,7 +23,7 @@ export default function FeatureDescriptionContainer(props) {
         >
         <Title order={3}>Description</Title>
         <Divider my="xs" />
-        <Text>{props.description}</Text>
+        <Text>{description}</Text>
         </Paper>
     )
 }

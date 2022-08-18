@@ -2,34 +2,36 @@ import React, { useState, useEffect } from 'react'
 import { Button, Stack } from '@mantine/core';
 
 import NewFeature from './Components/NewFeature';
-import Feature from '../Feature';
+import Feature from '../Feature/Feature';
 import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
 import { FeatureType } from './featureTypes';
 
 interface FeaturesProps {
-    setFetchAgainFlag: React.Dispatch<React.SetStateAction<boolean>>
-    projectId: number
+    route: string
 }
 
 export default function Features({
-    setFetchAgainFlag,
-    projectId
+    route
 }: FeaturesProps) {
-
-    const featuresRoute = `http://localhost:3001/api/v2/projects/${projectId}/features`
-
+    
     const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState<number>(0);
     const [features, setFeatures] = useState<FeatureType[]>([]);
+    const [reloadFeatures, setReloadFeatures] = useState(true)
 
+    // const featuresRoute = `http://localhost:3001/api/v2/projects/${projectId}/features`
+    const featureRoute = `${route}${featureId}`
     
     useEffect(() => {
-        fetchFeatures()
-    }, []);
+        if (reloadFeatures) {
+            fetchFeatures()
+            setReloadFeatures(false)
+        }
+    }, [reloadFeatures]);
     
     const fetchFeatures = () => {
-        fetch(featuresRoute, {
+        fetch(route, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -53,22 +55,28 @@ export default function Features({
         setFeatureModalOpen(true)
     }
 
+    const handleFeatureClose = () => {
+        setFeatureModalOpen(false)
+        setReloadFeatures(true)
+    }
+
     return (
         <Stack>
             { featureModalOpen && 
                 <Feature 
                     setFeatureModalOpen={setFeatureModalOpen}
                     featureModalOpen={featureModalOpen}
-                    featureId={featureId}
-                    projectId={projectId} 
-                    setFetchAgainFlag={setFetchAgainFlag}
+                    route={featureRoute}
+                    // setFetchAgainFlag={setFetchAgainFlag}
+                    handleFeatureClose={handleFeatureClose}
+                    setReloadFeatures={setReloadFeatures}
                 />
             }
             { newFeatureModalOpen && 
                 <NewFeature 
-                    setFetchAgainFlag={setFetchAgainFlag} 
-                    route={featuresRoute}
-                    setFeatureModalOpen={setNewFeatureModalOpen} 
+                    // setFetchAgainFlag={setFetchAgainFlag} 
+                    route={route}
+                    setFeatureModalOpen={setFeatureModalOpen} 
                     newFeatureModalOpen={newFeatureModalOpen}
                     setNewFeatureModalOpen={setNewFeatureModalOpen}
                     setFeatureId={setFeatureId}

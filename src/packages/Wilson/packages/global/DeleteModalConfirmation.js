@@ -4,8 +4,6 @@ import { Modal, Button, Group, Text, Stack, Divider } from '@mantine/core'
 
 export default function DeleteModalConfirmation(props) {
 
-    console.log("HERE")
-
     const deleteItem = (route) => {
         fetch(route, {
             method: 'DELETE',
@@ -16,7 +14,6 @@ export default function DeleteModalConfirmation(props) {
             })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             props.successFunction()
             props.setOpened(false)
         })

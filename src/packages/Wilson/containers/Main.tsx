@@ -3,6 +3,7 @@ import React, {useState} from 'react'
 import Projects from '../packages/Projects/Projects';
 import Project from '../packages/Project/Project'
 import NewProject from '../packages/Projects/components/NewProject'
+import { ROUTE } from '../../../routes';
 
 interface MainProps {
     user: {},
@@ -18,6 +19,9 @@ export default function Main({
 
     const [projectShowId, setProjectShowId] = useState(0);
 
+    const projectsRoute = `${ROUTE}/projects`
+    const projectRoute = `${projectsRoute}/${projectShowId}`
+    
     const renderView = (
         viewToShow: number, viewsArray: JSX.Element[]
         ) => viewsArray[viewToShow]
@@ -33,11 +37,11 @@ export default function Main({
         <Projects 
             setViewToShow={setViewToShow}
             handleProjectShow={handleProjectShow} 
-            // viewTitle="Projects"
+            route={projectsRoute}
         />,
         <Project
             id={projectShowId}
-            // viewTitle="Project"
+            route={projectRoute}
             setViewToShow={setViewToShow}
         />,
         <NewProject 

@@ -32,6 +32,8 @@ export default function Note({
     });
     const [noteComponentKey, setNoteComponentKey] = useState<keyof NoteComponentsInterface>('content');
 
+
+
     useEffect(() => {
         fetchNote()
     }, []);
@@ -97,7 +99,7 @@ export default function Note({
                 opened={deleteModal}
                 setOpened={setDeleteModal}
                 item="Note"
-                route={`${route}${note.id}`}
+                route={route}
                 successFunction={deleteSuccess}
             />
             <Paper

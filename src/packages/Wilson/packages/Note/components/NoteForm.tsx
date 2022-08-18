@@ -44,7 +44,6 @@ export default function NoteForm({
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             setNote(payload)
             setNoteComponentKey("content")
         })
@@ -53,8 +52,6 @@ export default function NoteForm({
         })
         
     }
-
-    console.log(route)
     
     return (
         <form onSubmit={updateNote}>

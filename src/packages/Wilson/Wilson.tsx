@@ -9,6 +9,7 @@ import {
 import MainHeader from './containers/MainHeader';
 import MainLeftNavBar from './containers/MainLeftNavBar'
 import Main from './containers/Main';
+import { ROUTE } from '../../routes';
 
 interface WilsonProps {
     logout: () => void
@@ -17,6 +18,8 @@ interface WilsonProps {
 export default function Wilson({
     logout
 }: WilsonProps) {
+
+    const userRoute = `${ROUTE}/user`
 
     const theme = useMantineTheme();
 
@@ -29,7 +32,7 @@ export default function Wilson({
     }, []);
 
     const fetchUser = () => {
-        fetch('http://localhost:3001/api/v2/user', {
+        fetch(userRoute, {
             method: 'GET',
             headers: {
             'Content-Type': 'application/json',
@@ -40,10 +43,8 @@ export default function Wilson({
         .then(data => {
         if (data.status === "ok") {
             setUser(data.user)
-
         } else {
             alert("something went wrong...")
-            // setLoggedIn(false)
         }
         });
     }

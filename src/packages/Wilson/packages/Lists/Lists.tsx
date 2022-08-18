@@ -20,8 +20,12 @@ export default function Lists({
     route
 }: ListsProps) {
 
+    
     const [contentTitle, setContentTitle] = useState<keyof ListsComponentsInterface>("all");
     const [selectedListId, setSelectedListId] = useState<number | undefined>();
+    
+    const listsRoute = `${route}/lists`
+    const listRoute = `${listsRoute}/${selectedListId}`
 
     const handleListSelection = (
         id: number
@@ -30,22 +34,20 @@ export default function Lists({
         setContentTitle('list')
     }
 
-    console.log(route)
-
     const components = {
         "new" : <NewList
-                    route={route}
+                    route={listsRoute}
                     setContentTitle={setContentTitle}
                     setSelectedListId={setSelectedListId}
                 />,
         "all": <ListSelectionContainer
                     handleListSelection={handleListSelection}
-                    route={route}
+                    route={listsRoute}
                 />,
         "list": <List
                     id={selectedListId}
                     setContentTitle={setContentTitle}
-                    route={route}
+                    route={listRoute}
                 />
     }
 

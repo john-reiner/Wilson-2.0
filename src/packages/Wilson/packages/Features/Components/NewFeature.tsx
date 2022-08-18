@@ -46,7 +46,6 @@ export default function NewFeature({
                 })
         .then(response => response.json())
         .then(payload => {
-            console.log(payload)
             setFeature({
                 title: "",
                 description: "",

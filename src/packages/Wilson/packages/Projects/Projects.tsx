@@ -10,6 +10,7 @@ import ProjectLink from './components/ProjectLink';
 interface ProjectsProps {
     setViewToShow: React.Dispatch<React.SetStateAction<number>>,
     handleProjectShow: (id: number) => void,
+    route: string
 }
 
 
@@ -17,6 +18,7 @@ interface ProjectsProps {
 export default function Projects({
     setViewToShow,
     handleProjectShow,
+    route
 }: ProjectsProps) {
 
     const [projects, setProjects] = useState([]);
@@ -26,7 +28,7 @@ export default function Projects({
     }, []);
 
     const fetchProjects = () => {
-        fetch(`http://localhost:3001/api/v2/projects`, {
+        fetch(route, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',

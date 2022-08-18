@@ -16,12 +16,17 @@ export default function Notes({
     route
 }: NotesProps) {
 
+    
+    
     const [notes, setNotes] = useState<NoteType[]>([]);
     const [newNoteOpen, setNewNoteOpen] = useState(false);
     const [fetchFlag, setFetchFlag] = useState(true);
     const [noteShowId, setNoteShowId] = useState<number | null>(null);
     const [optionsToShow, setOptionsToShow] = useState<keyof NotesComponentsInterface>('notes');
-
+    
+    const notesRoute = `${route}/notes`
+    const noteRoute = `${notesRoute}/${noteShowId}`
+    
     useEffect(() => {
         if (fetchFlag) {
             fetchNotes()
@@ -33,7 +38,7 @@ export default function Notes({
     const handleNewNoteOpen = () => setNewNoteOpen(true)
 
     const fetchNotes = () => {
-        fetch(route, {
+        fetch(notesRoute, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +70,7 @@ export default function Notes({
                 status={false}
             />,
         note: <Note 
-                    route={`${route}${noteShowId}`}
+                    route={noteRoute}
                     setFetchFlag={setFetchFlag}
                     setOptionsToShow={setOptionsToShow}
                 />
@@ -82,7 +87,7 @@ export default function Notes({
                 setOpened={setNewNoteOpen}
                 setNotes={setNotes}
                 notes={notes}
-                route={route}
+                route={notesRoute}
             />
             <Grid>
                 <Grid.Col>        

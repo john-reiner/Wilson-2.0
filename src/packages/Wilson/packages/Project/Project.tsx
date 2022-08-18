@@ -14,16 +14,14 @@ import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
 interface ProjectProps {
     id: number
     setViewToShow: React.Dispatch<React.SetStateAction<number>>
+    route: string
 }
 
 export default function Project({
     id,
-    setViewToShow
+    setViewToShow,
+    route
 }: ProjectProps) {
-
-    const listRoute = `http://localhost:3001/api/v2/projects/${id}/lists/`
-    const notesRoute = `http://localhost:3001/api/v2/projects/${id}/notes/`
-    const featuresRoute = `http://localhost:3001/api/v2/projects/${id}/features/`
 
     const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
     const [project, setProject] = useState<ProjectInterface>({
@@ -81,13 +79,13 @@ export default function Project({
                 project={{...project}}
             />,
         "lists": <Lists
-                    route={listRoute}
+                    route={route}
                 />,
         "features": <Features 
-                    route={featuresRoute}
+                    route={route}
                 />,
         "notes": <Notes
-                route={notesRoute}
+                route={route}
             />
     }
 

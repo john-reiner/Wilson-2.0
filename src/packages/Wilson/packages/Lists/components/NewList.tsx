@@ -26,7 +26,7 @@ export default function NewList({
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement>
     ) => setList({...list, [e.target.name]: e.target.value})
-
+    
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>,
     ) => {

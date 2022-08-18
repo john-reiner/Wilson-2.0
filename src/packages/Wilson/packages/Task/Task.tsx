@@ -7,7 +7,6 @@ import { ListType } from '../List/listTypes';
 
 interface TaskProps {
     taskProps: TaskType
-    listId: number | undefined
     route: string
     setList: React.Dispatch<React.SetStateAction<ListType>>
     list: ListType
@@ -16,15 +15,17 @@ interface TaskProps {
 
 export default function Task({
     taskProps,
-    listId,
     route,
     setList,
     list,
     setReloadTasks
 }: TaskProps) {
 
+    
     const [task, setTask] = useState<TaskType>(taskProps)
     const [taskShowOpened, setTaskShowOpened] = useState(false)
+
+    const taskRoute = `${route}/${task.id}`
 
     const handleTaskChange = (
         e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
@@ -33,14 +34,14 @@ export default function Task({
     const handleChecked = () => {
         const taskCompletedState = !task.completed
         setTask({...task, completed: taskCompletedState})
-        updateTask(`${route}${listId}/tasks/${task.id}`, {...task, completed: taskCompletedState})
+        updateTask(taskRoute, {...task, completed: taskCompletedState})
     }
 
     const updateTask = (
         route: string,
         task: object
     ) => {
-        fetch(route, {
+        fetch(taskRoute, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
@@ -103,8 +104,7 @@ export default function Task({
                     setTask={setTask}
                     taskShowOpened={taskShowOpened}
                     setTaskShowOpened={setTaskShowOpened}
-                    route={route}
-                    listId={listId}
+                    route={taskRoute}
                     id={task.id}
                     handleChecked={handleChecked}
                     completed={task.completed}

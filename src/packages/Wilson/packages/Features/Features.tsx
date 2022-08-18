@@ -20,8 +20,10 @@ export default function Features({
     const [features, setFeatures] = useState<FeatureType[]>([]);
     const [reloadFeatures, setReloadFeatures] = useState(true)
 
-    // const featuresRoute = `http://localhost:3001/api/v2/projects/${projectId}/features`
-    const featureRoute = `${route}${featureId}`
+
+
+    const featuresRoute = `${route}/features`
+    const featureRoute = `${featuresRoute}/${featureId}`
     
     useEffect(() => {
         if (reloadFeatures) {
@@ -31,7 +33,7 @@ export default function Features({
     }, [reloadFeatures]);
     
     const fetchFeatures = () => {
-        fetch(route, {
+        fetch(featuresRoute, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
@@ -67,15 +69,13 @@ export default function Features({
                     setFeatureModalOpen={setFeatureModalOpen}
                     featureModalOpen={featureModalOpen}
                     route={featureRoute}
-                    // setFetchAgainFlag={setFetchAgainFlag}
                     handleFeatureClose={handleFeatureClose}
                     setReloadFeatures={setReloadFeatures}
                 />
             }
             { newFeatureModalOpen && 
                 <NewFeature 
-                    // setFetchAgainFlag={setFetchAgainFlag} 
-                    route={route}
+                    route={featuresRoute}
                     setFeatureModalOpen={setFeatureModalOpen} 
                     newFeatureModalOpen={newFeatureModalOpen}
                     setNewFeatureModalOpen={setNewFeatureModalOpen}

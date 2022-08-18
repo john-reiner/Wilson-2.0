@@ -7,7 +7,7 @@ import { TaskType } from '../Task/taskTypes';
 import { ListType } from '../List/listTypes';
 import NewTask from './components/NewTask'
 
-interface TaskProps {
+interface TasksProps {
     listId: number | undefined
     route: string
     setList: React.Dispatch<React.SetStateAction<ListType>>
@@ -19,10 +19,12 @@ export default function Tasks({
     route,
     setList,
     list,
-}: TaskProps) {
+}: TasksProps) {
 
     const [tasks, setTasks] = useState<TaskType[]>([])
     const [reloadTasks, setReloadTasks] = useState(true)
+
+    const tasksRoute = `${route}/tasks`
 
     // get all tasks when this component mounts
     useEffect(() => {
@@ -40,12 +42,11 @@ export default function Tasks({
         setTasks([...tasks, newTask ])
     }
     
-
     const fetchTasks = (
         route: string,
         listId: number | undefined
     ) => {
-        fetch(`${route}${listId}/tasks`, {
+        fetch(tasksRoute, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -72,8 +73,7 @@ export default function Tasks({
                             key={task.id}
                             setList={setList}
                             list={list}
-                            listId={listId}
-                            route={route}
+                            route={tasksRoute}
                             setReloadTasks={setReloadTasks}
                         />
             })
@@ -84,7 +84,7 @@ export default function Tasks({
         <div>
             <NewTask
                 listId={list.id}
-                route={`${route}${list.id}/tasks`}
+                route={tasksRoute}
                 handleNewTask={handleNewTask}
             />   
             <List

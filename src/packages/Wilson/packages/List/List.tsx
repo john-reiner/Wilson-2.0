@@ -23,6 +23,8 @@ export default function List({
     route 
 }: ListProps) {
 
+
+
     // single source of truth for list and tasks
     const [list, setList] = useState<ListType>({
         id: "",
@@ -51,7 +53,7 @@ export default function List({
         route: string, 
         id: number | undefined
         ) => {
-        fetch(`${route}${id}`, {
+        fetch(route, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
@@ -82,7 +84,7 @@ export default function List({
         <div>
             {deleteModalOpen && 
                 <DeleteConfirmation
-                    route={`${route}${id}`}
+                    route={route}
                     successFunction={handleDeleteSuccess}
                     opened={deleteModalOpen}
                     setOpened={setDeleteModalOpen}

@@ -23,7 +23,6 @@ interface TaskShowProps {
     handleChecked: () => void
     listStatus: string
     completed: boolean
-    listId: number | undefined
     id: number | undefined,
     handleTaskChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     setReloadTasks: React.Dispatch<React.SetStateAction<boolean>>
@@ -39,7 +38,6 @@ export default function TaskShow({
     handleChecked,
     listStatus,
     completed,
-    listId,
     id,
     handleTaskChange,
     setReloadTasks
@@ -63,7 +61,7 @@ export default function TaskShow({
                     handleTaskChange={handleTaskChange}
                     setEdit={setEdit}
                     setTask={setTask}
-                    route={`${route}${listId}/tasks/${id}`}
+                    route={route}
                 />
             )
         }
@@ -84,7 +82,7 @@ export default function TaskShow({
             position="right" 
         >
             <DeleteModalConfirmation
-                route={`${route}${listId}/tasks/${id}`}
+                route={route}
                 item="task"
                 opened={deleteModalOpen}
                 setOpened={setDeleteModalOpen}

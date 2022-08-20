@@ -2,11 +2,13 @@ import React from 'react'
 import { Avatar, Center } from '@mantine/core'
 import StatusBadge from '../../StatusBadge'
 import PriorityBadge from '../../PriorityBadge'
+import UserAvatar from '../../UserAvatar'
+import { Author } from './DisplayAllLinks'
 
 interface LinkProps {
     title: string
     id: number
-    author: string
+    author: Author
     status?: string
     priority?: keyof PriorityColors
     modified: string
@@ -28,35 +30,8 @@ export default function Link({
     modified,
     linkClick
 }: LinkProps) {
-    // title, creator, modified, optional status
 
-    // const priorityColors: PriorityColors = {
-    //     high: "red",
-    //     medium: "yellow",
-    //     low: "grey"
-    // }
-
-    // const renderPriorityTitle = (
-    //     priority: keyof PriorityColors | undefined,
-    //     priorityColors: PriorityColors
-    // ) => {
-    //     if (priority) {
-    //         return (
-    //             <Center
-    //                 inline
-    //             >
-    //                 <Avatar 
-    //                     color={priorityColors[priority]}
-    //                     size="sm" 
-    //                     radius="xl"
-    //                     style={{marginRight: "1em"}}
-    //                 >{priority[0].toUpperCase()}</Avatar>
-    //                 {" " + title}
-    //             </Center>
-    //         )
-    //     }
-    //     return title
-    // }
+    console.log(author)
 
     return (
         <tr
@@ -74,7 +49,11 @@ export default function Link({
             {status && 
                 <td><StatusBadge size={"sm"} status={status}/></td>
             }
-            <td>{author}</td>
+            <td>
+                <UserAvatar
+                    author={author}
+                />
+            </td>
             <td>{modified}</td>
         </tr>
     )

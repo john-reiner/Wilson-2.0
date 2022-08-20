@@ -1,5 +1,5 @@
 import React from 'react'
-import { Paper, RadioGroup, Radio } from '@mantine/core'
+import { Paper, Radio } from '@mantine/core'
 import { FeatureType } from '../../../Features/featureTypes'
 
 interface FeaturePriorityProps {
@@ -52,7 +52,7 @@ export default function FeaturePriority({
             p="md"
             withBorder
         >
-            <RadioGroup
+            <Radio.Group
             label="Priority Level"
             value={priority}
             onChange={handlePriorityChange}
@@ -61,7 +61,7 @@ export default function FeaturePriority({
                 <Radio value="low" label="Low" />
                 <Radio value="medium" label="Medium" />
                 <Radio value="high" label="High" />
-            </RadioGroup>
+            </Radio.Group>
         </Paper>
     )
 }

@@ -52,27 +52,42 @@ export default function MainContainerHeader(props) {
                     span={1}
                     align="right"
                 >
-                    <Menu
+                    <Menu 
+                        trigger="hover" 
+                        width={200} 
+                        openDelay={100} 
+                        closeDelay={400}
+                        position="bottom-end"
+                        withArrow
+                    >
+                        <Menu.Target>
+                            <ActionIcon><Settings size={16} /></ActionIcon>
+                        </Menu.Target>
+                        <Menu.Dropdown>
+                            <Menu.Item
+                                icon={<Edit size={14} />}
+                                onClick={props.handleEditClick}
+                            >
+                                Edit
+                            </Menu.Item>
+                            <Divider />
+                            <Menu.Item
+                                color="red" 
+                                icon={<Trash size={14} />}
+                                onClick={props.handleDeleteClick}
+                            >
+                                Delete {props.type}
+                            </Menu.Item>
+                        </Menu.Dropdown>
+
+                    </Menu>
+                    {/* <Menu
                         opened={opened} 
                         onOpen={handlers.open} 
                         onClose={handlers.close}
                         control={<ActionIcon variant="hover" color="blue"><Settings size={16} /></ActionIcon>}
                     >
-                        <Menu.Item
-                            icon={<Edit size={14} />}
-                            onClick={props.handleEditClick}
-                        >
-                            Edit
-                        </Menu.Item>
-                        <Divider />
-                        <Menu.Item
-                            color="red" 
-                            icon={<Trash size={14} />}
-                            onClick={props.handleDeleteClick}
-                        >
-                            Delete {props.type}
-                        </Menu.Item>
-                    </Menu>
+                    </Menu> */}
                 </Grid.Col>
                 <Grid.Col 
                     span={9}

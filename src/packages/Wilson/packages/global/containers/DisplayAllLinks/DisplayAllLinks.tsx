@@ -10,10 +10,15 @@ interface PriorityColors {
     low: "grey"
 }
 
+export type Author = {
+    initials: string
+    full_name: string
+}
+
 export interface DataObjectInterface {
     id: number
     title: string
-    author: string
+    author: Author
     status?: string
     priority?: keyof PriorityColors
     modified?: string

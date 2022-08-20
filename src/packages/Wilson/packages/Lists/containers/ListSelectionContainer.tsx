@@ -18,6 +18,9 @@ export default function ListSelectionContainer({
         fetchLists()
     }, []);
 
+
+    console.log(lists)
+
     const fetchLists = () => {
         
         fetch(route, {
@@ -30,7 +33,7 @@ export default function ListSelectionContainer({
         )
         .then(response => response.json())
         .then(payload => {
-            setLists(payload.lists)
+            setLists(payload)
         })
         .catch(errors => {
             console.error(errors)

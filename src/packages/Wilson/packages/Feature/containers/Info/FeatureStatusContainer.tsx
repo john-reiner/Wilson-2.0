@@ -40,8 +40,6 @@ export default function FeatureStatusContainer({
     // updateFeature
 }: FeatureStatusContainerProps) {
 
-    const [value, setValue] = useState<string | null>(null)
-
     const statusData = [        
         { value: 'created', label: 'Created' },
         { value: 'working', label: 'Working' },

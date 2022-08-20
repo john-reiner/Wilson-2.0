@@ -1,7 +1,6 @@
 import React from 'react'
 
 import { Button, Stack, TextInput, Textarea } from '@mantine/core';
-import { DatePicker } from '@mantine/dates';
 import { FeatureType } from '../featureTypes';
 
 interface FeatureFormProps {

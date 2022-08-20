@@ -31,8 +31,6 @@ export default function Link({
     linkClick
 }: LinkProps) {
 
-    console.log(author)
-
     return (
         <tr
             style={

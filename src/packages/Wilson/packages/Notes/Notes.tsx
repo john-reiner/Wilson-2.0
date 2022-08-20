@@ -7,6 +7,7 @@ import NewNoteModal from './containers/NewNoteModal';
 import Note from '../Note/Note'
 import { NotesComponentsInterface, NoteType } from './noteTypes';
 import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
+import { Plus } from 'tabler-icons-react';
 
 interface NotesProps {
     route: string
@@ -81,26 +82,34 @@ export default function Notes({
     ) => notesComponents[key]
 
     return (
-        <div>
-            <NewNoteModal
-                opened={newNoteOpen}
-                setOpened={setNewNoteOpen}
-                setNotes={setNotes}
-                notes={notes}
-                route={notesRoute}
-            />
-            <Grid>
-                <Grid.Col>        
+        <Grid>
+            {newNoteOpen && 
+                <NewNoteModal
+                    opened={newNoteOpen}
+                    setOpened={setNewNoteOpen}
+                    setNotes={setNotes}
+                    notes={notes}
+                    route={notesRoute}
+                />
+            }
+                <Grid.Col
+                    xs={2}
+                >        
                     <Button
+                        fullWidth
+                        size='xs'
+                        color="blue"
+                        leftIcon={<Plus size={14} />}
                         onClick={handleNewNoteOpen}
                     >
                         New Note
                     </Button>
                 </Grid.Col>
-                <Grid.Col>
+                <Grid.Col
+                    xs={10}
+                >
                     {render(optionsToShow)}
                 </Grid.Col>
             </Grid>
-        </div>
     )
 }

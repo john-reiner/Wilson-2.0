@@ -10,8 +10,6 @@ export default function UserAvatar({
     author
 }: UserAvatarProps){
 
-    console.log(author)
-
     return (
         <HoverCard width={'fit-content'} shadow="md">
             <HoverCard.Target>

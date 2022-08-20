@@ -136,7 +136,7 @@ export default function FeatureModalContainer({
             opened={featureModalOpen}
             onClose={handleFeatureClose}
             closeOnClickOutside={false}
-            size="full" 
+            size="100%"
         >
             {deleteConfirmOpen &&
                 <DeleteModalConfirmation 

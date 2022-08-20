@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Stack } from '@mantine/core';
+import { Button, Grid, Stack } from '@mantine/core';
 
 import NewFeature from './Components/NewFeature';
 import Feature from '../Feature/Feature';
 import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
 import { FeatureType } from './featureTypes';
+import { Plus } from 'tabler-icons-react';
 
 interface FeaturesProps {
     route: string
@@ -63,7 +64,7 @@ export default function Features({
     }
 
     return (
-        <Stack>
+        <Grid>
             { featureModalOpen && 
                 <Feature 
                     setFeatureModalOpen={setFeatureModalOpen}
@@ -82,18 +83,29 @@ export default function Features({
                     setFeatureId={setFeatureId}
                 />
             }
-            <Button
-                onClick={() => setNewFeatureModalOpen(true)}
-            >New Feature</Button>
+            <Grid.Col
+                xs={2}
+            >
+                <Button
+                    fullWidth
+                    size='xs'
+                    color="blue"
+                    leftIcon={<Plus size={14} />}
+                    onClick={() => setNewFeatureModalOpen(true)}
+                >New Feature</Button>
+            </Grid.Col>
+            <Grid.Col
+                xs={10}
+            >
+                <DisplayAllLinks
+                    displayItem={"Feature"}
+                    data={features}
+                    linkClick={handleLinkClick}
+                    status={true}
+                    priority={true}
+                />
+            </Grid.Col>
 
-            <DisplayAllLinks
-                displayItem={"Feature"}
-                data={features}
-                linkClick={handleLinkClick}
-                status={true}
-                priority={true}
-            />
-
-        </Stack>
+        </Grid>
     )
 }

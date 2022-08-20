@@ -1,10 +1,13 @@
 import React, { useState} from 'react'
 
-import { Button, Stack } from '@mantine/core';
+import { Button, Grid } from '@mantine/core';
+
+import { Plus } from 'tabler-icons-react';
 
 import NewList from './components/NewList';
 import List from '../List/List';
-import ListSelectionContainer from './containers/ListSelectionContainer';
+import ListSelectionContainer from './containers/ListSelection';
+import ListsNav from './containers/ListsNav';
 
 export interface ListsComponentsInterface {
     new: JSX.Element;
@@ -57,22 +60,22 @@ export default function Lists({
         ) => componentsObject[name]
 
     return (
-        <Stack>
-            <Button
-
-                color="blue"
-                onClick={() => setContentTitle("new")}
+        <Grid>
+            <Grid.Col
+                xs={2}
             >
-                New List
-            </Button>
-            {contentTitle !== "all" &&
-                <Button
-                    variant="outline" 
-                    color="green"
-                    onClick={() => setContentTitle("all")}
-                >All Lists</Button>
-            }
-            {renderContent(components, contentTitle)}
-        </Stack>
+                <ListsNav 
+                    contentTitle={contentTitle}
+                    setContentTitle={setContentTitle}
+                />
+
+
+            </Grid.Col>
+            <Grid.Col
+                xs={10}
+            >
+                {renderContent(components, contentTitle)}
+            </Grid.Col>
+        </Grid>
     )
 }

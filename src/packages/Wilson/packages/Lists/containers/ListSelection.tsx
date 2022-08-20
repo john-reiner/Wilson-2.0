@@ -18,9 +18,6 @@ export default function ListSelectionContainer({
         fetchLists()
     }, []);
 
-
-    console.log(lists)
-
     const fetchLists = () => {
         
         fetch(route, {

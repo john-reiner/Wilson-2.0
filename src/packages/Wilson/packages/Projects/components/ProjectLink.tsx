@@ -1,7 +1,10 @@
 import React from 'react'
 import { ProjectInterface } from '../../global/interfaces/projectInterfaces';
 
-import { Image, Text, Title, Button, Grid, Paper, Stack } from '@mantine/core'
+import { Image, Text, Title, Button, Grid, Paper, Stack, Box, Table } from '@mantine/core'
+import UserAvatar from '../../global/UserAvatar';
+import { convertDate } from '../../global/helpers/convertDate';
+import LinkInfo from '../../Project/components/info/LinkInfo';
 
 interface ProjectLinkProps {
     project: ProjectInterface
@@ -14,48 +17,53 @@ export default function ProjectLink({
     handleProjectShow
 }: ProjectLinkProps) {
 
+    console.log(project)
+
     return (
-        <Grid.Col lg={6} xl={4}>
-            <Paper 
-                shadow="md" 
-                withBorder
+        <Grid.Col md={6} lg={3} xl={4}>
+            <Box
+                sx={(theme) => ({
+                    backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.colors.gray[0],
+                    padding: theme.spacing.xs,
+                    borderRadius: theme.radius.md,
+                    cursor: 'pointer',
+                    border: `solid 1px ${project.color}`,
+
+                    '&:hover': {
+                    backgroundColor:
+                        theme.colorScheme === 'dark' ? theme.colors.dark[5] : theme.colors.gray[1],
+                    },
+                })}
+                onClick={() => handleProjectShow(project.id ? project.id : 0)} 
             >
             
                 <Grid
                     grow
                 >
-                    <Grid.Col 
-                        sm={4}
-                    >
+                <Grid.Col xs={6}>
+                        <Stack>
+                            <Title 
+                                order={2}
+                                className="wilson-logo-small"
+                                color={project.color}
+                            >
+                                {project.title}
+                            </Title>
+                            <Text size="sm" lineClamp={1}>
+                                {project.description}
+                            </Text>
+                        </Stack>                  
+                </Grid.Col>
+                <Grid.Col 
+                    xs={6}
+                >
+                    <LinkInfo 
+                        project={project}
+                    />
 
-                        <Image 
-                            src={project.image ? project.image : "https://redzonekickboxing.com/wp-content/uploads/2017/04/default-image.jpg"} 
-                            height={160} 
-                            alt="Norway"
-                        />                    
-                    </Grid.Col>
-                    <Grid.Col sm={8}>
-                        <Paper
-                            p="xs"
-                        >
-                            <Stack>
-                                <Title order={2}>{project.title}</Title>
-                                <Text size="sm" lineClamp={1}>
-                                    {project.description}
-                                </Text>
-                                <Button 
-                                    variant="light" color="blue" 
-                                    fullWidth 
-                                    style={{ marginTop: 14 }}
-                                    onClick={() => handleProjectShow(project.id)} 
-                                >
-                                    View Project
-                                </Button>
-                            </Stack>                    
-                        </Paper>
-                    </Grid.Col>
-                </Grid>
-            </Paper>
+                </Grid.Col>
+            </Grid>
+            </Box>
         </Grid.Col>
         )
     }

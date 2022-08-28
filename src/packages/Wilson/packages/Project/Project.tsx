@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { ProjectInterface, ProjectComponents } from '../global/interfaces/projectInterfaces';
 
-import { Divider } from '@mantine/core';
+import { Box, Divider, Space, Tabs, useMantineTheme } from '@mantine/core';
 
 import ProjectInfoContainer from './containers/ProjectInfoContainer';
 import Features from '../Features/Features';
@@ -10,6 +10,8 @@ import Lists from '../Lists/Lists';
 import MainContainerHeader from '../global/MainContainerHeader';
 import EditProjectModal from './containers/EditProjectModal';
 import DeleteModalConfirmation from '../global/DeleteModalConfirmation';
+import { InfoSquare, ListCheck, Stars } from 'tabler-icons-react';
+import {Notes as NotesIcon } from 'tabler-icons-react'
 
 interface ProjectProps {
     id: number
@@ -23,19 +25,26 @@ export default function Project({
     route
 }: ProjectProps) {
 
+    
+    const theme = useMantineTheme();
+    
     const [projectContent, setProjectContent] = useState<keyof ProjectComponents>("info");
     const [project, setProject] = useState<ProjectInterface>({
         id: 0,
         title: "",
         description: "",
         github_url: "",
-        image: ""
-
+        image: "",
+        author: {
+            initials: "",
+            full_name: "",
+        }
+        
     });
     const [fetchAgainFlag, setFetchAgainFlag] = useState(false);
     const [deleteModalOpen, setDeleteModalOpen] = useState(false);
     const [editModalOpen, setEditModalOpen] = useState(false);
-
+    
     const fetchProject = () => {
         fetch(`http://localhost:3001/api/v2/projects/${id}`)
         .then(response => response.json())
@@ -51,55 +60,70 @@ export default function Project({
         fetchProject()
         setFetchAgainFlag(false)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [fetchAgainFlag]);
+}, [fetchAgainFlag]);
 
-    const renderContent = (
-        componentsObject: ProjectComponents,
-        name: keyof ProjectComponents
-        ) => componentsObject[name]
 
-    const handleTabClick = (
-        tabName: keyof ProjectComponents
-        ) => {
+const handleTabClick = (
+    tabName: keyof ProjectComponents
+    ) => {
         setProjectContent(tabName)
     }
-
+    
     const handleEditProjectClick = () => {
         setEditModalOpen(true)
     }
     const handleDeleteClick = () => setDeleteModalOpen(true)
-
+    
     const handleDeleteProject = () => {
         setViewToShow(0)
     }
-
-
+    
+    
     let projectComponents = {
         "info": <ProjectInfoContainer 
-                project={{...project}}
-            />,
+            project={{...project}}
+        />,
         "lists": <Lists
-                    route={route}
-                />,
-        "features": <Features 
-                    route={route}
-                />,
+            color={project.color}
+            colorName={project.color_name}
+            route={route}
+        />,
+        "features": <Features
+            route={route}
+            color={project.color}
+            colorName={project.color_name}
+        />,
         "notes": <Notes
-                route={route}
-            />
+            route={route}
+            color={project.color}
+            colorName={project.color_name}
+        />
+    }
+    
+    const renderContent = (
+        componentsObject: ProjectComponents,
+        name: keyof ProjectComponents
+        ) => componentsObject[name]
+        
+    const handleTabChange = (e: keyof ProjectComponents) => {
+        setProjectContent(e)
     }
 
-    const projectShowTabs = ["Info", "Lists", "Features", "Notes"]
-
     return (
-        <div>
+        <Box
+            sx={(theme) => ({
+                padding: theme.spacing.xs,
+                border: `solid 1px ${project.color}`,
+                height: "89.6vh"
+            })}
+        >
             {editModalOpen && 
                 <EditProjectModal 
-                    setModalOpen={setEditModalOpen}
-                    modalOpen={editModalOpen}
-                    project={project}
-                    setProject={setProject}
-                    setFetchAgainFlag={setFetchAgainFlag}
+                setModalOpen={setEditModalOpen}
+                modalOpen={editModalOpen}
+                project={project}
+                setProject={setProject}
+                setFetchAgainFlag={setFetchAgainFlag}
                 />
             }
             { deleteModalOpen && 
@@ -111,18 +135,38 @@ export default function Project({
                     item="Project"
                 />
             }
-            <MainContainerHeader 
+            <MainContainerHeader
+                color={project.color}
                 title={project.title}
                 github_url={project.github_url}
                 handleTabClick={handleTabClick}
                 handleEditClick={handleEditProjectClick}
                 handleDeleteClick={handleDeleteClick}
-                tabs={projectShowTabs}
+                // tabs={projectShowTabs}
                 type="Project"
             />
-            <Divider my="xs" />
-                {renderContent(projectComponents, projectContent)}
+                <Space my="sm" />
+                <Tabs 
+                    color={project.color_name}
+                    variant="pills"
+                    defaultValue="info"
+                    onTabChange={handleTabChange}
+                >
+                    <Tabs.List
+                        position="apart"
+                        grow
+                    >
+                        <Tabs.Tab value="info" icon={<InfoSquare size={20} />}>Info</Tabs.Tab>
+                        <Tabs.Tab value="lists" icon={<ListCheck size={20} />}>Lists</Tabs.Tab>
+                        <Tabs.Tab value="features" icon={<Stars size={20} />}>Features</Tabs.Tab>
+                        <Tabs.Tab value="notes" icon={<NotesIcon size={20} />}>Notes</Tabs.Tab>
+                    </Tabs.List>
 
-        </div>
+                    <Tabs.Panel value={projectContent} pt="xs">
+                        {renderContent(projectComponents, projectContent)}
+                    </Tabs.Panel>
+                </Tabs>
+
+        </Box>
     )
 }

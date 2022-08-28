@@ -11,12 +11,14 @@ interface NewListProps {
     setContentTitle: React.Dispatch<React.SetStateAction<keyof ListsComponentsInterface>>
     setSelectedListId: React.Dispatch<React.SetStateAction<number | undefined>>
     route: string
+    color?: string
 }
 
 export default function NewList({
     route,
     setContentTitle,
-    setSelectedListId
+    setSelectedListId,
+    color
 }: NewListProps) {
 
     const [list, setList] = useState({
@@ -67,7 +69,11 @@ export default function NewList({
                         onChange={handleChange}
                         name="title"
                     />
-                    <Button type="submit">Submit</Button>
+                    <Button
+                        type="submit"
+                        variant='outline'
+                        color={color}
+                    >Submit</Button>
                 </Stack>
             </form>
         </Paper>

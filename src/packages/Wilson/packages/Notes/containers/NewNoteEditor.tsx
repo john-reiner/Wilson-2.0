@@ -6,15 +6,15 @@ import { NoteType } from '../noteTypes';
 interface NewNoteEditorProps {
     setNotes: React.Dispatch<React.SetStateAction<NoteType[]>>
     notes: NoteType[]
-    setOpened: React.Dispatch<React.SetStateAction<boolean>>
     route: string
+    color?: string
 }
 
 export default function NewNoteEditor({
     setNotes,
     notes,
-    setOpened,
-    route
+    route,
+    color
 }: NewNoteEditorProps) {
 
     const [title, setTitle] = useState("");
@@ -37,7 +37,6 @@ export default function NewNoteEditor({
             })
         .then(response => response.json())
         .then(payload => {
-            setOpened(false)
             setNotes([...notes, payload])
         })
         .catch(errors => {
@@ -58,7 +57,11 @@ export default function NewNoteEditor({
                     onChange={(e) => setTitle(e.target.value)}
                 />
                 <RichTextEditor value={content} onChange={setContent} />
-                <Button type='submit'>Submit</Button>
+                <Button 
+                    color={color} 
+                    type='submit'
+                    variant='outline'
+                >Submit</Button>
             </Stack>
         </form>
     )

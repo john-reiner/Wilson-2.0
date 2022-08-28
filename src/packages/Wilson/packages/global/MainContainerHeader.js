@@ -7,13 +7,14 @@ import {
     Divider,
     Anchor,
     Box,
-    Group,
+    Space,
     Text
 } from '@mantine/core';
-import { Settings, Edit, Trash, BrandGithub } from 'tabler-icons-react';
+import { Settings, Edit, Trash, BrandGithub, InfoSquare } from 'tabler-icons-react';
 import { useDisclosure } from '@mantine/hooks';
 
 import Tab from './Tab';
+import Project from '../Project/Project';
 
 export default function MainContainerHeader(props) {
 
@@ -25,6 +26,7 @@ export default function MainContainerHeader(props) {
         return tabsArray.map(tab => {
             keyNum ++
             return <Tab 
+                        color={props.color}
                         name={tab}
                         activeTabIndex={activeTabIndex}
                         tabIndex={tabsArray.indexOf(tab)}
@@ -41,9 +43,8 @@ export default function MainContainerHeader(props) {
                     <Title 
                         order={2}
                         className="wilson-logo-small"
-                        // color="green"
                     >
-                        <Text color="green" inherit component="span">{props.title}</Text>
+                        <Text color={props.color} inherit component="span">{props.title}</Text>
                         
                     </Title>
                 </Grid.Col>
@@ -79,47 +80,7 @@ export default function MainContainerHeader(props) {
                                 Delete {props.type}
                             </Menu.Item>
                         </Menu.Dropdown>
-
                     </Menu>
-                    {/* <Menu
-                        opened={opened} 
-                        onOpen={handlers.open} 
-                        onClose={handlers.close}
-                        control={<ActionIcon variant="hover" color="blue"><Settings size={16} /></ActionIcon>}
-                    >
-                    </Menu> */}
-                </Grid.Col>
-                <Grid.Col 
-                    span={9}
-                >
-                    <Group spacing="xs">
-                        {renderTabs(props.tabs)}
-                    </Group>
-                </Grid.Col>
-                <Grid.Col 
-                    span={3}
-                    align="right"
-                >
-                    {props.github_url &&
-                    <Anchor href={props.github_url} target="_blank">
-                        <Box
-                            style={
-                                {
-                                    display: "flex",
-                                    justifyContent: "flex-end",
-                                    alignItems: "center"
-                                }
-                            }
-                        >
-                            <ActionIcon 
-                                variant="hover" 
-                                >
-                                <BrandGithub size={16} />
-                            </ActionIcon>
-                            <Box ml={5} mr={2}>GitHub</Box>
-                        </Box>
-                    </Anchor>
-                    }
                 </Grid.Col>
             </Grid>
     )

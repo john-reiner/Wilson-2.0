@@ -13,7 +13,13 @@ export default function UserAvatar({
     return (
         <HoverCard width={'fit-content'} shadow="md">
             <HoverCard.Target>
-                <Avatar color="cyan" radius="xl">{author.initials}</Avatar>
+                <Avatar 
+                    color="blue" 
+                    radius="xl"
+                    size="sm"
+                >
+                        {author.initials}
+                </Avatar>
             </HoverCard.Target>
             <HoverCard.Dropdown>
             <Text size="sm">

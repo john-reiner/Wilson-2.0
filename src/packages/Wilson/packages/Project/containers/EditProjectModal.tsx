@@ -26,12 +26,26 @@ export default function EditProjectModal({
         title: "",
         description: "",
         github_url: "",
-        image: ""
+        image: "",
+        author: {
+            initials: "",
+            full_name: "",
+        }
     });
+
+    console.log(editedProject.color)
 
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
         ) => setEditedProject({...editedProject, [e.target.name]:e.target.value})
+
+    const setColor = (
+        color: string,
+        name: string
+    ) => {
+        console.log(color)
+        setEditedProject({...editedProject, "color": color, "color_name": name })
+    }
 
     useEffect(() => {
         setEditedProject(project)
@@ -75,6 +89,8 @@ export default function EditProjectModal({
                 setProject={setEditedProject}
                 handleChange={handleChange}
                 handleSubmit={handleSubmit}
+                setColor={setColor}
+                projectColor={editedProject.color}
             />
         </Modal>
     )

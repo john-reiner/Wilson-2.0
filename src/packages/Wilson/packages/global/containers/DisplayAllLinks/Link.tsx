@@ -4,6 +4,7 @@ import StatusBadge from '../../StatusBadge'
 import PriorityBadge from '../../PriorityBadge'
 import UserAvatar from '../../UserAvatar'
 import { Author } from './DisplayAllLinks'
+import { convertDate } from '../../helpers/convertDate'
 
 interface LinkProps {
     title: string
@@ -11,7 +12,7 @@ interface LinkProps {
     author: Author
     status?: string
     priority?: keyof PriorityColors
-    modified: string
+    modified?: string
     linkClick: (id: number) => void
 }
 
@@ -52,7 +53,7 @@ export default function Link({
                     author={author}
                 />
             </td>
-            <td>{modified}</td>
+            <td>{convertDate(modified)}</td>
         </tr>
     )
 }

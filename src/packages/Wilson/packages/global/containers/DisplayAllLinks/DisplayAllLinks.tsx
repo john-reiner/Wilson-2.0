@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 
-import { Paper, Title, Text, Divider, Table } from '@mantine/core'
+import { Paper, Title, Text, Divider, Table, Box } from '@mantine/core'
 
 import Link from './Link'
+import InfoContainer from '../../InfoContainer'
 
 interface PriorityColors {
     high: "red",
@@ -29,7 +30,8 @@ interface DisplayAllLinksProps {
     data: any[]
     linkClick: (id: number) => void
     status?: boolean
-    priority?: boolean
+    priority?: boolean,
+    color?: string
 }
 
 export default function DisplayAllLinks({
@@ -37,7 +39,8 @@ export default function DisplayAllLinks({
     data,
     linkClick,
     status,
-    priority
+    priority,
+    color
 }: DisplayAllLinksProps) {
 
     const [convertedData, setConvertedData] = useState<DataObjectInterface[]>([])
@@ -84,7 +87,7 @@ export default function DisplayAllLinks({
                         title={dataObject.title}
                         author={dataObject.author}
                         status={dataObject.status}
-                        modified="1/1/2000"
+                        modified={dataObject.modified}
                         linkClick={linkClick}
                         priority={dataObject.priority}
                     />
@@ -94,49 +97,58 @@ export default function DisplayAllLinks({
     }
 
 
-
     return (
-        <Paper
-            shadow="xs" 
-            withBorder
-        >
-            <Paper
-                p="lg"
-            >
-                <Title 
-                    order={3}
-                >
-                    All {displayItem + "s"}
-                </Title>
-                <Text>{
-                        data.length > 0 ?
-                            data.length + " " + pluralizeDisplayItem(displayItem, data.length)
-                        :
-                            "No " + pluralizeDisplayItem(displayItem, data.length) + " created yet"
-                    }</Text>
-            </Paper>
-            <Divider/>
-            <Table
-                striped
-                highlightOnHover
-            >
-                <thead>
-                    <tr>
-                        <th>Title</th>
-                        {priority && 
-                            <th>Priority</th>       
-                        }
-                        {status && 
-                            <th>Status</th>
-                        }
-                        <th>Author</th>
-                        <th>Modified</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {renderLinks(convertedData)}
-                </tbody>
-            </Table>
-        </Paper>
+        <InfoContainer
+            title={displayItem + "s"}
+            color={color}
+            totals={data.length}
+            render={
+                    <Table
+                        striped
+                        highlightOnHover
+                    >
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                {priority && 
+                                    <th>Priority</th>       
+                                }
+                                {status && 
+                                    <th>Status</th>
+                                }
+                                <th>Author</th>
+                                <th>Modified</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {renderLinks(convertedData)}
+                        </tbody>
+                    </Table>
+            }
+        />
+
     )
 }
+        // <Paper
+        //     withBorder
+        // >
+        //     <Paper
+        //         p="lg"
+        //     >
+        //         <Title 
+        //             order={3}
+        //             className="wilson-logo-small"
+        //         >
+        //             All {displayItem + "s"}
+        //         </Title>
+        //         <Text
+        //             className="wilson-logo-small"
+        //         >{
+        //                 data.length > 0 ?
+        //                     data.length + " " + pluralizeDisplayItem(displayItem, data.length)
+        //                 :
+        //                     "No " + pluralizeDisplayItem(displayItem, data.length) + " created yet"
+        //             }</Text>
+        //     </Paper>
+        //     <Divider/>
+        // </Paper>

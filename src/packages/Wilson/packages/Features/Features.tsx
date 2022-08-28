@@ -1,21 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Grid, Stack } from '@mantine/core';
+import { Button, Grid, Paper, Stack } from '@mantine/core';
 
 import NewFeature from './Components/NewFeature';
 import Feature from '../Feature/Feature';
 import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
 import { FeatureType } from './featureTypes';
-import { Plus } from 'tabler-icons-react';
+import { Plus, Stars } from 'tabler-icons-react';
+import InfoContainer from '../global/InfoContainer';
 
 interface FeaturesProps {
     route: string
+    color?: string
+    colorName?: string
 }
 
 export default function Features({
-    route
+    route,
+    color,
+    colorName
 }: FeaturesProps) {
     
-    const [newFeatureModalOpen, setNewFeatureModalOpen] = useState(false);
+    const [newFeature, setNewFeature] = useState(false);
     const [featureModalOpen, setFeatureModalOpen] = useState(false);
     const [featureId, setFeatureId] = useState<number>(0);
     const [features, setFeatures] = useState<FeatureType[]>([]);
@@ -63,49 +68,91 @@ export default function Features({
         setReloadFeatures(true)
     }
 
-    return (
-        <Grid>
-            { featureModalOpen && 
-                <Feature 
-                    setFeatureModalOpen={setFeatureModalOpen}
-                    featureModalOpen={featureModalOpen}
-                    route={featureRoute}
-                    handleFeatureClose={handleFeatureClose}
-                    setReloadFeatures={setReloadFeatures}
-                />
-            }
-            { newFeatureModalOpen && 
+    const renderContent = (
+        newFeatureBool: boolean
+        ) => {
+        if (newFeatureBool) {
+            return (
                 <NewFeature 
                     route={featuresRoute}
                     setFeatureModalOpen={setFeatureModalOpen} 
-                    newFeatureModalOpen={newFeatureModalOpen}
-                    setNewFeatureModalOpen={setNewFeatureModalOpen}
+                    color={colorName}
                     setFeatureId={setFeatureId}
                 />
-            }
-            <Grid.Col
-                xs={2}
-            >
-                <Button
-                    fullWidth
-                    size='xs'
-                    color="blue"
-                    leftIcon={<Plus size={14} />}
-                    onClick={() => setNewFeatureModalOpen(true)}
-                >New Feature</Button>
-            </Grid.Col>
-            <Grid.Col
-                xs={10}
-            >
-                <DisplayAllLinks
-                    displayItem={"Feature"}
-                    data={features}
-                    linkClick={handleLinkClick}
-                    status={true}
-                    priority={true}
-                />
-            </Grid.Col>
+                )
+            } else {
+                return (
+                    <DisplayAllLinks
+                        displayItem={"Feature"}
+                        data={features}
+                        linkClick={handleLinkClick}
+                        status={true}
+                        priority={true}
+                        color={color}
+                    />
+            )
+        }
+    }
 
+
+    return (
+        <Grid>
+        { featureModalOpen && 
+            <Feature 
+                setFeatureModalOpen={setFeatureModalOpen}
+                featureModalOpen={featureModalOpen}
+                route={featureRoute}
+                handleFeatureClose={handleFeatureClose}
+                setReloadFeatures={setReloadFeatures}
+            />
+        }
+                    <Grid.Col
+                        xs={3}
+                        >
+                        <InfoContainer 
+                            color={color}
+                            render={
+                                <Paper
+                                    withBorder
+                                    style={
+                                        {
+                                            height: "100%"
+                                        }
+                                    }
+                                    p={"xs"}
+                                >
+                                    <Stack>
+                                        <Button
+                                            fullWidth
+                                            size='xs'
+                                            color={colorName}
+                                            variant={newFeature ? "outline" : "filled"}
+                                            leftIcon={<Stars size={14} />}
+                                            onClick={() => setNewFeature(false)}
+                                            >
+                                                All Features
+                                        </Button>
+                                        <Button
+                                            fullWidth
+                                            size='xs'
+                                            color={colorName}
+                                            variant={newFeature ? "filled" : "outline"}
+                                            leftIcon={<Plus size={14} />}
+                                            onClick={() => setNewFeature(true)}
+                                            >
+                                                New Feature
+                                        </Button>
+                                    </Stack>
+                                </Paper>
+                            }
+                        />
+                    </Grid.Col>
+                    <Grid.Col
+                        xs={9}
+                        >
+
+                        {renderContent(newFeature)}
+                    </Grid.Col>
         </Grid>
     )
 }

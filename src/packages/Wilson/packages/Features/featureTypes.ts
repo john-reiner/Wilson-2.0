@@ -5,5 +5,6 @@ export interface FeatureType {
     description: string
     due_date: string,
     status: string
-    priority: string
+    priority: string,
+    modified?: string
 }

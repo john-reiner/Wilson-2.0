@@ -66,7 +66,8 @@ export default function Task({
             if (completed) {
                 return (
                     <ActionIcon 
-                        color="green"
+                        color="lime"
+                        variant="transparent"
                         size={24}
                         onClick={handleChecked}
                     >
@@ -77,6 +78,7 @@ export default function Task({
             return (
                 <ActionIcon 
                     color="blue" 
+                    variant="transparent"
                     size={24} 
                     onClick={handleChecked}
                 >
@@ -123,7 +125,7 @@ export default function Task({
                 }
             >
                 <Text 
-                    color="gray"
+                    // color="gray"
                     component="a"
                     sx={(theme) => ({
                         '&:hover': {

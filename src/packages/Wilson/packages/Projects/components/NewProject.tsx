@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import { NewProjectInterface } from '../../global/interfaces/projectInterfaces';
+import { ProjectInterface } from '../../global/interfaces/projectInterfaces';
 import { Container, Group, Title, Button, Divider } from '@mantine/core';
 import { ArrowBackUp } from 'tabler-icons-react';
 import ProjectForm from '../../global/containers/ProjectForm/ProjectForm';
@@ -14,16 +14,27 @@ export default function NewProject({
     setViewToShow
 }: NewProjectProps) {
 
-    const [newProject, setNewProject] = useState<NewProjectInterface>({
+    const [newProject, setNewProject] = useState<ProjectInterface>({
         title: "",
         description: "",
         github_url: "",
-        image: ""
+        image: "",
+        author: {
+            initials: "",
+            full_name: "",
+        }
     });
     
     const handleChange = (
         e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>
         ) => setNewProject({...newProject, [e.target.name]:e.target.value})
+
+    const setColor = (
+        color: string,
+        name: string
+    ) => {
+        setNewProject({...newProject, "color": color, "color_name": name })
+    }
     
     const handleSubmit = (
         e: React.FormEvent<HTMLFormElement>
@@ -44,7 +55,11 @@ export default function NewProject({
                     title: "",
                     description: "",
                     github_url: "",
-                    image: ""
+                    image: "",
+                    author: {
+                        initials: "",
+                        full_name: "",
+                    }
                 }
             )
             handleProjectShow(payload.id)
@@ -72,6 +87,8 @@ export default function NewProject({
                 handleSubmit={handleSubmit}
                 setProject={setNewProject}
                 handleChange={handleChange}
+                setColor={setColor}
+                projectColor={newProject.color}
             />
         </Container>
     )

@@ -1,100 +1,109 @@
 import React, {useState} from 'react'
-import { ProjectInterface, NewProjectInterface } from '../../interfaces/projectInterfaces';
+import { ProjectInterface } from '../../interfaces/projectInterfaces';
 
-import { TextInput, Textarea, Button, Stack, Image, Divider } from '@mantine/core';
-import { BrandGithub } from 'tabler-icons-react';
-
-import PictureSelectionModal from './PictureSelectionModal';
+import { TextInput, Textarea, Button, Stack, Image, Divider, Group, useMantineTheme, Paper, Text, Grid } from '@mantine/core';
+import { BrandGithub, ColorSwatch } from 'tabler-icons-react';
 
 interface ProjectFormProps {
-    project: ProjectInterface | NewProjectInterface
-    setProject: React.Dispatch<React.SetStateAction<ProjectInterface>> | React.Dispatch<React.SetStateAction<NewProjectInterface>>
+    project: ProjectInterface
+    setProject: React.Dispatch<React.SetStateAction<ProjectInterface>>
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
+    setColor: (color: string, name: string) => void
+    projectColor?: string
 }
 
 export default function ProjectForm({
     project,
     setProject,
     handleChange,
-    handleSubmit
+    handleSubmit,
+    setColor,
+    projectColor
 }: ProjectFormProps) {
 
-    const [photoSelectOpen, setPhotoSelectOpen] = useState(false);
+    const theme = useMantineTheme();
+
+    const swatches = Object.keys(theme.colors).map((color) => (
+        <ColorSwatch
+            key={color} 
+            color={theme.colors[color][6]}
+            onClick={() => setColor(theme.colors[color][6], color)}
+        />
+    ));
+
+    console.log(theme.colors)
 
     return (
-        <div>
-            <PictureSelectionModal
-                opened={photoSelectOpen}
-                setOpened={setPhotoSelectOpen}
-                setProject={setProject}
-                project={project}
-            />
-            <form onSubmit={handleSubmit}>
-                <Stack>
-                    <TextInput
-                        placeholder="Example Project..."
-                        label="Project Name"
-                        required
-                        name="title" 
-                        value={project.title} 
-                        onChange={handleChange}
-                    />
-                    <Textarea
-                        placeholder="Description..."
-                        label="Project Description"
-                        name="description" 
-                        value={project.description} 
-                        onChange={handleChange}
-                    />
-                    <TextInput 
-                        label="GitHub URL" 
-                        placeholder="github" 
-                        icon={<BrandGithub size={14} />} 
-                        name="github_url"
-                        value={project.github_url} 
-                        onChange={handleChange}
-                    />
-                    { project.image ?  
-                        <Stack>
-                            <Button 
-                                variant="subtle" 
-                                size="xs"
-                                onClick={() => setPhotoSelectOpen(true)}
+        <form onSubmit={handleSubmit}>
+            <Stack>
+                <TextInput
+                    placeholder="Example Project..."
+                    label="Project Name"
+                    required
+                    name="title" 
+                    value={project.title} 
+                    onChange={handleChange}
+                />
+                <Textarea
+                    placeholder="Description..."
+                    label="Project Description"
+                    name="description" 
+                    value={project.description} 
+                    onChange={handleChange}
+                />
+                <TextInput 
+                    label="GitHub URL" 
+                    placeholder="github" 
+                    icon={<BrandGithub size={14} />} 
+                    name="github_url"
+                    value={project.github_url} 
+                    onChange={handleChange}
+                />
+                <Paper
+                    withBorder
+                    p="lg"
+                >
+                    <Grid>
+                        <Grid.Col
+                            xs={3}
+                        >
+                            <Stack
+                                align="center"
                             >
-                                Change Photo
-                            </Button>
-                            <Image
-                                style={{
-                                    cursor: "pointer"
-                                }}
-                                height={200}
-                                src={project.image}
-                                radius="sm"
-                            />
-                        </Stack>
-                        :
-                        <Stack>
-                            <Button 
-                                    variant="subtle" 
-                                    size="xs"
-                                    onClick={() => setPhotoSelectOpen(true)}
-                                >
-                                    Add a Photo
-                            </Button>        
-                        </Stack>
-                    }
-                    <Divider/>
-                    <Button
-                        type="submit"
-                        fullWidth
-                        color="green"
-                        variant="outline"
-                    >
-                        Submit
-                    </Button>
-                </Stack>
-            </form>            
-        </div>
+                                <Text size="sm">Project Color</Text>
+                                <ColorSwatch
+                                    color={projectColor}
+                                />
+                            </Stack>                            
+                        </Grid.Col>
+                        <Grid.Col
+                            xs={9}
+                        >
+                            <Group 
+                                position="center" 
+                                spacing="xs"
+                            >
+                                {swatches}
+                            </Group>
+                        </Grid.Col>
+                    </Grid>
+                    <Divider 
+                        orientation="vertical"
+                        my={"xs"}
+                    />
+
+                </Paper>
+                <Divider/>
+                <Button
+                    type="submit"
+                    fullWidth
+                    color="green"
+                    variant="outline"
+                >
+                    Submit
+                </Button>
+            </Stack>
+        </form>            
     )
 }

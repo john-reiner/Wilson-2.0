@@ -109,9 +109,7 @@ export default function FeatureModalContainer({
         info: <FeatureInfoContainer
                 feature={{...feature}}
                 setFeature={setFeature}
-                // updateFeature={updateFeature}
                 route={route}
-                // setFetchAgainFlag={setFetchAgainFlag} 
             />,
         lists: <Lists
                 route={route}

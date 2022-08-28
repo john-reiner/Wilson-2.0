@@ -7,12 +7,14 @@ interface FeatureFormProps {
     handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void
     feature: FeatureType
     handleChange: (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => void
+    color?: string
 }
 
 export default function FeatureForm({
     handleSubmit,
     feature,
-    handleChange
+    handleChange,
+    color
 }: FeatureFormProps) {
     
     return (
@@ -37,6 +39,7 @@ export default function FeatureForm({
                     type="submit"
                     fullWidth 
                     variant="outline"
+                    color={color}
                 >
                     Submit
                 </Button>

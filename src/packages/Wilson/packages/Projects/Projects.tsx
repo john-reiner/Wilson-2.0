@@ -21,7 +21,7 @@ export default function Projects({
     route
 }: ProjectsProps) {
 
-    const [projects, setProjects] = useState([]);
+    const [projects, setProjects] = useState<ProjectInterface[]>([]);
 
     useEffect(() => {
         fetchProjects()
@@ -84,7 +84,7 @@ export default function Projects({
             </Group>
             <Divider my="xs"/>
             <Grid 
-                justify="space-around" 
+                grow
             >
                 {renderProjectLinks()}
             </Grid>

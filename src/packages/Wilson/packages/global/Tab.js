@@ -12,8 +12,8 @@ export default function Tab(props) {
     return (
         <Button
             compact
-            variant="outline" 
-            color={props.tabIndex === props.activeTabIndex ? "green" : "blue"}
+            variant="outline"
+            color={props.tabIndex === props.activeTabIndex ? props.color : "blue"}
             onClick={handleClick}
         >
             {props.name}

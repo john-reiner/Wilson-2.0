@@ -10,6 +10,7 @@ export interface NoteType {
 export interface NotesComponentsInterface {
     notes: JSX.Element;
     note: JSX.Element
+    new: JSX.Element
 }
 
 export interface NoteComponentsInterface {

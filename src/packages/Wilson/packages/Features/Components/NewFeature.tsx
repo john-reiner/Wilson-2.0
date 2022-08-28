@@ -1,26 +1,20 @@
 import React, {useState} from 'react'
 
-import { Modal } from '@mantine/core';
-
 import FeatureForm from './FeatureForm';
 import { FeatureType } from '../featureTypes';
 
 interface NewFeatureProps {
-    // setFetchAgainFlag: React.Dispatch<React.SetStateAction<boolean>>
     route:string
     setFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
-    setNewFeatureModalOpen: React.Dispatch<React.SetStateAction<boolean>>
     setFeatureId: React.Dispatch<React.SetStateAction<number>>
-    newFeatureModalOpen: true
+    color?: string
 }
 
 export default function NewFeature({
-    // setFetchAgainFlag,
     route,
     setFeatureModalOpen,
-    setNewFeatureModalOpen,
     setFeatureId,
-    newFeatureModalOpen
+    color
 }: NewFeatureProps) {
 
     const [feature, setFeature] = useState<FeatureType>({
@@ -29,7 +23,8 @@ export default function NewFeature({
         due_date: "",
         author: "",
         priority: "low",
-        status: "created"
+        status: "created",
+        modified: ""
     });
 
     const handleSubmit = (
@@ -52,11 +47,11 @@ export default function NewFeature({
                 due_date: "",
                 author: "",
                 priority: "low",
-                status: "created"
+                status: "created",
+                modified: ""
             })
             setFeatureId(payload.id)
             setFeatureModalOpen(true)
-            setNewFeatureModalOpen(false)
         })
         .catch(errors => {
             console.error(errors)
@@ -68,20 +63,11 @@ export default function NewFeature({
     ) => setFeature({...feature, [e.target.name]:e.target.value})
 
     return (
-        <Modal
-            opened={newFeatureModalOpen}
-            onClose={() => setNewFeatureModalOpen(false)}
-            title="Create a new Feature"
-            padding="xl"
-            size="xl"
-            transition="fade"
-            transitionDuration={600}
-        >
             <FeatureForm
                 handleSubmit={handleSubmit}
                 feature={{...feature}}
                 handleChange={handleChange}
+                color={color}
             />
-        </Modal>
         )
     }

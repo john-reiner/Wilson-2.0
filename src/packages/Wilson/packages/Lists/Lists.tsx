@@ -8,6 +8,7 @@ import NewList from './components/NewList';
 import List from '../List/List';
 import ListSelectionContainer from './containers/ListSelection';
 import ListsNav from './containers/ListsNav';
+import InfoContainer from '../global/InfoContainer';
 
 export interface ListsComponentsInterface {
     new: JSX.Element;
@@ -17,10 +18,14 @@ export interface ListsComponentsInterface {
 
 interface ListsProps {
     route: string
+    color?: string
+    colorName?: string
 }
 
 export default function Lists({
-    route
+    route,
+    color,
+    colorName
 }: ListsProps) {
 
     
@@ -39,6 +44,7 @@ export default function Lists({
 
     const components = {
         "new" : <NewList
+                    color={colorName}
                     route={listsRoute}
                     setContentTitle={setContentTitle}
                     setSelectedListId={setSelectedListId}
@@ -46,6 +52,7 @@ export default function Lists({
         "all": <ListSelectionContainer
                     handleListSelection={handleListSelection}
                     route={listsRoute}
+                    color={color}
                 />,
         "list": <List
                     id={selectedListId}
@@ -62,17 +69,21 @@ export default function Lists({
     return (
         <Grid>
             <Grid.Col
-                xs={2}
+                xs={3}
             >
-                <ListsNav 
-                    contentTitle={contentTitle}
-                    setContentTitle={setContentTitle}
+                <InfoContainer 
+                    color={color}
+                    render={
+                        <ListsNav
+                            color={colorName}
+                            contentTitle={contentTitle}
+                            setContentTitle={setContentTitle}
+                        />
+                    }
                 />
-
-
             </Grid.Col>
             <Grid.Col
-                xs={10}
+                xs={9}
             >
                 {renderContent(components, contentTitle)}
             </Grid.Col>

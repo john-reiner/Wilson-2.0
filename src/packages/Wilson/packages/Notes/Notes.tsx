@@ -1,26 +1,29 @@
 import React, {useState, useEffect} from 'react'
 
-import { Button, Grid } from '@mantine/core';
-
-import NewNoteModal from './containers/NewNoteModal';
+import { Button, Grid, Paper } from '@mantine/core';
 
 import Note from '../Note/Note'
 import { NotesComponentsInterface, NoteType } from './noteTypes';
 import DisplayAllLinks from '../global/containers/DisplayAllLinks/DisplayAllLinks';
 import { Plus } from 'tabler-icons-react';
+import NewNoteEditor from './containers/NewNoteEditor';
+import InfoContainer from '../global/InfoContainer';
 
 interface NotesProps {
     route: string
+    color?: string
+    colorName?: string
 }
 
 export default function Notes({
-    route
+    route,
+    color,
+    colorName
 }: NotesProps) {
 
     
     
     const [notes, setNotes] = useState<NoteType[]>([]);
-    const [newNoteOpen, setNewNoteOpen] = useState(false);
     const [fetchFlag, setFetchFlag] = useState(true);
     const [noteShowId, setNoteShowId] = useState<number | null>(null);
     const [optionsToShow, setOptionsToShow] = useState<keyof NotesComponentsInterface>('notes');
@@ -35,8 +38,6 @@ export default function Notes({
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fetchFlag]);
-
-    const handleNewNoteOpen = () => setNewNoteOpen(true)
 
     const fetchNotes = () => {
         fetch(notesRoute, {
@@ -64,11 +65,18 @@ export default function Notes({
     }
 
     const notesComponents = {
+        new: <NewNoteEditor
+                setNotes={setNotes}
+                notes={notes}
+                route={notesRoute}
+                color={colorName}
+            />,
         notes:<DisplayAllLinks
                 displayItem={"note"}
                 data={notes}
                 linkClick={handleLinkClick}
                 status={false}
+                color={color}
             />,
         note: <Note 
                     route={noteRoute}
@@ -83,7 +91,7 @@ export default function Notes({
 
     return (
         <Grid>
-            {newNoteOpen && 
+            {/* {newNoteOpen && 
                 <NewNoteModal
                     opened={newNoteOpen}
                     setOpened={setNewNoteOpen}
@@ -91,22 +99,35 @@ export default function Notes({
                     notes={notes}
                     route={notesRoute}
                 />
-            }
+            } */}
                 <Grid.Col
-                    xs={2}
-                >        
-                    <Button
-                        fullWidth
-                        size='xs'
-                        color="blue"
-                        leftIcon={<Plus size={14} />}
-                        onClick={handleNewNoteOpen}
-                    >
-                        New Note
-                    </Button>
+                    xs={3}
+                >
+                    <InfoContainer
+                        color={color}
+                        render={
+                            <Paper
+                                withBorder
+                                p={"xs"}
+                                style={{
+                                    height: "100%"
+                                }}
+                            >
+                                <Button
+                                    fullWidth
+                                    size='xs'
+                                    color={colorName}
+                                    leftIcon={<Plus size={14} />}
+                                    onClick={() => setOptionsToShow("new")}
+                                >
+                                    New Note
+                                </Button>
+                            </Paper>
+                        }
+                    />
                 </Grid.Col>
                 <Grid.Col
-                    xs={10}
+                    xs={9}
                 >
                     {render(optionsToShow)}
                 </Grid.Col>

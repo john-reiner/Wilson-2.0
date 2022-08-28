@@ -5,11 +5,13 @@ import DisplayAllLinks from '../../global/containers/DisplayAllLinks/DisplayAllL
 interface ListSelectionContainerProps {
     handleListSelection: (id: number) => void
     route: string
+    color?: string
 }
 
 export default function ListSelectionContainer({
     handleListSelection,
-    route
+    route,
+    color
 }: ListSelectionContainerProps) {
 
     const [lists, setLists] = useState([]);
@@ -44,6 +46,7 @@ export default function ListSelectionContainer({
                 data={lists}
                 linkClick={handleListSelection}
                 status={true}
+                color={color}
             />
         </div>
     )

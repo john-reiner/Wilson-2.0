@@ -55,7 +55,8 @@ export default function StatusContainer({
         }
         return (
             <StatusBadge
-                status={status}
+                status={"ready"}
+                size="sm"
             />
         )
     }

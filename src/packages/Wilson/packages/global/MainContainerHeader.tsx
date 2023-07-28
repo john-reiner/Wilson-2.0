@@ -5,37 +5,25 @@ import {
     Grid, 
     Title, 
     Divider,
-    Anchor,
-    Box,
-    Space,
     Text
 } from '@mantine/core';
-import { Settings, Edit, Trash, BrandGithub, InfoSquare } from 'tabler-icons-react';
-import { useDisclosure } from '@mantine/hooks';
+import { Settings, Edit, Trash } from 'tabler-icons-react';
 
-import Tab from './Tab';
-import Project from '../Project/Project';
+interface MainContainerHeaderProps {
+    color: string | undefined
+    title: string
+    handleEditClick: () => void
+    handleDeleteClick: () => void
+    type: string
+}
 
-export default function MainContainerHeader(props) {
-
-    const [opened, handlers] = useDisclosure(false);
-    const [activeTabIndex, setActiveTabIndex] = useState(0);
-
-    const renderTabs = (tabsArray) => {
-        let keyNum = -1
-        return tabsArray.map(tab => {
-            keyNum ++
-            return <Tab 
-                        color={props.color}
-                        name={tab}
-                        activeTabIndex={activeTabIndex}
-                        tabIndex={tabsArray.indexOf(tab)}
-                        handleTabClick={props.handleTabClick}
-                        setActiveTabIndex={setActiveTabIndex}
-                        key={keyNum}
-                    />
-        })
-    }
+export default function MainContainerHeader({
+    color,
+    title,
+    handleEditClick,
+    type,
+    handleDeleteClick
+}: MainContainerHeaderProps) {
 
     return (
             <Grid align="center">
@@ -44,14 +32,14 @@ export default function MainContainerHeader(props) {
                         order={2}
                         className="wilson-logo-small"
                     >
-                        <Text color={props.color} inherit component="span">{props.title}</Text>
+                        <Text color={color} inherit component="span">{title}</Text>
                         
                     </Title>
                 </Grid.Col>
 
                 <Grid.Col 
                     span={1}
-                    align="right"
+                    // align="right"
                 >
                     <Menu 
                         trigger="hover" 
@@ -67,7 +55,7 @@ export default function MainContainerHeader(props) {
                         <Menu.Dropdown>
                             <Menu.Item
                                 icon={<Edit size={14} />}
-                                onClick={props.handleEditClick}
+                                onClick={handleEditClick}
                             >
                                 Edit
                             </Menu.Item>
@@ -75,9 +63,9 @@ export default function MainContainerHeader(props) {
                             <Menu.Item
                                 color="red" 
                                 icon={<Trash size={14} />}
-                                onClick={props.handleDeleteClick}
+                                onClick={handleDeleteClick}
                             >
-                                Delete {props.type}
+                                Delete {type}
                             </Menu.Item>
                         </Menu.Dropdown>
                     </Menu>

@@ -138,8 +138,6 @@ const handleTabClick = (
             <MainContainerHeader
                 color={project.color}
                 title={project.title}
-                github_url={project.github_url}
-                handleTabClick={handleTabClick}
                 handleEditClick={handleEditProjectClick}
                 handleDeleteClick={handleDeleteClick}
                 // tabs={projectShowTabs}

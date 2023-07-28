@@ -55,7 +55,6 @@ export default function AuthContainer({
                         <Title 
                             order={1}
                             className="wilson-logo-full"
-                            // size="xl"
                             align="center"
                             color="green"
                         >

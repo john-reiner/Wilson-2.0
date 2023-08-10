@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import { ProjectInterface } from '../../interfaces/projectInterfaces';
 
-import { TextInput, Textarea, Button, Stack, Image, Divider, Group, useMantineTheme, Paper, Text, Grid } from '@mantine/core';
+import { TextInput, Textarea, Button, Stack, Divider, Group, useMantineTheme, Paper, Text, Grid } from '@mantine/core';
 import { BrandGithub, ColorSwatch } from 'tabler-icons-react';
 
 interface ProjectFormProps {
@@ -15,7 +15,6 @@ interface ProjectFormProps {
 
 export default function ProjectForm({
     project,
-    setProject,
     handleChange,
     handleSubmit,
     setColor,

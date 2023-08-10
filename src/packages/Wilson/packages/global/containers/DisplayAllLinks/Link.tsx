@@ -1,5 +1,4 @@
 import React from 'react'
-import { Avatar, Center } from '@mantine/core'
 import StatusBadge from '../../StatusBadge'
 import PriorityBadge from '../../PriorityBadge'
 import UserAvatar from '../../UserAvatar'

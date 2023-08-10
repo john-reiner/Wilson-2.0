@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 
-import { Paper, Title, Text, Divider, Table, Box } from '@mantine/core'
+import { Table } from '@mantine/core'
 
 import Link from './Link'
 import InfoContainer from '../../InfoContainer'
@@ -65,16 +65,6 @@ export default function DisplayAllLinks({
         }
     }
 
-    const pluralizeDisplayItem = (
-        displayItem: string, 
-        count: number
-        ) => {
-        if (count > 1 || count === 0) {
-            return displayItem + 's'
-        }
-        return displayItem
-    }
-
     const renderLinks = (
         convertedData: DataObjectInterface[]
         ) => {
@@ -126,29 +116,5 @@ export default function DisplayAllLinks({
                     </Table>
             }
         />
-
     )
 }
-        // <Paper
-        //     withBorder
-        // >
-        //     <Paper
-        //         p="lg"
-        //     >
-        //         <Title 
-        //             order={3}
-        //             className="wilson-logo-small"
-        //         >
-        //             All {displayItem + "s"}
-        //         </Title>
-        //         <Text
-        //             className="wilson-logo-small"
-        //         >{
-        //                 data.length > 0 ?
-        //                     data.length + " " + pluralizeDisplayItem(displayItem, data.length)
-        //                 :
-        //                     "No " + pluralizeDisplayItem(displayItem, data.length) + " created yet"
-        //             }</Text>
-        //     </Paper>
-        //     <Divider/>
-        // </Paper>
